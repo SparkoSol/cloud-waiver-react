@@ -40,8 +40,8 @@ const LoginForm = () => {
   }
 
   return (
-    <section className='flex justify-center items-center w-full min-h-screen bg-blue-100 py-6'>
-      <div className='flex w-11/12 sm:w-8/12 border rounded-3xl bg-white'>
+    <section className='flex justify-center items-center w-full min-h-screen bg-gray-200 py-6'>
+      <div className='flex w-11/12 sm:w-8/12 border rounded-3xl bg-white shadow-md'>
         <FormLayout handleSubmit={handleSubmit} title='Hi, Welcome Back' subtitle='Please enter your details'>
           {inputData.map((item) => (<Input
             key={item.id}

@@ -5,6 +5,7 @@ const DataTable = ({
                      headers,
                      TableRow,
                      colspan = 1,
+                     bordered = false,
                      pageSize: PageSize = 10,
                      paginationDetails,
                      setSearchParam,
@@ -17,9 +18,10 @@ const DataTable = ({
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
             <div className="overflow-hidden">
-              <table className={`w-full text-sm text-left text-gray-500 ${colspan !== 1 ? 'border border-gray-300' : ''}`}>
+              <table
+                className={`w-full text-sm text-left text-gray-500 ${colspan !== 1 ? 'border border-gray-300' : ''}`}>
                 <thead
-                  className={`text-xs font-bold text-gray-600 uppercase bg-gray-50 ${colspan !== 1 ? 'border-b border-gray-300' : ''}`}>
+                  className={`text-sm font-semibold text-gray-600 bg-gray-50 ${colspan !== 1 ? 'border-b border-gray-300' : ''}`}>
                 <tr>
                   {colspan === 1 && <th
                     scope="col"
@@ -33,9 +35,9 @@ const DataTable = ({
                       colSpan={colspan}
                       key={index}
                       scope="col"
-                      className="py-3 px-4 whitespace-nowrap"
+                      className={`py-3 px-4 ${bordered && 'border border-gray-300'} whitespace-nowrap`}
                     >
-                      <div className="flex items-center max-w-fit text-sm">
+                      <div className="flex items-center max-w-fit">
                         {item}
                       </div>
                     </th>)
@@ -56,7 +58,7 @@ const DataTable = ({
                   className="divide-y divide-gray-300 sm:divide-transparent bg-white">
                 {items.length > 0 ? items.map((item, index) => (
                   <TableRow key={item._id} item={item} index={index}/>)) : <tr>
-                    <td colSpan={headers.length} className='py-4 pl-4 sm:pl-6 pr-3 text-sm'>{emptyMessage}</td>
+                  <td colSpan={headers.length} className='py-4 pl-4 sm:pl-6 pr-3 text-sm'>{emptyMessage}</td>
                 </tr>}
                 </tbody>
               </table>

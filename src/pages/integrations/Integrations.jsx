@@ -41,8 +41,9 @@ const Integrations = () => {
   ]
 
   return (
-    <div className="bg-white rounded-md p-6 w-full">
-      <div className="grid grid-cols-2 gap-4">
+    <div className="bg-white rounded-md p-6 w-full font-mulish">
+      <Heading title='Integrations' subtitle='Lorem ipsum mit dollar' subTitleClasses='text-sm text-btnBg' titleClasses='text-xl font-semibold'/>
+      <div className="grid grid-cols-2 gap-4 mt-6">
         {data.map(item=>{
           return(
             <Tile key={item.id} state={item.state} setState={item.setState} subTitle={item.subtitle} title={item.title} image={item.image}/>
@@ -62,7 +63,6 @@ export const Tile = ({state, setState, title, subTitle, image}) => {
         <img
           src={image}
           alt={title}
-          className='w-7 h-7'
         />
         <Heading title={title}
                  subtitle={subTitle}

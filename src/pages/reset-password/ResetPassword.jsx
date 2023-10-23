@@ -41,7 +41,7 @@ const ResetPassword = () => {
     navigate('/')
   }
 
-  return (<section className='flex justify-center items-center w-full min-h-screen bg-blue-100 py-6'>
+  return (<section className='flex justify-center items-center w-full shadow-md min-h-screen bg-gray-200 py-6'>
     <div className='flex w-11/12 sm:w-8/12 border rounded-3xl bg-white'>
       <FormLayout
         handleSubmit={handleSubmit}

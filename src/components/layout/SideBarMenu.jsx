@@ -49,11 +49,10 @@ const SideBarMenu = ({searchRef, data, open, openReplyMenuIndex, handleReplyClic
       <ul>
         {data.map((item, index) => (
           <li className='text-sm relative font-semibold text-iconGray w-[244px]' key={index}>
-            {/*{pathname === item.url && <div className='clip-polygon absolute right-0 bg-white h-4 w-4'/>}*/}
             {item.subList ? (
               <div>
                 <button onClick={() => handleReplyClick(index)}
-                        className={`flex items-center gap-4 py-2.5 pl-2 mt-2.5 w-full relative ${pathname === item.url ? 'text-blue-300' : 'text-iconGray'}`}>
+                        className={`flex items-center gap-4 py-2.5 pl-2 mt-2.5 w-full relative ${pathname.includes(item.url) ? 'text-blue-400' : 'text-iconGray'}`}>
                   <item.icon className='w-7 h-7'/>
                   <span className={`${open || hover ? 'opacity-100' : 'opacity-0'} transition-all duration-500`}>
                       <p className='whitespace-nowrap'>{item.title}</p><ChevronDownIcon
@@ -73,7 +72,7 @@ const SideBarMenu = ({searchRef, data, open, openReplyMenuIndex, handleReplyClic
                   <ul className="w-full">
                     {item.subList.map((subItem, subIndex) => {
                       return (<li key={subIndex}>
-                        <Link to={subItem.url} className="flex items-center gap-6 p-2.5">
+                        <Link to={subItem.url} className={`flex items-center gap-6 p-2.5 ${pathname.includes(subItem.title.toLowerCase()) ? 'text-blue-400' : 'text-iconGray'}`}>
                           <span className="w-7 text-center">{subItem.title[0]}</span>
                           {subItem.title}
                         </Link>
@@ -84,7 +83,7 @@ const SideBarMenu = ({searchRef, data, open, openReplyMenuIndex, handleReplyClic
               </div>
             ) : (
               <Link to={item.url}
-                    className={`flex items-center gap-4 py-2.5 pl-2 mt-2.5 ${pathname === item.url ? 'text-blue-400' : 'text-iconGray'}`}>
+                    className={`flex items-center gap-4 py-2.5 pl-2 mt-2.5 ${pathname.includes(item.url) ? 'text-blue-400' : 'text-iconGray'}`}>
                 <item.icon className='w-7 h-7'/>
                 <p
                   className={`${open || hover ? 'opacity-100' : 'opacity-0'} transition-all duration-500 whitespace-nowrap`}>{item.title}</p>

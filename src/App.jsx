@@ -1,5 +1,5 @@
 import {
-  createBrowserRouter,
+  createBrowserRouter, Outlet,
   RouterProvider,
 } from "react-router-dom";
 import Home from "./pages/dashboard/Home.jsx";
@@ -15,6 +15,10 @@ import Settings from "./pages/settings/Settings.jsx";
 import UpdatePassword from "./pages/updatePassword/updatePassword.jsx";
 import Billing from "./pages/billing/Billing.jsx";
 import {useEffect} from "react";
+import Integrations from "./pages/integrations/Integrations.jsx";
+import Customer from "./pages/customers/Customer.jsx";
+import UpdateCustomer from "./pages/updateCustomer/UpdateCustomer.jsx";
+import Management from "./pages/management/Management.jsx";
 
 const router = createBrowserRouter([
   {
@@ -58,23 +62,61 @@ const router = createBrowserRouter([
     path: '/settings',
     element: (
       <ProtectedRoute>
-        <Settings/>
+        <Outlet/>
       </ProtectedRoute>
-    )
-  },{
+    ),
+    children: [
+      {
+        index: true,
+        element: (<Settings/>)
+      }, {
+        path: 'integrations',
+        element: (<Integrations/>)
+      }
+    ]
+  }, {
     path: '/settings/password',
     element: (
       <ProtectedRoute>
         <UpdatePassword/>
       </ProtectedRoute>
     )
-  },{
+  }, {
     path: '/billing',
     element: (
       <ProtectedRoute>
         <Billing/>
       </ProtectedRoute>
     )
+  }, {
+    path: '/customers',
+    element: (
+      <ProtectedRoute>
+        <Outlet/>
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: (<Customer/>)
+      }, {
+        path: ':id',
+        element: (<UpdateCustomer/>)
+      }
+    ]
+  },{
+    path: '/management',
+    element: (
+      <ProtectedRoute>
+        <Outlet/>
+      </ProtectedRoute>
+    ),
+    children:[
+      {
+        index:true,
+        element: (<Management/>)
+      }
+    ]
   }
 ])
 
@@ -87,9 +129,7 @@ function App() {
     }
     const token = localStorage.getItem("cw-access-token");
 
-    if (token && token !== "null") {
-      router.navigate("/dashboard");
-    } else {
+    if (!token && token === "null") {
       router.navigate("/");
     }
   }, []);
