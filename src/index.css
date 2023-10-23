@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@layer base {
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number'] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield !important;
+  }
+}
+
+.clip-polygon {
+  clip-path: polygon(100% 0, 0% 50%, 100% 100%);
+}
+
+@tailwind components;
+@tailwind utilities;
