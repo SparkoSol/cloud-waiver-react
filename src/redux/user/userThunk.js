@@ -8,7 +8,7 @@ export const login = createAsyncThunk('user/login', async (payload, thunkAPI) =>
     localStorage.setItem('cw-refresh-token', tokens?.refresh_token);
     const {data: user} = await getRequest('/auth/profile', payload);
     if (user.verified) {
-      window.location.href = `http://${tokens.domain}.792a-182-186-97-54.ngrok-free.app/dashboard?token=${tokens.access_token}`
+      window.location.href = `http://${tokens.domain}.grand-pothos-ef493a.netlify.app/dashboard?token=${tokens.access_token}`
       return user
     } else {
       await postRequest('/persons/resend-verification-email', {

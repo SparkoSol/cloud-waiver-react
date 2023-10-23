@@ -1,5 +1,6 @@
 import Heading from "../../components/Heading.jsx";
 import ToggleButton from "../../components/inputs/ToggleButton.jsx";
+import {useState} from "react";
 
 const Integrations = () => {
   const [mailChimp, setMailChimp] = useState(false);
