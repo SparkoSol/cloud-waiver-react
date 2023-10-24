@@ -131,7 +131,7 @@ const RegisterForm = () => {
                 className='pointer-events-none absolute inset-y-0 left-3 mt-px flex items-center text- w-5 h-5 transform translate-y-1/2'/>
               <input onChange={e => convertSpaces(e)}
                      className="block w-full py-2.5 rounded-full border border-gray-300 bg-gray-200 focus:border-gray-300 focus-visible:outline-none sm:text-sm text-gray-900 pl-11"
-                     id="Indigo Mccormick" required placeholder="X-Press" type="text" value={domainName}
+                     id="Indigo Mccormick" required placeholder="..." type="text" value={domainName}
                      name="domain name"/>
               <span>.cloudwaiver.com</span>
             </div>

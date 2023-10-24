@@ -66,7 +66,7 @@ const ManagementTeam = () => {
         <Heading title='Team Users' subtitle='Add users to your team'
                  titleClasses='text-xl font-semibold'
                  subTitleClasses='text-sm text-gray-600'/>
-        <div className=' w-8/12 bg-white rounded-md p-6 shadow-sm'>
+        <div className=' w-8/12 bg-white space-y-6 rounded-md p-6 shadow-sm'>
           <Button btnText='Add User' fullWidth='w-fit ml-auto'
                   btnClasses='bg-textDark border-textDark px-6 py-2.5'/>
           <DataTable TableRow={TeamRow} items={teamData} headers={['Name', 'Email']} colspan={0}/>
