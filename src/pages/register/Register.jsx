@@ -10,6 +10,7 @@ import {registerUser} from "../../redux/user/userThunk.js";
 import {useDispatch} from "react-redux";
 import VerificationModal from "../../components/modals/VerificationModal.jsx";
 import Spinner from "../../components/Spinner.jsx";
+import {isValidBody} from "../../utils/generalFunctions.js";
 
 const RegisterForm = () => {
   const dispatch = useDispatch()
@@ -95,11 +96,15 @@ const RegisterForm = () => {
       domain: domainName,
       company_name: companyNameRef.current.value
     }
-    dispatch(registerUser(body)).unwrap()
-      .then(r => {
-        setOpen(!!r);
-        setLoading(false)
-      });
+    if (isValidBody(body)) {
+      dispatch(registerUser(body)).unwrap()
+        .then(r => {
+          setOpen(!!r);
+          setLoading(false)
+        });
+    } else {
+      setLoading(false)
+    }
   }
 
   return (
@@ -125,7 +130,7 @@ const RegisterForm = () => {
               <BuildingOfficeIcon
                 className='pointer-events-none absolute inset-y-0 left-3 mt-px flex items-center text- w-5 h-5 transform translate-y-1/2'/>
               <input onChange={e => convertSpaces(e)}
-                     className="block w-full py-2.5 rounded-full border border-gray-300 bg-inputColor focus:border-gray-300 focus-visible:outline-none sm:text-sm text-gray-900 pl-11"
+                     className="block w-full py-2.5 rounded-full border border-gray-300 bg-gray-200 focus:border-gray-300 focus-visible:outline-none sm:text-sm text-gray-900 pl-11"
                      id="Indigo Mccormick" required placeholder="X-Press" type="text" value={domainName}
                      name="domain name"/>
               <span>.cloudwaiver.com</span>

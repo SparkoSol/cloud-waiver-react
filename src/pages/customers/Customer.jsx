@@ -9,7 +9,7 @@ import {useRef} from "react";
 const Customer = () => {
   const searchRef = useRef();
   return (
-    <div className="bg-white rounded-md p-6 w-full font-mulish">
+    <div className="bg-white rounded-md p-6 w-full">
       <Heading subTitleClasses='text-sm text-gray-900' subtitle='lorem ipsum mit dollar' title='Customer'
                titleClasses='font-semibold text-xl'/>
       <div className='mt-6'>

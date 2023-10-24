@@ -19,6 +19,8 @@ import Integrations from "./pages/integrations/Integrations.jsx";
 import Customer from "./pages/customers/Customer.jsx";
 import UpdateCustomer from "./pages/updateCustomer/UpdateCustomer.jsx";
 import Management from "./pages/management/Management.jsx";
+import CustomerList from "./pages/customerList/CustomerList.jsx";
+import ManagementTeam from "./pages/managementTeam/ManagementTeam.jsx";
 
 const router = createBrowserRouter([
   {
@@ -68,10 +70,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (<Settings/>)
+        element: <Settings/>
       }, {
         path: 'integrations',
-        element: (<Integrations/>)
+        element: <Integrations/>
       }
     ]
   }, {
@@ -98,23 +100,29 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (<Customer/>)
+        element: <Customer/>
+      }, {
+        path: ':id/edit',
+        element: <UpdateCustomer/>
       }, {
         path: ':id',
-        element: (<UpdateCustomer/>)
+        element: <CustomerList/>
       }
     ]
-  },{
+  }, {
     path: '/management',
     element: (
       <ProtectedRoute>
         <Outlet/>
       </ProtectedRoute>
     ),
-    children:[
+    children: [
       {
-        index:true,
-        element: (<Management/>)
+        index: true,
+        element: <Management/>
+      },{
+        path:'team/:id',
+        element: <ManagementTeam/>
       }
     ]
   }

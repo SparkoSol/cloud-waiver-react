@@ -8,6 +8,7 @@ import {useRef} from "react";
 import {LockClosedIcon} from "@heroicons/react/24/outline/index.js";
 import {resetPassword} from "../../redux/user/userThunk.js";
 import SideBarAdd from "../auth/components/SideBarAdd.jsx";
+import {isValidBody} from "../../utils/generalFunctions.js";
 
 const ResetPassword = () => {
   const {id} = useParams();
@@ -36,9 +37,14 @@ const ResetPassword = () => {
       hash: id,
       password: passwordRef.current.value,
     }
-    const data = await dispatch(resetPassword(body)).unwrap();
-    toast.success(data.message)
-    navigate('/')
+    if(body.password.trim() !== ''){
+      const data = await dispatch(resetPassword(body)).unwrap();
+      toast.success(data.message)
+      navigate('/')
+    }
+    else{
+      toast.error('Please Enter a valid password')
+    }
   }
 
   return (<section className='flex justify-center items-center w-full shadow-md min-h-screen bg-gray-200 py-6'>

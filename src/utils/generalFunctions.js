@@ -6,6 +6,7 @@ import {
   UsersIcon
 } from "@heroicons/react/24/outline/index.js";
 import {AdjustmentsVerticalIcon} from "@heroicons/react/20/solid/index.js";
+import toast from "react-hot-toast";
 
 export const sideBarOptions = [
   {
@@ -119,7 +120,8 @@ export function generateYears(startingYear) {
   return years;
 }
 
-export const DashBoardHeaders = ['ID', 'SIGNED DATE', 'FIRST NAME', 'LAST NAME', 'REFERENCE NO', 'TEMPLATE NAME', 'STATUS']
+export const DashBoardHeaders = ['ID', 'Signed Date', 'First Name', 'Last Name', 'Reference No', 'Template Name', 'Status'];
+
 export const dashboardData = [{
   _id: '1111111',
   signedDate: 'Oct 05, 2023',
@@ -202,8 +204,31 @@ export const customerData = [
 
 export const managementData = [
   {
-    _id: '11111111', count: 1, name:'John'
+    _id: '11111111', count: 1, name: 'John'
   }, {
-    _id: '21111111', count: 1, name:'John'
+    _id: '21111111', count: 1, name: 'John'
   }
+]
+
+export function isValidBody(body) {
+  const invalidFields = [];
+
+  for (const key in body) {
+    if (body.hasOwnProperty(key) && typeof body[key] === 'string') {
+      if (body[key].trim() === '') {
+        invalidFields.push(key);
+      }
+    }
+  }
+
+  if (invalidFields.length > 0) {
+    toast.error(`Invalid input at ${invalidFields[0]}`)
+    return false;
+  }
+
+  return true;
+}
+
+export const teamData = [
+  {id:1, name:'John', email:'john@email.com'}
 ]
