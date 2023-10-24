@@ -34,23 +34,23 @@ const ManagementTeam = () => {
     {id: 9, label: 'Webhooks Management', ref: webhooksManagementRef}
   ];
   return (
-    <section className='space-y-6 px-6'>
+    <section className='space-y-6 xs:px-6'>
       <h1 className='text-2xl font-bold leading-tight text-gray-900'>Admins</h1>
-      <div className='flex justify-between items-start gap-4'>
+      <div className='flex justify-between items-start gap-4 flex-col md:flex-row'>
         <Heading title='Team Information' subtitle='Please provide details about this team'
                  titleClasses='text-xl font-semibold'
                  subTitleClasses='text-sm text-gray-600'/>
-        <div className=' w-8/12 bg-white rounded-md p-6 shadow-sm'>
+        <div className='w-full md:w-8/12 bg-white rounded-md p-6 shadow-sm'>
           <Input inputRef={inputRef} label='Team Name' value='Admin' placeholder='Admin' inputClasses='pl-4'
                  extraClasses='w-full'/>
         </div>
       </div>
 
-      <div className='flex justify-between items-start gap-4'>
+      <div className='flex justify-between items-start gap-4 flex-col md:flex-row'>
         <Heading title='Team Permissions' subtitle='Choose what your team may access'
                  titleClasses='text-xl font-semibold'
                  subTitleClasses='text-sm text-gray-600'/>
-        <div className=' w-8/12 bg-white rounded-md p-6 shadow-sm'>
+        <div className='w-full md:w-8/12 bg-white rounded-md p-6 shadow-sm'>
           <h1 className='text-base font-bold text-gray-500 mb-2'>Permissions</h1>
           <div className='space-y-4 mt-5 border-b py-6'>
             {menuItems.map(item => {
@@ -63,11 +63,11 @@ const ManagementTeam = () => {
         </div>
       </div>
 
-      <div className='flex justify-between items-start gap-4'>
+      <div className='flex justify-between items-start gap-4 flex-col md:flex-row'>
         <Heading title='Team Users' subtitle='Add users to your team'
                  titleClasses='text-xl font-semibold'
                  subTitleClasses='text-sm text-gray-600'/>
-        <div className=' w-8/12 bg-white space-y-6 rounded-md p-6 shadow-sm'>
+        <div className='w-full md:w-8/12 bg-white space-y-6 rounded-md p-6 shadow-sm'>
           <Link to={'/management/team/123/user/create'}
                 className='bg-textDark border-textDark px-6 py-2.5 w-fit block ml-auto text-white rounded-full text-sm font-semibold'>Add User</Link>
           <DataTable TableRow={TeamRow} items={teamData} headers={['Name', 'Email']} colspan={0}/>
