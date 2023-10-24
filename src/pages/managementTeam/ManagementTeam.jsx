@@ -6,6 +6,7 @@ import Button from "../../components/Button.jsx";
 import DataTable from "../../components/DataTable.jsx";
 import TeamRow from "./components/TeamRow.jsx";
 import {teamData} from "../../utils/generalFunctions.js";
+import {Link} from "react-router-dom";
 
 const ManagementTeam = () => {
   const inputRef = useRef();
@@ -34,7 +35,7 @@ const ManagementTeam = () => {
   ];
   return (
     <section className='space-y-6 px-6'>
-      <h1 className='text-3xl font-bold leading-tight text-gray-900'>Admins</h1>
+      <h1 className='text-2xl font-bold leading-tight text-gray-900'>Admins</h1>
       <div className='flex justify-between items-start gap-4'>
         <Heading title='Team Information' subtitle='Please provide details about this team'
                  titleClasses='text-xl font-semibold'
@@ -67,8 +68,8 @@ const ManagementTeam = () => {
                  titleClasses='text-xl font-semibold'
                  subTitleClasses='text-sm text-gray-600'/>
         <div className=' w-8/12 bg-white space-y-6 rounded-md p-6 shadow-sm'>
-          <Button btnText='Add User' fullWidth='w-fit ml-auto'
-                  btnClasses='bg-textDark border-textDark px-6 py-2.5'/>
+          <Link to={'/management/team/123/user/create'}
+                className='bg-textDark border-textDark px-6 py-2.5 w-fit block ml-auto text-white rounded-full text-sm font-semibold'>Add User</Link>
           <DataTable TableRow={TeamRow} items={teamData} headers={['Name', 'Email']} colspan={0}/>
         </div>
       </div>

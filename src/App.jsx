@@ -21,6 +21,7 @@ import UpdateCustomer from "./pages/updateCustomer/UpdateCustomer.jsx";
 import Management from "./pages/management/Management.jsx";
 import CustomerList from "./pages/customerList/CustomerList.jsx";
 import ManagementTeam from "./pages/managementTeam/ManagementTeam.jsx";
+import CreateTeam from "./pages/createTeam/CreateTeam.jsx";
 
 const router = createBrowserRouter([
   {
@@ -123,7 +124,10 @@ const router = createBrowserRouter([
       },{
         path:'team/:id',
         element: <ManagementTeam/>
-      }
+      },{
+        path:'team/:id/user/create',
+        element: <CreateTeam/>
+      },
     ]
   }
 ])
