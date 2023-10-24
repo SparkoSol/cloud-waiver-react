@@ -1,6 +1,6 @@
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline/index.js";
 import Card from "./components/Card.jsx";
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {dashboardData, DashBoardHeaders, generateMonths, generateYears} from "../../utils/generalFunctions.js";
 import SelectInput from "../../components/inputs/SelectInput.jsx";
 import Input from "../../components/inputs/Input.jsx";
@@ -10,7 +10,6 @@ import DashboardRow from "./components/DashboardRow.jsx";
 import Button from "../../components/Button.jsx";
 import clipboardIcon from "@heroicons/react/20/solid/esm/ClipboardIcon.js";
 import Modal from "../../components/modals/Modal.jsx";
-import axios from "axios";
 
 const data = [
   {
@@ -42,10 +41,6 @@ const Dashboard = () => {
   }, {
     options: generateYears(2005), state: year, setState: setYear
   }]
-
-  useEffect(() => {
-    axios.get('https://cloudwaiver.sparkosol.com').then(r => console.log(r)).catch(e => console.log(e))
-  }, []);
 
   return (
     <div>

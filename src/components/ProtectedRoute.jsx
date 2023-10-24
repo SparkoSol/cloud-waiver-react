@@ -3,7 +3,6 @@ import Header from "./layout/Header.jsx";
 import SideBarMenu from "./layout/SideBarMenu.jsx";
 import {sideBarOptions} from "../utils/generalFunctions.js";
 import {useWindowSize} from "../utils/hooks.js";
-import {useNavigate} from "react-router-dom";
 
 const ProtectedRoute = ({children}) => {
   const [openReplyMenuIndex, setOpenReplyMenuIndex] = useState(-1);

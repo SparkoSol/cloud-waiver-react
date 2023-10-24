@@ -3,7 +3,8 @@ import {
   DocumentTextIcon,
   Squares2X2Icon,
   UserIcon,
-  UsersIcon
+  UsersIcon,
+  ArrowRightOnRectangleIcon
 } from "@heroicons/react/24/outline/index.js";
 import {AdjustmentsVerticalIcon} from "@heroicons/react/20/solid/index.js";
 import toast from "react-hot-toast";
@@ -99,6 +100,12 @@ export const sideBarOptions = [
     title: 'Billing',
     url: '/billing',
     icon: AdjustmentsVerticalIcon
+  },
+  {
+    id: 17,
+    title: 'Sign Out',
+    url: '#',
+    icon: ArrowRightOnRectangleIcon
   }
 ];
 

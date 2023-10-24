@@ -1,7 +1,4 @@
-import {
-  createBrowserRouter, Outlet,
-  RouterProvider,
-} from "react-router-dom";
+import {createBrowserRouter, Outlet, RouterProvider,} from "react-router-dom";
 import Home from "./pages/dashboard/Home.jsx";
 import Login from "./pages/auth/Login";
 import {Toaster} from "react-hot-toast";
@@ -24,134 +21,140 @@ import ManagementTeam from "./pages/managementTeam/ManagementTeam.jsx";
 import CreateTeam from "./pages/createTeam/CreateTeam.jsx";
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: (
-      <Login/>
-    )
-  }, {
-    path: '/dashboard',
-    element: (
-      <ProtectedRoute>
-        <Home/>
-      </ProtectedRoute>
-    )
-  }, {
-    path: '/register',
-    element: (
-      <Register/>
-    )
-  }, {
-    path: '/forgot-password',
-    element: (
-      <ForgotPassword/>
-    )
-  }, {
-    path: '/reset-password/:id',
-    element: (
-      <ResetPassword/>
-    )
-  }, {
-    path: '/verify-mail/:hashId/:id',
-    element: (
-      <VerifyMail/>
-    )
-  }, {
-    path: '/verify-account/:hashId/:id',
-    element: (
-      <VerificationClient/>
-    )
-  }, {
-    path: '/settings',
-    element: (
-      <ProtectedRoute>
-        <Outlet/>
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        index: true,
-        element: <Settings/>
-      }, {
-        path: 'integrations',
-        element: <Integrations/>
-      }
-    ]
-  }, {
-    path: '/settings/password',
-    element: (
-      <ProtectedRoute>
-        <UpdatePassword/>
-      </ProtectedRoute>
-    )
-  }, {
-    path: '/billing',
-    element: (
-      <ProtectedRoute>
-        <Billing/>
-      </ProtectedRoute>
-    )
-  }, {
-    path: '/customers',
-    element: (
-      <ProtectedRoute>
-        <Outlet/>
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        index: true,
-        element: <Customer/>
-      }, {
-        path: ':id/edit',
-        element: <UpdateCustomer/>
-      }, {
-        path: ':id',
-        element: <CustomerList/>
-      }
-    ]
-  }, {
-    path: '/management',
-    element: (
-      <ProtectedRoute>
-        <Outlet/>
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        index: true,
-        element: <Management/>
-      },{
-        path:'team/:id',
-        element: <ManagementTeam/>
-      },{
-        path:'team/:id/user/create',
-        element: <CreateTeam/>
-      },
-    ]
-  }
+    {
+        path: '/',
+        element: (
+            <Login/>
+        )
+    }, {
+        path: '/dashboard',
+        element: (
+            <ProtectedRoute>
+                <Home/>
+            </ProtectedRoute>
+        )
+    }, {
+        path: '/register',
+        element: (
+            <Register/>
+        )
+    }, {
+        path: '/forgot-password',
+        element: (
+            <ForgotPassword/>
+        )
+    }, {
+        path: '/reset-password/:id',
+        element: (
+            <ResetPassword/>
+        )
+    }, {
+        path: '/verify-mail/:hashId/:id',
+        element: (
+            <VerifyMail/>
+        )
+    }, {
+        path: '/verify-account/:hashId/:id',
+        element: (
+            <VerificationClient/>
+        )
+    }, {
+        path: '/settings',
+        element: (
+            <ProtectedRoute>
+                <Outlet/>
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                index: true,
+                element: <Settings/>
+            }, {
+                path: 'integrations',
+                element: <Integrations/>
+            }
+        ]
+    }, {
+        path: '/settings/password',
+        element: (
+            <ProtectedRoute>
+                <UpdatePassword/>
+            </ProtectedRoute>
+        )
+    }, {
+        path: '/billing',
+        element: (
+            <ProtectedRoute>
+                <Billing/>
+            </ProtectedRoute>
+        )
+    }, {
+        path: '/customers',
+        element: (
+            <ProtectedRoute>
+                <Outlet/>
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                index: true,
+                element: <Customer/>
+            }, {
+                path: ':id/edit',
+                element: <UpdateCustomer/>
+            }, {
+                path: ':id',
+                element: <CustomerList/>
+            }
+        ]
+    }, {
+        path: '/management',
+        element: (
+            <ProtectedRoute>
+                <Outlet/>
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                index: true,
+                element: <Management/>
+            }, {
+                path: 'team/:id',
+                element: <ManagementTeam/>
+            }, {
+                path: 'team/:id/user/create',
+                element: <CreateTeam/>
+            },
+        ]
+    }
 ])
 
 function App() {
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("token");
-    if (code) {
-      localStorage.setItem("cw-access-token", code);
-    }
-    const token = localStorage.getItem("cw-access-token");
+    const {pathname} = window.location;
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get("token");
+        if (code) {
+            localStorage.setItem("cw-access-token", code);
+        }
+        const token = localStorage.getItem("cw-access-token");
 
-    if (!token && token === "null") {
-      router.navigate("/");
-    }
-  }, []);
+        if (token && token !== "null") {
+            if (pathname === "/" || pathname === "/dashboard")
+                router.navigate("/dashboard");
+            else if (pathname !== "/dashboard")
+                router.navigate(pathname);
+        } else {
+            router.navigate("/");
+        }
+    }, []);
 
-  return (
-    <>
-      <Toaster position="bottom-center"/>
-      <RouterProvider router={router}/>
-    </>
-  );
+    return (
+        <>
+            <Toaster position="bottom-center"/>
+            <RouterProvider router={router}/>
+        </>
+    );
 }
 
 export default App;
