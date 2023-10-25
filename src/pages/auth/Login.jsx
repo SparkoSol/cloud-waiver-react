@@ -56,7 +56,7 @@ const LoginForm = () => {
             <Link className='text-sm font-medium text-blue-600' to='/forgot-password'>Forgot password?</Link>
           </div>
           <Button btnText='Login' fullWidth='w-9/12 mx-auto block my-4'
-                  btnClasses='bg-textDark border-textDark lg:px-16 sm:px-8 sm:py-3.5 py-3.5 w-full'/>
+                  btnClasses='bg-bgDark border-textDark lg:px-16 sm:px-8 sm:py-3.5 py-3.5 w-full'/>
           <div>
             <p className="font-medium text-textDark text-sm">Don't have an account? <Link
               to="/register" className="text-blue-600">Signup</Link></p>

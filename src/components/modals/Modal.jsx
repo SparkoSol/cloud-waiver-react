@@ -2,8 +2,9 @@ import {Fragment, useRef} from "react";
 import { Dialog, Transition } from '@headlessui/react'
 import Input from "../inputs/Input.jsx";
 
-export default function Modal({open, setOpen, editMode}) {
+export default function Modal({open, setOpen, functionCall}) {
   const cancelButtonRef = useRef(null)
+  const inputRef = useRef();
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
@@ -38,7 +39,7 @@ export default function Modal({open, setOpen, editMode}) {
                         New Template
                       </Dialog.Title>
                       <div className="mt-8">
-                        <Input placeholder='eg. Waiver 101' label='Please enter your template name' extraClasses='font-medium text-gray-500' inputClasses='pl-3 rounded-md'/>
+                        <Input placeholder='eg. Waiver 101' inputRef={inputRef} label='Please enter your template name' extraClasses='font-medium text-gray-500' inputClasses='pl-3 rounded-md'/>
                       </div>
                     </div>
                   </div>
@@ -47,9 +48,9 @@ export default function Modal({open, setOpen, editMode}) {
                   <button
                     type="button"
                     className="text-white text-sm align-items-center align-middle rounded-md bg-btnBg px-4 py-2 font-semibold w-full mb-2 sm:mb-0"
-                    onClick={() => setOpen(false)}
+                    onClick={() => functionCall(inputRef.current.value)}
                   >
-                    {editMode ? 'Update' : 'Submit'}
+                    Submit
                   </button>
                   <button
                     type="button"

@@ -42,7 +42,7 @@ const ForgotPassword = () => {
             extraClasses='mb-6'
           />
           <Button btnText='Email Password Reset Link' fullWidth='w-full mb-4'
-                  btnClasses='bg-textDark border-textDark lg:px-16 sm:px-8 sm:py-3.5 py-3.5 w-full'/>
+                  btnClasses='bg-bgDark border-textDark lg:px-16 sm:px-8 sm:py-3.5 py-3.5 w-full'/>
           <div>
             <p className="font-medium text-textDark text-sm">Do you want to login? <Link
               to="/" className="text-blue-600">Login</Link></p>

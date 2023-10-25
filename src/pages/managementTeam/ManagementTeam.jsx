@@ -52,14 +52,14 @@ const ManagementTeam = () => {
                  subTitleClasses='text-sm text-gray-600'/>
         <div className='w-full md:w-8/12 bg-white rounded-md p-6 shadow-sm'>
           <h1 className='text-base font-bold text-gray-500 mb-2'>Permissions</h1>
-          <div className='space-y-4 mt-5 border-b py-6'>
+          <div className='space-y-4 border-b py-6'>
             {menuItems.map(item => {
               return <CheckboxInput key={item.id} inputRef={item.ref} label={item.label}
                                     extraClasses='text-sm text-gray-700'/>
             })}
           </div>
           <Button btnText='Update Permissions' fullWidth='w-fit pt-6 ml-auto'
-                  btnClasses='bg-textDark border-textDark px-6 py-2.5'/>
+                  btnClasses='bg-bgDark border-textDark px-6 py-2.5'/>
         </div>
       </div>
 
@@ -69,7 +69,8 @@ const ManagementTeam = () => {
                  subTitleClasses='text-sm text-gray-600'/>
         <div className='w-full md:w-8/12 bg-white space-y-6 rounded-md p-6 shadow-sm'>
           <Link to={'/management/team/123/user/create'}
-                className='bg-textDark border-textDark px-6 py-2.5 w-fit block ml-auto text-white rounded-full text-sm font-semibold'>Add User</Link>
+                className='bg-bgDark border-textDark px-6 py-2.5 w-fit block ml-auto text-white rounded-full text-sm font-semibold'>Add
+            User</Link>
           <DataTable TableRow={TeamRow} items={teamData} headers={['Name', 'Email']} colspan={0}/>
         </div>
       </div>

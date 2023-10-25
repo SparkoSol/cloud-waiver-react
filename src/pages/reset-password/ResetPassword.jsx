@@ -64,7 +64,7 @@ const ResetPassword = () => {
           inputRef={item.ref}
         />))}
         <Button btnText='Reset Password' fullWidth='w-full mb-4'
-                btnClasses='bg-textDark border-textDark lg:px-16 sm:px-8 sm:py-3.5 py-3.5 w-full'/>
+                btnClasses='bg-bgDark border-textDark lg:px-16 sm:px-8 sm:py-3.5 py-3.5 w-full'/>
         <div>
           <p className="font-medium text-textDark text-sm">Don't have an account? <Link
             to="/register" className="text-blue-600">Signup</Link></p>

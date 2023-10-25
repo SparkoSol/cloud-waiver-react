@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {login} from './userThunk'
+import {login, updateProfile, userProfile} from './userThunk'
 import toast from "react-hot-toast";
 
 const initialUserState = {
@@ -25,7 +25,34 @@ const userSlice = createSlice({
       .addCase(login.rejected, (state, {error}) => {
         state.status = 'failed';
         toast.error(error.message)
-      })
+      }),
+
+      builder
+        .addCase(userProfile.pending, (state) => {
+          state.status = 'pending';
+        })
+        .addCase(userProfile.fulfilled, (state, {payload}) => {
+          state.status = 'fulfilled';
+          state.currentUser = payload;
+        })
+        .addCase(userProfile.rejected, (state, {error}) => {
+          state.status = 'failed';
+          toast.error(error.message)
+        }),
+
+      builder
+        .addCase(updateProfile.pending, (state) => {
+          state.status = 'pending';
+        })
+        .addCase(updateProfile.fulfilled, (state, {payload}) => {
+          state.status = 'fulfilled';
+          state.currentUser = payload;
+          toast.success('Updated Successfully')
+        })
+        .addCase(updateProfile.rejected, (state, {error}) => {
+          state.status = 'failed';
+          toast.error(error.message)
+        })
   },
 })
 

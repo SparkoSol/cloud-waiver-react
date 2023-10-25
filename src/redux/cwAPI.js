@@ -1,6 +1,6 @@
 import axios from 'axios'
-const baseUrl = 'https://cloudwaiver.sparkosol.com'
-// const baseUrl = 'http://192.168.1.36:3000'
+// const baseUrl = 'https://cloudwaiver.sparkosol.com'
+const baseUrl = 'http://192.168.1.36:3000'
 const cwAPI = axios
 
 // Add a request interceptor
@@ -9,6 +9,7 @@ axios.interceptors.request.use(
     const token = localStorage.getItem('cw-access-token')
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token
+      config.headers['X-TENANT-ID'] = 'zaink'
     }
     return config
   },
@@ -23,7 +24,7 @@ export const postRequest = (url, body) => {
   return cwAPI.post(`${baseUrl}${url}`, body)
 }
 
-export const getRequest = (url, body) => {
+export const getRequest = (url) => {
   return cwAPI.get(`${baseUrl}${url}`)
 }
 
@@ -33,6 +34,10 @@ export const putRequest = (url, body) => {
 
 export const deleteRequest = (url, body) => {
   return cwAPI.delete(`${baseUrl}${url}`, body)
+}
+
+export const patchRequest = (url, body) => {
+  return cwAPI.patch(`${baseUrl}${url}`, body)
 }
 
 export default cwAPI

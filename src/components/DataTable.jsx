@@ -35,7 +35,7 @@ const DataTable = ({
                       colSpan={colspan}
                       key={index}
                       scope="col"
-                      className={`py-3 px-4 ${bordered && 'border border-gray-300'} whitespace-nowrap`}
+                      className={`py-3 px-4 ${bordered ? 'border border-gray-300' : ''} whitespace-nowrap`}
                     >
                       <div className="flex items-center max-w-fit">
                         {item}
@@ -44,8 +44,9 @@ const DataTable = ({
                   })}
                   {colspan === 1 && <th
                     key='Actions'
+                    colSpan={colspan}
                     scope="col"
-                    className="px-3 py-3.5  whitespace-nowrap block  text-left font-chivo bg-white sm:pl-6 transition-colors duration-300"
+                    className={`py-3 px-4 ${bordered ? 'border border-gray-300' : ''} whitespace-nowrap`}
                   >
                     <div className="flex items-center">
                       Actions

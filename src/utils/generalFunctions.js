@@ -239,3 +239,11 @@ export function isValidBody(body) {
 export const teamData = [
   {id:1, name:'John', email:'john@email.com'}
 ]
+export function isEmptyObject(obj) {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      return false; // If the object has any own property, it's not empty
+    }
+  }
+  return true; // If the loop completes without finding any own properties, it's empty
+}

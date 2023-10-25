@@ -10,6 +10,9 @@ import DashboardRow from "./components/DashboardRow.jsx";
 import Button from "../../components/Button.jsx";
 import clipboardIcon from "@heroicons/react/20/solid/esm/ClipboardIcon.js";
 import Modal from "../../components/modals/Modal.jsx";
+import {useDispatch} from "react-redux";
+import {createWaiver} from "../../redux/waivers/waiverThunk.js";
+import Spinner from "../../components/Spinner.jsx";
 
 const data = [
   {
@@ -25,7 +28,9 @@ const data = [
 ]
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
   const searchRef = useRef();
+  const [loading, setLoading] = useState(false)
   const [template, setTemplate] = useState('Template');
   const [month, setMonth] = useState('Month');
   const [year, setYear] = useState('Year');
@@ -41,6 +46,13 @@ const Dashboard = () => {
   }, {
     options: generateYears(2005), state: year, setState: setYear
   }]
+
+  async function handleSubmit(data) {
+    setLoading(true);
+    setOpenModal(false)
+    await dispatch(createWaiver(data)).unwrap();
+    setLoading(false)
+  }
 
   return (
     <div>
@@ -81,7 +93,8 @@ const Dashboard = () => {
             </div>}
         </div>
       </div>
-      <Modal open={openModal} setOpen={setOpenModal}/>
+      <Modal open={openModal} setOpen={setOpenModal} functionCall={handleSubmit}/>
+      {loading && <Spinner/>}
     </div>
   );
 };

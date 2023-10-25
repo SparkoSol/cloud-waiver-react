@@ -1,11 +1,17 @@
-import {useRef, useState} from "react";
-import {countries} from "../../utils/generalFunctions.js";
+import {useEffect, useRef, useState} from "react";
+import {countries, isEmptyObject} from "../../utils/generalFunctions.js";
 import Heading from "../../components/Heading.jsx";
 import SelectInput from "../../components/inputs/SelectInput.jsx";
 import Input from "../../components/inputs/Input.jsx";
 import Button from "../../components/Button.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {updateProfile} from "../../redux/user/userThunk.js";
+import {selectCurrentUser} from "../../redux/user/userSlice.js";
+import toast from "react-hot-toast";
 
-const Account = () =>{
+const Account = () => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
   const emailRef = useRef(null);
@@ -14,13 +20,13 @@ const Account = () =>{
   const stateRef = useRef(null);
   const postalCodeRef = useRef(null)
 
-  const [country, setCountry] = useState('Please Choose');
+  const [country, setCountry] = useState('Please Select');
 
   const data = [
     {
       id: 1,
       label: 'First Name',
-      value: 'value',
+      value: currentUser.first_name,
       type: 'text',
       placeholder: 'John',
       ref: firstNameRef,
@@ -28,7 +34,7 @@ const Account = () =>{
     }, {
       id: 2,
       label: 'Last Name',
-      value: 'value',
+      value: currentUser.last_name,
       type: 'text',
       placeholder: 'Doe',
       ref: lastNameRef,
@@ -36,7 +42,7 @@ const Account = () =>{
     }, {
       id: 3,
       label: 'Email',
-      value: 'john@gmail.com',
+      value: currentUser.username,
       type: 'email',
       placeholder: 'john@gmail.com',
       ref: emailRef,
@@ -45,7 +51,6 @@ const Account = () =>{
     {
       id: 4,
       label: 'Country',
-      value: 'john@gmail.com',
       options: countries,
       state: country,
       setState: setCountry,
@@ -54,7 +59,7 @@ const Account = () =>{
     {
       id: 5,
       label: 'Street Address',
-      value: '',
+      value: currentUser.address?.street_address || '',
       type: 'text',
       placeholder: '123 Main Street',
       ref: streetRef,
@@ -62,7 +67,7 @@ const Account = () =>{
     }, {
       id: 6,
       label: 'City',
-      value: '',
+      value: currentUser.address?.city || '',
       type: 'text',
       placeholder: 'Berlin',
       ref: cityRef,
@@ -70,7 +75,7 @@ const Account = () =>{
     }, {
       id: 7,
       label: 'State / Province',
-      value: '',
+      value: currentUser.address?.state || '',
       type: 'text',
       placeholder: 'Baden-Württemberg',
       ref: stateRef,
@@ -78,23 +83,53 @@ const Account = () =>{
     }, {
       id: 8,
       label: 'Zip / Postal Code',
-      value: '',
+      value: currentUser.address?.zip || '',
       type: 'text',
       placeholder: 'Baden-Württemberg',
       class: "w-full sm:w-1/2 md:w-1/3",
       ref: postalCodeRef
     }]
-  return(
+
+  useEffect(() => {
+    if (!isEmptyObject(currentUser) && currentUser.address?.country) {
+      setCountry(currentUser.address.country)
+    }
+  }, [currentUser]);
+
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (country === 'Please Select') {
+      toast.error('Please select a country.')
+      return
+    }
+    const body = {
+      first_name: firstNameRef.current.value,
+      last_name: lastNameRef.current.value,
+      username: emailRef.current.value,
+      address: {
+        country,
+        street_address: streetRef.current.value,
+        city: cityRef.current.value,
+        state: stateRef.current.value,
+        zip: postalCodeRef.current.value
+      }
+    };
+    dispatch(updateProfile({body, _id: currentUser._id}));
+  }
+
+  return (
     <>
       <Heading title='Personal Information' subtitle='Ensure all details are correct'
                titleClasses='text-lg leading-6 font-medium text-gray-900'
                subTitleClasses='text-sm font-normal text-gray-500'/>
-      <form className='flex flex-wrap mt-7'>
+      <form className='flex flex-wrap mt-7' onSubmit={handleSubmit}>
         {data.map(item => {
           if (item.id === 4) {
             return (
               <div className={`px-3 mb-6 ${item.class}`} key={item.id}>
-                <SelectInput extraClasses={`w-full`} options={item.options} setState={item.setState} state={item.state} label='Country'/>
+                <SelectInput extraClasses={`w-full`} options={item.options} setState={item.setState} state={item.state}
+                             label='Country'/>
               </div>
             );
           } else {

@@ -2,6 +2,8 @@ import {persistCombineReducers} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import {encryptTransform} from "redux-persist-transform-encrypt";
 import userSlice from "./user/userSlice.js";
+import customerSlice from "./customers/customerSlice.js";
+import teamSlice from "./team/teamSlice.js";
 
 
 const allReducers = persistCombineReducers({
@@ -16,8 +18,10 @@ const allReducers = persistCombineReducers({
     }),
   ],
   whitelist: ['user'],
-},{
+}, {
   user: userSlice,
+  customers: customerSlice,
+  teams: teamSlice
 })
 
 export default allReducers

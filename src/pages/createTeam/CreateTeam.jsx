@@ -42,11 +42,11 @@ const CreateTeam = () => {
       <form className='space-y-4 mt-8 w-1/2'>
         {data.map(item=>{
           return(
-            <Input inputRef={item.ref} placeholder={item.label} inputClasses='pl-4'/>
+            <Input key={item.id} inputRef={item.ref} placeholder={item.label} inputClasses='pl-4'/>
           )
         })}
         <Button btnText='Invite User' fullWidth='w-full'
-                btnClasses='bg-textDark border-textDark lg:px-16 sm:px-8 sm:py-3.5 py-3.5 w-full'/>
+                btnClasses='bg-bgDark border-textDark lg:px-16 sm:px-8 sm:py-3.5 py-3.5 w-full'/>
       </form>
     </section>
   )

@@ -16,7 +16,6 @@ const ProtectedRoute = ({children}) => {
     else setOpenReplyMenuIndex(index);
   };
 
-
   return (
     <div className='bg-gray-100 min-h-screen font-mulish'>
       <SideBarMenu searchRef={searchRef}
@@ -26,8 +25,9 @@ const ProtectedRoute = ({children}) => {
                    openReplyMenuIndex={openReplyMenuIndex}
                    open={open}
                    width={width}
+                   setOpen={setOpen}
                    data={sideBarOptions}/>
-      <div className={`${open || hover ? 'lg:ml-64':'lg:ml-20'} transition-all duration-500 relative`}>
+      <div className={`${open || hover ? 'lg:ml-64' : 'lg:ml-20'} transition-all duration-500 relative`}>
         <Header setOpen={setOpen} searchRef={searchRef}/>
         <section className='p-5 max-w-6xl mx-auto'>
           {children}

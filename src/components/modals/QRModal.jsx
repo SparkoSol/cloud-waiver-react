@@ -77,7 +77,7 @@ export default function QRModal({open, setOpen}) {
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="text-white text-sm align-items-center align-middle rounded-md bg-textDark px-8 py-2 font-semibold mx-auto mb-2 sm:mb-0"
+                    className="text-white text-sm align-items-center align-middle rounded-md bg-bgDark px-8 py-2 font-semibold mx-auto mb-2 sm:mb-0"
                     onClick={() => setOpen(false)}
                   >
                     Invite

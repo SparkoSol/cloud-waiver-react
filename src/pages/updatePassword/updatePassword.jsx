@@ -2,8 +2,14 @@ import {useRef} from "react";
 import Input from "../../components/inputs/Input.jsx";
 import Heading from "../../components/Heading.jsx";
 import Button from "../../components/Button.jsx";
+import {updateProfile} from "../../redux/user/userThunk.js";
+import toast from "react-hot-toast";
+import {useDispatch, useSelector} from "react-redux";
+import {selectCurrentUser} from "../../redux/user/userSlice.js";
 
 const UpdatePassword = () => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
   const password = useRef();
   const confirmPassword = useRef();
 
@@ -12,7 +18,7 @@ const UpdatePassword = () => {
       id: 1,
       label: 'Password',
       value: '',
-      type: 'text',
+      type: 'password',
       placeholder: '********',
       ref: password,
       class: 'w-full md:w-1/2'
@@ -20,17 +26,30 @@ const UpdatePassword = () => {
       id: 2,
       label: 'Confirm Password',
       value: '',
-      type: 'text',
+      type: 'password',
       placeholder: '********',
       ref: confirmPassword,
       class: 'w-full md:w-1/2'
     }]
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (password.current.value !== confirmPassword.current.value) {
+      toast.error("Passwords don't match")
+      return
+    }
+    const body = {
+      password: password.current.value,
+    };
+    dispatch(updateProfile({body, _id: currentUser._id}));
+  }
+
   return (
     <>
       <Heading title='Personal Information' subtitle='Ensure all details are correct'
                titleClasses='text-lg leading-6 font-medium text-gray-900'
                subTitleClasses='text-sm font-normal text-gray-500'/>
-      <form className='flex flex-wrap mt-5'>
+      <form className='flex flex-wrap mt-5' onSubmit={handleSubmit}>
         {data.map(item => {
           return (
             <div className={`px-3 mb-6 ${item.class}`} key={item.id}>

@@ -141,7 +141,7 @@ const RegisterForm = () => {
                            required={true}/>
           </div>
           <Button btnText='Get Started' fullWidth='w-9/12 mx-auto my-4'
-                  btnClasses='bg-textDark whitespace-nowrap border-textDark lg:px-16 sm:px-8 sm:py-3.5 py-1.5 w-full'/>
+                  btnClasses='bg-bgDark whitespace-nowrap border-textDark lg:px-16 sm:px-8 sm:py-3.5 py-1.5 w-full'/>
           <div>
             <p className="font-medium text-textDark text-sm">Alraedy have an account? <Link
               to="/" className="text-blue-600">Login Here</Link></p>
