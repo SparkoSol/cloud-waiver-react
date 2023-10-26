@@ -1,17 +1,20 @@
 import Button from "../../components/Button.jsx";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Input from "../../components/inputs/Input.jsx";
 import {EnvelopeIcon, LockClosedIcon} from "@heroicons/react/24/outline/index.js";
 import {login} from "../../redux/user/userThunk.js";
 import FormLayout from "../../components/Form.jsx";
-import {useDispatch} from "react-redux";
-import {useRef, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useRef, useState} from "react";
 import CheckboxInput from "../../components/inputs/CheckboxInput.jsx";
 import SideBarAdd from "./components/SideBarAdd.jsx";
 import Spinner from "../../components/Spinner.jsx";
 import VerificationModal from "../../components/modals/VerificationModal.jsx";
+import {selectCurrentUser} from "../../redux/user/userSlice.js";
 
 const LoginForm = () => {
+  const currentUser = useSelector(selectCurrentUser);
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -38,6 +41,13 @@ const LoginForm = () => {
     }
     setLoading(false);
   }
+
+  useEffect(() => {
+    if(currentUser){
+      currentUser.workspaces.length === 1 ? navigate('/dashboard') : navigate('/domain/select')
+    }
+  }, [currentUser]);
+
 
   return (
     <section className='flex justify-center items-center w-full min-h-screen bg-gray-200 py-6'>

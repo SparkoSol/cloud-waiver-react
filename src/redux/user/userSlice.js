@@ -20,7 +20,9 @@ const userSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, {payload}) => {
         state.status = 'fulfilled';
-        state.currentUser = payload;
+        if (typeof payload !== 'string') {
+          state.currentUser = payload;
+        }
       })
       .addCase(login.rejected, (state, {error}) => {
         state.status = 'failed';

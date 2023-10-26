@@ -24,12 +24,19 @@ import {getRequest} from "./redux/cwAPI.js";
 import {userProfile} from "./redux/user/userThunk.js";
 import {selectCurrentUser} from "./redux/user/userSlice.js";
 import {isEmptyObject} from "./utils/generalFunctions.js";
+import Template from "./pages/template/Template.jsx";
+import SelectDomain from "./pages/selectDomain/SelectDomain.jsx";
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
       <Login/>
+    )
+  }, {
+    path: '/domain/select',
+    element: (
+      <SelectDomain/>
     )
   }, {
     path: '/dashboard',
@@ -112,7 +119,22 @@ const router = createBrowserRouter([
         element: <CustomerList/>
       }
     ]
-  }, {
+  },
+  // {
+  //   path: '/template',
+  //   element: (
+  //     <ProtectedRoute>
+  //       <Outlet/>
+  //     </ProtectedRoute>
+  //   ),
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <Template/>
+  //     }
+  //   ]
+  // },
+  {
     path: '/management',
     element: (
       <ProtectedRoute>

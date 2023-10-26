@@ -1,14 +1,18 @@
 import Heading from "../../components/Heading.jsx";
 import Input from "../../components/inputs/Input.jsx";
-import {useRef} from "react";
+import {useEffect, useRef} from "react";
 import CheckboxInput from "../../components/inputs/CheckboxInput.jsx";
 import Button from "../../components/Button.jsx";
 import DataTable from "../../components/DataTable.jsx";
 import TeamRow from "./components/TeamRow.jsx";
 import {teamData} from "../../utils/generalFunctions.js";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {getSingleTeam} from "../../redux/team/teamThunk.js";
 
 const ManagementTeam = () => {
+  const {id} = useParams();
+ const dispatch = useDispatch();
   const inputRef = useRef();
   const apiRef = useRef();
   const billingRef = useRef();
@@ -33,6 +37,12 @@ const ManagementTeam = () => {
     {id: 8, label: 'Waiver Submissions', ref: waiverSubmissionsRef},
     {id: 9, label: 'Webhooks Management', ref: webhooksManagementRef}
   ];
+
+  useEffect(() => {
+    console.log(id)
+    dispatch(getSingleTeam(id))
+  }, []);
+
   return (
     <section className='space-y-6 xs:px-6'>
       <h1 className='text-2xl font-bold leading-tight text-gray-900'>Admins</h1>

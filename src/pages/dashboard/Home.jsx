@@ -1,6 +1,6 @@
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline/index.js";
 import Card from "./components/Card.jsx";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {dashboardData, DashBoardHeaders, generateMonths, generateYears} from "../../utils/generalFunctions.js";
 import SelectInput from "../../components/inputs/SelectInput.jsx";
 import Input from "../../components/inputs/Input.jsx";
@@ -10,9 +10,11 @@ import DashboardRow from "./components/DashboardRow.jsx";
 import Button from "../../components/Button.jsx";
 import clipboardIcon from "@heroicons/react/20/solid/esm/ClipboardIcon.js";
 import Modal from "../../components/modals/Modal.jsx";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {createWaiver} from "../../redux/waivers/waiverThunk.js";
 import Spinner from "../../components/Spinner.jsx";
+import {selectCurrentUser} from "../../redux/user/userSlice.js";
+import {getSingleTeam} from "../../redux/team/teamThunk.js";
 
 const data = [
   {
@@ -28,6 +30,7 @@ const data = [
 ]
 
 const Dashboard = () => {
+  const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
   const searchRef = useRef();
   const [loading, setLoading] = useState(false)
@@ -53,6 +56,13 @@ const Dashboard = () => {
     await dispatch(createWaiver(data)).unwrap();
     setLoading(false)
   }
+
+  useEffect(() => {
+    if (currentUser) {
+      dispatch(getSingleTeam(currentUser._id))
+    }
+  }, [currentUser]);
+
 
   return (
     <div>

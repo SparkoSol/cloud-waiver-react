@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import toast from "react-hot-toast";
-import {getAllTeams} from "./teamThunk.js";
+import {getAllTeams, getSingleTeam} from "./teamThunk.js";
 
 const initialTeamsState = {
   allTeams: null,
@@ -21,7 +21,20 @@ const customerSlice = createSlice({
         state.allTeams = payload;
       })
       .addCase(getAllTeams.rejected, (state, {error}) => {
-        state.status = 'failed';
+        state.status = 'rejected';
+        toast.error(error.message)
+      })
+
+    builder
+      .addCase(getSingleTeam.pending, (state) => {
+        state.status = 'pending';
+      })
+      .addCase(getSingleTeam.fulfilled, (state, {payload}) => {
+        state.status = 'fulfilled';
+        state.currentTeam = payload;
+      })
+      .addCase(getSingleTeam.rejected, (state, {error}) => {
+        state.status = 'rejected';
         toast.error(error.message)
       })
   },
