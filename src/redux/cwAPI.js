@@ -9,7 +9,7 @@ axios.interceptors.request.use(
     const token = localStorage.getItem('cw-access-token')
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token
-      config.headers['X-TENANT-ID'] = 'aline-hess'
+      // config.headers['X-TENANT-ID'] = 'aline-hess'
     }
     return config
   },
