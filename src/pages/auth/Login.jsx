@@ -45,7 +45,7 @@ const LoginForm = () => {
   useEffect(() => {
     const token = localStorage.getItem('cw-access-token');
     if(currentUser && token){
-      currentUser.workspaces.length === 1 ? window.location.href = `http://${currentUser.workspaces[0].domain}.localhost:5173/dashboard?token=${token}` : navigate('/domain/select')
+      currentUser.workspaces.length === 1 ? window.location.href = `http://${currentUser.workspaces[0].domain}.techtrival.com/dashboard?token=${token}` : navigate('/domain/select')
     }
   }, [currentUser]);
 
