@@ -237,7 +237,7 @@ export function isValidBody(body) {
 }
 
 export const teamData = [
-  {id:1, name:'John', email:'john@email.com'}
+  {_id:1, name:'John', email:'john@email.com'}
 ]
 export function isEmptyObject(obj) {
   for (const key in obj) {

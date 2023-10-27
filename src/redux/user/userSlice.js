@@ -1,9 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {login, updateProfile, userProfile} from './userThunk'
+import {getMembers, login, updateProfile, userProfile} from './userThunk'
 import toast from "react-hot-toast";
 
 const initialUserState = {
   currentUser: null,
+  members:null,
   status: 'idle'
 }
 
@@ -55,10 +56,24 @@ const userSlice = createSlice({
           state.status = 'failed';
           toast.error(error.message)
         })
+
+    builder
+      .addCase(getMembers.pending, (state) => {
+        state.status = 'pending';
+      })
+      .addCase(getMembers.fulfilled, (state, {payload}) => {
+        state.status = 'fulfilled';
+        state.members = payload;
+      })
+      .addCase(getMembers.rejected, (state, {error}) => {
+        state.status = 'failed';
+        toast.error(error.message)
+      })
   },
 })
 
 export const selectCurrentUser = (state) => state.user.currentUser;
+export const selectMember = (state) => state.user.members;
 
 export const {} = userSlice.actions
 export default userSlice.reducer

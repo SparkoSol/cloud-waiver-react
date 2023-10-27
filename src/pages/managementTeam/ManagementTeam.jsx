@@ -1,18 +1,22 @@
 import Heading from "../../components/Heading.jsx";
 import Input from "../../components/inputs/Input.jsx";
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import CheckboxInput from "../../components/inputs/CheckboxInput.jsx";
 import Button from "../../components/Button.jsx";
 import DataTable from "../../components/DataTable.jsx";
 import TeamRow from "./components/TeamRow.jsx";
-import {teamData} from "../../utils/generalFunctions.js";
-import {Link, useParams} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {getSingleTeam} from "../../redux/team/teamThunk.js";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {getSingleTeam, updateTeam} from "../../redux/team/teamThunk.js";
+import {selectCurrentTeam} from "../../redux/team/teamSlice.js";
+import Spinner from "../../components/Spinner.jsx";
 
 const ManagementTeam = () => {
+  const selectedTeam = useSelector(selectCurrentTeam);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const {id} = useParams();
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const inputRef = useRef();
   const apiRef = useRef();
   const billingRef = useRef();
@@ -26,22 +30,45 @@ const ManagementTeam = () => {
   const webhooksManagementRef = useRef();
 
   const menuItems = [
-    {id: 10, label: 'Api Management', ref: apiRef},
-    {id: 1, label: 'Billing', ref: billingRef},
-    {id: 2, label: 'Customers', ref: customersRef},
-    {id: 3, label: 'Kiosk Settings', ref: kioskSettingsRef},
-    {id: 4, label: 'Team Management', ref: teamManagementRef},
-    {id: 5, label: 'Template Creation', ref: templateCreationRef},
-    {id: 6, label: 'Template Editing', ref: templateEditingRef},
-    {id: 7, label: 'Template Gallery', ref: templateGalleryRef},
-    {id: 8, label: 'Waiver Submissions', ref: waiverSubmissionsRef},
-    {id: 9, label: 'Webhooks Management', ref: webhooksManagementRef}
+    {id: 10, label: 'Api Management', ref: apiRef, value: 'api_management'},
+    {id: 1, label: 'Billing', ref: billingRef, value: 'billing'},
+    {id: 2, label: 'Customers', ref: customersRef, value: 'customers'},
+    {id: 3, label: 'Kiosk Settings', ref: kioskSettingsRef, value: 'kiosk_settings'},
+    {id: 4, label: 'Team Management', ref: teamManagementRef, value: 'team_management'},
+    {id: 5, label: 'Template Creation', ref: templateCreationRef, value: 'template_creation'},
+    {id: 6, label: 'Template Editing', ref: templateEditingRef, value: 'template_editing'},
+    {id: 7, label: 'Template Gallery', ref: templateGalleryRef, value: 'template_gallery'},
+    {id: 8, label: 'Waiver Submissions', ref: waiverSubmissionsRef, value: 'waiver_submissions'},
+    {id: 9, label: 'Webhooks Management', ref: webhooksManagementRef, value: 'webhooks_management'}
   ];
 
   useEffect(() => {
-    console.log(id)
-    dispatch(getSingleTeam(id))
+    if (id) {
+      dispatch(getSingleTeam(id))
+    }
   }, []);
+
+  function handleUpdate(e) {
+    e.preventDefault();
+    setLoading(true);
+    const body = {
+      name: inputRef.current.value,
+      permissions: []
+    }
+    for (const item of menuItems) {
+      if (item.ref.current.checked) {
+        body.permissions.push(item.value);
+      }
+    }
+    if (id) {
+      dispatch(updateTeam({teamId: id, body})).unwrap()
+        .then(() => {
+          setLoading(false);
+          navigate('/management')
+        })
+        .catch(e => setLoading(false));
+    }
+  }
 
   return (
     <section className='space-y-6 xs:px-6'>
@@ -51,7 +78,8 @@ const ManagementTeam = () => {
                  titleClasses='text-xl font-semibold'
                  subTitleClasses='text-sm text-gray-600'/>
         <div className='w-full md:w-8/12 bg-white rounded-md p-6 shadow-sm'>
-          <Input inputRef={inputRef} label='Team Name' value='Admin' placeholder='Admin' inputClasses='pl-4'
+          <Input inputRef={inputRef} label='Team Name' value={selectedTeam?.name} placeholder='Admin'
+                 inputClasses='pl-4'
                  extraClasses='w-full'/>
         </div>
       </div>
@@ -60,9 +88,14 @@ const ManagementTeam = () => {
         <Heading title='Team Permissions' subtitle='Choose what your team may access'
                  titleClasses='text-xl font-semibold'
                  subTitleClasses='text-sm text-gray-600'/>
-        <div className='w-full md:w-8/12 bg-white rounded-md p-6 shadow-sm'>
+        <form onSubmit={handleUpdate} className='w-full md:w-8/12 bg-white rounded-md p-6 shadow-sm'>
           <h1 className='text-base font-bold text-gray-500 mb-2'>Permissions</h1>
           <div className='space-y-4 border-b py-6'>
+            {selectedTeam && menuItems.map(item => {
+              return <CheckboxInput key={item.id} inputRef={item.ref} label={item.label}
+                                    defaultChecked={selectedTeam?.permissions.includes(item.value)}
+                                    extraClasses='text-sm text-gray-700'/>
+            })}
             {menuItems.map(item => {
               return <CheckboxInput key={item.id} inputRef={item.ref} label={item.label}
                                     extraClasses='text-sm text-gray-700'/>
@@ -70,7 +103,7 @@ const ManagementTeam = () => {
           </div>
           <Button btnText='Update Permissions' fullWidth='w-fit pt-6 ml-auto'
                   btnClasses='bg-bgDark border-textDark px-6 py-2.5'/>
-        </div>
+        </form>
       </div>
 
       <div className='flex justify-between items-start gap-4 flex-col md:flex-row'>
@@ -78,12 +111,13 @@ const ManagementTeam = () => {
                  titleClasses='text-xl font-semibold'
                  subTitleClasses='text-sm text-gray-600'/>
         <div className='w-full md:w-8/12 bg-white space-y-6 rounded-md p-6 shadow-sm'>
-          <Link to={'/management/team/123/user/create'}
+          <Link to={`/management/team/${id}/user/create`}
                 className='bg-bgDark border-textDark px-6 py-2.5 w-fit block ml-auto text-white rounded-full text-sm font-semibold'>Add
             User</Link>
-          <DataTable TableRow={TeamRow} items={teamData} headers={['Name', 'Email']} colspan={0}/>
+          <DataTable TableRow={TeamRow} items={selectedTeam?.members || []} headers={['Name', 'Email']} colspan={0}/>
         </div>
       </div>
+      {loading && <Spinner/>}
     </section>
   )
 }

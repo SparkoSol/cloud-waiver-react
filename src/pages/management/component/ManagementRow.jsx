@@ -13,10 +13,10 @@ const ManagementRow = ({item}) => {
         <div className="flex items-center space-x-6">
           <div className="flex items-center gap-3">
             <Link to={`/management/team/${item._id}`}>
-              <EyeIcon className='w-5 h-5 text-iconGray' />
+              <EyeIcon className='w-5 h-5 text-iconGray'/>
             </Link>
             <button>
-              <Link to='team/123/user/create'><UsersIcon className='w-6 h-6 text-iconGray'/></Link>
+              <Link to={`/management/team/${item._id}/user/create`}><UsersIcon className='w-6 h-6 text-iconGray'/></Link>
             </button>
           </div>
         </div>

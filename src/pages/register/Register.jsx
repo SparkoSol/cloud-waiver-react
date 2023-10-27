@@ -11,6 +11,7 @@ import {useDispatch} from "react-redux";
 import VerificationModal from "../../components/modals/VerificationModal.jsx";
 import Spinner from "../../components/Spinner.jsx";
 import {isValidBody} from "../../utils/generalFunctions.js";
+import toast from 'react-hot-toast';
 
 const RegisterForm = () => {
   const dispatch = useDispatch()
@@ -101,6 +102,10 @@ const RegisterForm = () => {
         .then(r => {
           setOpen(!!r);
           setLoading(false)
+        })
+        .catch(e => {
+          toast.error(e.message)
+          setLoading(false)
         });
     } else {
       setLoading(false)
@@ -141,7 +146,7 @@ const RegisterForm = () => {
                            required={true}/>
           </div>
           <Button btnText='Get Started' fullWidth='w-9/12 mx-auto my-4'
-                  btnClasses='bg-bgDark whitespace-nowrap border-textDark lg:px-16 sm:px-8 sm:py-3.5 py-1.5 w-full'/>
+                  btnClasses='bg-bgDark whitespace-nowrap border-textDark lg:px-16 sm:px-8 py-3.5 w-full'/>
           <div>
             <p className="font-medium text-textDark text-sm">Alraedy have an account? <Link
               to="/" className="text-blue-600">Login Here</Link></p>

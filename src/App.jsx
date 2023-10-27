@@ -20,11 +20,9 @@ import CustomerList from "./pages/customerList/CustomerList.jsx";
 import ManagementTeam from "./pages/managementTeam/ManagementTeam.jsx";
 import CreateTeam from "./pages/createTeam/CreateTeam.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {getRequest} from "./redux/cwAPI.js";
 import {userProfile} from "./redux/user/userThunk.js";
 import {selectCurrentUser} from "./redux/user/userSlice.js";
 import {isEmptyObject} from "./utils/generalFunctions.js";
-import Template from "./pages/template/Template.jsx";
 import SelectDomain from "./pages/selectDomain/SelectDomain.jsx";
 
 const router = createBrowserRouter([
@@ -176,11 +174,12 @@ function App() {
       if (isEmptyObject(currentUser)) {
         dispatch(userProfile(token))
       }
-      if (pathname === "/" || pathname === "/dashboard")
+      if ((pathname === "/" || pathname === "/dashboard"))
         router.navigate("/dashboard");
       else if (pathname !== "/dashboard")
         router.navigate(pathname);
-    } else {
+    }
+    else {
       router.navigate("/");
     }
   }, []);

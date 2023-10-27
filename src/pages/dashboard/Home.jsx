@@ -13,8 +13,8 @@ import Modal from "../../components/modals/Modal.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {createWaiver} from "../../redux/waivers/waiverThunk.js";
 import Spinner from "../../components/Spinner.jsx";
-import {selectCurrentUser} from "../../redux/user/userSlice.js";
-import {getSingleTeam} from "../../redux/team/teamThunk.js";
+import {selectCurrentUser, selectMember} from "../../redux/user/userSlice.js";
+import {getMembers} from "../../redux/user/userThunk.js";
 
 const data = [
   {
@@ -31,6 +31,7 @@ const data = [
 
 const Dashboard = () => {
   const currentUser = useSelector(selectCurrentUser);
+  const currentMember = useSelector(selectMember);
   const dispatch = useDispatch();
   const searchRef = useRef();
   const [loading, setLoading] = useState(false)
@@ -58,8 +59,8 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    if (currentUser) {
-      dispatch(getSingleTeam(currentUser._id))
+    if (currentUser && !currentMember) {
+      dispatch(getMembers(currentUser._id))
     }
   }, [currentUser]);
 

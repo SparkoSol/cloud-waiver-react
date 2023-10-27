@@ -13,6 +13,7 @@ export const login = createAsyncThunk('user/login', async (payload, thunkAPI) =>
       });
       return 'The Verification Email sent to your email, kindly check your inbox and verify';
     }
+    localStorage.setItem('cw-verified', 'true');
     return user
   } catch (e) {
     thunkAPI.dispatch(login.rejected(e.response.data.message));
@@ -23,7 +24,7 @@ export const registerUser = createAsyncThunk('/user/register', async (payload, t
   try {
     return await postRequest('/auth/sign-up', payload)
   } catch (e) {
-    thunkAPI.dispatch(login.rejected(e.response.data.message));
+    throw(e.response.data.message);
   }
 })
 
@@ -60,7 +61,6 @@ export const updateProfile = createAsyncThunk('user/updateProfile', async (paylo
     return data
   } catch (e) {
     thunkAPI.dispatch(updateProfile.rejected(e.response.data.message));
-    throw(e.response.data.message)
   }
 })
 
@@ -70,5 +70,14 @@ export const userProfile = createAsyncThunk('user/userProfile', async (payload, 
     return data;
   } catch (e) {
     thunkAPI.dispatch(updateProfile.rejected(e.response.data.message));
+  }
+})
+
+export const getMembers = createAsyncThunk('/user/getMembers', async (payload, thunkAPI) => {
+  try {
+    const {data} = await getRequest(`/teams/member/${payload}`);
+    return data
+  } catch (e) {
+    thunkAPI.dispatch(getMembers.rejected(e.response.data.message));
   }
 })
