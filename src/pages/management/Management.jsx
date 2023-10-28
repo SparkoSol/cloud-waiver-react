@@ -25,20 +25,22 @@ const Management = () => {
   }
 
   return (
-    <section className='p-6 space-y-6'>
-      <div className='flex justify-between items-center'>
-        <Heading title='Team'
-                 subtitle='A list of all the users in your account including their name, title, email and role.'
-                 subTitleClasses='text-sm text-gray-900' titleClasses='font-semibold text-xl'/>
+    <>
+      <section className='p-6 space-y-6'>
+        <div className='flex justify-between items-center'>
+          <Heading title='Team'
+                   subtitle='A list of all the users in your account including their name, title, email and role.'
+                   subTitleClasses='text-sm text-gray-900' titleClasses='font-semibold text-xl'/>
 
-        <Link className='text-white text-sm rounded-full font-bold bg-btnBg px-6 py-2' to={'/management/team/create'}>Create
-          Team</Link>
-      </div>
+          <Link className='text-white text-sm rounded-full font-bold bg-btnBg px-6 py-2' to={'/management/team/create'}>Create
+            Team</Link>
+        </div>
 
-      <DataTable TableRow={ManagementRow} headers={['Name', 'Total Users', 'Action']} items={teams}
-                 colspan='0' bordered={true}/>
+        <DataTable TableRow={ManagementRow} headers={['Name', 'Total Users', 'Action']} items={teams}
+                   colspan='0' bordered={true}/>
+      </section>
       {loading && <Spinner/>}
-    </section>
+    </>
   )
 }
 
