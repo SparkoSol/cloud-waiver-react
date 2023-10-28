@@ -171,27 +171,27 @@ function App() {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser)
 
-  // useEffect(() => {
-  //   const urlParams = new URLSearchParams(window.location.search);
-  //   const code = urlParams.get("token");
-  //   if (code) {
-  //     localStorage.setItem("cw-access-token", code);
-  //   }
-  //   const token = localStorage.getItem("cw-access-token");
-  //
-  //   if (token && token !== "null") {
-  //     if (isEmptyObject(currentUser)) {
-  //       dispatch(userProfile(token))
-  //     }
-  //     if ((pathname === "/" || pathname === "/dashboard"))
-  //       router.navigate("/dashboard");
-  //     else if (pathname !== "/dashboard")
-  //       router.navigate(pathname);
-  //   }
-  //   else {
-  //     router.navigate("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("token");
+    if (code) {
+      localStorage.setItem("cw-access-token", code);
+    }
+    const token = localStorage.getItem("cw-access-token");
+
+    if (token && token !== "null") {
+      if (isEmptyObject(currentUser)) {
+        dispatch(userProfile(token))
+      }
+      if ((pathname === "/" || pathname === "/dashboard"))
+        router.navigate("/dashboard");
+      else if (pathname !== "/dashboard")
+        router.navigate(pathname);
+    }
+    else {
+      router.navigate("/");
+    }
+  }, []);
 
   return (
     <>
