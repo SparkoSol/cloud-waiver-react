@@ -3,6 +3,8 @@ import Input from "../inputs/Input.jsx";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline/index.js";
 import {ChevronDownIcon} from "@heroicons/react/20/solid/index.js";
 import {Transition} from "@headlessui/react";
+import {useSelector} from "react-redux";
+import {selectCurrentUser} from "../../redux/user/userSlice.js";
 
 const SideBarMenu = ({
                        searchRef,
@@ -16,6 +18,8 @@ const SideBarMenu = ({
                        setOpen
                      }) => {
   const {pathname} = useLocation();
+  const currentUser = useSelector(selectCurrentUser);
+  console.log()
   return (
     <aside
       onMouseEnter={() => {
@@ -39,18 +43,13 @@ const SideBarMenu = ({
         <Link className={`transition-all duration-500 ${open || hover ? 'w-28' : 'w-8'}`} to={'/dashboard'}>
           <img className='w-full max-w-[112px] mx-auto' alt='Loading..' src='/images/logo.png'/>
         </Link>
-        {/*<Link*/}
-        {/*  className={`w-8 transition-all duration-500 mx-auto ${open || hover ? 'block' : 'hidden'}`}*/}
-        {/*  to="/dashboard">*/}
-        {/*  <img alt='Loading..' src='/images/logo.png'/>*/}
-        {/*</Link>*/}
       </div>
       <div className="flex gap-2 items-center py-4 w-60 px-2 border-b border-btnBg">
         <div className="w-8 h-8 rounded-full border border-1 border-iconGray bg-white overflow-hidden">
           <img src="/images/user.png" className='w-full h-full' alt=""/>
         </div>
         {(open || hover) && <Link className="text-sm text-iconGray font-semibold" to="/dashboard">
-          John Doe
+          {`${currentUser?.first_name} ${currentUser?.last_name}`}
         </Link>}
       </div>
       <div className='block lg:hidden'>
