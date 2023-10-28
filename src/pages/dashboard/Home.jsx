@@ -67,7 +67,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className=''>
+      <div>
         <h1 className='text-xl font-semibold mb-5'>Dashboard</h1>
         <div
           className='grid gap-3 grid-cols-1 grid-rows-4 sm:grid-rows-2 sm:grid-cols-2 md:grid-rows-1 md:grid-cols-4 mb-5'>

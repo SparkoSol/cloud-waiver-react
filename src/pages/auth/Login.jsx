@@ -42,12 +42,12 @@ const LoginForm = () => {
     setLoading(false);
   }
 
-  useEffect(() => {
-    const token = localStorage.getItem('cw-access-token');
-    if(currentUser && token){
-      currentUser.workspaces.length === 1 ? window.location.href = `http://${currentUser.workspaces[0].domain}.techtrival.com/dashboard?token=${token}` : navigate('/domain/select')
-    }
-  }, [currentUser]);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('cw-access-token');
+  //   if(currentUser && token){
+  //     currentUser.workspaces.length === 1 ? window.location.href = `http://${currentUser.workspaces[0].domain}.techtrival.com/dashboard?token=${token}` : navigate('/domain/select')
+  //   }
+  // }, [currentUser]);
 
 
   return (

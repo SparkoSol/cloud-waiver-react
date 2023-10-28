@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 const baseUrl = 'https://cloudwaiver.sparkosol.com'
 // const baseUrl = 'http://192.168.1.36:3000'
 const cwAPI = axios
@@ -9,7 +10,7 @@ axios.interceptors.request.use(
     const token = localStorage.getItem('cw-access-token')
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token
-      // config.headers['X-TENANT-ID'] = 'aline-hess'
+      config.headers['X-TENANT-ID'] = getDynamicTenantId();
     }
     return config
   },
@@ -38,6 +39,16 @@ export const deleteRequest = (url, body) => {
 
 export const patchRequest = (url, body) => {
   return cwAPI.patch(`${baseUrl}${url}`, body)
+}
+
+//extract X_tan id
+function getDynamicTenantId() {
+  const currentURL = window.location.href;
+  const urlParts = currentURL.split('.');
+  if(urlParts[0].includes('https')){
+    return urlParts[0].replace('https://', '');
+  }
+  return urlParts[0].replace('http://', '');
 }
 
 export default cwAPI

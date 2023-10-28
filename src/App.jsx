@@ -24,6 +24,7 @@ import {userProfile} from "./redux/user/userThunk.js";
 import {selectCurrentUser} from "./redux/user/userSlice.js";
 import {isEmptyObject} from "./utils/generalFunctions.js";
 import SelectDomain from "./pages/selectDomain/SelectDomain.jsx";
+import Kiosk from "./pages/kiosk/Kiosk.jsx";
 
 const router = createBrowserRouter([
   {
@@ -133,6 +134,14 @@ const router = createBrowserRouter([
   //   ]
   // },
   {
+    path:'/kiosk',
+    element:(
+      <ProtectedRoute>
+        <Kiosk/>
+      </ProtectedRoute>
+    )
+  },
+  {
     path: '/management',
     element: (
       <ProtectedRoute>
@@ -162,27 +171,27 @@ function App() {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser)
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("token");
-    if (code) {
-      localStorage.setItem("cw-access-token", code);
-    }
-    const token = localStorage.getItem("cw-access-token");
-
-    if (token && token !== "null") {
-      if (isEmptyObject(currentUser)) {
-        dispatch(userProfile(token))
-      }
-      if ((pathname === "/" || pathname === "/dashboard"))
-        router.navigate("/dashboard");
-      else if (pathname !== "/dashboard")
-        router.navigate(pathname);
-    }
-    else {
-      router.navigate("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const urlParams = new URLSearchParams(window.location.search);
+  //   const code = urlParams.get("token");
+  //   if (code) {
+  //     localStorage.setItem("cw-access-token", code);
+  //   }
+  //   const token = localStorage.getItem("cw-access-token");
+  //
+  //   if (token && token !== "null") {
+  //     if (isEmptyObject(currentUser)) {
+  //       dispatch(userProfile(token))
+  //     }
+  //     if ((pathname === "/" || pathname === "/dashboard"))
+  //       router.navigate("/dashboard");
+  //     else if (pathname !== "/dashboard")
+  //       router.navigate(pathname);
+  //   }
+  //   else {
+  //     router.navigate("/");
+  //   }
+  // }, []);
 
   return (
     <>

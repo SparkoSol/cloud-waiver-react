@@ -16,7 +16,7 @@ const InvoiceRow = ({item}) => {
         {item.status}
       </td>
       <td className='relative py-4 pl-4 sm:pl-6 pr-3 text-sm whitespace-nowrap'>
-        <Button btnText='Download' fullWidth='fit-content' btnClasses='bg-btnBg hover:bg-textDark'/>
+        <Button btnText='Download' fullWidth='fit-content' btnClasses='py-2 bg-btnBg hover:bg-textDark'/>
       </td>
     </tr>
   )

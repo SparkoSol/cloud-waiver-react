@@ -145,7 +145,8 @@ export function limitChars(str, number) {
 
 export const countries = ["Pakistan", "Germany", "United States", "United Kingdom", "France", "Australia", "Canada", "Japan"];
 
-export const billingOptions = [{
+export const billingOptions = [
+  {
   plan: 'Growth',
   firstChar: {
     title: 'For the first 1 - 550', price: 'Flat USD45'
@@ -208,15 +209,6 @@ export const customerData = [
     _id: '21111111', firstName: 'John', lastName: 'Doe', email: 'john@gmail.com', count: 1
   }
 ]
-
-export const managementData = [
-  {
-    _id: '11111111', count: 1, name: 'John'
-  }, {
-    _id: '21111111', count: 1, name: 'John'
-  }
-]
-
 export function isValidBody(body) {
   const invalidFields = [];
 
@@ -235,10 +227,6 @@ export function isValidBody(body) {
 
   return true;
 }
-
-export const teamData = [
-  {_id:1, name:'John', email:'john@email.com'}
-]
 export function isEmptyObject(obj) {
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
@@ -247,3 +235,7 @@ export function isEmptyObject(obj) {
   }
   return true; // If the loop completes without finding any own properties, it's empty
 }
+
+export const KioskData = [
+  {_id:'1212121212', name:'Template 1'}
+]
