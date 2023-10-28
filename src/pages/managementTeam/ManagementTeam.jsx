@@ -96,7 +96,7 @@ const ManagementTeam = () => {
                                     defaultChecked={selectedTeam?.permissions.includes(item.value)}
                                     extraClasses='text-sm text-gray-700'/>
             })}
-            {menuItems.map(item => {
+            {!selectedTeam && menuItems.map(item => {
               return <CheckboxInput key={item.id} inputRef={item.ref} label={item.label}
                                     extraClasses='text-sm text-gray-700'/>
             })}

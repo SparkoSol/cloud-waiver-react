@@ -1,4 +1,3 @@
-import {ArrowPathIcon} from "@heroicons/react/24/outline/index.js";
 
 const Card = ({item}) => {
   return (
@@ -12,7 +11,6 @@ const Card = ({item}) => {
           <h1 className='text-2xl'>{item.id === 1 && <span className=''>0</span>}{item.value}</h1>
         </div>
       </div>
-      <span className='p-3.5 text-iconGray block text-sm'><ArrowPathIcon className='w-5 h-5 inline-block mr-2'/> Updated now</span>
     </div>
   )
 }

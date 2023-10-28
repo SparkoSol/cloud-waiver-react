@@ -24,12 +24,12 @@ const Header = ({searchRef, setOpen}) => {
         <Input BtnIcon={MagnifyingGlassIcon} inputRef={searchRef} placeholder='Search' extraClasses='w-fit hidden lg:block'/>
       </div>
       <div className='flex items-center gap-8 px-4 py-2.5 hidden lg:flex'>
-        <Link to='/' className='text-iconGray flex items-center hover:text-blue-400 gap-2'>
-          <AdjustmentsVerticalIcon className='w-5 h-5'/>
-          Stats</Link>
-        <Link to='/' className='text-iconGray flex items-center gap-2 hover:text-blue-400'>
-          <BellIcon className='w-5 h-5'/>
-          5</Link>
+        {/*<Link to='/' className='text-iconGray flex items-center hover:text-blue-400 gap-2'>*/}
+        {/*  <AdjustmentsVerticalIcon className='w-5 h-5'/>*/}
+        {/*  Stats</Link>*/}
+        {/*<Link to='/' className='text-iconGray flex items-center gap-2 hover:text-blue-400'>*/}
+        {/*  <BellIcon className='w-5 h-5'/>*/}
+        {/*  5</Link>*/}
         <DropDown/>
       </div>
       <Button btnClasses='p-0' BtnIcon={Bars3Icon}

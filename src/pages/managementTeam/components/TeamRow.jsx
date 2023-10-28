@@ -19,7 +19,7 @@ const TeamRow = ({item}) => {
           {item.username}
         </td>
         <td className='p-4 font-semibold text-sm text-gray-900 whitespace-nowrap'>
-          <button onClick={deleteMember(item.index)}><TrashIcon className='w-5 h-5 text-red-400'/></button>
+          <button onClick={() => deleteMember(item.index)}><TrashIcon className='w-5 h-5 text-red-400'/></button>
         </td>
       </tr>
     </>

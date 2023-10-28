@@ -35,15 +35,15 @@ const SideBarMenu = ({
             ? 'w-20 p-3'
             : 'w-0'
       } bg-bgDark h-screen transition-all duration-500 font-mulish fixed top-0 left-0 overflow-y-scroll scrollbar-thin z-20`}>
-      <div className="flex gap-2 items-center py-4 px-2 border-b w-60 border-btnBg">
-        <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-          <img alt='Loading..' src='/images/cloudwaiver.png'/>
-        </div>
-        <Link
-          className={`font-bold text-sm text-white transition-all duration-100 ${open || hover ? 'opacity-100' : 'opacity-0'}`}
-          to="/dashboard">
-          Cloud Waiver
+      <div className="w-full border-b border-btnBg py-4">
+        <Link className={`transition-all duration-500 ${open || hover ? 'w-28' : 'w-8'}`} to={'/dashboard'}>
+          <img className='w-full max-w-[112px] mx-auto' alt='Loading..' src='/images/logo.png'/>
         </Link>
+        {/*<Link*/}
+        {/*  className={`w-8 transition-all duration-500 mx-auto ${open || hover ? 'block' : 'hidden'}`}*/}
+        {/*  to="/dashboard">*/}
+        {/*  <img alt='Loading..' src='/images/logo.png'/>*/}
+        {/*</Link>*/}
       </div>
       <div className="flex gap-2 items-center py-4 w-60 px-2 border-b border-btnBg">
         <div className="w-8 h-8 rounded-full border border-1 border-iconGray bg-white overflow-hidden">

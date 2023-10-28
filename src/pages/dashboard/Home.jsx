@@ -25,7 +25,7 @@ const data = [
     id: 3, title: 'Signed', value: '50', icon: '/pulse.svg'
   },
   {
-    id: 4, title: 'Followers', value: '50', icon: '/twitter.svg'
+    id: 4, title: 'Customers', value: '50', icon: '/user.svg'
   }
 ]
 
