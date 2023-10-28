@@ -6,7 +6,7 @@ export default function DropDown() {
   function handleClick() {
     localStorage.removeItem('cw-access-token');
     localStorage.removeItem('cw-refresh-token');
-    window.location.href = '/'
+    window.location.href = 'https://techtrival.com';
   }
 
   return (
