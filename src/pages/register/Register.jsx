@@ -1,6 +1,6 @@
 import {useRef, useState} from "react";
 import {Link} from "react-router-dom";
-import {BuildingOfficeIcon, EnvelopeIcon, LockClosedIcon, UserIcon} from "@heroicons/react/24/outline/index.js";
+import {BuildingOfficeIcon, EnvelopeIcon, LockClosedIcon, UserIcon} from "@heroicons/react/24/outline";
 import FormLayout from "../../components/Form.jsx";
 import Input from "../../components/inputs/Input.jsx";
 import CheckboxInput from "../../components/inputs/CheckboxInput.jsx";

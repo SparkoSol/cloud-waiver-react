@@ -1,12 +1,11 @@
 import Input from "../../components/inputs/Input.jsx";
-import {MagnifyingGlassIcon} from "@heroicons/react/24/outline/index.js";
+import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import {useRef, useState} from "react";
 import SelectInput from "../../components/inputs/SelectInput.jsx";
 import DataTable from "../../components/DataTable.jsx";
 import CustomersRow from "../customers/components/CustomersRow.jsx";
 import {customerData, dashboardData, DashBoardHeaders} from "../../utils/generalFunctions.js";
-import DashboardRow from "../dashboard/components/DashboardRow.jsx";
-import {FolderIcon} from "@heroicons/react/20/solid/index.js";
+import {FolderIcon} from "@heroicons/react/20/solid";
 
 const CustomerList = () => {
   const searchRef = useRef();

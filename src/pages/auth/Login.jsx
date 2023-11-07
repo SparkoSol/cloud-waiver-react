@@ -1,7 +1,7 @@
 import Button from "../../components/Button.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import Input from "../../components/inputs/Input.jsx";
-import {EnvelopeIcon, LockClosedIcon} from "@heroicons/react/24/outline/index.js";
+import {EnvelopeIcon, LockClosedIcon} from "@heroicons/react/24/outline";
 import {login} from "../../redux/user/userThunk.js";
 import FormLayout from "../../components/Form.jsx";
 import {useDispatch, useSelector} from "react-redux";
@@ -46,7 +46,7 @@ const LoginForm = () => {
     const token = localStorage.getItem('cw-access-token');
     if (currentUser && token) {
       if (currentUser.workspaces.length === 1) {
-        localStorage.removeItem('cw-access-token')
+        // localStorage.clear();
         window.location.href = `http://${currentUser.workspaces[0].domain}.techtrival.com/dashboard?token=${token}`
       } else {
         navigate('/domain/select')

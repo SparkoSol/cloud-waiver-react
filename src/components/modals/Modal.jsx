@@ -1,8 +1,8 @@
 import {Fragment, useRef} from "react";
-import { Dialog, Transition } from '@headlessui/react'
+import {Dialog, Transition} from '@headlessui/react'
 import Input from "../inputs/Input.jsx";
 
-export default function Modal({open, setOpen, functionCall}) {
+export default function Modal({open, setOpen, functionCall, btnText = 'Submit', title = 'New Template', description}) {
   const cancelButtonRef = useRef(null)
   const inputRef = useRef();
   return (
@@ -17,7 +17,7 @@ export default function Modal({open, setOpen, functionCall}) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -31,16 +31,21 @@ export default function Modal({open, setOpen, functionCall}) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+              <Dialog.Panel
+                className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="">
                     <div className="mt-3 text-center sm:mt-0 sm:text-left">
                       <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-                        New Template
+                        {title}
                       </Dialog.Title>
-                      <div className="mt-8">
-                        <Input placeholder='eg. Waiver 101' inputRef={inputRef} label='Please enter your template name' extraClasses='font-medium text-gray-500' inputClasses='pl-3 rounded-md'/>
-                      </div>
+                      {description && <Dialog.Description className='text-sm text-gray-600 pt-3'>
+                        {description}
+                      </Dialog.Description>}
+                      {!description && <div className="mt-8">
+                        <Input placeholder='eg. Waiver 101' inputRef={inputRef} label='Please enter your template name'
+                               extraClasses='font-medium text-gray-500' inputClasses='pl-3 rounded-md'/>
+                      </div>}
                     </div>
                   </div>
                 </div>
@@ -48,9 +53,12 @@ export default function Modal({open, setOpen, functionCall}) {
                   <button
                     type="button"
                     className="text-white text-sm align-items-center align-middle rounded-md bg-btnBg px-4 py-2 font-semibold w-full mb-2 sm:mb-0"
-                    onClick={() => functionCall(inputRef.current.value)}
+                    onClick={() => {
+                      functionCall(inputRef.current?.value)
+                      setOpen(false)
+                    }}
                   >
-                    Submit
+                    {btnText}
                   </button>
                   <button
                     type="button"

@@ -1,8 +1,8 @@
 import CheckboxInput from "../../../components/inputs/CheckboxInput.jsx";
 import {limitChars} from "../../../utils/generalFunctions.js";
 import {Link} from "react-router-dom";
-import {EyeIcon} from "@heroicons/react/20/solid/index.js";
-import {PencilSquareIcon} from "@heroicons/react/24/solid/index.js";
+import {EyeIcon} from "@heroicons/react/20/solid";
+import {PencilSquareIcon} from "@heroicons/react/24/solid";
 
 const CustomersRow = ({item}) => {
   return (

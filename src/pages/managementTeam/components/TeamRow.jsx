@@ -1,4 +1,4 @@
-import {TrashIcon} from "@heroicons/react/24/outline/index.js";
+import {TrashIcon} from "@heroicons/react/24/outline";
 import {removeMember} from "../../../redux/team/teamThunk.js";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";

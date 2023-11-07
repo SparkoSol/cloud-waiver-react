@@ -9,10 +9,15 @@
     -moz-appearance: textfield !important;
   }
 }
-
-.clip-polygon {
-  clip-path: polygon(100% 0, 0% 50%, 100% 100%);
+.frmb-control ui-sortable{
+  border: none;
 }
-
+.frmb-control.ui-sortable > *{
+  font-size: 14px;
+  font-weight: 600;
+}
+.form-wrap.form-builder .frmb-control li{
+  box-shadow: none;
+}
 @tailwind components;
 @tailwind utilities;

@@ -28,7 +28,7 @@ const userSlice = createSlice({
       .addCase(login.rejected, (state, {error}) => {
         state.status = 'failed';
         toast.error(error.message)
-      }),
+      })
 
       builder
         .addCase(userProfile.pending, (state) => {
@@ -41,7 +41,7 @@ const userSlice = createSlice({
         .addCase(userProfile.rejected, (state, {error}) => {
           state.status = 'failed';
           toast.error(error.message)
-        }),
+        })
 
       builder
         .addCase(updateProfile.pending, (state) => {

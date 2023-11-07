@@ -1,7 +1,7 @@
 import {Link, useLocation} from "react-router-dom";
 import Input from "../inputs/Input.jsx";
-import {MagnifyingGlassIcon} from "@heroicons/react/24/outline/index.js";
-import {ChevronDownIcon} from "@heroicons/react/20/solid/index.js";
+import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
+import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import {Transition} from "@headlessui/react";
 import {useSelector} from "react-redux";
 import {selectCurrentUser} from "../../redux/user/userSlice.js";

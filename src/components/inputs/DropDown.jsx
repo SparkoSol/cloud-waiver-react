@@ -1,6 +1,8 @@
 import {Menu, Transition} from '@headlessui/react'
 import {Fragment} from 'react'
-import {Cog6ToothIcon} from "@heroicons/react/24/outline/index.js";
+// import { Cog6ToothIcon } from '@heroicons/react/20/outline';
+import { Cog6ToothIcon } from '@heroicons/react/24/outline';
+
 
 export default function DropDown() {
   function handleClick() {

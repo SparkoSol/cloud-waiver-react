@@ -2,7 +2,7 @@ import Heading from "../../components/Heading.jsx";
 import DataTable from "../../components/DataTable.jsx";
 import CustomersRow from "./components/CustomersRow.jsx";
 import Input from "../../components/inputs/Input.jsx";
-import {MagnifyingGlassIcon} from "@heroicons/react/24/outline/index.js";
+import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import {useEffect, useRef, useState} from "react";
 import {useDispatch} from "react-redux";
 import {getAllCustomers} from "../../redux/customers/customerThunk.js";
@@ -21,7 +21,9 @@ const Customer = () => {
   async function fetchAllCustomers() {
     setLoading(true)
     let resp = await dispatch(getAllCustomers());
-    setCustomers(resp.payload)
+    if(resp.payload){
+      setCustomers(resp.payload)
+    }
     setLoading(false)
   }
 

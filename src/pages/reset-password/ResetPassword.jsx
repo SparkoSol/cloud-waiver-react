@@ -5,10 +5,9 @@ import FormLayout from "../../components/Form.jsx";
 import Input from "../../components/inputs/Input.jsx";
 import Button from "../../components/Button.jsx";
 import {useRef} from "react";
-import {LockClosedIcon} from "@heroicons/react/24/outline/index.js";
+import {LockClosedIcon} from "@heroicons/react/24/outline";
 import {resetPassword} from "../../redux/user/userThunk.js";
 import SideBarAdd from "../auth/components/SideBarAdd.jsx";
-import {isValidBody} from "../../utils/generalFunctions.js";
 
 const ResetPassword = () => {
   const {id} = useParams();

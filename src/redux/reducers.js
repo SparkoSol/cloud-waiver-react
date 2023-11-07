@@ -4,6 +4,7 @@ import {encryptTransform} from "redux-persist-transform-encrypt";
 import userSlice from "./user/userSlice.js";
 import customerSlice from "./customers/customerSlice.js";
 import teamSlice from "./team/teamSlice.js";
+import waiverSlice from "./waivers/waiverSlice";
 
 
 const allReducers = persistCombineReducers({
@@ -21,7 +22,8 @@ const allReducers = persistCombineReducers({
 }, {
   user: userSlice,
   customers: customerSlice,
-  teams: teamSlice
+  teams: teamSlice,
+  waivers: waiverSlice
 })
 
 export default allReducers

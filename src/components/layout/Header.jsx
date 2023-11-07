@@ -1,10 +1,10 @@
 import Button from "../Button.jsx";
-import {AdjustmentsVerticalIcon, Bars3Icon} from "@heroicons/react/20/solid/index.js";
+import {AdjustmentsVerticalIcon, Bars3Icon} from "@heroicons/react/20/solid";
 import Input from "../inputs/Input.jsx";
 import PropTypes from 'prop-types';
-import {MagnifyingGlassIcon} from "@heroicons/react/24/solid/index.js";
+import {MagnifyingGlassIcon} from "@heroicons/react/24/solid";
 import {Link} from "react-router-dom";
-import {BellIcon} from "@heroicons/react/24/outline/index.js";
+import {BellIcon} from "@heroicons/react/24/outline";
 import DropDown from "../inputs/DropDown.jsx";
 
 const Header = ({searchRef, setOpen}) => {

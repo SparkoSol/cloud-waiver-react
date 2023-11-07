@@ -4,7 +4,7 @@ import FormLayout from "../../components/Form.jsx";
 import Input from "../../components/inputs/Input.jsx";
 import Button from "../../components/Button.jsx";
 import {Link, useNavigate} from "react-router-dom";
-import {EnvelopeIcon} from "@heroicons/react/24/outline/index.js";
+import {EnvelopeIcon} from "@heroicons/react/24/outline";
 import SideBarAdd from "../auth/components/SideBarAdd.jsx";
 import {forgetPassword} from "../../redux/user/userThunk.js";
 import toast from "react-hot-toast";

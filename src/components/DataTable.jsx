@@ -1,4 +1,6 @@
 import CheckboxInput from "./inputs/CheckboxInput.jsx";
+import {useEffect, useState} from "react";
+import {useLocation} from "react-router-dom";
 
 const DataTable = ({
                      items,
@@ -9,9 +11,11 @@ const DataTable = ({
                      pageSize: PageSize = 10,
                      paginationDetails,
                      setSearchParam,
-                     setSelectAll,
+                     selectAll,
+                     functionCall,
                      emptyMessage = 'Nothing here yet!'
                    }) => {
+  const location = useLocation().pathname;
   return (
     (<>
       <div className={`flex flex-col overflow-x-auto relative sm:rounded-lg py-2 font-mulish`}>
@@ -23,11 +27,11 @@ const DataTable = ({
                 <thead
                   className={`text-sm font-semibold text-gray-600 bg-gray-50 ${colspan !== 1 ? 'border-b border-gray-300' : ''}`}>
                 <tr>
-                  {colspan === 1 && <th
+                  {colspan === 1 && location!=='/kiosk' && <th
                     scope="col"
                     className="py-3 px-4 whitespace-nowrap">
                     <div className="flex items-center max-w-fit">
-                      <CheckboxInput setState={setSelectAll} label='selectAll' extraClasses='hidden'/>
+                      <CheckboxInput checked={selectAll} onChange={(e) => functionCall(e.target.checked)}/>
                     </div>
                   </th>}
                   {headers.map((item, index) => {
@@ -46,9 +50,9 @@ const DataTable = ({
                     key='Actions'
                     colSpan={colspan}
                     scope="col"
-                    className={`py-3 px-4 ${bordered ? 'border border-gray-300' : ''} whitespace-nowrap`}
+                    className={`py-3 text-center px-4 ${bordered ? 'border border-gray-300' : ''} whitespace-nowrap`}
                   >
-                    <div className="flex items-center">
+                    <div className='font-semibold text-sm'>
                       Actions
                     </div>
                   </th>}
@@ -58,7 +62,7 @@ const DataTable = ({
                 <tbody
                   className="divide-y divide-gray-300 sm:divide-transparent bg-white">
                 {items.length > 0 ? items.map((item, index) => (
-                  <TableRow key={item._id} item={item} index={index}/>)) : <tr>
+                  <TableRow key={item._id} functionCall={functionCall} item={item} index={index}/>)) : <tr>
                   <td colSpan={headers.length} className='py-4 pl-4 sm:pl-6 pr-3 text-sm'>{emptyMessage}</td>
                 </tr>}
                 </tbody>

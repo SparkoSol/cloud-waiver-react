@@ -25,6 +25,10 @@ import {selectCurrentUser} from "./redux/user/userSlice.js";
 import {isEmptyObject} from "./utils/generalFunctions.js";
 import SelectDomain from "./pages/selectDomain/SelectDomain.jsx";
 import Kiosk from "./pages/kiosk/Kiosk.jsx";
+import Template from "./pages/template/Template";
+import TemplateContainer from "./pages/template/components/TemplateContainer";
+import FormBuilder from "./pages/template/components/FormBuilder";
+import FormRender from "./pages/template/components/FormRender";
 
 const router = createBrowserRouter([
   {
@@ -119,23 +123,37 @@ const router = createBrowserRouter([
       }
     ]
   },
-  // {
-  //   path: '/template',
-  //   element: (
-  //     <ProtectedRoute>
-  //       <Outlet/>
-  //     </ProtectedRoute>
-  //   ),
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <Template/>
-  //     }
-  //   ]
-  // },
   {
-    path:'/kiosk',
-    element:(
+    path: '/templates',
+    element: (
+      <ProtectedRoute>
+        <Outlet/>
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <Template/>
+      },
+      {
+        path: ':id/builder',
+        element: (
+          <TemplateContainer>
+            <FormBuilder/>
+          </TemplateContainer>
+        )
+      },
+      {
+        path: ':id/render',
+        element: (
+          <FormRender/>
+        )
+      }
+    ]
+  },
+  {
+    path: '/kiosk',
+    element: (
       <ProtectedRoute>
         <Kiosk/>
       </ProtectedRoute>
@@ -187,8 +205,7 @@ function App() {
         router.navigate("/dashboard");
       else if (pathname !== "/dashboard")
         router.navigate(pathname);
-    }
-    else {
+    } else {
       router.navigate("/");
     }
   }, []);
@@ -202,13 +219,3 @@ function App() {
 }
 
 export default App;
-
-// const router = createBrowserRouter(
-//   createRoutesFromElements(
-//     <Route path="/">
-//       <Route index element={<Login/>}/>
-//       <Route path="/dashboard" element={<Home/>}/>
-//       <Route path="/register" element={<Home/>}/>
-//     </Route>
-//   )
-// );

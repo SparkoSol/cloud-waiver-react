@@ -1,8 +1,7 @@
-import { PhotoIcon } from "@heroicons/react/24/outline/index.js";
+import { PhotoIcon } from "@heroicons/react/24/outline";
 import { useRef } from 'react';
 
-const FileInput = ({ label }) => {
-  const fileInputRef = useRef(null);
+const FileInput = ({ label, fileInputRef}) => {
   const imagePreviewRef = useRef(null);
 
   function handleImageUpload() {

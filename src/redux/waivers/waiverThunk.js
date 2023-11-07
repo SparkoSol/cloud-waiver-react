@@ -1,13 +1,11 @@
-import {postRequest} from "../cwAPI.js";
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import toast from "react-hot-toast";
+import {getRequest} from "../cwAPI";
 
-export const createWaiver = createAsyncThunk('/waivers/createWaiver', async (payload, thunkAPI) => {
+export const getSingleWaiver = createAsyncThunk('/waivers/getSingleWaiver', async (payload, thunkAPI) => {
   try {
-    const {data} = await postRequest(`/waivers`, {name: payload});
+    const {data} = await getRequest(`/waivers/${payload}`)
     return data
   } catch (e) {
-    toast.error(e.response.data.message);
-    throw(e.response.data.message);
+    thunkAPI.dispatch(getSingleWaiver.rejected(e.response.data.message));
   }
-})
+});

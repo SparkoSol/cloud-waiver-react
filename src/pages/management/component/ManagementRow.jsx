@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
-import {EyeIcon} from "@heroicons/react/20/solid/index.js";
-import {UsersIcon} from "@heroicons/react/24/outline/index.js";
+import {EyeIcon} from "@heroicons/react/20/solid";
+import {UsersIcon} from "@heroicons/react/24/outline";
 
 const ManagementRow = ({item}) => {
   return (

@@ -1,20 +1,22 @@
-import {MagnifyingGlassIcon} from "@heroicons/react/24/outline/index.js";
+import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import Card from "./components/Card.jsx";
 import {useEffect, useRef, useState} from "react";
 import {dashboardData, DashBoardHeaders, generateMonths, generateYears} from "../../utils/generalFunctions.js";
 import SelectInput from "../../components/inputs/SelectInput.jsx";
 import Input from "../../components/inputs/Input.jsx";
 import DataTable from "../../components/DataTable.jsx";
-import {FolderIcon} from "@heroicons/react/20/solid/index.js";
+import {FolderIcon} from "@heroicons/react/20/solid";
 import DashboardRow from "./components/DashboardRow.jsx";
 import Button from "../../components/Button.jsx";
-import clipboardIcon from "@heroicons/react/20/solid/esm/ClipboardIcon.js";
+import { ClipboardIcon } from "@heroicons/react/24/solid";
 import Modal from "../../components/modals/Modal.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {createWaiver} from "../../redux/waivers/waiverThunk.js";
 import Spinner from "../../components/Spinner.jsx";
 import {selectCurrentUser, selectMember} from "../../redux/user/userSlice.js";
 import {getMembers} from "../../redux/user/userThunk.js";
+import {useNavigate} from "react-router-dom";
+import {postRequest} from "../../redux/cwAPI";
+import toast from "react-hot-toast";
 
 const data = [
   {
@@ -34,6 +36,7 @@ const Dashboard = () => {
   const currentMember = useSelector(selectMember);
   const dispatch = useDispatch();
   const searchRef = useRef();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
   const [template, setTemplate] = useState('Template');
   const [month, setMonth] = useState('Month');
@@ -51,11 +54,13 @@ const Dashboard = () => {
     options: generateYears(2005), state: year, setState: setYear
   }]
 
-  async function handleSubmit(data) {
+  async function handleSubmit(name) {
     setLoading(true);
     setOpenModal(false)
-    await dispatch(createWaiver(data)).unwrap();
-    setLoading(false)
+    postRequest(`/waivers`, {name})
+      .then(r=>navigate(`/templates/${r.data._id}/builder`))
+      .catch(e=>toast.error(e.response.data.message))
+      .finally(()=>setLoading(false))
   }
 
   useEffect(() => {
@@ -81,7 +86,7 @@ const Dashboard = () => {
       <div>
         <div className='flex justify-between'>
           <h1 className='text-xl font-semibold my-5'>Recent waiver</h1>
-          <Button BtnIcon={clipboardIcon}
+          <Button BtnIcon={ClipboardIcon}
                   btnText='Create waivers'
                   onClick={() => setOpenModal(true)}
                   btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
