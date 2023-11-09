@@ -52,19 +52,6 @@ const Kiosk = () => {
       .finally(() => setLoading(false))
   }
 
-  function selectRows(str) {
-    if (typeof str === "boolean") {
-      setKioskData(kioskData.map(item => ({...item, checked: str})));
-      setSelectAll(str)
-    } else {
-      let newKioskData = [...kioskData];
-      newKioskData[str] = {...newKioskData[str], checked: !newKioskData[str].checked};
-      let isAnySelected = newKioskData.some(item => item.checked)
-      if (!isAnySelected) setSelectAll(false);
-      setKioskData(newKioskData)
-    }
-  }
-
   return (
     <section>
       {loading && <Spinner/>}
@@ -75,8 +62,10 @@ const Kiosk = () => {
         <Input inputRef={descriptionRef} inputClasses='pl-2.5' label='Kiosk Description'
                placeholder='Kiosk Description'/>
         <FileInput label='Kiosk Logo' fileInputRef={fileInputRef}/>
-        <DataTable TableRow={KioskRow} headers={['Id', 'Template Name']} items={kioskData} functionCall={selectRows}
-                   selectAll={selectAll}/>
+        <DataTable TableRow={KioskRow} headers={['Id', 'Template Name']}
+                   items={kioskData}
+                   setState={setKioskData}
+                   setSelectAll={setSelectAll} selectAll={selectAll}/>
         <div className='flex items-center gap-2 justify-end'>
           <Button btnText='Cancel' type='button' btnClasses='border border-gray-400 py-2 text-gray-900'
                   fullWidth='w-fit'/>

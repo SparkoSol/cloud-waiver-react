@@ -6,26 +6,26 @@ import Spinner from "../../components/Spinner";
 import Modal from "../../components/modals/Modal";
 import {getRequest} from "../../redux/cwAPI";
 import TemplateRow from "./components/TemplateRow";
+import {addCheck} from "../../utils/generalFunctions";
+import toast from "react-hot-toast";
 
 function Template() {
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [allWaivers, setAllWaivers] = useState([]);
+  const [allTemplates, setAllTemplates] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    fetchWaivers().finally(() => setLoading(false))
+    getRequest('/waivers')
+      .then(r => setAllTemplates(addCheck(r.data)))
+      .catch(e => toast.error(e.response.data.message))
+      .finally(() => setLoading(false));
   }, []);
 
 
   function handleSubmit(item) {
     console.log(item)
-  }
-
-  async function fetchWaivers() {
-    const {data} = await getRequest('/waivers');
-    setAllWaivers(data)
-    return data
   }
 
   return (
@@ -41,9 +41,10 @@ function Template() {
                   iconClasses='w-4 h-4 text-white inline-block ml-2'/>
         </div>
         <div>
-          {allWaivers.length > 0 ?
-            <DataTable headers={[
-              'Name', 'Total Waivers', 'Status']} TableRow={TemplateRow} items={allWaivers}
+          {allTemplates.length > 0 ?
+            <DataTable selectAll={selectAll} setSelectAll={setSelectAll}
+                       headers={['Name', 'Total Waivers', 'Status']} TableRow={TemplateRow} items={allTemplates}
+                       setState={setAllTemplates}
             /> : <div className='text-center mt-4'>
               <FolderIcon className='w-40 h-40 text-gray-400 mx-auto'/>
               <span className='text-gray-500 mb-10 text-base'>No Waivers Found. Get started by creating a waiver</span>

@@ -19,5 +19,12 @@
 .form-wrap.form-builder .frmb-control li{
   box-shadow: none;
 }
+li[type="additionalParticipants"] .field-label,
+li[type="additionalMinors"] .field-label,
+li[type="richTextEditor"] .field-label,
+.formbuilder-address-label,
+li[type="address"] .field-label{
+  display: none;
+}
 @tailwind components;
 @tailwind utilities;

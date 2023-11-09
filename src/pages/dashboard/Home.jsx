@@ -1,21 +1,27 @@
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import Card from "./components/Card.jsx";
 import {useEffect, useRef, useState} from "react";
-import {dashboardData, DashBoardHeaders, generateMonths, generateYears} from "../../utils/generalFunctions.js";
+import {
+  addCheck,
+  dashboardData,
+  DashBoardHeaders,
+  generateMonths,
+  generateYears
+} from "../../utils/generalFunctions.js";
 import SelectInput from "../../components/inputs/SelectInput.jsx";
 import Input from "../../components/inputs/Input.jsx";
 import DataTable from "../../components/DataTable.jsx";
 import {FolderIcon} from "@heroicons/react/20/solid";
 import DashboardRow from "./components/DashboardRow.jsx";
 import Button from "../../components/Button.jsx";
-import { ClipboardIcon } from "@heroicons/react/24/solid";
+import {ClipboardIcon} from "@heroicons/react/24/solid";
 import Modal from "../../components/modals/Modal.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/Spinner.jsx";
 import {selectCurrentUser, selectMember} from "../../redux/user/userSlice.js";
 import {getMembers} from "../../redux/user/userThunk.js";
 import {useNavigate} from "react-router-dom";
-import {postRequest} from "../../redux/cwAPI";
+import {getRequest, postRequest} from "../../redux/cwAPI";
 import toast from "react-hot-toast";
 
 const data = [
@@ -43,6 +49,8 @@ const Dashboard = () => {
   const [year, setYear] = useState('Year');
   const [status, setStatus] = useState('Status');
   const [openModal, setOpenModal] = useState(false);
+  const [allWaivers, setAllWaivers] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
 
   const selectData = [{
     options: ['Submitted', 'Approved', 'Declined', 'Pending', 'Status'], state: status, setState: setStatus
@@ -58,9 +66,9 @@ const Dashboard = () => {
     setLoading(true);
     setOpenModal(false)
     postRequest(`/waivers`, {name})
-      .then(r=>navigate(`/templates/${r.data._id}/builder`))
-      .catch(e=>toast.error(e.response.data.message))
-      .finally(()=>setLoading(false))
+      .then(r => navigate(`/templates/${r.data._id}/builder`))
+      .catch(e => toast.error(e.response.data.message))
+      .finally(() => setLoading(false))
   }
 
   useEffect(() => {
@@ -69,6 +77,13 @@ const Dashboard = () => {
     }
   }, [currentUser]);
 
+  useEffect(() => {
+    setLoading(true)
+    getRequest('/waivers')
+      .then(r => setAllWaivers(addCheck(r.data)))
+      .catch(e => toast.error(e.response.data.message))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div>
@@ -101,8 +116,9 @@ const Dashboard = () => {
           })}
         </div>
         <div>
-          {dashboardData.length > 0 ?
-            <DataTable headers={DashBoardHeaders} TableRow={DashboardRow} items={dashboardData}
+          {allWaivers.length > 0 ?
+            <DataTable headers={DashBoardHeaders} TableRow={DashboardRow} items={allWaivers}
+                       setState={setAllWaivers} selectAll={selectAll} setSelectAll={setSelectAll}
             /> : <div className='text-center mt-4'>
               <FolderIcon className='w-40 h-40 text-gray-400 mx-auto'/>
               <span className='text-gray-500 mb-10 text-base'>No Waivers Found. Get started by creating a waiver</span>

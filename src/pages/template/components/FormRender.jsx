@@ -1,12 +1,15 @@
 import $ from "jquery"; //Load jquery
-import React, {createRef, useEffect, useState} from "react"; //For react component
-import {options} from "../../../utils/generalFunctions";
+import React, {createRef, useEffect, useRef, useState} from "react"; //For react component
+import {options, today} from "../../../utils/generalFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {selectSingleWaiver} from "../../../redux/waivers/waiverSlice";
 import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
 import {useParams} from "react-router-dom";
 import Button from "../../../components/Button";
 import tinymce from "tinymce";
+import Spinner from "../../../components/Spinner";
+import {postRequest} from "../../../redux/cwAPI";
+import {selectCurrentUser} from "../../../redux/user/userSlice";
 
 window.jQuery = $; //JQuery alias
 window.$ = $; //JQuery alias
@@ -15,16 +18,17 @@ require("jquery-ui-sortable"); //For FormBuilder Element Drag and Drop
 require("formBuilder/dist/form-render.min.js")
 
 const FormRender = () => {
+  const {domain} = useSelector(selectCurrentUser);
   const {id} = useParams();
   const dispatch = useDispatch();
   const waiver = useSelector(selectSingleWaiver);
   const [loading, setLoading] = useState(false);
   const fb = createRef();
-  let formRender;
+  const refNo = useRef();
 
   useEffect(() => {
     if (waiver) {
-      formRender = $(fb.current).formRender({
+      $(fb.current).formRender({
         formData: JSON.stringify(waiver?.form_data), ...options
       });
     }
@@ -36,17 +40,35 @@ const FormRender = () => {
       .finally(() => setLoading(false))
   }, []);
 
-  const saveData = (event) => {
+  const saveData = async(event) => {
     const htmlArr = $(fb.current).formRender("userData");
     const signatureElement = $('.js-signature');
+    let hasEmail;
+    let tracker = {
+      signatureCount: 0,
+      primaryAdultParticipantCount: 0,
+      addressCount: 0,
+      additionalParticipantsCount: 0,
+      additionalMinorsCount: 0,
+      capturePhotoCount: 0,
+      electronicSignatureConsentCount: 0,
+      richTextEditorCount: 0
+    }
     for (let item of htmlArr) {
+      console.log(item.type)
       switch (item.type) {
         case 'signature':
-          item.userData = signatureElement.jqSignature('getDataURL');
+          let signNode = document.querySelectorAll('.main');
+          signNode = signNode[tracker.signatureCount];
+          item.userData = $(signNode).jqSignature('getDataURL');
+          tracker.signatureCount += 1;
           break;
         case 'primaryAdultParticipant':
         case 'address':
-          const formElements = document.getElementById(`${item.type === 'primaryAdultParticipant' ? 'myForm' : 'address'}`).elements;
+          let signatureComponent = document.querySelectorAll('.adult');
+          signatureComponent = signatureComponent[tracker.primaryAdultParticipantCount];
+          let formElements = document.querySelectorAll(`${item.type === 'primaryAdultParticipant' ? '#myForm' : '#address'}`);
+          formElements = formElements[item.type === 'primaryAdultParticipant' ? tracker.primaryAdultParticipantCount : tracker.addressCount]
           const formData = {};
           for (const element of formElements) {
             if (element.name !== "") { //TODO Remove the if block
@@ -54,20 +76,22 @@ const FormRender = () => {
             }
           }
           item.userData = formData;
-          if (signatureElement.length > 0) {
+          if (signatureComponent.length > 0) {
             item.userData = {
               ...formData,
               signature: signatureElement.jqSignature('getDataURL')
             };
           }
+          tracker[`${item.type === 'primaryAdultParticipant' ? 'primaryAdultParticipantCount' : 'addressCount'}`] += 1;
           break;
         case 'additionalParticipants':
         case 'additionalMinors':
+          let signature = document.querySelectorAll(`${item.type === 'additionalParticipants' ? '.participant-div-1 .js-signature' : '.minor-div-1 .js-signature'}`);
+          signature = item.type === 'additionalParticipants' ? signature[tracker.additionalParticipantsCount] : [];
           let finalArr = [];
           let allForms;
           if (item.type === 'additionalParticipants') allForms = document.querySelectorAll(".participants > form");
           else allForms = document.querySelectorAll(".minors > form");
-          console.log(item.type, allForms)
           for (let item of allForms) {
             let temp = {};
             for (const element of item.elements) {
@@ -75,22 +99,28 @@ const FormRender = () => {
                 temp[element.name] = element.value;
               }
             }
-            if (signatureElement.length > 0) {
+            if (signature.length > 0) {
               temp = {
                 ...temp,
-                signature: signatureElement.jqSignature('getDataURL')
+                signature: signature.jqSignature('getDataURL')
               };
             }
             finalArr.push(temp)
           }
           item.userData = finalArr;
+          tracker[`${item.type === 'additionalParticipants' ? 'additionalParticipantsCount' : 'additionalMinorsCount'}`] += 1;
           break
         case 'capturePhoto':
-          item.userData = document.querySelector('#files').files[0];
+          let node = document.querySelectorAll('#files');
+          node = node[tracker.capturePhotoCount].files[0];
+          item.userData = node
+          tracker.capturePhotoCount += 1;
           break;
         case 'electronicSignatureConsent':
-          const checkbox = document.querySelector('#electronicSign').checked;
+          let checkbox = document.querySelectorAll('#electronicSign');
+          checkbox = checkbox[tracker.electronicSignatureConsentCount].checked;
           item.userData = [checkbox]
+          tracker.electronicSignatureConsentCount += 1;
           break
         case 'richTextEditor':
           tinymce.init({
@@ -98,23 +128,41 @@ const FormRender = () => {
             promotion: false
           });
           const richEditor = tinymce.get('tinymce');
-          item.userData = richEditor.getContent()
+          item.userData = richEditor.getContent();
+          tracker.electronicSignatureConsentCount += 1;
+          break
+        case 'text':
+          if(item.subtype === 'email'){
+            hasEmail = true;
+          }
           break
         default:
           break
       }
     }
-    console.log(htmlArr);
+
+    if(hasEmail){
+      
+    }
+
+    // await postRequest('/submissions', {
+    //   reference_no: refNo.current.innerText,
+    //   status: 'submitted',
+    //   customer: '',
+    //   waiver: id,
+    //   data: htmlArr
+    // });
   }
 
-
   return (
-    <div>
+    <div className='max-w-2xl mx-auto my-6'>
+      <p className='text-sm my-6'>Refrence No : <span ref={refNo}>{`${domain.toUpperCase()}.${today()}.${Math.floor(Math.random() * 1000000)}`}</span></p>
       <form ref={fb}></form>
       {waiver?.form_data.length > 0 &&
         <Button btnText='Submit Data' onClick={saveData}
                 btnClasses='bg-btnBg' fullWidth='w-fit mx-auto'/>
       }
+      {loading && <Spinner/>}
     </div>
   )
 }

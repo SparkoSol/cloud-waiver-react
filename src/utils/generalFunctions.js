@@ -67,6 +67,18 @@ export const addCheck = (arr) => {
   return arr.map(item => ({...item, checked: false}));
 }
 
+export function limitChars(str, number) {
+  return str.slice(0, number) + '...';
+}
+
+export function today() {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+  const day = currentDate.getDate().toString().padStart(2, '0');
+  return `${year}${month}${day}`
+}
+
 //custom component logics
 class SignatureControls extends Control {
   constructor() {
@@ -105,8 +117,6 @@ class SignatureControls extends Control {
   }
 
   onRender(event) {
-    this.config = $('.js-signature').jqSignature('getDataURL');
-    return this.config;
   }
 }
 
@@ -123,11 +133,6 @@ export const dashboardData = [{
   templateName: 'Lorem',
   status: 'Submitted'
 }]
-
-export function limitChars(str, number) {
-  return str.slice(0, number) + '...';
-}
-
 export const sideBarOptions = [
   {
     id: 1,
@@ -364,7 +369,7 @@ const templates = {
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5257 0.237081C16.835 0.442777 16.1908 0.95511 15.8837 1.54293C15.4656 2.343 9.06524 15.5794 9.025 15.7272C8.96802 15.9365 9.08443 19.371 9.15661 19.6086C9.18228 19.6932 9.25289 19.8355 9.31351 19.9248L9.42372 20.0872L9.24937 20.4388C9.15347 20.6321 9.07502 20.83 9.07502 20.8786C9.07502 21.1367 9.35701 21.4246 9.60951 21.4243C9.8327 21.424 9.99239 21.282 10.1726 20.9236L10.3405 20.5897L10.573 20.5657C10.7008 20.5525 10.8926 20.5031 10.9992 20.456C11.3238 20.3124 13.9805 18.3386 14.113 18.1426C14.1763 18.0489 15.5215 15.3074 17.1022 12.0504C18.683 8.7934 19.9899 6.12012 20.0067 6.10979C20.0317 6.09428 20.3343 6.19921 20.3761 6.23792C20.3829 6.24423 19.8055 7.45041 19.0929 8.91832C18.3803 10.3863 17.7865 11.6533 17.7735 11.7339C17.7286 12.0105 17.9943 12.3167 18.2796 12.3171C18.4339 12.3173 18.6189 12.22 18.7002 12.0958C18.7358 12.0415 19.5678 10.3437 20.5492 8.32296C21.6998 5.95357 22.3334 4.60316 22.3334 4.52035C22.3334 4.23209 22.1037 4.00331 21.8144 4.00331C21.5566 4.00331 21.4491 4.11594 21.1474 4.70207C20.9959 4.99621 20.8596 5.24918 20.8444 5.26421C20.8292 5.27925 20.7399 5.25235 20.646 5.20445L20.4752 5.11736L20.7735 4.49256C21.1491 3.70578 21.2521 3.32171 21.2194 2.82916C21.1434 1.68538 20.3304 0.678717 19.1777 0.301213C18.7239 0.152617 17.9147 0.121187 17.5257 0.237081ZM19.1315 1.42419C19.5539 1.63349 19.8229 1.90489 20.0202 2.32051C20.1359 2.56429 20.1509 2.63952 20.1514 2.97708L20.1519 3.35831L19.5589 4.5827C19.2327 5.25612 18.8324 6.07912 18.6694 6.41159L18.3728 7.0161L16.7632 6.23436C15.8779 5.80442 15.1568 5.43873 15.1608 5.42175C15.1921 5.28666 16.8568 1.92725 16.9493 1.8122C17.1116 1.61053 17.4117 1.40098 17.6823 1.30038C17.8656 1.23218 17.9866 1.21968 18.341 1.23227C18.7506 1.24675 18.7952 1.2576 19.1315 1.42419ZM17.2971 7.66962L17.9157 7.97545L15.6398 12.6561L13.364 17.3368L13.1998 17.3254C12.5765 17.2822 11.5801 16.9039 10.9336 16.4649C10.7917 16.3685 10.5526 16.1727 10.4023 16.0296L10.129 15.7695L12.4035 11.0832L14.678 6.39685L15.6783 6.88034C16.2284 7.14627 16.9569 7.50145 17.2971 7.66962ZM0.963262 6.57349C0.74418 6.67015 0.666748 6.79338 0.666748 7.0452C0.666748 7.23603 0.685555 7.29059 0.788276 7.3978C0.931619 7.54745 0.948055 7.5516 2.38229 7.80356C3.58292 8.01446 4.1033 8.13891 4.65663 8.34753C5.48433 8.65963 6.12624 9.16659 6.38387 9.71171C6.55089 10.0651 6.58181 10.2194 6.58003 10.6916C6.57677 11.5684 6.22485 12.4517 4.94514 14.7953C3.69424 17.0859 3.30377 17.9601 3.1204 18.8802C2.86307 20.1713 3.44504 21.0201 4.81794 21.3561C5.26826 21.4663 5.81355 21.5089 6.77378 21.509L7.71305 21.5092L7.84055 21.4019C8.10415 21.18 8.10415 20.8217 7.84055 20.5999C7.71775 20.4965 7.69158 20.4926 7.13383 20.4922C6.36985 20.4917 5.45684 20.4238 5.07938 20.3394C4.68789 20.2519 4.3123 20.054 4.20343 19.8779C4.01604 19.5747 4.14655 18.803 4.54006 17.8875C4.77643 17.3375 5.06587 16.7742 5.88928 15.2612C6.86646 13.4657 7.26934 12.5833 7.49448 11.7454C7.59504 11.3711 7.60847 11.2429 7.60999 10.6441C7.61156 10.0082 7.60436 9.9454 7.49304 9.62788C7.3339 9.17375 7.12765 8.8461 6.75658 8.45767C6.14581 7.81838 5.35929 7.40813 4.11901 7.08184C3.79306 6.99611 1.2139 6.5097 1.11707 6.51571C1.10237 6.51665 1.03315 6.54261 0.963262 6.57349ZM10.4305 17.3912C10.794 17.6388 11.5563 18.0045 11.9656 18.1277C12.1459 18.182 12.2889 18.2391 12.2833 18.2548C12.2777 18.2704 11.9036 18.5532 11.4519 18.8832C10.5767 19.5226 10.4401 19.587 10.2633 19.4439C10.1686 19.3672 10.1593 19.3224 10.1291 18.7939C10.0703 17.7676 10.0634 17.15 10.111 17.1778C10.1353 17.192 10.2791 17.2881 10.4305 17.3912Z" fill="#9CA3AF"></path></svg>
           &nbsp;&nbsp;Click to sign</h5>
         </div>
-        <div class="js-signature"></div>
+        <div class="js-signature main"></div>
         </div>
       `);
         $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid transparent'});
@@ -375,6 +380,7 @@ const templates = {
     return {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
+        console.log(fieldData)
         element.append('<form id="address" class="space-y-4 ">' + '  <div class="flex flex-col items-start space-y-1">' + '    <label for="address">Address-1</label>' + '    <input type="text" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" value="" name="address" placeholder="Address" />' + '  </div>' + '  <div>' + '    <label for="address_2">Address 2</label>' + '    <input type="text" name="address_2" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Address 2 (Suite, optional)" />' + '  </div>' + '  <div class="w-full lg:flex items-center justify-between lg:space-x-4 space-y-4">' + '    <div class="w-full lg:w-1/2">' + '      <label for="city">City</label>' + '      <input type="text" name="city" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="City" />' + '    </div>' + '    <div class="w-full lg:w-1/2">' + '      <label for="state">Province / State</label>' + '      <input type="text" name="state" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Province / State" />' + '    </div>' + '  </div>' + '  <div class="w-full lg:flex items-center justify-between lg:space-x-4 space-y-4">' + '    <div class="w-full lg:w-1/2">' + '      <label for="country">Country</label>' + '      <input type="text" name="country" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Country" />' + '    </div>' + '    <div class="w-full lg:w-1/2">' + '      <label for="zip_code">Zip code</label>' + '      <input type="text" name="zip_code" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Zip code" />' + '    </div>' + '  </div>' + '</form>');
       }
     };
@@ -476,18 +482,19 @@ export let options = {
   templates,
   disableFields: ['autocomplete', 'textarea', 'button'],
   stickyControls: true,
-  controlPosition: 'left',
+  controlPosition: 'right',
   inputSets
 };
-export const formData = [
+export const staticForm = [
   {
-    type: "electronicSignatureConsent",
-    required: false,
-    label: "Electronic Consent Signature",
-    name: "electronicSignatureConsent-1699273224632-0",
-    access: false,
+    type: 'text',
+    label: 'Email',
+    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    subtype: 'email',
+    required: true,
+    placeholder: 'Email'
   }
-];
+]
 export const tabsData = [
   {name: 'Overview', id: 1, url: ''},
   {name: 'Submissions', id: 2, url: 'submissions'},
@@ -528,7 +535,7 @@ var additionParticipantForm = `
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5257 0.237081C16.835 0.442777 16.1908 0.95511 15.8837 1.54293C15.4656 2.343 9.06524 15.5794 9.025 15.7272C8.96802 15.9365 9.08443 19.371 9.15661 19.6086C9.18228 19.6932 9.25289 19.8355 9.31351 19.9248L9.42372 20.0872L9.24937 20.4388C9.15347 20.6321 9.07502 20.83 9.07502 20.8786C9.07502 21.1367 9.35701 21.4246 9.60951 21.4243C9.8327 21.424 9.99239 21.282 10.1726 20.9236L10.3405 20.5897L10.573 20.5657C10.7008 20.5525 10.8926 20.5031 10.9992 20.456C11.3238 20.3124 13.9805 18.3386 14.113 18.1426C14.1763 18.0489 15.5215 15.3074 17.1022 12.0504C18.683 8.7934 19.9899 6.12012 20.0067 6.10979C20.0317 6.09428 20.3343 6.19921 20.3761 6.23792C20.3829 6.24423 19.8055 7.45041 19.0929 8.91832C18.3803 10.3863 17.7865 11.6533 17.7735 11.7339C17.7286 12.0105 17.9943 12.3167 18.2796 12.3171C18.4339 12.3173 18.6189 12.22 18.7002 12.0958C18.7358 12.0415 19.5678 10.3437 20.5492 8.32296C21.6998 5.95357 22.3334 4.60316 22.3334 4.52035C22.3334 4.23209 22.1037 4.00331 21.8144 4.00331C21.5566 4.00331 21.4491 4.11594 21.1474 4.70207C20.9959 4.99621 20.8596 5.24918 20.8444 5.26421C20.8292 5.27925 20.7399 5.25235 20.646 5.20445L20.4752 5.11736L20.7735 4.49256C21.1491 3.70578 21.2521 3.32171 21.2194 2.82916C21.1434 1.68538 20.3304 0.678717 19.1777 0.301213C18.7239 0.152617 17.9147 0.121187 17.5257 0.237081ZM19.1315 1.42419C19.5539 1.63349 19.8229 1.90489 20.0202 2.32051C20.1359 2.56429 20.1509 2.63952 20.1514 2.97708L20.1519 3.35831L19.5589 4.5827C19.2327 5.25612 18.8324 6.07912 18.6694 6.41159L18.3728 7.0161L16.7632 6.23436C15.8779 5.80442 15.1568 5.43873 15.1608 5.42175C15.1921 5.28666 16.8568 1.92725 16.9493 1.8122C17.1116 1.61053 17.4117 1.40098 17.6823 1.30038C17.8656 1.23218 17.9866 1.21968 18.341 1.23227C18.7506 1.24675 18.7952 1.2576 19.1315 1.42419ZM17.2971 7.66962L17.9157 7.97545L15.6398 12.6561L13.364 17.3368L13.1998 17.3254C12.5765 17.2822 11.5801 16.9039 10.9336 16.4649C10.7917 16.3685 10.5526 16.1727 10.4023 16.0296L10.129 15.7695L12.4035 11.0832L14.678 6.39685L15.6783 6.88034C16.2284 7.14627 16.9569 7.50145 17.2971 7.66962ZM0.963262 6.57349C0.74418 6.67015 0.666748 6.79338 0.666748 7.0452C0.666748 7.23603 0.685555 7.29059 0.788276 7.3978C0.931619 7.54745 0.948055 7.5516 2.38229 7.80356C3.58292 8.01446 4.1033 8.13891 4.65663 8.34753C5.48433 8.65963 6.12624 9.16659 6.38387 9.71171C6.55089 10.0651 6.58181 10.2194 6.58003 10.6916C6.57677 11.5684 6.22485 12.4517 4.94514 14.7953C3.69424 17.0859 3.30377 17.9601 3.1204 18.8802C2.86307 20.1713 3.44504 21.0201 4.81794 21.3561C5.26826 21.4663 5.81355 21.5089 6.77378 21.509L7.71305 21.5092L7.84055 21.4019C8.10415 21.18 8.10415 20.8217 7.84055 20.5999C7.71775 20.4965 7.69158 20.4926 7.13383 20.4922C6.36985 20.4917 5.45684 20.4238 5.07938 20.3394C4.68789 20.2519 4.3123 20.054 4.20343 19.8779C4.01604 19.5747 4.14655 18.803 4.54006 17.8875C4.77643 17.3375 5.06587 16.7742 5.88928 15.2612C6.86646 13.4657 7.26934 12.5833 7.49448 11.7454C7.59504 11.3711 7.60847 11.2429 7.60999 10.6441C7.61156 10.0082 7.60436 9.9454 7.49304 9.62788C7.3339 9.17375 7.12765 8.8461 6.75658 8.45767C6.14581 7.81838 5.35929 7.40813 4.11901 7.08184C3.79306 6.99611 1.2139 6.5097 1.11707 6.51571C1.10237 6.51665 1.03315 6.54261 0.963262 6.57349ZM10.4305 17.3912C10.794 17.6388 11.5563 18.0045 11.9656 18.1277C12.1459 18.182 12.2889 18.2391 12.2833 18.2548C12.2777 18.2704 11.9036 18.5532 11.4519 18.8832C10.5767 19.5226 10.4401 19.587 10.2633 19.4439C10.1686 19.3672 10.1593 19.3224 10.1291 18.7939C10.0703 17.7676 10.0634 17.15 10.111 17.1778C10.1353 17.192 10.2791 17.2881 10.4305 17.3912Z" fill="#9CA3AF"></path></svg>
           &nbsp;&nbsp;Click to sign</h5>
         </div>
-        <div class="js-signature"></div>
+        <div class="js-signature adult"></div>
         </div>
         </form>`
 
@@ -572,7 +579,11 @@ function commonPayload(form, newDiv, fieldData) {
           </div>`);
       }
       element.append(newDiv);
-      $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid transparent'});
+      $('.js-signature').jqSignature({
+        autoFit: true,
+        height: 200,
+        border: '1px solid transparent',
+      });
       element.find('.delete-button').each(function () {
         $(this).on('click', function () {
           const index = $(this).data('index');
@@ -591,5 +602,10 @@ function commonPayload(form, newDiv, fieldData) {
   });
 }
 
+export const formatDate = (date) => {
+  const originalDate = new Date(date);
+  const options = {year: 'numeric', month: 'short', day: '2-digit'};
+  return originalDate.toLocaleDateString('en-US', options)
+}
 //TODO : RICH EDITOR NEEDS MODIFICATIONS
 //TODO : When two address form a re there i takes data from first form only

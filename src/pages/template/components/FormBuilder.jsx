@@ -1,6 +1,6 @@
 import $ from "jquery";
 import React, {createRef, useEffect, useState} from "react";
-import {options} from "../../../utils/generalFunctions";
+import {options, staticForm} from "../../../utils/generalFunctions";
 import Button from "../../../components/Button";
 import {TrashIcon} from "@heroicons/react/24/outline";
 import {patchRequest} from "../../../redux/cwAPI";
@@ -28,25 +28,27 @@ const FormBuilder = () => {
   useEffect(() => {
     if (!FormBuilder?.formData && waiver) {
       setFormBuilder($(fb.current).formBuilder({
-        // disabledActionButtons: ['data', 'clear', 'save'],
-        formData: waiver?.form_data || [], ...options,
+        disabledActionButtons: ['data', 'clear', 'save'],
+        formData: waiver?.form_data || staticForm, ...options,
         controlOrder: ['primaryAdultParticipant', 'editable', 'additionalParticipants', 'additionalMinors', 'signature', 'address', 'richTextEditor', 'fileUpload', 'electronicSignatureConsent', 'capturePhoto']
       }))
     }
   }, [waiver]);
 
-  async function saveData() {
+  function saveData() {
     setLoading(true);
     if (FormBuilder.formData) {
-      const {data} = await patchRequest(`/waivers/${id}`, {form_data: JSON.parse(FormBuilder.formData)});
-      toast.success('Saved Successfully')
+      patchRequest(`/waivers/${id}`, {form_data: JSON.parse(FormBuilder.formData)})
+        .then(r => toast.success('Saved Successfully'))
+        .catch(e => toast.error(e.response.data.message))
+        .finally(() => setLoading(false));
     }
-    setLoading(false);
   }
 
   return (<div>
     <div className='flex pb-5 justify-between items-center'>
-      <Button btnText='Discard' btnClasses='text-red-500 bg-red-100 px-6' fullWidth='w-fit' onClick={()=>setOpenModal(true)}
+      <Button btnText='Discard' btnClasses='text-red-500 bg-red-100 px-6' fullWidth='w-fit'
+              onClick={() => setOpenModal(true)}
               BtnIcon={TrashIcon} iconClasses='text-red-500'/>
       <div className='flex gap-3 items-center'>
         <span
@@ -58,13 +60,16 @@ const FormBuilder = () => {
       </div>
     </div>
     <div ref={fb}/>
-    {loading && <Spinner/>}
     <Modal open={openModal}
            setOpen={setOpenModal}
            btnText='Confirm'
-           functionCall={()=>FormBuilder.actions.clearFields()}
+           functionCall={() => {
+             FormBuilder.actions.clearFields();
+             FormBuilder.actions.addField(...staticForm)
+           }}
            description='This cannot be undone!'
            title='Are you sure?'/>
+    {loading && <Spinner/>}
   </div>)
 }
 
