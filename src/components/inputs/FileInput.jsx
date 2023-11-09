@@ -34,7 +34,6 @@ const FileInput = ({ label, fileInputRef}) => {
           </label>
         </div>
         <div className='border border-gray-300 w-28 h-28' ref={imagePreviewRef}>
-
         </div>
       </div>
     </div>

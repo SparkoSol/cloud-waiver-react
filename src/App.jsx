@@ -29,6 +29,7 @@ import Template from "./pages/template/Template";
 import TemplateContainer from "./pages/template/components/TemplateContainer";
 import FormBuilder from "./pages/template/components/FormBuilder";
 import FormRender from "./pages/template/components/FormRender";
+import tinymce from "tinymce";
 
 const router = createBrowserRouter([
   {

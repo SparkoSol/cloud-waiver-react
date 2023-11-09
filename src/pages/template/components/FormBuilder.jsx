@@ -1,6 +1,6 @@
 import $ from "jquery";
 import React, {createRef, useEffect, useState} from "react";
-import {inputSets, options} from "../../../utils/generalFunctions";
+import {options} from "../../../utils/generalFunctions";
 import Button from "../../../components/Button";
 import {TrashIcon} from "@heroicons/react/24/outline";
 import {patchRequest} from "../../../redux/cwAPI";
@@ -28,9 +28,8 @@ const FormBuilder = () => {
   useEffect(() => {
     if (!FormBuilder?.formData && waiver) {
       setFormBuilder($(fb.current).formBuilder({
-        disabledActionButtons: ['data', 'clear', 'save'],
+        // disabledActionButtons: ['data', 'clear', 'save'],
         formData: waiver?.form_data || [], ...options,
-        inputSets,
         controlOrder: ['primaryAdultParticipant', 'editable', 'additionalParticipants', 'additionalMinors', 'signature', 'address', 'richTextEditor', 'fileUpload', 'electronicSignatureConsent', 'capturePhoto']
       }))
     }
