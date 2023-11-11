@@ -48,7 +48,7 @@ const FormRender = () => {
     const htmlArr = $(fb.current).formRender("userData");
     const signatureElement = $('.js-signature');
     let hasEmail = null;
-    let customerId = '';
+    let customerId = null;
     let tracker = {
       signatureCount: 0,
       primaryAdultParticipantCount: 0,

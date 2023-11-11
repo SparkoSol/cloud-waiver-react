@@ -38,7 +38,7 @@ const FormBuilder = () => {
     // eslint-disable-next-line
   }, [waiver]);
 
-  function saveData(status) {
+  function saveData(e,status) {
     setLoading(true);
     const requestData = status ? {status: 'Published'} : {form_data: JSON.parse(FormBuilder.formData)};
     patchRequest(`/waivers/${id}`, requestData)
@@ -61,7 +61,7 @@ const FormBuilder = () => {
         <Link to={`/templates/${id}/render`} target='_blank'
               className='bg-btnBg w-fit py-2.5 px-8 text-sm text-white font-semibold rounded-full'>Preview</Link>
         {waiver?.status === 'draft' ? <>
-            <Button btnText='Publish' btnClasses='bg-btnBg' fullWidth='w-fit' onClick={e => saveData('publish')}/>
+            <Button btnText='Publish' btnClasses='bg-btnBg' fullWidth='w-fit' onClick={e => saveData(e, 'publish')}/>
             <Button btnText='Save' btnClasses='bg-btnBg' fullWidth='w-fit' onClick={saveData}/></> :
           <Button btnText='Save/Publish' btnClasses='bg-btnBg' fullWidth='w-fit' onClick={saveData}/>}
       </div>

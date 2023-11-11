@@ -2,7 +2,10 @@ import {Fragment, useRef} from "react";
 import {Dialog, Transition} from '@headlessui/react'
 import Input from "../inputs/Input.jsx";
 
-export default function Modal({open, setOpen, functionCall, btnText = 'Submit', title = 'New Template', description}) {
+export default function Modal({
+                                open, setOpen, functionCall, btnText = 'Submit', title = 'New Template',
+                                description, label = 'Please enter your template name'
+                              }) {
   const cancelButtonRef = useRef(null)
   const inputRef = useRef();
   return (
@@ -43,7 +46,7 @@ export default function Modal({open, setOpen, functionCall, btnText = 'Submit', 
                         {description}
                       </Dialog.Description>}
                       {!description && <div className="mt-8">
-                        <Input placeholder='eg. Waiver 101' inputRef={inputRef} label='Please enter your template name'
+                        <Input placeholder='eg. Waiver 101' inputRef={inputRef} label={label}
                                extraClasses='font-medium text-gray-500' inputClasses='pl-3 rounded-md'/>
                       </div>}
                     </div>
@@ -54,7 +57,7 @@ export default function Modal({open, setOpen, functionCall, btnText = 'Submit', 
                     type="button"
                     className="text-white text-sm align-items-center align-middle rounded-md bg-btnBg px-4 py-2 font-semibold w-full mb-2 sm:mb-0"
                     onClick={() => {
-                      functionCall(inputRef.current?.value)
+                      functionCall(inputRef.current?.value, title==='Duplicate Template'?'d':'s')
                       setOpen(false)
                     }}
                   >

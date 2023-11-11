@@ -61,14 +61,13 @@ export function isEmptyObject(obj) {
 }
 
 export const capitalize = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  if (string) return string.charAt(0).toUpperCase() + string.slice(1);
 }
 export const addCheck = (arr, filter) => {
   return arr.map(item => {
-    if(filter === 't' && !item.reference_no){
+    if (filter === 't' && !item.reference_no) {
       return {...item, checked: false}
-    }
-    else{
+    } else {
       return {...item, checked: false}
     }
   });
@@ -458,24 +457,33 @@ const templates = {
     return {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
+        function openCamera() {
+          const video = document.getElementById('cameraFeed');
+          const constraints = { video: true };
+          navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+              video.srcObject = stream;
+              video.style.display = 'block';
+            })
+        }
         element.append(`
         <div class="p-2">
-                <h2 class="my-2 text-lg font-semibold text-gray-900"> Please follow the provided instructions to complete your Photo Capture</h2>
-                <ul class="max-w space-y-1 text-gray-700 list-disc list-inside">
-                    <li>Make sure your camera has a clear view of you.</li>
-                    <li>When you are ready, press the Take photo button while facing your camera.</li>
-                    <li>If you are not satisfied with the photo, press the Retake button to try again.</li>
-                    
-                </ul>
-                <div>
-                    <input type="file" class="hidden" name="files" id="files"/>
-                    <label type="button" for="files" class="mt-5 px-3 py-2 text-base cursor-pointer font-medium text-center text-white bg-[#66615b] rounded-lg ">Capture Photo</label>
-                </div>
-            </div>
+          <h2 class="my-2 text-lg font-semibold text-gray-900">Please follow the provided instructions to complete your Photo Capture</h2>
+          <ul class="max-w space-y-1 text-gray-700 list-disc list-inside">
+            <li>Make sure your camera has a clear view of you.</li>
+            <li>When you are ready, press the Take photo button while facing your camera.</li>
+            <li>If you are not satisfied with the photo, press the Retake button to try again.</li>
+          </ul>
+          <div>
+            <button id="captureButton" type="button" class="mt-5 px-3 py-2 cursor-pointer text-sm font-medium text-center text-white bg-[#66615b] rounded-lg ">Capture Photo</button>
+          </div>
+        </div>
       `);
+        document.getElementById('captureButton').addEventListener('click', openCamera);
       }
     };
   }
+
 };
 const inputSets = [{
   label: 'Primary Adult Participant(editable)',
@@ -534,11 +542,11 @@ export const staticForm = [
   }
 ]
 export const tabsData = [
-  {name: 'Overview', id: 1, url: ''},
-  {name: 'Submissions', id: 2, url: 'submissions'},
+  {name: 'Overview', id: 1, url: 'overview'},
+  {name: 'Submissions', id: 2, url: '#'},
   {name: 'Builder', id: 3, url: 'builder'},
-  {name: 'Integrations', id: 4, url: 'integrations'},
-  {name: 'Settings', id: 4, url: 'settings'},
+  {name: 'Integrations', id: 4, url: '#'},
+  {name: 'Settings', id: 4, url: '#'},
 ]
 
 //some forms are reusable

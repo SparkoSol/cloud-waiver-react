@@ -31,6 +31,8 @@ import FormBuilder from "./pages/template/components/FormBuilder";
 import FormRender from "./pages/template/components/FormRender";
 import SplashScreen from "./pages/kiosk/components/SplashScreen";
 import SuccessState from "./pages/template/components/SuccessState";
+import Overview from "./pages/template/components/Overview";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -144,6 +146,13 @@ const router = createBrowserRouter([
             <FormBuilder/>
           </TemplateContainer>
         )
+      }, {
+        path: ':id/overview',
+        element: (
+          <TemplateContainer>
+            <Overview/>
+          </TemplateContainer>
+        )
       }
     ]
   },
@@ -191,6 +200,8 @@ const router = createBrowserRouter([
         element: <ManagementTeam/>
       }
     ]
+  }, {
+    path: '*', element: <NotFound/>
   }
 ])
 

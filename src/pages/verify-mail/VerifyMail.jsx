@@ -1,10 +1,8 @@
-import {useDispatch} from "react-redux";
-import {useParams} from "react-router-dom";
 import Heading from "../../components/Heading.jsx";
 
 const VerificationClient = () => {
-  const dispatch = useDispatch();
-  const {id, hashId} = useParams();
+  // const dispatch = useDispatch();
+  // const {id, hashId} = useParams();
 
   // function VerifyUserToken() {
   //   let user = localStorage.getItem('cw-user');

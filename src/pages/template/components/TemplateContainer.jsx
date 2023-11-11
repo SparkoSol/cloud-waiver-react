@@ -8,6 +8,8 @@ import Spinner from "../../../components/Spinner";
 import {useDispatch, useSelector} from "react-redux";
 import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
 import {selectSingleWaiver} from "../../../redux/waivers/waiverSlice";
+import {patchRequest} from "../../../redux/cwAPI";
+import toast from 'react-hot-toast';
 
 const TemplateContainer = ({children}) => {
   const dispatch = useDispatch();
@@ -22,6 +24,17 @@ const TemplateContainer = ({children}) => {
     // eslint-disable-next-line
   }, []);
 
+  function handleEdit(name) {
+    patchRequest(`/waivers/${id}`, {name})
+      .then(r => {
+        toast.success('Updated Successfully');
+        dispatch(getSingleWaiver(id))
+          .finally(() => setLoading(false))
+      })
+      .catch(e => e.response.data.message)
+      .finally(() => setLoading(false))
+  }
+
   return (
     <main>
       {loading && <Spinner/>}
@@ -31,7 +44,7 @@ const TemplateContainer = ({children}) => {
           <button className='outline-none' onClick={e => setEditMode(true)}>
             <PencilIcon className='w-5 h-5'/>
           </button>
-          <Modal setOpen={setEditMode} open={editMode} editMode={true}/>
+          <Modal setOpen={setEditMode} open={editMode} editMode={true} functionCall={handleEdit}/>
         </div>
         <span className="text-sm italic">{window.location.href}</span>
       </div>

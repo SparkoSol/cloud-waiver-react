@@ -3,6 +3,7 @@ import Header from "./layout/Header.jsx";
 import SideBarMenu from "./layout/SideBarMenu.jsx";
 import {sideBarOptions} from "../utils/generalFunctions.js";
 import {useWindowSize} from "../utils/hooks.js";
+import ErrorBoundary from "../ErrorBoundary";
 
 const ProtectedRoute = ({children}) => {
   const [openReplyMenuIndex, setOpenReplyMenuIndex] = useState(-1);
@@ -30,7 +31,9 @@ const ProtectedRoute = ({children}) => {
       <div className={`${open || hover ? 'lg:ml-64' : 'lg:ml-20'} transition-all duration-500 relative`}>
         <Header setOpen={setOpen} searchRef={searchRef}/>
         <section className='p-5 max-w-6xl mx-auto'>
-          {children}
+          <ErrorBoundary>
+            {children}
+          </ErrorBoundary>
         </section>
       </div>
     </div>

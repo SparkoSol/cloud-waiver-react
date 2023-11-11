@@ -1,8 +1,7 @@
 import {Fragment, useRef} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
-import Input from "@/app/components/inputs/Input";
 import {XMarkIcon} from "@heroicons/react/24/outline";
-import Image from "next/image";
+import Input from "../inputs/Input";
 
 export default function QRModal({open, setOpen}) {
   const handleDownload = () => {
@@ -56,12 +55,10 @@ export default function QRModal({open, setOpen}) {
                           <XMarkIcon className='w-5 h-5'/>
                         </button>
                       </Dialog.Title>
-                        <Image
+                        <img
                           src='/images/qr.png'
                           alt='QR Scan'
-                          width='200'
-                          height='200'
-                          className='mx-auto'
+                          className='mx-auto w-48 h-48'
                         />
                       <button onClick={handleDownload} className='outline-none w-full block text-center'>
                         Click here to download

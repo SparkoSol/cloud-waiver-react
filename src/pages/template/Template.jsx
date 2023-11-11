@@ -4,16 +4,25 @@ import {ClipboardIcon, FolderIcon} from "@heroicons/react/24/outline";
 import {useEffect, useState} from "react";
 import Spinner from "../../components/Spinner";
 import Modal from "../../components/modals/Modal";
-import {deleteRequest, getRequest} from "../../redux/cwAPI";
+import {deleteRequest, getRequest, postRequest} from "../../redux/cwAPI";
 import TemplateRow from "./components/TemplateRow";
 import {addCheck} from "../../utils/generalFunctions";
 import toast from "react-hot-toast";
+import {useNavigate} from "react-router-dom";
 
 function Template() {
+  const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [allTemplates, setAllTemplates] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
+  const [duplicate, setDuplicate] = useState({
+    btnText: 'Submit',
+    title: 'New Template',
+    description: '',
+    label: 'Please enter your template name',
+    index: null
+  })
 
   useEffect(() => {
     setLoading(true);
@@ -23,8 +32,25 @@ function Template() {
       .finally(() => setLoading(false));
   }, []);
 
-  function handleSubmit(item) {
-    console.log(item)
+  const handleSubmit = (name, type) => {
+    setLoading(true);
+    setOpenModal(false)
+    let body = type === 'd' ? {...allTemplates[duplicate.index], name} : {name};
+    postRequest(`/waivers`, body)
+      .then(r => navigate(`/templates/${r.data._id}/builder`))
+      .catch(e => toast.error(e.response.data.message))
+      .finally(() => setLoading(false))
+  }
+
+  function customOpenModal(bool, index) {
+    setOpenModal(true);
+    setDuplicate({
+      btnText: 'Duplicate Template',
+      title: 'Duplicate Template',
+      description: '',
+      label: 'Please provide name for the duplicate template',
+      index
+    })
   }
 
   function deleteRow(id, idx) {
@@ -46,7 +72,10 @@ function Template() {
           <span className='text-sm font-semibold text-gray-600'>List of all templates you've created.</span>
           <Button BtnIcon={ClipboardIcon}
                   btnText='Create waivers'
-                  onClick={() => setOpenModal(true)}
+                  onClick={() => {
+                    setOpenModal(true);
+                    setDuplicate(prev => ({...prev, index: null}));
+                  }}
                   btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
                   iconClasses='w-4 h-4 text-white inline-block ml-2'/>
         </div>
@@ -55,13 +84,13 @@ function Template() {
             <DataTable selectAll={selectAll} setSelectAll={setSelectAll}
                        headers={['Name', 'Total Waivers', 'Status']} TableRow={TemplateRow} items={allTemplates}
                        setState={setAllTemplates}
-                       deleteRow={deleteRow} setOpenModal={setOpenModal}/> : <div className='text-center mt-4'>
+                       deleteRow={deleteRow} customOpenModal={customOpenModal}/> : <div className='text-center mt-4'>
               <FolderIcon className='w-40 h-40 text-gray-400 mx-auto'/>
               <span className='text-gray-500 mb-10 text-base'>No Waivers Found. Get started by creating a waiver</span>
             </div>}
         </div>
       </div>
-      <Modal open={openModal} setOpen={setOpenModal} functionCall={handleSubmit}/>
+      <Modal open={openModal} setOpen={setOpenModal} functionCall={handleSubmit} {...duplicate}/>
       {loading && <Spinner/>}
     </div>
   )

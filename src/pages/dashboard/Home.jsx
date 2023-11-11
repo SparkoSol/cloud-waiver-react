@@ -15,7 +15,7 @@ import Spinner from "../../components/Spinner.jsx";
 import {selectCurrentUser, selectMember} from "../../redux/user/userSlice.js";
 import {getMembers} from "../../redux/user/userThunk.js";
 import {useNavigate} from "react-router-dom";
-import {deleteRequest, getRequest, postRequest} from "../../redux/cwAPI";
+import {getRequest, postRequest} from "../../redux/cwAPI";
 import toast from "react-hot-toast";
 
 const data = [
@@ -56,7 +56,7 @@ const Dashboard = () => {
     options: generateYears(2005), state: year, setState: setYear
   }]
 
-  async function handleSubmit(name) {
+  function handleSubmit(name) {
     setLoading(true);
     setOpenModal(false)
     postRequest(`/waivers`, {name})
@@ -81,14 +81,15 @@ const Dashboard = () => {
   }, []);
 
   const deleteRow = (id, idx) => {
-    setLoading(true)
-    const updatedWaivers = [
-      ...allWaivers.slice(0, idx),
-      ...allWaivers.slice(idx + 1),
-    ];
-    deleteRequest(`/waivers/${id}`)
-      .then(r => setAllWaivers(updatedWaivers))
-      .finally(() => setLoading(false))
+    // TODO : convert this to decline waiver
+    // setLoading(true)
+    // const updatedWaivers = [
+    //   ...allWaivers.slice(0, idx),
+    //   ...allWaivers.slice(idx + 1),
+    // ];
+    // deleteRequest(`/waivers/${id}`)
+    //   .then(r => setAllWaivers(updatedWaivers))
+    //   .finally(() => setLoading(false))
   }
   return (
     <div>

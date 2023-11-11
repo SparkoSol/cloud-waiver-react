@@ -4,7 +4,7 @@ import {DocumentDuplicateIcon, EyeIcon, PencilSquareIcon, TrashIcon, UsersIcon} 
 import CheckboxInput from "../../../components/inputs/CheckboxInput";
 import toast from 'react-hot-toast';
 
-const TemplateRow = ({item, functionCall, index, deleteRow, setOpenModal}) => {
+const TemplateRow = ({item, functionCall, index, deleteRow, customOpenModal}) => {
   return (
     <tr>
       <td className='p-4 font-semibold text-sm text-gray-900 whitespace-nowrap'>
@@ -22,7 +22,7 @@ const TemplateRow = ({item, functionCall, index, deleteRow, setOpenModal}) => {
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>
         <div className="flex items-center justify-center gap-3">
           {item.status === 'draft' ?
-            <button onClick={e => toast.error('Template not Saved!')}><EyeIcon className='w-5 h-5 text-gray-600'/>
+            <button onClick={e => toast.error('Template not Published!')}><EyeIcon className='w-5 h-5 text-gray-600'/>
             </button> :
             <Link to={`/templates/${item._id}/render`}>
               <EyeIcon className='w-5 h-5 text-gray-600'/>
@@ -33,7 +33,7 @@ const TemplateRow = ({item, functionCall, index, deleteRow, setOpenModal}) => {
           <Link to={`/templates/${item._id}/builder`}>
             <PencilSquareIcon className='w-5 h-5 text-gray-600'/>
           </Link>
-          <button onClick={e => setOpenModal(true)}>
+          <button onClick={e => customOpenModal(true, index)}>
             <DocumentDuplicateIcon className='w-5 h-5 text-gray-600'/>
           </button>
           <button onClick={e => deleteRow(item._id, index)}>

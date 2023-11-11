@@ -12,7 +12,7 @@ const Tabs = ({tabs}) => {
         to={`/templates/${id}/${tab.url}`}
         className={twMerge(`
            text-gray-500  inline-block flex items-center p-4 rounded-t-lg hover:text-gray-600 space-x-2 
-           ${(pathname.includes(tab.url) && tab.url !== '') && 'border-b-4 border-bgDark hover:border-gray-500 text-gray-900 hover:text-gray-600'}`)}
+           ${(pathname.includes(tab.url)) && 'border-b-4 border-bgDark hover:border-gray-500 text-gray-900 hover:text-gray-600'}`)}
       >
           <span
             data-current-tab={tab.name}
