@@ -8,7 +8,7 @@ const Card = ({item}) => {
         </div>
         <div className='px-4'>
           <h1 className='text-lg'>{item.title}</h1>
-          <h1 className='text-2xl'>{item.id === 1 && <span className=''>0</span>}{item.value}</h1>
+          <h1 className='text-2xl'>{item.value}</h1>
         </div>
       </div>
     </div>

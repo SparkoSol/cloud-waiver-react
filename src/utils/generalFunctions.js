@@ -63,8 +63,15 @@ export function isEmptyObject(obj) {
 export const capitalize = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
-export const addCheck = (arr) => {
-  return arr.map(item => ({...item, checked: false}));
+export const addCheck = (arr, filter) => {
+  return arr.map(item => {
+    if(filter === 't' && !item.reference_no){
+      return {...item, checked: false}
+    }
+    else{
+      return {...item, checked: false}
+    }
+  });
 }
 
 export function limitChars(str, number) {
@@ -81,6 +88,7 @@ export function today() {
 
 //custom component logics
 class SignatureControls extends Control {
+  // eslint-disable-next-line
   constructor() {
     super();
   }
@@ -380,8 +388,38 @@ const templates = {
     return {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
-        console.log(fieldData)
-        element.append('<form id="address" class="space-y-4 ">' + '  <div class="flex flex-col items-start space-y-1">' + '    <label for="address">Address-1</label>' + '    <input type="text" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" value="" name="address" placeholder="Address" />' + '  </div>' + '  <div>' + '    <label for="address_2">Address 2</label>' + '    <input type="text" name="address_2" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Address 2 (Suite, optional)" />' + '  </div>' + '  <div class="w-full lg:flex items-center justify-between lg:space-x-4 space-y-4">' + '    <div class="w-full lg:w-1/2">' + '      <label for="city">City</label>' + '      <input type="text" name="city" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="City" />' + '    </div>' + '    <div class="w-full lg:w-1/2">' + '      <label for="state">Province / State</label>' + '      <input type="text" name="state" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Province / State" />' + '    </div>' + '  </div>' + '  <div class="w-full lg:flex items-center justify-between lg:space-x-4 space-y-4">' + '    <div class="w-full lg:w-1/2">' + '      <label for="country">Country</label>' + '      <input type="text" name="country" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Country" />' + '    </div>' + '    <div class="w-full lg:w-1/2">' + '      <label for="zip_code">Zip code</label>' + '      <input type="text" name="zip_code" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Zip code" />' + '    </div>' + '  </div>' + '</form>');
+        element.append(`
+  <form id="address" class="space-y-4">
+    <div class="flex flex-col items-start space-y-1">
+      <label for="address">Address-1</label>
+      <input type="text" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" value="" name="address" placeholder="Address">
+    </div>
+    <div>
+      <label for="address_2">Address 2</label>
+      <input type="text" name="address_2" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Address 2 (Suite, optional)">
+    </div>
+    <div class="w-full lg:flex items-center justify-between lg:space-x-4 space-y-4">
+      <div class="w-full lg:w-1/2">
+        <label for="city">City</label>
+        <input type="text" name="city" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="City">
+      </div>
+      <div class="w-full lg:w-1/2">
+        <label for="state">Province / State</label>
+        <input type text="name="state" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Province / State">
+      </div>
+    </div>
+    <div class="w-full lg:flex items-center justify-between lg:space-x-4 space-y-4">
+      <div class="w-full lg:w-1/2">
+        <label for="country">Country</label>
+        <input type="text" name="country" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Country">
+      </div>
+      <div class="w-full lg:w-1/2">
+        <label for="zip_code">Zip code</label>
+        <input type="text" name="zip_code" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Zip code">
+      </div>
+    </div>
+  </form>
+`);
       }
     };
   },

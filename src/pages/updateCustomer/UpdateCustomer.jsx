@@ -8,6 +8,7 @@ import {getCustomer, updateCustomer} from "../../redux/customers/customerThunk.j
 import {isValidBody} from "../../utils/generalFunctions.js";
 import Spinner from "../../components/Spinner.jsx";
 import toast from "react-hot-toast";
+import {getRequest, patchRequest} from "../../redux/cwAPI";
 
 const UpdateCustomer = () => {
   const navigate = useNavigate();
@@ -35,9 +36,9 @@ const UpdateCustomer = () => {
     };
     if (isValidBody(body)) {
       setLoading(true)
-      dispatch(updateCustomer({body, _id: id})).unwrap()
+      patchRequest(`/customers/${id}`, body)
         .then(() => navigate('/customers'))
-        .catch(e => toast.error(e.message))
+        .catch(e => toast.error(e.response.data.message))
       setLoading(false)
     }
   }
@@ -45,11 +46,12 @@ const UpdateCustomer = () => {
   useEffect(() => {
     fetchCustomer().then(() => {
     })
+    // eslint-disable-next-line
   }, []);
 
   async function fetchCustomer() {
     setLoading(true)
-    const data = await dispatch(getCustomer(id)).unwrap();
+    const {data} = getRequest(`/customers/${id}`)
     const updatedData = [
       {label: 'First Name', placeholder: 'First Name', id: 1, ref: firstNameRef, value: data.first_name},
       {label: 'Last Name', placeholder: 'Last Name', id: 2, ref: lastNameRef, value: data.last_name},

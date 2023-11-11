@@ -4,12 +4,12 @@ import {options, today} from "../../../utils/generalFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {selectSingleWaiver} from "../../../redux/waivers/waiverSlice";
 import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Button from "../../../components/Button";
 import tinymce from "tinymce";
 import Spinner from "../../../components/Spinner";
-import {postRequest} from "../../../redux/cwAPI";
 import {selectCurrentUser} from "../../../redux/user/userSlice";
+import {postRequest} from "../../../redux/cwAPI";
 
 window.jQuery = $; //JQuery alias
 window.$ = $; //JQuery alias
@@ -19,6 +19,7 @@ require("formBuilder/dist/form-render.min.js")
 
 const FormRender = () => {
   const {domain} = useSelector(selectCurrentUser);
+  const navigate = useNavigate();
   const {id} = useParams();
   const dispatch = useDispatch();
   const waiver = useSelector(selectSingleWaiver);
@@ -32,18 +33,22 @@ const FormRender = () => {
         formData: JSON.stringify(waiver?.form_data), ...options
       });
     }
+    // eslint-disable-next-line
   }, [waiver])
 
   useEffect(() => {
     setLoading(true);
     dispatch(getSingleWaiver(id))
       .finally(() => setLoading(false))
+    // eslint-disable-next-line
   }, []);
 
-  const saveData = async(event) => {
+  const saveData = async (event) => {
+    setLoading(true)
     const htmlArr = $(fb.current).formRender("userData");
     const signatureElement = $('.js-signature');
-    let hasEmail;
+    let hasEmail = null;
+    let customerId = '';
     let tracker = {
       signatureCount: 0,
       primaryAdultParticipantCount: 0,
@@ -55,7 +60,6 @@ const FormRender = () => {
       richTextEditorCount: 0
     }
     for (let item of htmlArr) {
-      console.log(item.type)
       switch (item.type) {
         case 'signature':
           let signNode = document.querySelectorAll('.main');
@@ -76,7 +80,7 @@ const FormRender = () => {
             }
           }
           item.userData = formData;
-          if (signatureComponent.length > 0) {
+          if (signatureComponent?.length > 0) {
             item.userData = {
               ...formData,
               signature: signatureElement.jqSignature('getDataURL')
@@ -132,8 +136,9 @@ const FormRender = () => {
           tracker.electronicSignatureConsentCount += 1;
           break
         case 'text':
-          if(item.subtype === 'email'){
-            hasEmail = true;
+          if (item.subtype === 'email') {
+            console.log(item)
+            hasEmail = item.userData[0];
           }
           break
         default:
@@ -141,26 +146,30 @@ const FormRender = () => {
       }
     }
 
-    if(hasEmail){
-      
+    if (hasEmail) {
+      await postRequest('/customers', {email: hasEmail, waiver: id})
+        .then(r => customerId = r.data._id)
     }
 
-    // await postRequest('/submissions', {
-    //   reference_no: refNo.current.innerText,
-    //   status: 'submitted',
-    //   customer: '',
-    //   waiver: id,
-    //   data: htmlArr
-    // });
+    postRequest('/submissions', {
+      reference_no: refNo.current.innerText,
+      status: 'submitted',
+      customer: customerId,
+      waiver: id,
+      data: htmlArr
+    }).then(r => navigate(`/templates/${id}/submission`))
+      .catch(e => e.response.data.message)
+      .finally(() => setLoading(false));
   }
 
   return (
-    <div className='max-w-2xl mx-auto my-6'>
-      <p className='text-sm my-6'>Refrence No : <span ref={refNo}>{`${domain.toUpperCase()}.${today()}.${Math.floor(Math.random() * 1000000)}`}</span></p>
+    <div className='max-w-4xl mx-auto my-6'>
+      <p className='text-sm my-6'>Refrence No : <span
+        ref={refNo}>{`${domain.toUpperCase()}.${today()}.${Math.floor(Math.random() * 1000000)}`}</span></p>
       <form ref={fb}></form>
       {waiver?.form_data.length > 0 &&
         <Button btnText='Submit Data' onClick={saveData}
-                btnClasses='bg-btnBg' fullWidth='w-fit mx-auto'/>
+                btnClasses='bg-btnBg' fullWidth='w-fit mx-auto mt-8'/>
       }
       {loading && <Spinner/>}
     </div>

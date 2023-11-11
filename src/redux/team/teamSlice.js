@@ -67,5 +67,4 @@ const customerSlice = createSlice({
 
 export const selectAllTeams = (state) => state.teams.allTeams;
 export const selectCurrentTeam = (state) => state.teams.currentTeam;
-export const {} = customerSlice.actions
 export default customerSlice.reducer

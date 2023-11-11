@@ -29,6 +29,8 @@ import Template from "./pages/template/Template";
 import TemplateContainer from "./pages/template/components/TemplateContainer";
 import FormBuilder from "./pages/template/components/FormBuilder";
 import FormRender from "./pages/template/components/FormRender";
+import SplashScreen from "./pages/kiosk/components/SplashScreen";
+import SuccessState from "./pages/template/components/SuccessState";
 
 const router = createBrowserRouter([
   {
@@ -150,11 +152,21 @@ const router = createBrowserRouter([
     element: <FormRender/>
   },
   {
+    path: '/templates/:id/submission',
+    element: <SuccessState/>
+  },
+  {
     path: '/kiosk',
     element: (
       <ProtectedRoute>
         <Kiosk/>
       </ProtectedRoute>
+    )
+  },
+  {
+    path: '/kiosk-preview/:id',
+    element: (
+      <SplashScreen/>
     )
   },
   {
@@ -206,6 +218,7 @@ function App() {
     } else {
       router.navigate("/");
     }
+    // eslint-disable-next-line
   }, []);
 
   return (

@@ -1,6 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {getSingleWaiver} from "./waiverThunk";
-import {useSelector} from "react-redux";
 import toast from 'react-hot-toast';
 
 const initialWaiverState = {
@@ -30,6 +29,4 @@ const waiverSlice = createSlice({
 })
 
 export const selectSingleWaiver = state=>state.waivers.currentWaiver;
-
-export const {} = waiverSlice.actions
 export default waiverSlice.reducer

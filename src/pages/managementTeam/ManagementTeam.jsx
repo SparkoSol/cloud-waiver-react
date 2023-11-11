@@ -46,6 +46,7 @@ const ManagementTeam = () => {
     if (id) {
       dispatch(getSingleTeam(id))
     }
+    // eslint-disable-next-line
   }, []);
 
   function handleUpdate(e) {

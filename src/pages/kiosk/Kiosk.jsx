@@ -5,10 +5,11 @@ import FileInput from "../../components/inputs/FileInput.jsx";
 import DataTable from "../../components/DataTable.jsx";
 import KioskRow from "./components/KioskRow.jsx";
 import Button from "../../components/Button.jsx";
-import {getRequest, patchRequest} from "../../redux/cwAPI";
+import {getRequest, patchRequest, postRequest} from "../../redux/cwAPI";
 import {toast} from "react-hot-toast";
 import Spinner from "../../components/Spinner";
 import {addCheck} from "../../utils/generalFunctions";
+import {Link} from "react-router-dom";
 
 const Kiosk = () => {
   const titleRef = useRef();
@@ -18,6 +19,9 @@ const Kiosk = () => {
   const [loading, setLoading] = useState(false);
   const [kioskId, setKioskId] = useState('');
   const [selectAll, setSelectAll] = useState(false);
+  const [state, setState] = useState({
+    saved: false, _id: ''
+  });
 
   useEffect(() => {
     setLoading(true)
@@ -31,7 +35,7 @@ const Kiosk = () => {
       .catch(e => toast.error(e.response.data.message))
   }, []);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const checkedTemplates = kioskData.reduce((ids, item) => {
       if (item.checked) {
@@ -39,15 +43,28 @@ const Kiosk = () => {
       }
       return ids;
     }, []);
-    setLoading(true);
+    // setLoading(true);
+
+    let formData = new FormData();
+    formData.append('file', fileInputRef.current.files[0])
+
+    const {data} = await postRequest('/upload',
+      formData
+    )
     const body = {
       title: titleRef.current.value,
       description: descriptionRef.current.value,
-      logo: 'https://www.freeiconspng.com/thumbs/human-icon-png/icon-png-people-user-icon-png-executive-person-icon-man-icon-png--30.png',
+      logo: data.url,
       waivers: checkedTemplates
     }
     patchRequest(`/kiosk/${kioskId}`, body)
-      .then(r => toast.success('Succesfull'))
+      .then(r => {
+        toast.success('Successful');
+        setState({
+          _id: r.data._id,
+          saved: true
+        })
+      })
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false))
   }
@@ -57,6 +74,10 @@ const Kiosk = () => {
       {loading && <Spinner/>}
       <Heading title='Kiosk' titleClasses='text-xl font-semibold'
                subtitle='Manage your kiosk setting.' subTitleClasses='text-sm text-gray-900'/>
+      {state.saved && <Link to={`/kiosk-preview?id=${state._id}`}
+                        className='rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>
+        Preview Splash Page
+      </Link>}
       <form onSubmit={handleSubmit} className='mt-8 space-y-6 w-3/5'>
         <Input inputRef={titleRef} inputClasses='pl-2.5' label='Kiosk Title' placeholder='Kiosk Title'/>
         <Input inputRef={descriptionRef} inputClasses='pl-2.5' label='Kiosk Description'

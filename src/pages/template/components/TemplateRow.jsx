@@ -2,8 +2,9 @@ import {Link} from "react-router-dom";
 import {capitalize} from "../../../utils/generalFunctions";
 import {DocumentDuplicateIcon, EyeIcon, PencilSquareIcon, TrashIcon, UsersIcon} from "@heroicons/react/24/outline";
 import CheckboxInput from "../../../components/inputs/CheckboxInput";
+import toast from 'react-hot-toast';
 
-const TemplateRow = ({item, functionCall, index}) => {
+const TemplateRow = ({item, functionCall, index, deleteRow, setOpenModal}) => {
   return (
     <tr>
       <td className='p-4 font-semibold text-sm text-gray-900 whitespace-nowrap'>
@@ -20,21 +21,24 @@ const TemplateRow = ({item, functionCall, index}) => {
       </td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>
         <div className="flex items-center justify-center gap-3">
-          <Link to={`/`}>
-            <EyeIcon className='w-5 h-5 text-gray-600'/>
-          </Link>
-          <Link to={`/`}>
+          {item.status === 'draft' ?
+            <button onClick={e => toast.error('Template not Saved!')}><EyeIcon className='w-5 h-5 text-gray-600'/>
+            </button> :
+            <Link to={`/templates/${item._id}/render`}>
+              <EyeIcon className='w-5 h-5 text-gray-600'/>
+            </Link>}
+          <Link to={`/customers?template=${item._id}`}>
             <UsersIcon className='w-5 h-5 text-gray-600'/>
           </Link>
           <Link to={`/templates/${item._id}/builder`}>
             <PencilSquareIcon className='w-5 h-5 text-gray-600'/>
           </Link>
-          <Link to={`/`}>
+          <button onClick={e => setOpenModal(true)}>
             <DocumentDuplicateIcon className='w-5 h-5 text-gray-600'/>
-          </Link>
-          <Link to={`/`}>
+          </button>
+          <button onClick={e => deleteRow(item._id, index)}>
             <TrashIcon className='w-5 h-5 text-gray-600'/>
-          </Link>
+          </button>
         </div>
       </td>
     </tr>

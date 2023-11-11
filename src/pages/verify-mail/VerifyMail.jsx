@@ -1,7 +1,6 @@
 import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
 import Heading from "../../components/Heading.jsx";
-import SideBarAdd from "../auth/components/SideBarAdd.jsx";
 
 const VerificationClient = () => {
   const dispatch = useDispatch();

@@ -52,6 +52,7 @@ const LoginForm = () => {
         navigate('/domain/select')
       }
     }
+    // eslint-disable-next-line
   }, [currentUser]);
 
 

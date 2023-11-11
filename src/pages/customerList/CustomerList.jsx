@@ -4,7 +4,7 @@ import {useRef, useState} from "react";
 import SelectInput from "../../components/inputs/SelectInput.jsx";
 import DataTable from "../../components/DataTable.jsx";
 import CustomersRow from "../customers/components/CustomersRow.jsx";
-import {customerData, dashboardData, DashBoardHeaders} from "../../utils/generalFunctions.js";
+import {customerData} from "../../utils/generalFunctions.js";
 import {FolderIcon} from "@heroicons/react/20/solid";
 
 const CustomerList = () => {

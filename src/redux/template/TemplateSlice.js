@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import toast from "react-hot-toast";
 
 const initialTemplateState = {
   allCustomers: null,
@@ -11,18 +10,7 @@ const templateSlice = createSlice({
   initialState: initialTemplateState,
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(getAllTem.pending, (state) => {
-        state.status = 'pending';
-      })
-      .addCase(getAllCustomers.fulfilled, (state, {payload}) => {
-        state.status = 'fulfilled';
-        state.allCustomers = payload;
-      })
-      .addCase(getAllCustomers.rejected, (state, {error}) => {
-        state.status = 'failed';
-        toast.error(error.message)
-      })
+
   },
 })
 

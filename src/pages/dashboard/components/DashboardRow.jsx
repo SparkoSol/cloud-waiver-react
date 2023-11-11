@@ -3,7 +3,7 @@ import {formatDate, limitChars} from "../../../utils/generalFunctions.js";
 import {EyeIcon} from "@heroicons/react/20/solid";
 import {Link} from "react-router-dom";
 
-const DashboardRow = ({item, functionCall, index}) => {
+const DashboardRow = ({item, functionCall, index, deleteRow}) => {
   return (
     <tr>
       <td className='p-4 font-semibold text-sm text-gray-900 whitespace-nowrap'>
@@ -32,7 +32,7 @@ const DashboardRow = ({item, functionCall, index}) => {
               alt='Loading...'
             />
           </button>
-          <button>
+          <button onClick={e=>deleteRow(item._id, index)}>
             <img
               src='/cross.svg'
               alt='Loading...'

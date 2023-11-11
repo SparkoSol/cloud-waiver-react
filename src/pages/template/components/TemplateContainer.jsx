@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import {PencilIcon} from "@heroicons/react/24/outline";
 import Tabs from "../../../components/Tabs";
 import {tabsData} from "../../../utils/generalFunctions";
-import {getRequest} from "../../../redux/cwAPI";
 import {useParams} from "react-router-dom";
 import Spinner from "../../../components/Spinner";
 import {useDispatch, useSelector} from "react-redux";
@@ -20,6 +19,7 @@ const TemplateContainer = ({children}) => {
     setLoading(true);
     dispatch(getSingleWaiver(id))
       .finally(() => setLoading(false))
+    // eslint-disable-next-line
   }, []);
 
   return (

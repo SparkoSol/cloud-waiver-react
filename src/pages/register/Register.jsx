@@ -82,7 +82,7 @@ const RegisterForm = () => {
       .toLowerCase()
       .split(' ')
       .join('-')
-      .replace(/[`~!@#$%^&*()_|+\=?;:'",.<>{}[\]\\\/]/gi, '');
+      .replace(/[`~!@#$%^&*()_|+=?;:'",.<>{}[\]\\]/gi, '');
     setDomainName(convertedValue);
   }
 

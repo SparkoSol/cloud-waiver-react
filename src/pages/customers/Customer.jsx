@@ -4,28 +4,32 @@ import CustomersRow from "./components/CustomersRow.jsx";
 import Input from "../../components/inputs/Input.jsx";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import {useEffect, useRef, useState} from "react";
-import {useDispatch} from "react-redux";
-import {getAllCustomers} from "../../redux/customers/customerThunk.js";
 import Spinner from "../../components/Spinner.jsx";
+import {useSearchParams} from "react-router-dom";
+import {getRequest} from "../../redux/cwAPI";
+import toast from 'react-hot-toast';
 
 const Customer = () => {
   const [loading, setLoading] = useState(false);
+  let [searchParams] = useSearchParams();
   const [customers, setCustomers] = useState([]);
-  const dispatch = useDispatch();
   const searchRef = useRef();
 
   useEffect(() => {
-    fetchAllCustomers().then(()=>{})
-  }, []);
-
-  async function fetchAllCustomers() {
     setLoading(true)
-    let resp = await dispatch(getAllCustomers());
-    if(resp.payload){
-      setCustomers(resp.payload)
+    if (searchParams.get('template')) {
+      getRequest(`/customers/waiver/${searchParams.get('template')}`)
+        .then(r => setCustomers(r.data))
+        .catch(e => toast.error(e.response.data.message))
+        .finally(() => setLoading(false))
+    } else {
+      getRequest(`/customers`)
+        .then(r => setCustomers(r.data))
+        .catch(e => toast.error(e.response.data.message))
+        .finally(() => setLoading(false))
     }
-    setLoading(false)
-  }
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className="bg-white rounded-md p-6 w-full">

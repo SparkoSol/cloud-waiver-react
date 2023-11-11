@@ -12,7 +12,8 @@ const DataTable = ({
                      selectAll,
                      emptyMessage = 'Nothing here yet!',
                      setSelectAll,
-                     setState
+                     setState,
+                     ...otherProps
                    }) => {
   function selectRows(str) {
     if (typeof str === "boolean") {
@@ -73,7 +74,8 @@ const DataTable = ({
                 <tbody
                   className="divide-y divide-gray-300 sm:divide-transparent bg-white">
                 {items.length > 0 ? items.map((item, index) => (
-                  <TableRow key={item._id} functionCall={selectRows} item={item} index={index}/>)) : <tr>
+                  <TableRow key={item._id} functionCall={selectRows} item={item} index={index} {...otherProps}
+                  />)) : <tr>
                   <td colSpan={headers.length} className='py-4 pl-4 sm:pl-6 pr-3 text-sm'>{emptyMessage}</td>
                 </tr>}
                 </tbody>

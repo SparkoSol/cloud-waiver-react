@@ -4,7 +4,7 @@ import {ClipboardIcon, FolderIcon} from "@heroicons/react/24/outline";
 import {useEffect, useState} from "react";
 import Spinner from "../../components/Spinner";
 import Modal from "../../components/modals/Modal";
-import {getRequest} from "../../redux/cwAPI";
+import {deleteRequest, getRequest} from "../../redux/cwAPI";
 import TemplateRow from "./components/TemplateRow";
 import {addCheck} from "../../utils/generalFunctions";
 import toast from "react-hot-toast";
@@ -18,14 +18,24 @@ function Template() {
   useEffect(() => {
     setLoading(true);
     getRequest('/waivers')
-      .then(r => setAllTemplates(addCheck(r.data)))
+      .then(r => setAllTemplates(addCheck(r.data, 't')))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false));
   }, []);
 
-
   function handleSubmit(item) {
     console.log(item)
+  }
+
+  function deleteRow(id, idx) {
+    setLoading(true)
+    const newData = [
+      ...allTemplates.slice(0, idx),
+      ...allTemplates.slice(idx + 1),
+    ];
+    deleteRequest(`/waivers/${id}`)
+      .then(r => setAllTemplates(newData))
+      .finally(() => setLoading(false))
   }
 
   return (
@@ -45,7 +55,7 @@ function Template() {
             <DataTable selectAll={selectAll} setSelectAll={setSelectAll}
                        headers={['Name', 'Total Waivers', 'Status']} TableRow={TemplateRow} items={allTemplates}
                        setState={setAllTemplates}
-            /> : <div className='text-center mt-4'>
+                       deleteRow={deleteRow} setOpenModal={setOpenModal}/> : <div className='text-center mt-4'>
               <FolderIcon className='w-40 h-40 text-gray-400 mx-auto'/>
               <span className='text-gray-500 mb-10 text-base'>No Waivers Found. Get started by creating a waiver</span>
             </div>}

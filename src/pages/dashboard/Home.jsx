@@ -1,13 +1,7 @@
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import Card from "./components/Card.jsx";
 import {useEffect, useRef, useState} from "react";
-import {
-  addCheck,
-  dashboardData,
-  DashBoardHeaders,
-  generateMonths,
-  generateYears
-} from "../../utils/generalFunctions.js";
+import {addCheck, DashBoardHeaders, generateMonths, generateYears} from "../../utils/generalFunctions.js";
 import SelectInput from "../../components/inputs/SelectInput.jsx";
 import Input from "../../components/inputs/Input.jsx";
 import DataTable from "../../components/DataTable.jsx";
@@ -21,7 +15,7 @@ import Spinner from "../../components/Spinner.jsx";
 import {selectCurrentUser, selectMember} from "../../redux/user/userSlice.js";
 import {getMembers} from "../../redux/user/userThunk.js";
 import {useNavigate} from "react-router-dom";
-import {getRequest, postRequest} from "../../redux/cwAPI";
+import {deleteRequest, getRequest, postRequest} from "../../redux/cwAPI";
 import toast from "react-hot-toast";
 
 const data = [
@@ -75,6 +69,7 @@ const Dashboard = () => {
     if (currentUser && !currentMember) {
       dispatch(getMembers(currentUser._id))
     }
+    // eslint-disable-next-line
   }, [currentUser]);
 
   useEffect(() => {
@@ -85,6 +80,16 @@ const Dashboard = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  const deleteRow = (id, idx) => {
+    setLoading(true)
+    const updatedWaivers = [
+      ...allWaivers.slice(0, idx),
+      ...allWaivers.slice(idx + 1),
+    ];
+    deleteRequest(`/waivers/${id}`)
+      .then(r => setAllWaivers(updatedWaivers))
+      .finally(() => setLoading(false))
+  }
   return (
     <div>
       <div>
@@ -119,6 +124,7 @@ const Dashboard = () => {
           {allWaivers.length > 0 ?
             <DataTable headers={DashBoardHeaders} TableRow={DashboardRow} items={allWaivers}
                        setState={setAllWaivers} selectAll={selectAll} setSelectAll={setSelectAll}
+                       deleteRow={deleteRow}
             /> : <div className='text-center mt-4'>
               <FolderIcon className='w-40 h-40 text-gray-400 mx-auto'/>
               <span className='text-gray-500 mb-10 text-base'>No Waivers Found. Get started by creating a waiver</span>

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // const baseUrl = 'https://cloudwaiver.sparkosol.com'
-const baseUrl = 'http://192.168.1.36:3000'
+const baseUrl = 'http://192.168.1.38:3000'
 const cwAPI = axios
 
 // Add a request interceptor
@@ -10,7 +10,7 @@ axios.interceptors.request.use(
     const token = localStorage.getItem('cw-access-token')
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token
-      config.headers['X-TENANT-ID'] = 'anthony-berry';
+      config.headers['X-TENANT-ID'] = getDynamicTenantId();
     }
     return config
   },
@@ -45,7 +45,7 @@ export const patchRequest = (url, body) => {
 function getDynamicTenantId() {
   const currentURL = window.location.href;
   const urlParts = currentURL.split('.');
-  if(urlParts[0].includes('https')){
+  if (urlParts[0].includes('https')) {
     return urlParts[0].replace('https://', '');
   }
   return urlParts[0].replace('http://', '');

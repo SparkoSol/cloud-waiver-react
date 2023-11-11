@@ -19,6 +19,7 @@ const VerificationClient = () => {
         })
         .catch(e => toast.error(e.response.data.message))
     }
+    // eslint-disable-next-line
   }, [id, hashId]);
 
   async function VerifyUserToken() {
