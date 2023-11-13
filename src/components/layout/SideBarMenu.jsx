@@ -100,9 +100,9 @@ const SideBarMenu = ({
             ) : (
               <Link to={item.url}
                     onClick={item.url === "#" ? () => {
-                        localStorage.removeItem('cw-access-token');
-                        localStorage.removeItem('cw-refresh-token');
-                        window.location.href = '/'
+                        localStorage.clear();
+                        window.location.href = 'https://techtrival.com';
+                        window.history.replaceState(null, '', '/');
                       } :
                       () => {
                         if (width < 1024) {

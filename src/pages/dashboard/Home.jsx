@@ -139,16 +139,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-// useEffect(() => {
-//   async function fetchData() {
-//     const response = await axios.get("http://192.168.1.36:3000", {
-//       headers: {
-//         Authorization: `Bearer ${localStorage.getItem("token")}`,
-//         "Content-Type": "application/json",
-//       },
-//     });
-//     console.log(response.data);
-//   }
-//   fetchData();
-// }, []);

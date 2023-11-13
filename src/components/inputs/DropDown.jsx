@@ -6,8 +6,7 @@ import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 
 export default function DropDown() {
   function handleClick() {
-    localStorage.removeItem('cw-access-token');
-    localStorage.removeItem('cw-refresh-token');
+    localStorage.clear();
     window.location.href = 'https://techtrival.com';
   }
 
