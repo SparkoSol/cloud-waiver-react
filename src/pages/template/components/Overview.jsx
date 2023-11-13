@@ -37,7 +37,7 @@ const Overview = () => {
   }, [currentWaiver]);
   const copyToClipboard = () => {
     if (setShowMessage) {
-      navigator.clipboard.writeText(`${currentWaiver.name}.techtrival.com/${currentWaiver._id}`)
+      navigator.clipboard.writeText(`${currentWaiver.name}.techtrival.com/templates/${currentWaiver._id}`)
         .then(() => {
           setShowMessage(true);
           setTimeout(() => {
@@ -53,7 +53,7 @@ const Overview = () => {
     const body = {
       email: inputRef.current.value,
       company: domain,
-      link: `${currentWaiver.name}.techtrival.com/${currentWaiver._id}`,
+      link: `${currentWaiver.name}.techtrival.com/templates/${currentWaiver._id}`,
       waiverId: id
     }
     if (inputRef.current.value) {
