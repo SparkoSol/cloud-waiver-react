@@ -179,7 +179,7 @@ const FormRender = () => {
   }
 
   return (
-    <div className='max-w-4xl mx-auto my-6'>
+    <div className='max-w-4xl mx-auto my-6 common'>
       <p className='text-sm my-6'>Refrence No : <span
         ref={refNo}>{`${domain.toUpperCase()}.${today()}.${Math.floor(Math.random() * 1000000)}`}</span></p>
       <form ref={fb}></form>

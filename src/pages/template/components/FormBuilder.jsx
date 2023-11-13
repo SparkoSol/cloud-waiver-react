@@ -50,7 +50,7 @@ const FormBuilder = () => {
       });
   }
 
-  return (<div>
+  return (<div className='common'>
     <div className='flex pb-5 justify-between items-center'>
       <Button btnText='Discard' btnClasses='text-red-500 bg-red-100 px-6' fullWidth='w-fit'
               onClick={() => setOpenModal(true)}
