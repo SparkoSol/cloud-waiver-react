@@ -101,8 +101,7 @@ const SideBarMenu = ({
               <Link to={item.url}
                     onClick={item.url === "#" ? () => {
                         localStorage.clear();
-                        window.location.href = 'https://techtrival.com';
-                        window.history.replaceState(null, '', '/');
+                        window.history.replaceState(null, '', 'https://techtrival.com');
                       } :
                       () => {
                         if (width < 1024) {

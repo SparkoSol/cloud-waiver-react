@@ -226,7 +226,11 @@ function App() {
         router.navigate("/dashboard");
       else if (pathname !== "/dashboard")
         router.navigate(pathname);
-    } else {
+    }
+    else if(pathname.includes('reset-password')){
+      router.navigate(pathname);
+    }
+    else {
       router.navigate("/");
     }
     // eslint-disable-next-line
