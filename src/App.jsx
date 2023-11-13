@@ -157,7 +157,7 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: '/templates/:id/render',
+    path: '/templates/:id',
     element: <FormRender/>
   },
   {

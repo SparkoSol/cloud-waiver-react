@@ -543,36 +543,17 @@ export const staticForm = [
     placeholder: 'Email'
   },
   {
-    type: 'text',
-    label: 'First name',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
-    subtype: 'text',
+    label: 'Electronic Signature Consent',
+    type: 'electronicSignatureConsent',
     required: true,
-    placeholder: 'First name'
-  },
-  {
-    type: 'text',
-    label: 'Last name',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
-    subtype: 'text',
-    required: true,
-    placeholder: 'Last name'
-  },
-  {
-    type: 'text',
-    label: 'Phone number',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
-    subtype: 'tel',
-    required: true,
-    placeholder: 'Phone'
   }
 ]
 export const tabsData = [
   {name: 'Overview', id: 1, url: 'overview'},
-  {name: 'Submissions', id: 2, url: '#'},
+  {name: 'Submissions', id: 2, url: '/submissions'},
   {name: 'Builder', id: 3, url: 'builder'},
-  {name: 'Integrations', id: 4, url: '#'},
-  {name: 'Settings', id: 4, url: '#'},
+  {name: 'Integrations', id: 4, url: '/integrations'},
+  {name: 'Settings', id: 4, url: '/settings'},
 ]
 
 //some forms are reusable

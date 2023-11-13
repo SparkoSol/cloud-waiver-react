@@ -58,7 +58,7 @@ const FormBuilder = () => {
       <div className='flex gap-3 items-center'>
         <span
           className="text-yellow-800 text-sm font-semibold px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">{capitalize(waiver?.status)}</span>
-        <Link to={`/templates/${id}/render`} target='_blank'
+        <Link to={`/templates/${id}`} target='_blank'
               className='bg-btnBg w-fit py-2.5 px-8 text-sm text-white font-semibold rounded-full'>Preview</Link>
         {waiver?.status === 'draft' ? <>
             <Button btnText='Publish' btnClasses='bg-btnBg' fullWidth='w-fit' onClick={e => saveData(e, 'publish')}/>

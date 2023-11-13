@@ -46,8 +46,8 @@ const LoginForm = () => {
     const token = localStorage.getItem('cw-access-token');
     if (currentUser && token) {
       if (currentUser.workspaces.length === 1) {
-        localStorage.clear();
-        window.location.href = `http://${currentUser.workspaces[0].domain}.techtrival.com/dashboard?token=${token}`
+        // localStorage.clear();
+        window.location.href = `https://${currentUser.workspaces[0].domain}.techtrival.com/dashboard?token=${token}`
       } else {
         navigate('/domain/select')
       }

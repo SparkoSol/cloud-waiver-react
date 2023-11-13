@@ -37,7 +37,7 @@ const Overview = () => {
   }, [currentWaiver]);
   const copyToClipboard = () => {
     if (setShowMessage) {
-      navigator.clipboard.writeText(window.location.href)
+      navigator.clipboard.writeText(`${currentWaiver.name}.techtrival.com/${currentWaiver._id}`)
         .then(() => {
           setShowMessage(true);
           setTimeout(() => {
@@ -53,11 +53,11 @@ const Overview = () => {
     const body = {
       email: inputRef.current.value,
       company: domain,
-      link: window.location.href,
+      link: `${currentWaiver.name}.techtrival.com/${currentWaiver._id}`,
       waiverId: id
     }
     if (inputRef.current.value) {
-      postRequest('/persons/send-invitation', body)
+      postRequest('/waivers/send-invitation', body)
         .then(r => {
           setData((prevData) => {
             const newData = [...prevData];
@@ -96,7 +96,7 @@ const Overview = () => {
           <div className='flex gap-3 items-end'>
             <Input placeholder='eg. Waiver 101' label='Share your waiver with the following link'
                    extraClasses='font-medium text-gray-500 lg:w-72' inputClasses='pl-3'
-                   value={window.location.href}/>
+                   value={`${currentWaiver.name}.techtrival.com/${currentWaiver._id}`}/>
             <div>
               {showMessage && <CheckIcon className='w-5 h-5 mx-auto'/>}
               <Button btnText='Copy' onClick={copyToClipboard}

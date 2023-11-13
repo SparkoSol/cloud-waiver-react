@@ -24,7 +24,7 @@ const TemplateRow = ({item, functionCall, index, deleteRow, customOpenModal}) =>
           {item.status === 'draft' ?
             <button onClick={e => toast.error('Template not Published!')}><EyeIcon className='w-5 h-5 text-gray-600'/>
             </button> :
-            <Link to={`/templates/${item._id}/render`}>
+            <Link to={`/templates/${item._id}`}>
               <EyeIcon className='w-5 h-5 text-gray-600'/>
             </Link>}
           <Link to={`/customers?template=${item._id}`}>
