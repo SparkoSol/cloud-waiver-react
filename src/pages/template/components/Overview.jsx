@@ -96,7 +96,7 @@ const Overview = () => {
           <div className='flex gap-3 items-end'>
             <Input placeholder='eg. Waiver 101' label='Share your waiver with the following link'
                    extraClasses='font-medium text-gray-500 lg:w-72' inputClasses='pl-3'
-                   value={`${currentWaiver.name}.techtrival.com/${currentWaiver._id}`}/>
+                   value={`${currentWaiver.name}.techtrival.com/templates/${currentWaiver._id}`}/>
             <div>
               {showMessage && <CheckIcon className='w-5 h-5 mx-auto'/>}
               <Button btnText='Copy' onClick={copyToClipboard}

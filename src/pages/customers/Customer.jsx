@@ -18,7 +18,7 @@ const Customer = () => {
   useEffect(() => {
     setLoading(true)
     if (searchParams.get('template')) {
-      getRequest(`/customers/waiver/${searchParams.get('template')}`)
+      getRequest(`/submissions/waiver/${searchParams.get('template')}`)
         .then(r => setCustomers(r.data))
         .catch(e => toast.error(e.response.data.message))
         .finally(() => setLoading(false))
@@ -33,7 +33,7 @@ const Customer = () => {
 
   return (
     <div className="bg-white rounded-md p-6 w-full">
-      <Heading subTitleClasses='text-sm text-gray-900' subtitle='lorem ipsum mit dollar' title='Customer'
+      <Heading subTitleClasses='text-sm text-gray-900' subtitle='List of customers associated with waivers.' title='Customer'
                titleClasses='font-semibold text-xl'/>
       <div className='mt-6'>
         <Input placeholder='Search' inputRef={searchRef} BtnIcon={MagnifyingGlassIcon} inputClasses='rounded-md pl-11'

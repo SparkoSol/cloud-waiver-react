@@ -9,6 +9,9 @@
     -moz-appearance: textfield !important;
   }
 }
+@tailwind components;
+@tailwind utilities;
+
 .frmb-control ui-sortable{
   border: none;
 }
@@ -23,8 +26,7 @@ li[type="additionalParticipants"] .field-label,
 li[type="additionalMinors"] .field-label,
 li[type="richTextEditor"] .field-label,
 .formbuilder-address-label,
-li[type="address"] .field-label{
-  display: none;
+li[type="address"] .field-label,
+.className-wrap, .access-wrap, .name-wrap{
+  display: none !important;
 }
-@tailwind components;
-@tailwind utilities;

@@ -14,7 +14,7 @@ const DashboardRow = ({item, functionCall, index, deleteRow}) => {
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{formatDate(item.updatedAt)}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.firstName}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.lastName}</td>
-      <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'></td>
+      <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{limitChars(item.reference_no, 6)}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.name}</td>
       <td className='py-4 px-3 text-sm text-gray-900 whitespace-nowrap'>
         <span

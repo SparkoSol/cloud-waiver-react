@@ -74,7 +74,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     setLoading(true)
-    getRequest('/waivers')
+    getRequest('/submissions')
       .then(r => setAllWaivers(addCheck(r.data)))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false));

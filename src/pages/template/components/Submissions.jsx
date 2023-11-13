@@ -11,6 +11,7 @@ import QRModal from "../../../components/modals/QRModal";
 import {getRequest} from "../../../redux/cwAPI";
 import toast from "react-hot-toast";
 import Spinner from "../../../components/Spinner";
+import {useParams} from "react-router-dom";
 
 const Submissions = ({currentTab = ''}) => {
   const [open, setOpen] = useState(false);
@@ -19,16 +20,17 @@ const Submissions = ({currentTab = ''}) => {
   const [loading, setLoading] = useState(false);
   const [selectAll, setSelectAll] = useState(false)
   const searchRef = useRef();
+  const {id} = useParams();
 
   useEffect(() => {
     setLoading(true)
-    getRequest('/waivers')
+    getRequest(`/submissions/waiver/${id}`)
       .then(r => setAllWaivers(addCheck(r.data)))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false));
   }, []);
 
-  function deleteRow(){
+  function deleteRow() {
 
   }
 
@@ -53,7 +55,8 @@ const Submissions = ({currentTab = ''}) => {
       </div>
       {
         allWaivers.length > 0 ?
-          <DataTable headers={DashBoardHeaders} TableRow={DashboardRow} items={allWaivers} setSelectAll={setSelectAll} selectAll={selectAll} deleteRow={deleteRow}
+          <DataTable headers={DashBoardHeaders} TableRow={DashboardRow} items={allWaivers} setSelectAll={setSelectAll}
+                     selectAll={selectAll} deleteRow={deleteRow}
                      setState={setAllWaivers}/> :
           <div className='text-center mt-4'>
             <FolderIcon className='w-40 h-40 text-gray-400 mx-auto'/>
