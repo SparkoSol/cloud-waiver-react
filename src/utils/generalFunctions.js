@@ -300,43 +300,65 @@ export let fields = [
       type: 'additionalParticipants',
     },
     icon: '🤵'
-  }, {
-    label: 'Additional Minors', attrs: {
+  },
+  {
+    label: 'Additional Minors',
+    attrs: {
       type: 'additionalMinors'
     },
     icon: '👨‍👦‍👦'
-  }, {
-    label: 'Signature', attrs: {
+  },
+  {
+    label: 'Signature',
+    attrs: {
       type: 'signature',
     },
     icon: '✍️',
-  }, {
-    label: 'Address', attrs: {
+  },
+  {
+    label: 'Address',
+    attrs: {
       type: 'address'
     },
     icon: '🏠'
-  }, {
+  },
+  {
     label: 'Primary Adult Participant',
     attrs: {
       type: 'primaryAdultParticipant',
     },
     icon: '🤵'
-  }, {
-    label: 'Rich Text Editor', attrs: {
+  },
+  {
+    label: 'Rich Text Editor',
+    attrs: {
       type: 'richTextEditor'
     },
     icon: '⌨️'
-  }, {
-    label: 'Electronic Consent Signature', attrs: {
+  },
+  {
+    label: 'Electronic Consent Signature',
+    attrs: {
       type: 'electronicSignatureConsent'
     },
     icon: '💾'
-  }, {
-    label: 'Capture Photo', attrs: {
+  },
+  {
+    label: 'Capture Photo',
+    attrs: {
       type: 'capturePhoto'
     },
     icon: '📷'
-  }];
+  },
+  {
+    label: 'Time',
+    attrs: {
+      type: 'timeComponent'
+    },
+    icon: '🕐'
+  }
+];
+
 const templates = {
   primaryAdultParticipant: function (fieldData) {
     return {
@@ -484,8 +506,15 @@ const templates = {
         document.getElementById('captureButton').addEventListener('click', openCamera);
       }
     };
+  },
+  timeComponent: function (fieldData) {
+    return {
+      onRender: function () {
+        let element = $(`.field-${fieldData.name}`);
+        element.append('<input type="time" class="w-full p-2.5" name="time-field">');
+      }
+    };
   }
-
 };
 const inputSets = [{
   label: 'Primary Adult Participant(editable)',

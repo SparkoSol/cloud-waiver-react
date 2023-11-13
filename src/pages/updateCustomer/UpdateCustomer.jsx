@@ -48,15 +48,18 @@ const UpdateCustomer = () => {
 
   async function fetchCustomer() {
     setLoading(true)
-    const {data} = getRequest(`/customers/${id}`)
-    const updatedData = [
-      {label: 'First Name', placeholder: 'First Name', id: 1, ref: firstNameRef, value: data.first_name},
-      {label: 'Last Name', placeholder: 'Last Name', id: 2, ref: lastNameRef, value: data.last_name},
-      {label: 'Email', placeholder: 'Email', id: 3, ref: emailRef, value: data.email},
-      {label: 'Phone', placeholder: 'Phone', id: 4, ref: phoneRef, value: data.phone},
-    ];
-    setData(updatedData)
-    setLoading(false)
+    getRequest(`/customers/${id}`)
+      .then(r => {
+        const updatedData = [
+          {label: 'First Name', placeholder: 'First Name', id: 1, ref: firstNameRef, value: data.first_name},
+          {label: 'Last Name', placeholder: 'Last Name', id: 2, ref: lastNameRef, value: data.last_name},
+          {label: 'Email', placeholder: 'Email', id: 3, ref: emailRef, value: data.email},
+          {label: 'Phone', placeholder: 'Phone', id: 4, ref: phoneRef, value: data.phone},
+        ];
+        setData(updatedData)
+      })
+      .catch(e => e.response.data.message)
+      .finally(() => setLoading(false))
   }
 
   return (

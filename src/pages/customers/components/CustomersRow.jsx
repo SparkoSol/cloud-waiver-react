@@ -16,7 +16,7 @@ const CustomersRow = ({item}) => {
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.first_name}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.last_name}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.email}</td>
-      <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.count}</td>
+      <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.customer?.waiver_submission_count}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>
         <div className="flex items-center space-x-6">
           <div className="flex items-center space-x-6">

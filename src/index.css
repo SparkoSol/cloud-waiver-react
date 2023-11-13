@@ -30,3 +30,8 @@ li[type="address"] .field-label,
 .className-wrap, .access-wrap, .name-wrap{
   display: none !important;
 }
+
+[multiple], [type=date], [type=datetime-local], [type=email], [type=month], [type=number], [type=password], [type=search], [type=tel],
+[type=text], [type=timeComponent], [type=time], [type=url], [type=week], select, textarea{
+  border: 1px solid #6b7280;
+}
