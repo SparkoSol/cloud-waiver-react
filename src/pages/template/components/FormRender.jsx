@@ -47,7 +47,9 @@ const FormRender = () => {
     setLoading(true)
     const htmlArr = $(fb.current).formRender("userData");
     const signatureElement = $('.js-signature');
-    let hasEmail = null;
+    let defaultObj = {
+      email: null, first_name: null, last_name: null, phone: null
+    };
     let customerId = null;
     let tracker = {
       signatureCount: 0,
@@ -136,9 +138,21 @@ const FormRender = () => {
           tracker.electronicSignatureConsentCount += 1;
           break
         case 'text':
-          if (item.subtype === 'email') {
-            console.log(item)
-            hasEmail = item.userData[0];
+          switch (item.label) {
+            case 'Email':
+              defaultObj.email = item.userData[0];
+              break;
+            case 'First name':
+              defaultObj.first_name = item.userData[0];
+              break;
+            case 'Last name':
+              defaultObj.last_name = item.userData[0];
+              break;
+            case 'Phone number':
+              defaultObj.phone = item.userData[0];
+              break;
+            default:
+              break
           }
           break
         default:
@@ -146,9 +160,11 @@ const FormRender = () => {
       }
     }
 
-    if (hasEmail) {
-      await postRequest('/customers', {email: hasEmail, waiver: id})
+    if (defaultObj.email) {
+      await postRequest('/customers', defaultObj)
         .then(r => customerId = r.data._id)
+        .catch(e => e.response.data.message)
+        .finally(() => setLoading(false));
     }
 
     postRequest('/submissions', {

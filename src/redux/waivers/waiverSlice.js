@@ -4,14 +4,15 @@ import toast from 'react-hot-toast';
 
 const initialWaiverState = {
   allWaivers: null,
-  currentWaiver:null,
+  currentWaiver: null,
   status: 'idle'
 }
 
 const waiverSlice = createSlice({
   name: 'waivers',
   initialState: initialWaiverState,
-  reducers: {},
+  reducers: {
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getSingleWaiver.pending, (state) => {
@@ -27,6 +28,6 @@ const waiverSlice = createSlice({
       })
   },
 })
-
-export const selectSingleWaiver = state=>state.waivers.currentWaiver;
+export const selectSingleWaiver = state => state.waivers.currentWaiver;
+export const {resetWaiver} = waiverSlice.actions;
 export default waiverSlice.reducer

@@ -457,15 +457,17 @@ const templates = {
     return {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
+
         function openCamera() {
           const video = document.getElementById('cameraFeed');
-          const constraints = { video: true };
+          const constraints = {video: true};
           navigator.mediaDevices.getUserMedia(constraints)
             .then((stream) => {
               video.srcObject = stream;
               video.style.display = 'block';
             })
         }
+
         element.append(`
         <div class="p-2">
           <h2 class="my-2 text-lg font-semibold text-gray-900">Please follow the provided instructions to complete your Photo Capture</h2>
@@ -539,6 +541,30 @@ export const staticForm = [
     subtype: 'email',
     required: true,
     placeholder: 'Email'
+  },
+  {
+    type: 'text',
+    label: 'First name',
+    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    subtype: 'text',
+    required: true,
+    placeholder: 'First name'
+  },
+  {
+    type: 'text',
+    label: 'Last name',
+    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    subtype: 'text',
+    required: true,
+    placeholder: 'Last name'
+  },
+  {
+    type: 'text',
+    label: 'Phone number',
+    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    subtype: 'tel',
+    required: true,
+    placeholder: 'Phone'
   }
 ]
 export const tabsData = [

@@ -31,14 +31,14 @@ const FormBuilder = () => {
     if (!FormBuilder?.formData && waiver) {
       setFormBuilder($(fb.current).formBuilder({
         disabledActionButtons: ['data', 'clear', 'save'],
-        formData: waiver?.form_data || staticForm, ...options,
+        formData: waiver?.form_data.length > 0 ? waiver?.form_data : staticForm, ...options,
         controlOrder: ['primaryAdultParticipant', 'editable', 'additionalParticipants', 'additionalMinors', 'signature', 'address', 'richTextEditor', 'fileUpload', 'electronicSignatureConsent', 'capturePhoto']
       }))
     }
     // eslint-disable-next-line
   }, [waiver]);
 
-  function saveData(e,status) {
+  function saveData(e, status) {
     setLoading(true);
     const requestData = status ? {status: 'Published'} : {form_data: JSON.parse(FormBuilder.formData)};
     patchRequest(`/waivers/${id}`, requestData)
@@ -72,7 +72,9 @@ const FormBuilder = () => {
            btnText='Confirm'
            functionCall={() => {
              FormBuilder.actions.clearFields();
-             FormBuilder.actions.addField(...staticForm)
+             for (let i = 0; i < staticForm.length; i++) {
+               FormBuilder.actions.addField(staticForm[i])
+             }
            }}
            description='This cannot be undone!'
            title='Are you sure?'/>
