@@ -299,7 +299,7 @@ export let fields = [
     attrs: {
       type: 'additionalParticipants',
     },
-    icon: '🤵'
+    icon: '🤵',
   },
   {
     label: 'Additional Minors',
@@ -356,6 +356,13 @@ export let fields = [
       type: 'timeComponent'
     },
     icon: '🕐'
+  },
+  {
+    label: 'File Upload',
+    attrs: {
+      type: 'filesUpload'
+    },
+    icon: ' 🔗'
   }
 ];
 
@@ -514,7 +521,74 @@ const templates = {
         element.append('<input type="time" class="w-full p-2.5" name="time-field">');
       }
     };
+  },
+  filesUpload: function (fieldData) {
+    return {
+      onRender: function () {
+        let element = $(`.field-${fieldData.name}`);
+        let inputFile = $('<input>', {
+          type: 'file',
+          multiple: true,
+          accept: "image/png, image/jpeg",
+          id: `fileInput-${fieldData.name}`,
+          style: 'display: none',
+          change: function () {
+            displayUploadedFiles(fieldData.name);
+          }
+        });
+        let openButton = $('<button>', {
+          text: 'Upload Files',
+          class: 'px-3 py-2 text-white bg-btnBg rounded-lg',
+          click: function () {
+            $(`#fileInput-${fieldData.name}`).click();
+          }
+        });
+        let fileDisplayDiv = $('<div>', {
+          id: `uploadedFileDisplay-${fieldData.name}`,
+          class:'child:w-20 child:h-20 flex gap-3'
+        });
+        element.on('dragover', function (e) {
+          e.preventDefault();
+          element.addClass('drag-over');
+        });
+        element.on('dragleave', function () {
+          element.removeClass('drag-over');
+        });
+        element.on('drop', function (e) {
+          e.preventDefault();
+          element.removeClass('drag-over');
+          let files = e.originalEvent.dataTransfer.files;
+          if (files.length > 0) {
+            $(`#fileInput-${fieldData.name}`).prop('files', files);
+            displayUploadedFiles(fieldData.name);
+          }
+        });
+        element.append(inputFile, openButton, fileDisplayDiv);
+      }
+    };
+
+    function displayUploadedFiles(fieldName) {
+      let fileInput = $(`#fileInput-${fieldName}`);
+      let displayDiv = $(`#uploadedFileDisplay-${fieldName}`);
+      displayDiv.empty();
+
+      if (fileInput[0].files.length > 0) {
+        for (let i = 0; i < fileInput[0].files.length; i++) {
+          let file = fileInput[0].files[i];
+          if (file.type.startsWith('image/')) {
+            let imgElement = $('<img>', {
+              src: URL.createObjectURL(file),
+              alt: 'Uploaded Image'
+            });
+            displayDiv.append(imgElement);
+          } else {
+            displayDiv.append(`<p>File ${i + 1}: ${file.name} is not an image.</p>`);
+          }
+        }
+      }
+    }
   }
+
 };
 const inputSets = [{
   label: 'Primary Adult Participant(editable)',
@@ -557,10 +631,185 @@ const inputSets = [{
 export let options = {
   fields,
   templates,
-  disableFields: ['autocomplete', 'textarea', 'button'],
+  disableFields: ['autocomplete', 'textarea', 'button', 'paragraph', 'file'],
+  disabledAttrs: [
+    'access',
+    'multiple',
+    'toggle',
+    'className',
+    'inline',
+    'other',
+    'subtype',
+    'maxlength',
+    'rows',
+    'name',
+  ],
+  disabledFieldButtons: {
+    richTextEditor: ['copy', 'edit'],
+  },
   stickyControls: true,
   controlPosition: 'right',
-  inputSets
+  inputSets,
+  typeUserAttrs: {
+    primaryAdultParticipant: {
+      'Show First Name': {
+        label: 'Show First Name',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Middle Name': {
+        label: 'Show Middle Name',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Last Name': {
+        label: 'Show Last Name',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Email': {
+        label: 'Show Email',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Phone': {
+        label: 'Show Phone',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Date Of Birth': {
+        label: 'Show Date Of Birth',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Signature': {
+        label: 'Show Date Of Birth',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Scanner': {
+        label: 'Show Date Of Birth',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Age': {
+        label: 'Show Date Of Birth',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Address': {
+        label: 'Show Date Of Birth',
+        value: false,
+        type: 'checkbox',
+      }
+    },
+    additionalParticipants: {
+      'Show First Name': {
+        label: 'Show First Name',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Middle Name': {
+        label: 'Show Middle Name',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Last Name': {
+        label: 'Show Last Name',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Email': {
+        label: 'Show Email',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Phone': {
+        label: 'Show Phone',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Date Of Birth': {
+        label: 'Show Date Of Birth',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Signature': {
+        label: 'Show Date Of Birth',
+        value: false,
+        type: 'checkbox',
+      }
+    },
+    additionalMinors:{
+      'Show First Name':{
+        label: 'Show First Name',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Middle Name':{
+        label: 'Show Middle Name',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Last Name':{
+        label: 'Show Last Name',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Date Of Birth':{
+        label: 'Show Date Of Birth',
+        value: false,
+        type: 'checkbox',
+      },
+      'Show Relationship':{
+        label: 'Show Relationship',
+        value: false,
+        type: 'checkbox'
+      }
+    },
+    electronicSignatureConsent:{
+      'Content':{
+        label: 'Content',
+        type:'textarea',
+        value: 'By checking here, you are consenting to the use of your electronic signature in lieu of an original signature on paper. You have the right to request that you sign a paper copy instead. By checking here, you are waiving that right. After consent, you may, upon written request to us, obtain a paper copy of an electronic record. No fee will be charged for such copy and no special hardware or software is required to view it. Your agreement to use an electronic signature with us for any documents will continue until such time as you notify us in writing that you no longer wish to use an electronic signature. There is no penalty for withdrawing your consent. You should always make sure that we have a current email address in order to contact you regarding any changes, if necessary.',
+      }
+    },
+    capturePhoto:{
+      'Instruction Header':{
+        label:'Instruction Header',
+        type:'text',
+        value:'Please follow the provided instructions to complete your Photo Capture'
+      },
+      'Instruction Line 1':{
+        label:'Instruction Line 1',
+        type:'text',
+        value:'Make sure your camera has a clear view of you.'
+      },
+      'Instruction Line 2':{
+        label:'Instruction Line 2',
+        type:'text',
+        value:'When you are ready, press the Take photo button while facing your camera.'
+      },
+      'Instruction Line 3':{
+        label:'Instruction Line 3',
+        type:'text',
+        value:'If you are not satisfied with the photo, press the Retake button to try again.'
+      },
+      'Instruction Line 4':{
+        label:'Instruction Line 4',
+        type:'text',
+        value:''
+      },
+      'Button Text':{
+        label:'Button Text',
+        type:'text',
+        value:'Capture Photo'
+      }
+    }
+  },
+  typeUserEvents: {
+    additionalParticipants: {}
+  }
 };
 export const staticForm = [
   {
@@ -584,7 +833,6 @@ export const tabsData = [
   {name: 'Integrations', id: 4, url: '/integrations'},
   {name: 'Settings', id: 4, url: '/settings'},
 ]
-
 //some forms are reusable
 var additionParticipantForm = `
         <form class="space-y-2" id="myForm">
@@ -620,7 +868,6 @@ var additionParticipantForm = `
         <div class="js-signature adult"></div>
         </div>
         </form>`
-
 var additionMinorForm = `
         <form class="space-y-2" id="myForm">
           <div class="mt-3">
@@ -644,7 +891,6 @@ var additionMinorForm = `
             </div>
           </div>
         </form>`
-
 function commonPayload(form, newDiv, fieldData) {
   let element = $(`.field-${fieldData.name}`);
   let buttonsHTML = '';
@@ -683,11 +929,9 @@ function commonPayload(form, newDiv, fieldData) {
     $(this).on('click', handleButtonClick(i));
   });
 }
-
 export const formatDate = (date) => {
   const originalDate = new Date(date);
   const options = {year: 'numeric', month: 'short', day: '2-digit'};
   return originalDate.toLocaleDateString('en-US', options)
 }
 //TODO : RICH EDITOR NEEDS MODIFICATIONS
-//TODO : When two address form a re there i takes data from first form only

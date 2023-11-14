@@ -45,6 +45,7 @@ const Dashboard = () => {
   const [openModal, setOpenModal] = useState(false);
   const [allWaivers, setAllWaivers] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
+  const [selectedCount, setSelectedCount] = useState(0);
 
   const selectData = [{
     options: ['Submitted', 'Approved', 'Declined', 'Pending', 'Status'], state: status, setState: setStatus
@@ -107,11 +108,16 @@ const Dashboard = () => {
       <div>
         <div className='flex justify-between'>
           <h1 className='text-xl font-semibold my-5'>Recent waiver</h1>
-          <Button BtnIcon={ClipboardIcon}
-                  btnText='Create waivers'
-                  onClick={() => setOpenModal(true)}
-                  btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
-                  iconClasses='w-4 h-4 text-white inline-block ml-2'/>
+          <div className='flex items-center gap-2'>
+            {selectedCount > 0 && <>
+              <span className='text-gray-500'>Selected : {selectedCount}</span>
+              <Button btnText='Archive' btnClasses='bg-red-500' fullWidth='w-fit'/></>}
+            <Button BtnIcon={ClipboardIcon}
+                    btnText='Create waivers'
+                    onClick={() => setOpenModal(true)}
+                    btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
+                    iconClasses='w-4 h-4 text-white inline-block ml-2'/>
+          </div>
         </div>
         <div className='flex gap-2 mb-4 flex-wrap'>
           <Input placeholder='Search' inputRef={searchRef} BtnIcon={MagnifyingGlassIcon} inputClasses='rounded-md pl-11'
@@ -125,7 +131,7 @@ const Dashboard = () => {
           {allWaivers.length > 0 ?
             <DataTable headers={DashBoardHeaders} TableRow={DashboardRow} items={allWaivers}
                        setState={setAllWaivers} selectAll={selectAll} setSelectAll={setSelectAll}
-                       deleteRow={deleteRow}
+                       deleteRow={deleteRow} setSelectedCount={setSelectedCount}
             /> : <div className='text-center mt-4'>
               <FolderIcon className='w-40 h-40 text-gray-400 mx-auto'/>
               <span className='text-gray-500 mb-10 text-base'>No Waivers Found. Get started by creating a waiver</span>

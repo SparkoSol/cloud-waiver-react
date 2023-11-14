@@ -13,17 +13,24 @@ const DataTable = ({
                      emptyMessage = 'Nothing here yet!',
                      setSelectAll,
                      setState,
+                     setSelectedCount,
                      ...otherProps
                    }) => {
   function selectRows(str) {
     if (typeof str === "boolean") {
       setState(items.map(item => ({...item, checked: str})));
       setSelectAll(str)
+      setSelectedCount(str ? items.length : 0);
     } else {
       let newData = [...items];
       newData[str] = {...newData[str], checked: !newData[str].checked};
-      let isAnySelected = newData.some(item => item.checked)
-      if (!isAnySelected) setSelectAll(false);
+      let isAnySelected = newData.filter(item => item.checked)
+      if (!isAnySelected.length) {
+        setSelectAll(false);
+        setSelectedCount(0);
+      } else {
+        setSelectedCount(isAnySelected.length);
+      }
       setState(newData)
     }
   }

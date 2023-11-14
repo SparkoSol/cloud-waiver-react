@@ -16,7 +16,6 @@ import Integrations from "./pages/integrations/Integrations.jsx";
 import Customer from "./pages/customers/Customer.jsx";
 import UpdateCustomer from "./pages/updateCustomer/UpdateCustomer.jsx";
 import Management from "./pages/management/Management.jsx";
-import CustomerList from "./pages/customerList/CustomerList.jsx";
 import ManagementTeam from "./pages/managementTeam/ManagementTeam.jsx";
 import CreateTeam from "./pages/createTeam/CreateTeam.jsx";
 import {useDispatch, useSelector} from "react-redux";
@@ -118,12 +117,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Customer/>
-      }, {
+      },
+      {
         path: ':id/edit',
         element: <UpdateCustomer/>
-      }, {
-        path: ':id',
-        element: <CustomerList/>
       }
     ]
   },

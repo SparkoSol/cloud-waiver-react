@@ -13,6 +13,9 @@ const Customer = () => {
   const [loading, setLoading] = useState(false);
   let [searchParams] = useSearchParams();
   const [customers, setCustomers] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [selectedCount, setSelectedCount] = useState(0);
   const searchRef = useRef();
 
   useEffect(() => {
@@ -33,12 +36,18 @@ const Customer = () => {
 
   return (
     <div className="bg-white rounded-md p-6 w-full">
-      <Heading subTitleClasses='text-sm text-gray-900' subtitle='List of customers associated with waivers.' title='Customer'
+      <Heading subTitleClasses='text-sm text-gray-900' subtitle='List of customers associated with waivers.'
+               title='Customer'
                titleClasses='font-semibold text-xl'/>
       <div className='mt-6'>
         <Input placeholder='Search' inputRef={searchRef} BtnIcon={MagnifyingGlassIcon} inputClasses='rounded-md pl-11'
                extraClasses='w-fit inline-block mb-6'/>
-        <DataTable TableRow={CustomersRow} items={customers}
+        <DataTable TableRow={CustomersRow}
+                   items={customers}
+                   setSelectAll={setSelectAll}
+                   selectAll={selectAll}
+                   setState={setCustomers}
+                   setSelectedCount={setSelectedCount}
                    headers={['ID', 'FIRST NAME', 'LAST NAME', 'EMAIL', 'WAIVERS COUNT']}/>
       </div>
       {loading && <Spinner/>}

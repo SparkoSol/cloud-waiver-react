@@ -32,7 +32,7 @@ const FormBuilder = () => {
       setFormBuilder($(fb.current).formBuilder({
         disabledActionButtons: ['data', 'clear', 'save'],
         formData: waiver?.form_data.length > 0 ? waiver?.form_data : staticForm, ...options,
-        controlOrder: ['primaryAdultParticipant', 'editable', 'additionalParticipants', 'additionalMinors', 'signature', 'address', 'richTextEditor', 'fileUpload', 'electronicSignatureConsent', 'capturePhoto']
+        controlOrder: ['primaryAdultParticipant', 'editable', 'additionalParticipants', 'additionalMinors', 'signature', 'address', 'richTextEditor', 'filesUpload', 'electronicSignatureConsent', 'capturePhoto']
       }))
     }
     // eslint-disable-next-line

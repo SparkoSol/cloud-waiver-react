@@ -9,38 +9,58 @@
     -moz-appearance: textfield !important;
   }
 }
+
 @tailwind components;
 @tailwind utilities;
 
-.frmb-control ui-sortable{
+.frmb-control ui-sortable {
   border: none;
 }
-.frmb-control.ui-sortable > *{
+
+.frmb-control.ui-sortable > * {
   font-size: 14px;
   font-weight: 600;
 }
-.form-wrap.form-builder .frmb-control li{
+
+.form-wrap.form-builder .frmb-control li {
   box-shadow: none;
 }
+
 li[type="additionalParticipants"] .field-label,
 li[type="additionalMinors"] .field-label,
 li[type="richTextEditor"] .field-label,
 .formbuilder-address-label,
-li[type="address"] .field-label,
-.className-wrap, .access-wrap, .name-wrap{
+li[type="address"] .field-label {
   display: none !important;
 }
 
-[multiple], [type=date], [type=datetime-local], [type=email], [type=month], [type=number], [type=password], [type=search], [type=tel],
-[type=text], [type=timeComponent], [type=time], [type=url], [type=week], select, textarea{
+#waiver-editor :is([type=date], [type=datetime-local], [type=email], [type=month], [type=number], [type=password], [type=search], [type=tel],
+[type=text], [type=timeComponent], [type=time], [type=url], [type=week], select, textarea){
   border: 1px solid #6b7280;
 }
 
-.tox-tinymce{
+.tox-tinymce {
   margin-top: 30px;
 }
 
-.common h1{
+.common h1, header {
   font-weight: 700;
   font-size: 30px;
 }
+
+#waiver-editor .form-elements div.form-group > label, .form-builder .form-field.editing .form-elements .form-group label {
+  text-wrap: balance;
+}
+
+.form-wrap.form-builder .frmb .form-elements .input-wrap > input[type=checkbox] {
+  width: 1rem;
+  height: 1rem;
+}
+
+.additionalParticipants-field :is(.label-wrap, .description-wrap, .placeholder-wrap, .value-wrap),
+.additionalMinors-field :is(.label-wrap, .description-wrap, .placeholder-wrap, .value-wrap),
+.capturePhoto-field :is(.description-wrap, .placeholder-wrap, .value-wrap) {
+  display: none !important;
+}
+
+/*TODO : https://github.com/kevinchappell/formBuilder/issues/905*/

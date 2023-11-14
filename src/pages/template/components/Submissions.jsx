@@ -18,7 +18,9 @@ const Submissions = ({currentTab = ''}) => {
   const [status, setStatus] = useState('Status');
   const [allWaivers, setAllWaivers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [selectAll, setSelectAll] = useState(false)
+  const [selectAll, setSelectAll] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [selectedCount, setSelectedCount] = useState(0);
   const searchRef = useRef();
   const {id} = useParams();
 
@@ -28,7 +30,7 @@ const Submissions = ({currentTab = ''}) => {
       .then(r => setAllWaivers(addCheck(r.data)))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false));
-  }, []);
+  }, [id]);
 
   function deleteRow() {
 
@@ -56,7 +58,7 @@ const Submissions = ({currentTab = ''}) => {
       {
         allWaivers.length > 0 ?
           <DataTable headers={DashBoardHeaders} TableRow={DashboardRow} items={allWaivers} setSelectAll={setSelectAll}
-                     selectAll={selectAll} deleteRow={deleteRow}
+                     selectAll={selectAll} deleteRow={deleteRow} setSelectedCount={setSelectedCount}
                      setState={setAllWaivers}/> :
           <div className='text-center mt-4'>
             <FolderIcon className='w-40 h-40 text-gray-400 mx-auto'/>

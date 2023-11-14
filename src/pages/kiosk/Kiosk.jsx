@@ -22,6 +22,8 @@ const Kiosk = () => {
   const [state, setState] = useState({
     saved: false, _id: ''
   });
+  // eslint-disable-next-line no-unused-vars
+  const [selectedCount, setSelectedCount] = useState(0);
 
   useEffect(() => {
     setLoading(true)
@@ -85,6 +87,7 @@ const Kiosk = () => {
         <FileInput label='Kiosk Logo' fileInputRef={fileInputRef}/>
         <DataTable TableRow={KioskRow} headers={['Id', 'Template Name']}
                    items={kioskData}
+                   setSelectedCount={setSelectedCount}
                    setState={setKioskData}
                    setSelectAll={setSelectAll} selectAll={selectAll}/>
         <div className='flex items-center gap-2 justify-end'>

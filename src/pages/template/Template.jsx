@@ -23,6 +23,7 @@ function Template() {
     label: 'Please enter your template name',
     index: null
   })
+  const [selectedCount, setSelectedCount] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -41,7 +42,6 @@ function Template() {
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false))
   }
-
   function customOpenModal(bool, index) {
     setOpenModal(true);
     setDuplicate({
@@ -52,7 +52,6 @@ function Template() {
       index
     })
   }
-
   function deleteRow(id, idx) {
     setLoading(true)
     const newData = [
@@ -63,27 +62,31 @@ function Template() {
       .then(r => setAllTemplates(newData))
       .finally(() => setLoading(false))
   }
-
   return (
     <div>
       <h1 className='text-xl font-semibold mb-5'>Templates</h1>
       <div>
         <div className='flex justify-between pb-6'>
           <span className='text-sm font-semibold text-gray-600'>List of all templates you've created.</span>
-          <Button BtnIcon={ClipboardIcon}
-                  btnText='Create waivers'
-                  onClick={() => {
-                    setOpenModal(true);
-                    setDuplicate(prev => ({...prev, index: null}));
-                  }}
-                  btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
-                  iconClasses='w-4 h-4 text-white inline-block ml-2'/>
+          <div className='flex gap-2 items-center'>
+            {selectedCount > 0 && <>
+              <span className='text-gray-500'>Selected : {selectedCount}</span>
+              <Button btnText='Archive' btnClasses='bg-red-500' fullWidth='w-fit'/></>}
+            <Button BtnIcon={ClipboardIcon}
+                    btnText='Create waivers'
+                    onClick={() => {
+                      setOpenModal(true);
+                      setDuplicate(prev => ({...prev, index: null}));
+                    }}
+                    btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
+                    iconClasses='w-4 h-4 text-white inline-block ml-2'/>
+          </div>
         </div>
         <div>
           {allTemplates.length > 0 ?
             <DataTable selectAll={selectAll} setSelectAll={setSelectAll}
                        headers={['Name', 'Total Waivers', 'Status']} TableRow={TemplateRow} items={allTemplates}
-                       setState={setAllTemplates}
+                       setState={setAllTemplates} setSelectedCount={setSelectedCount}
                        deleteRow={deleteRow} customOpenModal={customOpenModal}/> : <div className='text-center mt-4'>
               <FolderIcon className='w-40 h-40 text-gray-400 mx-auto'/>
               <span className='text-gray-500 mb-10 text-base'>No Waivers Found. Get started by creating a waiver</span>
