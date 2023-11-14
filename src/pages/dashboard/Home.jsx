@@ -18,19 +18,6 @@ import {useNavigate} from "react-router-dom";
 import {getRequest, postRequest} from "../../redux/cwAPI";
 import toast from "react-hot-toast";
 
-const data = [
-  {
-    id: 1, title: 'Usage', value: '50', icon: '/database.svg'
-  }, {
-    id: 2, title: 'Templates', value: '50', icon: '/wallet.svg'
-  }, {
-    id: 3, title: 'Signed', value: '50', icon: '/pulse.svg'
-  },
-  {
-    id: 4, title: 'Customers', value: '50', icon: '/user.png'
-  }
-]
-
 const Dashboard = () => {
   const currentUser = useSelector(selectCurrentUser);
   const currentMember = useSelector(selectMember);
@@ -46,6 +33,18 @@ const Dashboard = () => {
   const [allWaivers, setAllWaivers] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedCount, setSelectedCount] = useState(0);
+  const [usage, setUsage] = useState([
+    {
+      id: 1, title: 'Usage', value: '50', icon: '/database.svg'
+    }, {
+      id: 2, title: 'Templates', value: '50', icon: '/wallet.svg'
+    }, {
+      id: 3, title: 'Signed', value: '50', icon: '/pulse.svg'
+    },
+    {
+      id: 4, title: 'Customers', value: '50', icon: '/user.png'
+    }
+  ])
 
   const selectData = [{
     options: ['Submitted', 'Approved', 'Declined', 'Pending', 'Status'], state: status, setState: setStatus
@@ -77,6 +76,18 @@ const Dashboard = () => {
     setLoading(true)
     getRequest('/submissions')
       .then(r => setAllWaivers(addCheck(r.data)))
+      .catch(e => {
+        setLoading(false);
+        toast.error(e.response.data.message)
+      })
+
+    getRequest('/dashboard')
+      .then(r => setUsage([
+        {id: 1, title: 'Usage', value: r.data.usage, icon: '/database.svg'},
+        {id: 2, title: 'Templates', value: r.data.templates, icon: '/wallet.svg'},
+        {id: 3, title: 'Signed', value: r.data.signed, icon: '/pulse.svg'},
+        {id: 4, title: 'Customers', value: r.data.customers, icon: '/user.png'}
+      ]))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false));
   }, []);
@@ -98,9 +109,9 @@ const Dashboard = () => {
         <h1 className='text-xl font-semibold mb-5'>Dashboard</h1>
         <div
           className='grid gap-3 grid-cols-1 grid-rows-4 sm:grid-rows-2 sm:grid-cols-2 md:grid-rows-1 md:grid-cols-4 mb-5'>
-          {data.map(item => {
+          {usage.map((item, index) => {
             return (
-              <Card key={item.id} item={item}/>
+              <Card key={index} item={item}/>
             )
           })}
         </div>

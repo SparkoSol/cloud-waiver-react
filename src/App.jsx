@@ -35,6 +35,7 @@ import NotFound from "./pages/NotFound";
 import Setting from "./pages/template/components/Setting";
 import Integration from "./pages/template/components/Integration";
 import Submissions from "./pages/template/components/Submissions";
+import SubmissionView from "./pages/SubmissionView";
 
 const router = createBrowserRouter([
   {
@@ -188,6 +189,10 @@ const router = createBrowserRouter([
   {
     path: '/templates/:id/submission',
     element: <SuccessState/>
+  },
+  {
+    path: '/submission/:submissionId/view',
+    element: <SubmissionView/>
   },
   {
     path: '/kiosk',

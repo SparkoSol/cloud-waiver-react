@@ -80,7 +80,7 @@ const Overview = () => {
         <div className="grid grid-cols-2 gap-3">
           {data.map((item, index) => {
             return (
-              <div className={`bg-white rounded-lg border-l-4 ${item.class} px-3 py-5 space-y-2`}>
+              <div key={index} className={`bg-white rounded-lg border-l-4 ${item.class} px-3 py-5 space-y-2`}>
                 <p className="text-sm font-normal text-gray-600">{item.title}</p>
                 <div className="flex items-center justify-between">
                   <h3 className="font-semibold text-3xl text-gray-800">{item.number}</h3>
