@@ -32,6 +32,9 @@ import SplashScreen from "./pages/kiosk/components/SplashScreen";
 import SuccessState from "./pages/template/components/SuccessState";
 import Overview from "./pages/template/components/Overview";
 import NotFound from "./pages/NotFound";
+import Setting from "./pages/template/components/Setting";
+import Integration from "./pages/template/components/Integration";
+import Submissions from "./pages/template/components/Submissions";
 
 const router = createBrowserRouter([
   {
@@ -143,11 +146,36 @@ const router = createBrowserRouter([
             <FormBuilder/>
           </TemplateContainer>
         )
-      }, {
+      },
+      {
         path: ':id/overview',
         element: (
           <TemplateContainer>
             <Overview/>
+          </TemplateContainer>
+        )
+      },
+      {
+        path: ':id/setting',
+        element: (
+          <TemplateContainer>
+            <Setting/>
+          </TemplateContainer>
+        )
+      },
+      {
+        path: ':id/submissions',
+        element: (
+          <TemplateContainer>
+            <Submissions/>
+          </TemplateContainer>
+        )
+      },
+      {
+        path: ':id/integration',
+        element: (
+          <TemplateContainer>
+            <Integration/>
           </TemplateContainer>
         )
       }
@@ -223,11 +251,9 @@ function App() {
         router.navigate("/dashboard");
       else if (pathname !== "/dashboard")
         router.navigate(pathname);
-    }
-    else if(pathname.includes('reset-password')){
+    } else if (pathname.includes('reset-password')) {
       router.navigate(pathname);
-    }
-    else {
+    } else {
       router.navigate("/");
     }
     // eslint-disable-next-line

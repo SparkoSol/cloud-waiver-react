@@ -539,7 +539,7 @@ const templates = {
         let openButton = $('<button>', {
           text: 'Upload Files',
           type: 'button',
-          class: 'px-3 py-2 text-white bg-btnBg rounded-lg',
+          class: 'px-3 py-2 text-white bg-btnBg block w-fit my-4 rounded-lg',
           click: function () {
             $(`#fileInput-${fieldData.name}`).click();
           }
@@ -829,10 +829,10 @@ export const staticForm = [
 ]
 export const tabsData = [
   {name: 'Overview', id: 1, url: 'overview'},
-  {name: 'Submissions', id: 2, url: '/submissions'},
+  {name: 'Submissions', id: 2, url: 'submissions'},
   {name: 'Builder', id: 3, url: 'builder'},
-  {name: 'Integrations', id: 4, url: '/integrations'},
-  {name: 'Settings', id: 4, url: '/settings'},
+  {name: 'Integrations', id: 4, url: 'integration'},
+  {name: 'Settings', id: 4, url: 'setting'},
 ]
 //some forms are reusable
 var additionParticipantForm = `

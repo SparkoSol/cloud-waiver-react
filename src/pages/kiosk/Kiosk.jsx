@@ -35,10 +35,12 @@ const Kiosk = () => {
     getRequest(`/kiosk`)
       .then(r => setKioskId(r.data._id))
       .catch(e => toast.error(e.response.data.message))
+      .finally(() => setLoading(false))
   }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
     const checkedTemplates = kioskData.reduce((ids, item) => {
       if (item.checked) {
         ids.push(item._id);
@@ -61,7 +63,7 @@ const Kiosk = () => {
     }
     patchRequest(`/kiosk/${kioskId}`, body)
       .then(r => {
-        toast.success('Successful');
+        toast.success('Saved Successfully.');
         setState({
           _id: r.data._id,
           saved: true
@@ -74,12 +76,14 @@ const Kiosk = () => {
   return (
     <section>
       {loading && <Spinner/>}
-      <Heading title='Kiosk' titleClasses='text-xl font-semibold'
-               subtitle='Manage your kiosk setting.' subTitleClasses='text-sm text-gray-900'/>
-      {state.saved && <Link to={`/kiosk-preview?id=${state._id}`}
-                        className='rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>
-        Preview Splash Page
-      </Link>}
+      <div className='flex gap-3 items-end'>
+        <Heading title='Kiosk' titleClasses='text-xl font-semibold'
+                 subtitle='Manage your kiosk setting.' subTitleClasses='text-sm text-gray-900'/>
+        {state.saved && <Link to={`/kiosk-preview?id=${state._id}`}
+                              className='rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>
+          Preview Splash Page
+        </Link>}
+      </div>
       <form onSubmit={handleSubmit} className='mt-8 space-y-6 w-3/5'>
         <Input inputRef={titleRef} inputClasses='pl-2.5' label='Kiosk Title' placeholder='Kiosk Title'/>
         <Input inputRef={descriptionRef} inputClasses='pl-2.5' label='Kiosk Description'
