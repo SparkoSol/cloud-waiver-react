@@ -5,6 +5,7 @@ import {getRequest} from "../redux/cwAPI";
 import toast from 'react-hot-toast';
 import {additionMinorForm, additionParticipantForm, formatDate, options} from "../utils/generalFunctions";
 import Spinner from "../components/Spinner";
+import tinymce from "tinymce";
 
 window.jQuery = $; //JQuery alias
 window.$ = $; //JQuery alias
@@ -124,6 +125,14 @@ const SubmissionView = () => {
             fileUploadDiv.appendChild(imgElement);
           }
           tracker.filesUploadCount++
+          break;
+        case `${staticClass}richTextEditor`:
+          let textAreaArr = document.querySelectorAll('.textarea-selector');
+          textAreaArr = textAreaArr[tracker.richTextEditorCount];
+          const richEditor = tinymce.get(textAreaArr.id);
+          console.log(richEditor, submissionData.data[i].userData)
+          // richEditor.setContent(submissionData.data[i].userData);
+          tracker.richTextEditorCount++;
           break;
         default:
           // Handle other cases

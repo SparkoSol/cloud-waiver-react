@@ -516,9 +516,9 @@ const templates = {
     return {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
-        element.append('<textarea id="tinymce"></textarea>');
+        element.append(`<textarea id=${fieldData.name} class="textarea-selector"></textarea>`);
         tinymce.init({
-          selector: '#tinymce',
+          selector: `#${fieldData.name}`,
           promotion: false,
           plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
           toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',

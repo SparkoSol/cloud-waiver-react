@@ -132,13 +132,11 @@ const FormRender = () => {
           tracker.electronicSignatureConsentCount += 1;
           break
         case 'richTextEditor':
-          tinymce.init({
-            selector: '#tinymce',
-            promotion: false
-          });
-          const richEditor = tinymce.get('tinymce');
+          let textAreaArr = document.querySelectorAll('.textarea-selector');
+          textAreaArr = textAreaArr[tracker.richTextEditorCount];
+          const richEditor = tinymce.get(textAreaArr.id);
           item.userData = richEditor.getContent();
-          tracker.electronicSignatureConsentCount += 1;
+          tracker.richTextEditorCount += 1;
           break
         case 'filesUpload':
           const fileInp = document.querySelector('.file-inp');
