@@ -64,15 +64,16 @@ const FormRender = () => {
     for (let item of htmlArr) {
       switch (item.type) {
         case 'signature':
-          let signNode = document.querySelectorAll('.main');
+          let signNode = document.querySelectorAll('.main .js-signature');
           signNode = signNode[tracker.signatureCount];
           item.userData = $(signNode).jqSignature('getDataURL');
           tracker.signatureCount += 1;
           break;
         case 'primaryAdultParticipant':
         case 'address':
-          let signatureComponent = document.querySelectorAll('.adult');
-          signatureComponent = signatureComponent[tracker.primaryAdultParticipantCount];
+          let signatureComponent = document.querySelectorAll('.adult .js-signature');
+
+          signatureComponent = $(signatureComponent[tracker.primaryAdultParticipantCount]);
           let formElements = document.querySelectorAll(`${item.type === 'primaryAdultParticipant' ? '#myForm' : '#address'}`);
           formElements = formElements[item.type === 'primaryAdultParticipant' ? tracker.primaryAdultParticipantCount : tracker.addressCount]
           const formData = {};
@@ -82,36 +83,38 @@ const FormRender = () => {
             }
           }
           item.userData = formData;
-          if (signatureComponent?.length > 0) {
+          if (signatureComponent) {
             item.userData = {
               ...formData,
-              signature: signatureElement.jqSignature('getDataURL')
+              signature: signatureComponent.jqSignature('getDataURL')
             };
           }
           tracker[`${item.type === 'primaryAdultParticipant' ? 'primaryAdultParticipantCount' : 'addressCount'}`] += 1;
           break;
         case 'additionalParticipants':
         case 'additionalMinors':
-          let signature = document.querySelectorAll(`${item.type === 'additionalParticipants' ? '.participant-div-1 .js-signature' : '.minor-div-1 .js-signature'}`);
-          signature = item.type === 'additionalParticipants' ? signature[tracker.additionalParticipantsCount] : [];
           let finalArr = [];
+          let signature = document.querySelectorAll(`${item.type === 'additionalParticipants' ? '.participant-div-1 .js-signature' : '.minor-div-1 .js-signature'}`);
+          let index = 0;
           let allForms;
           if (item.type === 'additionalParticipants') allForms = document.querySelectorAll(".participants > form");
           else allForms = document.querySelectorAll(".minors > form");
           for (let item of allForms) {
+            let newSignature = signature.length > 0 ? $(signature[index]) : null
             let temp = {};
             for (const element of item.elements) {
               if (element.name !== "") { //TODO Remove the if block
                 temp[element.name] = element.value;
               }
             }
-            if (signature.length > 0) {
+            if (newSignature) {
               temp = {
                 ...temp,
-                signature: signature.jqSignature('getDataURL')
+                signature: newSignature.jqSignature('getDataURL')
               };
             }
             finalArr.push(temp)
+            index++;
           }
           item.userData = finalArr;
           tracker[`${item.type === 'additionalParticipants' ? 'additionalParticipantsCount' : 'additionalMinorsCount'}`] += 1;
