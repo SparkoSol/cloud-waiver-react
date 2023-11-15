@@ -42,7 +42,7 @@ export const patchRequest = (url, body) => {
 }
 
 //extract X_tan id
-function getDynamicTenantId() {
+export function getDynamicTenantId() {
   const currentURL = window.location.href;
   const urlParts = currentURL.split('.');
   if (urlParts[0].includes('https')) {

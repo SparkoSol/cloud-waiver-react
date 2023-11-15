@@ -18,7 +18,7 @@ require("jquery-ui-sortable"); //For FormBuilder Element Drag and Drop
 require("formBuilder/dist/form-render.min.js")
 
 const FormRender = () => {
-  const {domain} = useSelector(selectCurrentUser);
+  const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
   const {id} = useParams();
   const dispatch = useDispatch();
@@ -46,9 +46,8 @@ const FormRender = () => {
   const saveData = async (event) => {
     setLoading(true)
     const htmlArr = $(fb.current).formRender("userData");
-    const signatureElement = $('.js-signature');
     let defaultObj = {
-      email: null, first_name: null, last_name: null, phone: null
+      email: null
     };
     let customerId = null;
     let tracker = {
@@ -142,7 +141,7 @@ const FormRender = () => {
           const fileInp = document.querySelector('.file-inp');
           const urlArr = [];
           let formData1 = new FormData();
-          for(let i=0;i<fileInp.files.length;i++){
+          for (let i = 0; i < fileInp.files.length; i++) {
             formData1.append(`file`, fileInp.files[i])
             const {data} = await postRequest('/upload',
               formData1
@@ -153,21 +152,8 @@ const FormRender = () => {
           item.userData = urlArr
           break;
         case 'text':
-          switch (item.label) {
-            case 'Email':
-              defaultObj.email = item.userData[0];
-              break;
-            case 'First name':
-              defaultObj.first_name = item.userData[0];
-              break;
-            case 'Last name':
-              defaultObj.last_name = item.userData[0];
-              break;
-            case 'Phone number':
-              defaultObj.phone = item.userData[0];
-              break;
-            default:
-              break
+          if (item.label === 'Email' && item.subtype === 'email') {
+            defaultObj.email = item.userData[0];
           }
           break
         default:
@@ -195,8 +181,9 @@ const FormRender = () => {
 
   return (
     <div className='max-w-4xl mx-auto my-6 common'>
-      <p className='text-sm my-6'>Refrence No : <span
-        ref={refNo}>{`${domain.toUpperCase()}.${today()}.${Math.floor(Math.random() * 1000000)}`}</span></p>
+      {currentUser?.domain && <p className='text-sm my-6'>Refrence No : <span
+        ref={refNo}>{`${currentUser.domain.toUpperCase()}.${today()}.${Math.floor(Math.random() * 1000000)}`}</span>
+      </p>}
       <form ref={fb}></form>
       {waiver?.form_data.length > 0 &&
         <Button btnText='Submit Data' onClick={saveData}

@@ -129,9 +129,10 @@ const SubmissionView = () => {
         case `${staticClass}richTextEditor`:
           let textAreaArr = document.querySelectorAll('.textarea-selector');
           textAreaArr = textAreaArr[tracker.richTextEditorCount];
-          const richEditor = tinymce.get(textAreaArr.id);
-          console.log(richEditor, submissionData.data[i].userData)
-          // richEditor.setContent(submissionData.data[i].userData);
+          $(`#${textAreaArr.id}`).html(submissionData.data[i].userData);
+          tinymce.init({
+            selector: `#${textAreaArr.id}`
+          })
           tracker.richTextEditorCount++;
           break;
         default:

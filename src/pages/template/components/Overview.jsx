@@ -12,7 +12,7 @@ import {selectSingleWaiver} from "../../../redux/waivers/waiverSlice";
 import {CheckIcon} from "@heroicons/react/24/outline";
 
 const Overview = () => {
-  const {domain} = useSelector(selectCurrentUser);
+  const {domain, company_name} = useSelector(selectCurrentUser);
   const currentWaiver = useSelector(selectSingleWaiver);
   const {id} = useParams();
   const [data, setData] = useState([
@@ -35,6 +35,7 @@ const Overview = () => {
       ])
     }
   }, [currentWaiver]);
+  console.log(currentWaiver)
   const copyToClipboard = () => {
     if (setShowMessage) {
       navigator.clipboard.writeText(`${currentWaiver.name}.techtrival.com/templates/${currentWaiver._id}`)
@@ -52,7 +53,7 @@ const Overview = () => {
     e.preventDefault();
     const body = {
       email: inputRef.current.value,
-      company: domain,
+      company: company_name,
       link: `${currentWaiver.name}.techtrival.com/templates/${currentWaiver._id}`,
       waiverId: id
     }
@@ -94,9 +95,9 @@ const Overview = () => {
       <div className="w-full lg:w-2/5">
         <div className="bg-white p-4 py-7 rounded-md space-y-6">
           <div className='flex gap-3 items-end'>
-            <Input placeholder='eg. Waiver 101' label='Share your waiver with the following link'
-                   extraClasses='font-medium text-gray-500 lg:w-72' inputClasses='pl-3'
-                   value={`${currentWaiver.name}.techtrival.com/templates/${currentWaiver._id}`}/>
+            {currentWaiver?._id && <Input placeholder='eg. Waiver 101' label='Share your waiver with the following link'
+                                         extraClasses='font-medium text-gray-500 lg:w-72' inputClasses='pl-3'
+                                         value={`${domain}.techtrival.com/templates/${currentWaiver._id}`}/>}
             <div>
               {showMessage && <CheckIcon className='w-5 h-5 mx-auto'/>}
               <Button btnText='Copy' onClick={copyToClipboard}
@@ -104,7 +105,7 @@ const Overview = () => {
             </div>
           </div>
           <form onSubmit={handleSubmit} className='flex gap-3 items-end'>
-            <Input placeholder='eg. Waiver 101' inputRef={inputRef} label='Share the link via email'
+            <Input placeholder='name@example.com' inputRef={inputRef} label='Share the link via email'
                    extraClasses='font-medium text-gray-500 lg:w-72' inputClasses='pl-3'/>
             <Button btnText='Share' btnClasses='bg-CW-primary px-6 py-3 bg-btnBg'/>
           </form>
