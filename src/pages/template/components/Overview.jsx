@@ -35,10 +35,9 @@ const Overview = () => {
       ])
     }
   }, [currentWaiver]);
-  console.log(currentWaiver)
   const copyToClipboard = () => {
     if (setShowMessage) {
-      navigator.clipboard.writeText(`${currentWaiver.name}.techtrival.com/templates/${currentWaiver._id}`)
+      navigator.clipboard.writeText(`${domain}.techtrival.com/templates/${currentWaiver._id}`)
         .then(() => {
           setShowMessage(true);
           setTimeout(() => {
