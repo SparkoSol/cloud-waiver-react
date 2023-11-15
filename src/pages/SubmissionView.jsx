@@ -3,8 +3,9 @@ import {useParams} from "react-router-dom";
 import React, {createRef, useEffect, useState} from "react";
 import {getRequest} from "../redux/cwAPI";
 import toast from 'react-hot-toast';
-import {formatDate, options} from "../utils/generalFunctions";
+import {additionMinorForm, additionParticipantForm, formatDate, options} from "../utils/generalFunctions";
 import Spinner from "../components/Spinner";
+import tinymce from "tinymce";
 
 window.jQuery = $; //JQuery alias
 window.$ = $; //JQuery alias
@@ -31,8 +32,117 @@ const SubmissionView = () => {
       });
     }
     $(fb.current).find('input').prop('disabled', true);
+    //inject data to forms
+    const allNodes = document.querySelectorAll('.rendered-form > *');
+    const staticClass = 'formbuilder-';
+    let tracker = {
+      signatureCount: 0,
+      primaryAdultParticipantCount: 0,
+      addressCount: 0,
+      additionalParticipantsCount: 0,
+      additionalMinorsCount: 0,
+      capturePhotoCount: 0,
+      electronicSignatureConsentCount: 0,
+      richTextEditorCount: 0,
+      filesUploadCount: 0
+    }
+    for (let i = 0; i < allNodes.length; i++) {
+      const firstClass = allNodes[i].classList.item(0);
+      switch (firstClass) {
+        case `${staticClass}electronicSignatureConsent`:
+          allNodes[i].getElementsByTagName('input')[0].checked = submissionData.data[i].userData[0];
+          tracker.electronicSignatureConsentCount++
+          break;
+        case `${staticClass}primaryAdultParticipant`:
+          let inputs = allNodes[i].getElementsByTagName('input')
+          for (let j = 0; j < inputs.length; j++) {
+            inputs[j].value = submissionData.data[i].userData[inputs[j].name]
+          }
+          let canvas = document.querySelectorAll('.adult');
+          canvas = canvas[tracker.primaryAdultParticipantCount]
+          canvas.innerHTML = `<img
+            src=${submissionData.data[i].userData['signature']}
+            alt="signature" class="w-1/2">`
+          tracker.primaryAdultParticipantCount++;
+          break
+        case `${staticClass}signature`:
+          let signCanvas = document.querySelectorAll('.main');
+          signCanvas = signCanvas[tracker.signatureCount]
+          signCanvas.innerHTML = `<img
+            src=${submissionData.data[i].userData}
+            alt="signature" class="w-1/2">`
+          tracker.signatureCount++
+          break;
+        case `${staticClass}address`:
+          let inputsSets = allNodes[i].getElementsByTagName('input')
+          for (let j = 0; j < inputsSets.length; j++) {
+            inputsSets[j].value = submissionData.data[i].userData[inputsSets[j].name]
+          }
+          tracker.addressCount++
+          break;
+        case `${staticClass}additionalMinors`:
+          let divElement = document.querySelectorAll(`.${staticClass}additionalMinors`);
+          divElement = divElement[tracker.additionalMinorsCount]
+          divElement.innerHTML = '';
+          for (let j = 0; j < submissionData.data[i].userData.length; j++) {
+            const tempContainer = document.createElement('div');
+            tempContainer.innerHTML = additionMinorForm;
+            let allInputs = tempContainer.getElementsByTagName('input');
+            for (let k = 0; k < allInputs.length; k++) {
+              allInputs[k].value = submissionData.data[i].userData[j][allInputs[k].name]
+            }
+            divElement.append(tempContainer);
+          }
+          $(fb.current).find('input').prop('disabled', true);
+          tracker.additionalMinorsCount++
+          break;
+        case `${staticClass}additionalParticipants`:
+          let div = document.querySelectorAll(`.${staticClass}additionalParticipants`);
+          div = div[tracker.additionalParticipantsCount]
+          div.innerHTML = '';
+          for (let j = 0; j < submissionData.data[i].userData.length; j++) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = additionParticipantForm;
+            let allInputs = tempDiv.getElementsByTagName('input');
+            for (let k = 0; k < allInputs.length; k++) {
+              allInputs[k].value = submissionData.data[i].userData[j][allInputs[k].name]
+            }
+            let imageCanvas = tempDiv.querySelector('.adult');
+            imageCanvas.innerHTML = `<img src=${submissionData.data[i].userData[j]['signature']} alt=""/>`;
+            div.append(tempDiv);
+          }
+          $(fb.current).find('input').prop('disabled', true);
+          tracker.additionalParticipantsCount++
+          break;
+        case `${staticClass}filesUpload`:
+          let fileUploadDiv = document.querySelectorAll(`.${staticClass}filesUpload`);
+          fileUploadDiv = fileUploadDiv[tracker.filesUploadCount];
+          for (let j = 0; j < submissionData.data[i].userData.length; j++) {
+            const imgElement = document.createElement('img');
+            imgElement.src = submissionData.data[i].userData[j];
+            imgElement.alt = 'Image ' + (j + 1);
+            imgElement.classList.add('w-52', 'inline');
+            fileUploadDiv.appendChild(imgElement);
+          }
+          tracker.filesUploadCount++
+          break;
+        case `${staticClass}richTextEditor`:
+          let textAreaArr = document.querySelectorAll('.textarea-selector');
+          textAreaArr = textAreaArr[tracker.richTextEditorCount];
+          const richEditor = tinymce.get(textAreaArr.id);
+          console.log(richEditor, submissionData.data[i].userData)
+          // richEditor.setContent(submissionData.data[i].userData);
+          tracker.richTextEditorCount++;
+          break;
+        default:
+          // Handle other cases
+          break;
+      }
+    }
     // eslint-disable-next-line
   }, [submissionData])
+
+
   return (
     <section className='max-w-4xl mx-auto py-6'>
       {loading && <Spinner/>}
