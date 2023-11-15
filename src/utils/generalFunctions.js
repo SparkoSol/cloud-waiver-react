@@ -592,6 +592,7 @@ const templates = {
           multiple: true,
           accept: "image/png, image/jpeg",
           id: `fileInput-${fieldData.name}`,
+          class:'file-inp',
           style: 'display: none',
           change: function () {
             displayUploadedFiles(fieldData.name);

@@ -140,6 +140,20 @@ const FormRender = () => {
           item.userData = richEditor.getContent();
           tracker.electronicSignatureConsentCount += 1;
           break
+        case 'filesUpload':
+          const fileInp = document.querySelector('.file-inp');
+          const urlArr = [];
+          let formData1 = new FormData();
+          for(let i=0;i<fileInp.files.length;i++){
+            formData1.append(`file`, fileInp.files[i])
+            const {data} = await postRequest('/upload',
+              formData1
+            )
+            urlArr.push(data.url)
+            formData1.delete('file');
+          }
+          item.userData = urlArr
+          break;
         case 'text':
           switch (item.label) {
             case 'Email':

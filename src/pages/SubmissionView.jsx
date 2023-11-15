@@ -42,7 +42,8 @@ const SubmissionView = () => {
       additionalMinorsCount: 0,
       capturePhotoCount: 0,
       electronicSignatureConsentCount: 0,
-      richTextEditorCount: 0
+      richTextEditorCount: 0,
+      filesUploadCount: 0
     }
     for (let i = 0; i < allNodes.length; i++) {
       const firstClass = allNodes[i].classList.item(0);
@@ -111,6 +112,18 @@ const SubmissionView = () => {
           }
           $(fb.current).find('input').prop('disabled', true);
           tracker.additionalParticipantsCount++
+          break;
+        case `${staticClass}filesUpload`:
+          let fileUploadDiv = document.querySelectorAll(`.${staticClass}filesUpload`);
+          fileUploadDiv = fileUploadDiv[tracker.filesUploadCount];
+          for (let j = 0; j < submissionData.data[i].userData.length; j++) {
+            const imgElement = document.createElement('img');
+            imgElement.src = submissionData.data[i].userData[j];
+            imgElement.alt = 'Image ' + (j + 1);
+            imgElement.classList.add('w-52', 'inline');
+            fileUploadDiv.appendChild(imgElement);
+          }
+          tracker.filesUploadCount++
           break;
         default:
           // Handle other cases
