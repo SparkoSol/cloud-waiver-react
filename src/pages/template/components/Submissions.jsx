@@ -5,7 +5,7 @@ import {useEffect, useRef, useState} from "react";
 import Input from "../../../components/inputs/Input";
 import DataTable from "../../../components/DataTable";
 import SelectInput from "../../../components/inputs/SelectInput";
-import {addCheck, DashBoardHeaders} from "../../../utils/generalFunctions";
+import {addCheck} from "../../../utils/generalFunctions";
 import DashboardRow from "../../dashboard/components/DashboardRow";
 import QRModal from "../../../components/modals/QRModal";
 import {getRequest} from "../../../redux/cwAPI";
@@ -26,7 +26,7 @@ const Submissions = ({currentTab = ''}) => {
 
   useEffect(() => {
     setLoading(true)
-    getRequest(`/submissions/waiver/${id}`)
+    getRequest(`/submissions?waiverId=${id}`)
       .then(r => setAllWaivers(addCheck(r.data)))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false));
@@ -57,7 +57,8 @@ const Submissions = ({currentTab = ''}) => {
       </div>
       {
         allWaivers.length > 0 ?
-          <DataTable headers={DashBoardHeaders} TableRow={DashboardRow} items={allWaivers} setSelectAll={setSelectAll}
+          <DataTable headers={['ID', 'Signed Date', 'First Name', 'Last Name', 'Reference No', 'Status']}
+                     TableRow={DashboardRow} items={allWaivers} setSelectAll={setSelectAll}
                      selectAll={selectAll} deleteRow={deleteRow} setSelectedCount={setSelectedCount}
                      setState={setAllWaivers}/> :
           <div className='text-center mt-4'>
