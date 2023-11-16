@@ -1,7 +1,7 @@
 import CheckboxInput from "../../../components/inputs/CheckboxInput.jsx";
 import {capitalize, formatDate, limitChars} from "../../../utils/generalFunctions.js";
 import {EyeIcon} from "@heroicons/react/20/solid";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 const statusColors = {
     submitted: 'bg-yellow-100 text-yellow-800',

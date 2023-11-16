@@ -26,7 +26,7 @@ const SubmissionView = () => {
   }, [submissionId])
 
   useEffect(() => {
-    if (submissionData?.data.length > 0) {
+    if (submissionData?.data?.length > 0) {
       $(fb.current).formRender({
         formData: submissionData.data, ...options
       });

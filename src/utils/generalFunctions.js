@@ -919,7 +919,8 @@ export const staticForm = [
     className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
     subtype: 'email',
     required: true,
-    placeholder: 'Email'
+    placeholder: 'Email',
+    name: 'defaultMail'
   },
   {
     label: 'Electronic Signature Consent',

@@ -21,7 +21,7 @@ const Customer = () => {
   useEffect(() => {
     setLoading(true)
     if (searchParams.get('template')) {
-      getRequest(`/submissions/waiver/${searchParams.get('template')}`)
+      getRequest(`/submissions?waiverId=${searchParams.get('template')}`)
         .then(r => setCustomers(r.data))
         .catch(e => toast.error(e.response.data.message))
         .finally(() => setLoading(false))
