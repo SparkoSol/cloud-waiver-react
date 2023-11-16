@@ -36,6 +36,7 @@ import Setting from "./pages/template/components/Setting";
 import Integration from "./pages/template/components/Integration";
 import Submissions from "./pages/template/components/Submissions";
 import SubmissionView from "./pages/SubmissionView";
+import SignedWaivers from "./pages/signedWaivers/SignedWaiver";
 
 const router = createBrowserRouter([
   {
@@ -183,11 +184,11 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: '/templates/:id',
+    path: '/template/:id',
     element: <FormRender/>
   },
   {
-    path: '/templates/:id/submission',
+    path: '/template/:id/submission',
     element: <SuccessState/>
   },
   {
@@ -206,6 +207,14 @@ const router = createBrowserRouter([
     path: '/kiosk-preview/:id',
     element: (
       <SplashScreen/>
+    )
+  },
+  {
+    path: 'signed',
+    element: (
+      <ProtectedRoute>
+        <SignedWaivers/>
+      </ProtectedRoute>
     )
   },
   {
@@ -248,16 +257,14 @@ function App() {
     }
     const token = localStorage.getItem("cw-access-token");
 
-    if (token && token !== "null") {
-      if (isEmptyObject(currentUser)) {
+    if ((token && token !== "null") || pathname.includes('template')) {
+      if (isEmptyObject(currentUser) && !pathname.includes('template')) {
         dispatch(userProfile(token))
       }
       if ((pathname === "/" || pathname === "/dashboard"))
         router.navigate("/dashboard");
-      else if (pathname !== "/dashboard")
+      else if (pathname !== "/dashboard" || pathname.includes('reset-password') || pathname.includes('template'))
         router.navigate(pathname);
-    } else if (pathname.includes('reset-password')) {
-      router.navigate(pathname);
     } else {
       router.navigate("/");
     }

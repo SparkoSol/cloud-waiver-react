@@ -1,6 +1,6 @@
 import $ from "jquery"; //Load jquery
 import React, {createRef, useEffect, useRef, useState} from "react"; //For react component
-import {options, today} from "../../../utils/generalFunctions";
+import {dataURLtoFile, options, today} from "../../../utils/generalFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {selectSingleWaiver} from "../../../redux/waivers/waiverSlice";
 import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
@@ -8,8 +8,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import Button from "../../../components/Button";
 import tinymce from "tinymce";
 import Spinner from "../../../components/Spinner";
-import {selectCurrentUser} from "../../../redux/user/userSlice";
-import {postRequest} from "../../../redux/cwAPI";
+import {getDynamicTenantId, postRequest} from "../../../redux/cwAPI";
 
 window.jQuery = $; //JQuery alias
 window.$ = $; //JQuery alias
@@ -18,7 +17,6 @@ require("jquery-ui-sortable"); //For FormBuilder Element Drag and Drop
 require("formBuilder/dist/form-render.min.js")
 
 const FormRender = () => {
-  const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
   const {id} = useParams();
   const dispatch = useDispatch();
@@ -46,9 +44,6 @@ const FormRender = () => {
   const saveData = async (event) => {
     setLoading(true)
     const htmlArr = $(fb.current).formRender("userData");
-    let defaultObj = {
-      email: null
-    };
     let customerId = null;
     let tracker = {
       signatureCount: 0,
@@ -119,9 +114,14 @@ const FormRender = () => {
           tracker[`${item.type === 'additionalParticipants' ? 'additionalParticipantsCount' : 'additionalMinorsCount'}`] += 1;
           break
         case 'capturePhoto':
-          let node = document.querySelectorAll('#files');
-          node = node[tracker.capturePhotoCount].files[0];
-          item.userData = node
+          const node = document.querySelectorAll('#preview-image')[tracker.capturePhotoCount];
+          let imageFile = dataURLtoFile(node.src, 'DCIM');
+          const frmData = new FormData();
+          frmData.append('file', imageFile);
+          const {data} = await postRequest('/upload',
+            frmData,
+          );
+          item.userData = [data.url];
           tracker.capturePhotoCount += 1;
           break;
         case 'electronicSignatureConsent':
@@ -142,6 +142,7 @@ const FormRender = () => {
           const urlArr = [];
           let formData1 = new FormData();
           for (let i = 0; i < fileInp.files.length; i++) {
+            console.log(fileInp.files[i])
             formData1.append(`file`, fileInp.files[i])
             const {data} = await postRequest('/upload',
               formData1
@@ -151,39 +152,29 @@ const FormRender = () => {
           }
           item.userData = urlArr
           break;
-        case 'text':
-          if (item.label === 'Email' && item.subtype === 'email') {
-            defaultObj.email = item.userData[0];
-          }
-          break
         default:
           break
       }
     }
-
-    if (defaultObj.email) {
-      await postRequest('/customers', defaultObj)
-        .then(r => customerId = r.data._id)
-        .catch(e => e.response.data.message)
-        .finally(() => setLoading(false));
-    }
-
     postRequest('/submissions', {
-      reference_no: refNo.current.innerText,
+      reference_no: refNo.current?.innerText,
       status: 'submitted',
       customer: customerId,
       waiver: id,
       data: htmlArr
-    }).then(r => navigate(`/templates/${id}/submission`))
+    }).then(r => {
+      navigate(`/template/${id}/submission`);
+      localStorage.setItem('ref', r.data.reference_no)
+    })
       .catch(e => e.response.data.message)
       .finally(() => setLoading(false));
   }
 
   return (
     <div className='max-w-4xl mx-auto my-6 common'>
-      {currentUser?.domain && <p className='text-sm my-6'>Refrence No : <span
-        ref={refNo}>{`${currentUser.domain.toUpperCase()}.${today()}.${Math.floor(Math.random() * 1000000)}`}</span>
-      </p>}
+      <p className='text-sm my-6'>Refrence No : <span
+        ref={refNo}>{`${getDynamicTenantId()}.${today()}.${Math.floor(Math.random() * 1000000)}`}</span>
+      </p>
       <form ref={fb}></form>
       {waiver?.form_data.length > 0 &&
         <Button btnText='Submit Data' onClick={saveData}

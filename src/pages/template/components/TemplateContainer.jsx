@@ -48,7 +48,7 @@ const TemplateContainer = ({children}) => {
           </button>
           <Modal setOpen={setEditMode} open={editMode} editMode={true} functionCall={handleEdit}/>
         </div>
-        <span className="text-sm italic">{`${domain}.techtrival.com/templates/${waiver?._id}`}</span>
+        <span className="text-sm italic">{`${domain}.techtrival.com/template/${waiver?._id}`}</span>
       </div>
       <Tabs tabs={tabsData}/>
       <div className='shadow rounded-md sm:overflow-hidden bg-white py-6 px-4 space-y-6 sm:p-6'>

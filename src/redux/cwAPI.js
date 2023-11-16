@@ -8,10 +8,8 @@ const cwAPI = axios
 axios.interceptors.request.use(
   config => {
     const token = localStorage.getItem('cw-access-token')
-    if (token) {
       config.headers['Authorization'] = 'Bearer ' + token
       config.headers['X-TENANT-ID'] = getDynamicTenantId();
-    }
     return config
   },
   error => {

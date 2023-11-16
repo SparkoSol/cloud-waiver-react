@@ -66,8 +66,7 @@ const SubmissionView = () => {
           tracker.primaryAdultParticipantCount++;
           break
         case `${staticClass}signature`:
-          let signCanvas = document.querySelectorAll('.main');
-          signCanvas = signCanvas[tracker.signatureCount]
+          let signCanvas = document.querySelectorAll('.main')[tracker.signatureCount];
           signCanvas.innerHTML = `<img
             src=${submissionData.data[i].userData}
             alt="signature" class="w-1/2">`
@@ -81,8 +80,7 @@ const SubmissionView = () => {
           tracker.addressCount++
           break;
         case `${staticClass}additionalMinors`:
-          let divElement = document.querySelectorAll(`.${staticClass}additionalMinors`);
-          divElement = divElement[tracker.additionalMinorsCount]
+          let divElement = document.querySelectorAll(`.${staticClass}additionalMinors`)[tracker.additionalMinorsCount];
           divElement.innerHTML = '';
           for (let j = 0; j < submissionData.data[i].userData.length; j++) {
             const tempContainer = document.createElement('div');
@@ -97,8 +95,7 @@ const SubmissionView = () => {
           tracker.additionalMinorsCount++
           break;
         case `${staticClass}additionalParticipants`:
-          let div = document.querySelectorAll(`.${staticClass}additionalParticipants`);
-          div = div[tracker.additionalParticipantsCount]
+          let div = document.querySelectorAll(`.${staticClass}additionalParticipants`)[tracker.additionalParticipantsCount];
           div.innerHTML = '';
           for (let j = 0; j < submissionData.data[i].userData.length; j++) {
             const tempDiv = document.createElement('div');
@@ -115,8 +112,7 @@ const SubmissionView = () => {
           tracker.additionalParticipantsCount++
           break;
         case `${staticClass}filesUpload`:
-          let fileUploadDiv = document.querySelectorAll(`.${staticClass}filesUpload`);
-          fileUploadDiv = fileUploadDiv[tracker.filesUploadCount];
+          let fileUploadDiv = document.querySelectorAll(`.${staticClass}filesUpload`)[tracker.filesUploadCount];
           for (let j = 0; j < submissionData.data[i].userData.length; j++) {
             const imgElement = document.createElement('img');
             imgElement.src = submissionData.data[i].userData[j];
@@ -127,13 +123,21 @@ const SubmissionView = () => {
           tracker.filesUploadCount++
           break;
         case `${staticClass}richTextEditor`:
-          let textAreaArr = document.querySelectorAll('.textarea-selector');
-          textAreaArr = textAreaArr[tracker.richTextEditorCount];
+          let textAreaArr = document.querySelectorAll('.textarea-selector')[tracker.richTextEditorCount];
           $(`#${textAreaArr.id}`).html(submissionData.data[i].userData);
           tinymce.init({
             selector: `#${textAreaArr.id}`
           })
           tracker.richTextEditorCount++;
+          break;
+        case `${staticClass}capturePhoto`:
+          let imagePreviewDiv = document.querySelectorAll(`.capture-photo`)[tracker.capturePhotoCount];
+          let imageElement = document.createElement('img');
+          imageElement.src = submissionData.data[i].userData[0];
+          imageElement.alt = '';
+          imagePreviewDiv.innerHTML = '';
+          imagePreviewDiv.appendChild(imageElement);
+          tracker.capturePhotoCount++;
           break;
         default:
           // Handle other cases

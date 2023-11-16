@@ -84,7 +84,17 @@ export function today() {
   const day = currentDate.getDate().toString().padStart(2, '0');
   return `${year}${month}${day}`
 }
-
+export function dataURLtoFile(dataurl, filename) {
+  let arr = dataurl.split(','),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[arr.length - 1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n);
+  while(n--){
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, {type:mime});
+}
 //custom component logics
 class SignatureControls extends Control {
   // eslint-disable-next-line
@@ -549,17 +559,42 @@ const templates = {
         let element = $(`.field-${fieldData.name}`);
 
         function openCamera() {
-          const video = document.getElementById('cameraFeed');
-          const constraints = {video: true};
-          navigator.mediaDevices.getUserMedia(constraints)
-            .then((stream) => {
+          let takePhotoButton = document.getElementById('takePhoto');
+          let imagePreviewDiv = document.getElementById('imagePreview');
+          navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+              let video = document.getElementById('video');
+              video.classList.remove('hidden')
+              takePhotoButton.style.display = 'inline-block';
               video.srcObject = stream;
-              video.style.display = 'block';
+              video.play();
+              function takePicture() {
+                imagePreviewDiv.innerHTML='';
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0);
+                const imageData = canvas.toDataURL('image/png');
+                const image = document.createElement('img');
+                image.id="preview-image";
+                image.src = imageData;
+                imagePreviewDiv.appendChild(image);
+                const tracks = stream.getTracks();
+                tracks.forEach((track) => track.stop());
+                video.srcObject = null;
+                video.classList.add('hidden')
+                takePhotoButton.style.display = 'none';
+              }
+              takePhotoButton.addEventListener('click', takePicture);
             })
+            .catch(function(error) {
+              console.error('Failed to get access to the camera:', error);
+            });
         }
 
         element.append(`
-        <div class="p-2">
+        <div class="p-2 capture-photo">
           <h2 class="my-2 text-lg font-semibold text-gray-900">Please follow the provided instructions to complete your Photo Capture</h2>
           <ul class="max-w space-y-1 text-gray-700 list-disc list-inside">
             <li>Make sure your camera has a clear view of you.</li>
@@ -569,6 +604,9 @@ const templates = {
           <div>
             <button id="captureButton" type="button" class="mt-5 px-3 py-2 cursor-pointer text-sm font-medium text-center text-white bg-[#66615b] rounded-lg ">Capture Photo</button>
           </div>
+           <video class="my-3 w-full hidden" id="video"></video>
+           <button id="takePhoto" style="display: none" type="button" class="px-3 py-2 text-white bg-btnBg rounded-md">Take Photo</button>
+           <div id="imagePreview" class="my-3"></div>
         </div>
       `);
         document.getElementById('captureButton').addEventListener('click', openCamera);
