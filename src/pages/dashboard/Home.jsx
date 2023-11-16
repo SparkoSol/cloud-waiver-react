@@ -1,12 +1,5 @@
-import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import Card from "./components/Card.jsx";
-import {useEffect, useRef, useState} from "react";
-import {addCheck, DashBoardHeaders, generateMonths, generateYears} from "../../utils/generalFunctions.js";
-import SelectInput from "../../components/inputs/SelectInput.jsx";
-import Input from "../../components/inputs/Input.jsx";
-import DataTable from "../../components/DataTable.jsx";
-import {FolderIcon} from "@heroicons/react/20/solid";
-import DashboardRow from "./components/DashboardRow.jsx";
+import {useEffect, useState} from "react";
 import Button from "../../components/Button.jsx";
 import {ClipboardIcon} from "@heroicons/react/24/solid";
 import Modal from "../../components/modals/Modal.jsx";
@@ -17,21 +10,15 @@ import {getMembers} from "../../redux/user/userThunk.js";
 import {useNavigate} from "react-router-dom";
 import {getRequest, postRequest} from "../../redux/cwAPI";
 import toast from "react-hot-toast";
+import SubmissionTable from "../../components/SubmissionTable";
 
 const Dashboard = () => {
   const currentUser = useSelector(selectCurrentUser);
   const currentMember = useSelector(selectMember);
   const dispatch = useDispatch();
-  const searchRef = useRef();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
-  const [template, setTemplate] = useState('Template');
-  const [month, setMonth] = useState('Month');
-  const [year, setYear] = useState('Year');
-  const [status, setStatus] = useState('Status');
   const [openModal, setOpenModal] = useState(false);
-  const [allWaivers, setAllWaivers] = useState([]);
-  const [selectAll, setSelectAll] = useState(false);
   const [selectedCount, setSelectedCount] = useState(0);
   const [usage, setUsage] = useState([
     {
@@ -45,16 +32,6 @@ const Dashboard = () => {
       id: 4, title: 'Customers', value: '50', icon: '/user.png'
     }
   ])
-
-  const selectData = [{
-    options: ['Submitted', 'Approved', 'Declined', 'Pending', 'Status'], state: status, setState: setStatus
-  }, {
-    options: ['Template'], state: template, setState: setTemplate
-  }, {
-    options: generateMonths(12), state: month, setState: setMonth
-  }, {
-    options: generateYears(2005), state: year, setState: setYear
-  }]
 
   function handleSubmit(name) {
     setLoading(true);
@@ -74,13 +51,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     setLoading(true)
-    getRequest('/submissions')
-      .then(r => setAllWaivers(addCheck(r.data)))
-      .catch(e => {
-        setLoading(false);
-        toast.error(e.response.data.message)
-      })
-
     getRequest('/dashboard')
       .then(r => setUsage([
         {id: 1, title: 'Usage', value: r.data.usage, icon: '/database.svg'},
@@ -92,17 +62,6 @@ const Dashboard = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  const deleteRow = (id, idx) => {
-    // TODO : convert this to decline waiver
-    // setLoading(true)
-    // const updatedWaivers = [
-    //   ...allWaivers.slice(0, idx),
-    //   ...allWaivers.slice(idx + 1),
-    // ];
-    // deleteRequest(`/waivers/${id}`)
-    //   .then(r => setAllWaivers(updatedWaivers))
-    //   .finally(() => setLoading(false))
-  }
   return (
     <div>
       <div>
@@ -122,7 +81,9 @@ const Dashboard = () => {
           <div className='flex items-center gap-2'>
             {selectedCount > 0 && <>
               <span className='text-gray-500'>Selected : {selectedCount}</span>
-              <Button btnText='Archive' btnClasses='bg-red-500' fullWidth='w-fit'/></>}
+              <Button btnText='Approve' btnClasses='bg-green-700' fullWidth='w-fit'/>
+              <Button btnText='Decline' btnClasses='bg-red-500' fullWidth='w-fit'/>
+              </>}
             <Button BtnIcon={ClipboardIcon}
                     btnText='Create waivers'
                     onClick={() => setOpenModal(true)}
@@ -130,24 +91,7 @@ const Dashboard = () => {
                     iconClasses='w-4 h-4 text-white inline-block ml-2'/>
           </div>
         </div>
-        <div className='flex gap-2 mb-4 flex-wrap'>
-          <Input placeholder='Search' inputRef={searchRef} BtnIcon={MagnifyingGlassIcon} inputClasses='rounded-md pl-11'
-                 extraClasses='w-fit inline-block'/>
-          {selectData.map((item, index) => {
-            return <SelectInput extraClasses='grow md:grow-0 w-28' key={index} options={item.options} state={item.state}
-                                setState={item.setState}/>
-          })}
-        </div>
-        <div>
-          {allWaivers.length > 0 ?
-            <DataTable headers={DashBoardHeaders} TableRow={DashboardRow} items={allWaivers}
-                       setState={setAllWaivers} selectAll={selectAll} setSelectAll={setSelectAll}
-                       deleteRow={deleteRow} setSelectedCount={setSelectedCount}
-            /> : <div className='text-center mt-4'>
-              <FolderIcon className='w-40 h-40 text-gray-400 mx-auto'/>
-              <span className='text-gray-500 mb-10 text-base'>No Waivers Found. Get started by creating a waiver</span>
-            </div>}
-        </div>
+        <SubmissionTable setSelectedCount={setSelectedCount} setLoading={setLoading}/>
       </div>
       <Modal open={openModal} setOpen={setOpenModal} functionCall={handleSubmit}/>
       {loading && <Spinner/>}
