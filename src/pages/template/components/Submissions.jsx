@@ -57,7 +57,7 @@ const Submissions = ({currentTab = ''}) => {
       </div>
       {
         allWaivers.length > 0 ?
-          <DataTable headers={['ID', 'Signed Date', 'First Name', 'Last Name', 'Reference No', 'Status']}
+          <DataTable headers={['ID', 'Signed Date', 'First Name', 'Last Name', 'Reference No','Template Name' ,'Status']}
                      TableRow={DashboardRow} items={allWaivers} setSelectAll={setSelectAll}
                      selectAll={selectAll} deleteRow={deleteRow} setSelectedCount={setSelectedCount}
                      setState={setAllWaivers}/> :
