@@ -8,95 +8,115 @@ import Spinner from "../../components/Spinner.jsx";
 import {selectCurrentUser, selectMember} from "../../redux/user/userSlice.js";
 import {getMembers} from "../../redux/user/userThunk.js";
 import {useNavigate} from "react-router-dom";
-import {getRequest, postRequest} from "../../redux/cwAPI";
+import {getRequest, patchRequest, postRequest} from "../../redux/cwAPI";
 import toast from "react-hot-toast";
 import SubmissionTable from "../../components/SubmissionTable";
+import {addSelectedWaiver} from "../../redux/waivers/waiverSlice";
 
 const Dashboard = () => {
-  const currentUser = useSelector(selectCurrentUser);
-  const currentMember = useSelector(selectMember);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false)
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedCount, setSelectedCount] = useState(0);
-  const [usage, setUsage] = useState([
-    {
-      id: 1, title: 'Usage', value: '50', icon: '/database.svg'
-    }, {
-      id: 2, title: 'Templates', value: '50', icon: '/wallet.svg'
-    }, {
-      id: 3, title: 'Signed', value: '50', icon: '/pulse.svg'
-    },
-    {
-      id: 4, title: 'Customers', value: '50', icon: '/user.png'
+    const currentUser = useSelector(selectCurrentUser);
+    const currentMember = useSelector(selectMember);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false)
+    const [openModal, setOpenModal] = useState(false);
+    const [selectedCount, setSelectedCount] = useState(0);
+    const [usage, setUsage] = useState([
+        {
+            id: 1, title: 'Usage', value: '50', icon: '/database.svg'
+        }, {
+            id: 2, title: 'Templates', value: '50', icon: '/wallet.svg'
+        }, {
+            id: 3, title: 'Signed', value: '50', icon: '/pulse.svg'
+        },
+        {
+            id: 4, title: 'Customers', value: '50', icon: '/user.png'
+        }
+    ])
+
+    const selectedWaivers = useSelector(state => state.waivers.selectedWaivers)
+    const [refetch, setRefetch] = useState(false)
+
+    function handleSubmit(name) {
+        setLoading(true);
+        setOpenModal(false)
+        postRequest(`/waivers`, {name})
+            .then(r => navigate(`/templates/${r.data._id}/builder`))
+            .catch(e => toast.error(e.response.data.message))
+            .finally(() => setLoading(false))
     }
-  ])
 
-  function handleSubmit(name) {
-    setLoading(true);
-    setOpenModal(false)
-    postRequest(`/waivers`, {name})
-      .then(r => navigate(`/templates/${r.data._id}/builder`))
-      .catch(e => toast.error(e.response.data.message))
-      .finally(() => setLoading(false))
-  }
+    useEffect(() => {
+        if (currentUser && !currentMember) {
+            dispatch(getMembers(currentUser._id))
+        }
+        // eslint-disable-next-line
+    }, [currentUser]);
 
-  useEffect(() => {
-    if (currentUser && !currentMember) {
-      dispatch(getMembers(currentUser._id))
+    useEffect(() => {
+        setLoading(true)
+        getRequest('/dashboard')
+            .then(r => setUsage([
+                {id: 1, title: 'Usage', value: r.data.usage, icon: '/database.svg'},
+                {id: 2, title: 'Templates', value: r.data.templates, icon: '/wallet.svg'},
+                {id: 3, title: 'Signed', value: r.data.signed, icon: '/pulse.svg'},
+                {id: 4, title: 'Customers', value: r.data.customers, icon: '/user.png'}
+            ]))
+            .catch(e => toast.error(e.response.data.message))
+            .finally(() => setLoading(false));
+    }, []);
+
+    async function updateStatus(status) {
+        setLoading(true)
+        try {
+            for (const item of selectedWaivers) {
+                await patchRequest(`/submissions/${item._id}`, {status})
+            }
+            dispatch(addSelectedWaiver("CLEAR"))
+        } catch (e) {
+            toast.error(e.response.data.message)
+        }
+        setRefetch(!refetch)
+        setLoading(false)
     }
-    // eslint-disable-next-line
-  }, [currentUser]);
 
-  useEffect(() => {
-    setLoading(true)
-    getRequest('/dashboard')
-      .then(r => setUsage([
-        {id: 1, title: 'Usage', value: r.data.usage, icon: '/database.svg'},
-        {id: 2, title: 'Templates', value: r.data.templates, icon: '/wallet.svg'},
-        {id: 3, title: 'Signed', value: r.data.signed, icon: '/pulse.svg'},
-        {id: 4, title: 'Customers', value: r.data.customers, icon: '/user.png'}
-      ]))
-      .catch(e => toast.error(e.response.data.message))
-      .finally(() => setLoading(false));
-  }, []);
-
-  return (
-    <div>
-      <div>
-        <h1 className='text-xl font-semibold mb-5'>Dashboard</h1>
-        <div
-          className='grid gap-3 grid-cols-1 grid-rows-4 sm:grid-rows-2 sm:grid-cols-2 md:grid-rows-1 md:grid-cols-4 mb-5'>
-          {usage.map((item, index) => {
-            return (
-              <Card key={index} item={item}/>
-            )
-          })}
+    return (
+        <div>
+            <div>
+                <h1 className='text-xl font-semibold mb-5'>Dashboard</h1>
+                <div
+                    className='grid gap-3 grid-cols-1 grid-rows-4 sm:grid-rows-2 sm:grid-cols-2 md:grid-rows-1 md:grid-cols-4 mb-5'>
+                    {usage.map((item, index) => {
+                        return (
+                            <Card key={index} item={item}/>
+                        )
+                    })}
+                </div>
+            </div>
+            <div>
+                <div className='flex justify-between'>
+                    <h1 className='text-xl font-semibold my-5'>Recent waiver</h1>
+                    <div className='flex items-center gap-2'>
+                        {selectedCount > 0 && <>
+                            <span className='text-gray-500'>Selected : {selectedCount}</span>
+                            <Button btnText='Approve' btnClasses='bg-green-700' fullWidth='w-fit'
+                                    onClick={() => updateStatus('approved')}/>
+                            <Button btnText='Decline' btnClasses='bg-red-500' fullWidth='w-fit'
+                                    onClick={() => updateStatus('declined')}/>
+                        </>}
+                        <Button BtnIcon={ClipboardIcon}
+                                btnText='Create waivers'
+                                onClick={() => setOpenModal(true)}
+                                btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
+                                iconClasses='w-4 h-4 text-white inline-block ml-2'/>
+                    </div>
+                </div>
+                <SubmissionTable setSelectedCount={setSelectedCount} setLoading={setLoading} refetch={refetch}/>
+            </div>
+            <Modal open={openModal} setOpen={setOpenModal} functionCall={handleSubmit}/>
+            {loading && <Spinner/>}
         </div>
-      </div>
-      <div>
-        <div className='flex justify-between'>
-          <h1 className='text-xl font-semibold my-5'>Recent waiver</h1>
-          <div className='flex items-center gap-2'>
-            {selectedCount > 0 && <>
-              <span className='text-gray-500'>Selected : {selectedCount}</span>
-              <Button btnText='Approve' btnClasses='bg-green-700' fullWidth='w-fit'/>
-              <Button btnText='Decline' btnClasses='bg-red-500' fullWidth='w-fit'/>
-              </>}
-            <Button BtnIcon={ClipboardIcon}
-                    btnText='Create waivers'
-                    onClick={() => setOpenModal(true)}
-                    btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
-                    iconClasses='w-4 h-4 text-white inline-block ml-2'/>
-          </div>
-        </div>
-        <SubmissionTable setSelectedCount={setSelectedCount} setLoading={setLoading}/>
-      </div>
-      <Modal open={openModal} setOpen={setOpenModal} functionCall={handleSubmit}/>
-      {loading && <Spinner/>}
-    </div>
-  );
+    );
 };
 
 export default Dashboard;

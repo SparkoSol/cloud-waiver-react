@@ -1,7 +1,7 @@
 import CheckboxInput from "../../../components/inputs/CheckboxInput.jsx";
 import {capitalize, formatDate, limitChars} from "../../../utils/generalFunctions.js";
 import {EyeIcon} from "@heroicons/react/20/solid";
-import {Link, useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const statusColors = {
     submitted: 'bg-yellow-100 text-yellow-800',
@@ -16,7 +16,7 @@ const DashboardRow = ({item, functionCall, index, deleteRow}) => {
             <td className='p-4 font-semibold text-sm text-gray-900 whitespace-nowrap'>
                 <div className="flex items-center max-w-fit">
                     <CheckboxInput label='selectAll' extraClasses='hidden' checked={item.checked}
-                                   onChange={() => functionCall(index)}/>
+                                   onChange={() => functionCall(index)} disabled={item.status !== "submitted"}/>
                 </div>
             </td>
             <td className='py-4 px-6 font-semibold text-sm text-gray-900 whitespace-nowrap'>{limitChars(item._id, 6)}</td>
@@ -30,22 +30,24 @@ const DashboardRow = ({item, functionCall, index, deleteRow}) => {
             className={`${statusColors[item.status]} text-xs font-semibold px-2.5 py-0.5 rounded`}>{capitalize(item.status)}</span>
             </td>
             <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>
-                <div className="flex items-center justify-center gap-3">
+                <div className="flex items-center justify-between gap-3">
                     <Link target='_black' to={`/submission/${item._id}/view`}>
                         <EyeIcon className='w-5 h-5 text-iconGray'/>
                     </Link>
-                    <button onClick={e => deleteRow(item._id, "Accept")}>
-                        <img
-                            src='/tick.svg'
-                            alt='Loading...'
-                        />
-                    </button>
-                    <button onClick={e => deleteRow(item._id, "Reject")}>
-                        <img
-                            src='/cross.svg'
-                            alt='Loading...'
-                        />
-                    </button>
+                    {item.status === "submitted" && <>
+                        <button onClick={e => deleteRow(item._id, "approved")}>
+                            <img
+                                src='/tick.svg'
+                                alt='Loading...'
+                            />
+                        </button>
+                        <button onClick={e => deleteRow(item._id, "declined")}>
+                            <img
+                                src='/cross.svg'
+                                alt='Loading...'
+                            />
+                        </button>
+                    </>}
                 </div>
             </td>
         </tr>

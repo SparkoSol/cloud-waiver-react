@@ -1,12 +1,12 @@
 import {
-  ArrowRightOnRectangleIcon,
-  ClipboardDocumentIcon,
-  Cog6ToothIcon,
-  ComputerDesktopIcon,
-  DocumentTextIcon,
-  Squares2X2Icon,
-  UserIcon,
-  UsersIcon
+    ArrowRightOnRectangleIcon,
+    ClipboardDocumentIcon,
+    Cog6ToothIcon,
+    ComputerDesktopIcon,
+    DocumentTextIcon,
+    Squares2X2Icon,
+    UserIcon,
+    UsersIcon
 } from "@heroicons/react/24/outline";
 import {AdjustmentsVerticalIcon} from "@heroicons/react/20/solid";
 import toast from "react-hot-toast";
@@ -15,126 +15,129 @@ import $ from 'jquery'
 import tinymce from "tinymce";
 
 export function generateMonths(number) {
-  const months = ['Month'];
-  for (let i = 1; i <= number; i++) {
-    months.push(i);
-  }
+    const months = ['Month'];
+    for (let i = 1; i <= number; i++) {
+        months.push(i);
+    }
 
-  return months;
+    return months;
 }
 
 export function generateYears(startingYear) {
-  const currentYear = new Date().getFullYear();
-  const years = ['Year'];
-  for (let year = startingYear; year <= currentYear; year++) {
-    years.push(year);
-  }
-  return years;
+    const currentYear = new Date().getFullYear();
+    const years = ['Year'];
+    for (let year = startingYear; year <= currentYear; year++) {
+        years.push(year);
+    }
+    return years;
 }
 
 export function isValidBody(body) {
-  const invalidFields = [];
+    const invalidFields = [];
 
-  for (const key in body) {
-    if (body.hasOwnProperty(key) && typeof body[key] === 'string') {
-      if (body[key].trim() === '') {
-        invalidFields.push(key);
-      }
+    for (const key in body) {
+        if (body.hasOwnProperty(key) && typeof body[key] === 'string') {
+            if (body[key].trim() === '') {
+                invalidFields.push(key);
+            }
+        }
     }
-  }
 
-  if (invalidFields.length > 0) {
-    toast.error(`Invalid input at ${invalidFields[0]}`)
-    return false;
-  }
+    if (invalidFields.length > 0) {
+        toast.error(`Invalid input at ${invalidFields[0]}`)
+        return false;
+    }
 
-  return true;
+    return true;
 }
 
 export function isEmptyObject(obj) {
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      return false; // If the object has any own property, it's not empty
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            return false; // If the object has any own property, it's not empty
+        }
     }
-  }
-  return true; // If the loop completes without finding any own properties, it's empty
+    return true; // If the loop completes without finding any own properties, it's empty
 }
 
 export const capitalize = (string) => {
-  if (string) return string.charAt(0).toUpperCase() + string.slice(1);
+    if (string) return string.charAt(0).toUpperCase() + string.slice(1);
 }
 export const addCheck = (arr, filter) => {
-  return arr.map(item => {
-    if (filter === 't' && !item.reference_no) {
-      return {...item, checked: false}
-    } else {
-      return {...item, checked: false}
-    }
-  });
+    return arr.map(item => {
+        // TODO: ( Kashif ) : Kindly verify this function you are returning the same object
+        if (filter === 't' && !item.reference_no) {
+            return {...item, checked: false}
+        } else {
+            return {...item, checked: false}
+        }
+    });
 }
 
 export function limitChars(str, number) {
-  return str.slice(0, number) + '...';
+    return str.slice(0, number) + '...';
 }
 
 export function today() {
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
-  const day = currentDate.getDate().toString().padStart(2, '0');
-  return `${year}${month}${day}`
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    return `${year}${month}${day}`
 }
+
 export function dataURLtoFile(dataurl, filename) {
-  let arr = dataurl.split(','),
-    mime = arr[0].match(/:(.*?);/)[1],
-    bstr = atob(arr[arr.length - 1]),
-    n = bstr.length,
-    u8arr = new Uint8Array(n);
-  while(n--){
-    u8arr[n] = bstr.charCodeAt(n);
-  }
-  return new File([u8arr], filename, {type:mime});
+    let arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[arr.length - 1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, {type: mime});
 }
+
 //custom component logics
 class SignatureControls extends Control {
-  // eslint-disable-next-line
-  constructor() {
-    super();
-  }
+    // eslint-disable-next-line
+    constructor() {
+        super();
+    }
 
-  static get definition() {
-    return {
-      subtype: 'signature',
-      id: '1',
-      isPreview: true,
-      title: 'Signature',
-      type: 'signature',
-      access: false,
-      required: false,
-      label: 'Signature',
-      i18n: {
-        'fr-FR': 'Mon Type',
-        'default': 'My Type'
-      },
-    };
-  }
+    static get definition() {
+        return {
+            subtype: 'signature',
+            id: '1',
+            isPreview: true,
+            title: 'Signature',
+            type: 'signature',
+            access: false,
+            required: false,
+            label: 'Signature',
+            i18n: {
+                'fr-FR': 'Mon Type',
+                'default': 'My Type'
+            },
+        };
+    }
 
-  configure() {
-  }
+    configure() {
+    }
 
-  // Method to build and return a DOM element representing the control
-  build() {
-    const controlElement = document.createElement('div');
-    controlElement.className = 'custom-control';
+    // Method to build and return a DOM element representing the control
+    build() {
+        const controlElement = document.createElement('div');
+        controlElement.className = 'custom-control';
 
-    return {
-      field: controlElement,
-      layout: 'noLabel',
-    };
-  }
+        return {
+            field: controlElement,
+            layout: 'noLabel',
+        };
+    }
 
-  onRender(event) {
-  }
+    onRender(event) {
+    }
 }
 
 Control.register('signature', SignatureControls);
@@ -203,273 +206,273 @@ export let additionMinorForm = `
 //static headers
 export const DashBoardHeaders = ['ID', 'Signed Date', 'First Name', 'Last Name', 'Reference No', 'Template Name', 'Status'];
 export const dashboardData = [{
-  _id: '1111111',
-  signedDate: 'Oct 05, 2023',
-  firstName: 'John',
-  lastName: 'Doe',
-  refrenceNo: 'SPARKO',
-  templateName: 'Lorem',
-  status: 'Submitted'
+    _id: '1111111',
+    signedDate: 'Oct 05, 2023',
+    firstName: 'John',
+    lastName: 'Doe',
+    refrenceNo: 'SPARKO',
+    templateName: 'Lorem',
+    status: 'Submitted'
 }]
 export const sideBarOptions = [
-  {
-    id: 1,
-    title: 'Dashboard',
-    icon: Squares2X2Icon,
-    url: '/dashboard'
-  },
-  {
-    id: 2,
-    title: 'Waiver Templates',
-    icon: DocumentTextIcon,
-    url: '/templates'
-  },
-  {
-    id: 5,
-    title: 'Signed Waivers',
-    url: '/signed',
-    icon: ClipboardDocumentIcon
-  },
-  {
-    id: 6,
-    title: 'Template Gallery',
-    url: '/gallery',
-    icon: UsersIcon,
-    subList: [
-      {
-        id: 7,
-        title: 'Templates 1',
-      },
-      {
-        id: 8,
-        title: 'Templates 2',
-      }
-    ]
-  },
-  {
-    id: 9,
-    title: 'Customers',
-    url: '/customers',
-    icon: UserIcon
-  },
-  {
-    id: 10,
-    title: 'Kiosk Settings',
-    url: '/kiosk',
-    icon: ComputerDesktopIcon
-  },
-  {
-    id: 16,
-    title: 'Staff Management',
-    url: '/management',
-    icon: UsersIcon
-  },
-  {
-    id: 11,
-    title: 'Settings',
-    url: '/settings',
-    icon: Cog6ToothIcon,
-    subList: [
-      {
-        id: 13,
-        title: 'Account',
-        url: '/settings'
-      },
-      {
-        id: 14,
-        title: 'Password',
-        url: '/settings/password'
-      },
-      {
-        id: 15,
-        title: 'Integrations',
-        url: '/settings/integrations'
-      }
-    ]
-  },
-  {
-    id: 12,
-    title: 'Billing',
-    url: '/billing',
-    icon: AdjustmentsVerticalIcon
-  },
-  {
-    id: 17,
-    title: 'Sign Out',
-    url: '#',
-    icon: ArrowRightOnRectangleIcon
-  }
+    {
+        id: 1,
+        title: 'Dashboard',
+        icon: Squares2X2Icon,
+        url: '/dashboard'
+    },
+    {
+        id: 2,
+        title: 'Waiver Templates',
+        icon: DocumentTextIcon,
+        url: '/templates'
+    },
+    {
+        id: 5,
+        title: 'Signed Waivers',
+        url: '/signed',
+        icon: ClipboardDocumentIcon
+    },
+    {
+        id: 6,
+        title: 'Template Gallery',
+        url: '/gallery',
+        icon: UsersIcon,
+        subList: [
+            {
+                id: 7,
+                title: 'Templates 1',
+            },
+            {
+                id: 8,
+                title: 'Templates 2',
+            }
+        ]
+    },
+    {
+        id: 9,
+        title: 'Customers',
+        url: '/customers',
+        icon: UserIcon
+    },
+    {
+        id: 10,
+        title: 'Kiosk Settings',
+        url: '/kiosk',
+        icon: ComputerDesktopIcon
+    },
+    {
+        id: 16,
+        title: 'Staff Management',
+        url: '/management',
+        icon: UsersIcon
+    },
+    {
+        id: 11,
+        title: 'Settings',
+        url: '/settings',
+        icon: Cog6ToothIcon,
+        subList: [
+            {
+                id: 13,
+                title: 'Account',
+                url: '/settings'
+            },
+            {
+                id: 14,
+                title: 'Password',
+                url: '/settings/password'
+            },
+            {
+                id: 15,
+                title: 'Integrations',
+                url: '/settings/integrations'
+            }
+        ]
+    },
+    {
+        id: 12,
+        title: 'Billing',
+        url: '/billing',
+        icon: AdjustmentsVerticalIcon
+    },
+    {
+        id: 17,
+        title: 'Sign Out',
+        url: '#',
+        icon: ArrowRightOnRectangleIcon
+    }
 ];
 export const countries = ["Pakistan", "Germany", "United States", "United Kingdom", "France", "Australia", "Canada", "Japan"];
 export const billingOptions = [
-  {
-    plan: 'Growth',
-    firstChar: {
-      title: 'For the first 1 - 550', price: 'Flat USD45'
-    },
-    secondChar: {
-      title: '550 - Rest Per Unit', price: 'USD0.09'
-    }
-  }, {
-    plan: 'Free',
-    firstChar: {
-      title: 'For All Per Unit', price: 'USD0.15'
-    }
-  }, {
-    plan: 'Basic',
-    firstChar: {
-      title: 'For the first 1 - 150', price: 'Flat USD10'
-    },
-    secondChar: {
-      title: '150 - Rest Per Unit', price: 'USD0.1'
-    }
-  }, {
-    plan: 'Standard',
-    firstChar: {
-      title: 'For the first 1 - 1050', price: 'Flat USD89'
-    },
-    secondChar: {
-      title: '1050 - Rest Per Unit', price: 'USD0.09'
-    }
-  }, {
-    plan: 'Enterprise Pro',
-    firstChar: {
-      title: 'For the first 1 - 5050', price: 'Flat USD199'
-    },
-    secondChar: {
-      title: '5050 - Rest Per Unit', price: 'USD0.04'
-    }
-  }, {
-    plan: 'Enterprise',
-    firstChar: {
-      title: 'For the first 1 - 2550', price: 'Flat USD125'
-    },
-    secondChar: {
-      title: '2550 - Rest Per Unit', price: 'USD0.05'
-    }
-  }]
+    {
+        plan: 'Growth',
+        firstChar: {
+            title: 'For the first 1 - 550', price: 'Flat USD45'
+        },
+        secondChar: {
+            title: '550 - Rest Per Unit', price: 'USD0.09'
+        }
+    }, {
+        plan: 'Free',
+        firstChar: {
+            title: 'For All Per Unit', price: 'USD0.15'
+        }
+    }, {
+        plan: 'Basic',
+        firstChar: {
+            title: 'For the first 1 - 150', price: 'Flat USD10'
+        },
+        secondChar: {
+            title: '150 - Rest Per Unit', price: 'USD0.1'
+        }
+    }, {
+        plan: 'Standard',
+        firstChar: {
+            title: 'For the first 1 - 1050', price: 'Flat USD89'
+        },
+        secondChar: {
+            title: '1050 - Rest Per Unit', price: 'USD0.09'
+        }
+    }, {
+        plan: 'Enterprise Pro',
+        firstChar: {
+            title: 'For the first 1 - 5050', price: 'Flat USD199'
+        },
+        secondChar: {
+            title: '5050 - Rest Per Unit', price: 'USD0.04'
+        }
+    }, {
+        plan: 'Enterprise',
+        firstChar: {
+            title: 'For the first 1 - 2550', price: 'Flat USD125'
+        },
+        secondChar: {
+            title: '2550 - Rest Per Unit', price: 'USD0.05'
+        }
+    }]
 export const invoiceData = [
-  {
-    id: 1,
-    invoice: 'B8DAA400-0001',
-    period: 'Oct 04, 2023 - Oct 04, 2023',
-    total: '$0 USD',
-    status: 'Paid'
-  }
+    {
+        id: 1,
+        invoice: 'B8DAA400-0001',
+        period: 'Oct 04, 2023 - Oct 04, 2023',
+        total: '$0 USD',
+        status: 'Paid'
+    }
 ]
 export const customerData = [
-  {
-    _id: '11111111', firstName: 'John', lastName: 'Doe', email: 'john@gmail.com', count: 1
-  }, {
-    _id: '21111111', firstName: 'John', lastName: 'Doe', email: 'john@gmail.com', count: 1
-  }
+    {
+        _id: '11111111', firstName: 'John', lastName: 'Doe', email: 'john@gmail.com', count: 1
+    }, {
+        _id: '21111111', firstName: 'John', lastName: 'Doe', email: 'john@gmail.com', count: 1
+    }
 ]
 export let fields = [
-  {
-    label: 'Additional Participants',
-    attrs: {
-      type: 'additionalParticipants',
+    {
+        label: 'Additional Participants',
+        attrs: {
+            type: 'additionalParticipants',
+        },
+        icon: '🤵',
     },
-    icon: '🤵',
-  },
-  {
-    label: 'Additional Minors',
-    attrs: {
-      type: 'additionalMinors'
+    {
+        label: 'Additional Minors',
+        attrs: {
+            type: 'additionalMinors'
+        },
+        icon: '👨‍👦‍👦'
     },
-    icon: '👨‍👦‍👦'
-  },
-  {
-    label: 'Signature',
-    attrs: {
-      type: 'signature',
+    {
+        label: 'Signature',
+        attrs: {
+            type: 'signature',
+        },
+        icon: '✍️',
     },
-    icon: '✍️',
-  },
-  {
-    label: 'Address',
-    attrs: {
-      type: 'address'
+    {
+        label: 'Address',
+        attrs: {
+            type: 'address'
+        },
+        icon: '🏠'
     },
-    icon: '🏠'
-  },
-  {
-    label: 'Primary Adult Participant',
-    attrs: {
-      type: 'primaryAdultParticipant',
+    {
+        label: 'Primary Adult Participant',
+        attrs: {
+            type: 'primaryAdultParticipant',
+        },
+        icon: '🤵'
     },
-    icon: '🤵'
-  },
-  {
-    label: 'Rich Text Editor',
-    attrs: {
-      type: 'richTextEditor'
+    {
+        label: 'Rich Text Editor',
+        attrs: {
+            type: 'richTextEditor'
+        },
+        icon: '⌨️'
     },
-    icon: '⌨️'
-  },
-  {
-    label: 'Electronic Consent Signature',
-    attrs: {
-      type: 'electronicSignatureConsent'
+    {
+        label: 'Electronic Consent Signature',
+        attrs: {
+            type: 'electronicSignatureConsent'
+        },
+        icon: '💾'
     },
-    icon: '💾'
-  },
-  {
-    label: 'Capture Photo',
-    attrs: {
-      type: 'capturePhoto'
+    {
+        label: 'Capture Photo',
+        attrs: {
+            type: 'capturePhoto'
+        },
+        icon: '📷'
     },
-    icon: '📷'
-  },
-  {
-    label: 'Time',
-    attrs: {
-      type: 'timeComponent'
+    {
+        label: 'Time',
+        attrs: {
+            type: 'timeComponent'
+        },
+        icon: '🕐'
     },
-    icon: '🕐'
-  },
-  {
-    label: 'File Upload',
-    attrs: {
-      type: 'filesUpload'
-    },
-    icon: ' 🔗'
-  }
+    {
+        label: 'File Upload',
+        attrs: {
+            type: 'filesUpload'
+        },
+        icon: ' 🔗'
+    }
 ];
 
 const templates = {
-  primaryAdultParticipant: function (fieldData) {
-    return {
-      onRender: function () {
-        let element = $(`.field-${fieldData.name}`);
-        element.append(additionParticipantForm);
-        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid transparent'});
-      }
-    };
-  },
-  additionalParticipants: function (fieldData) {
-    let newDiv = $('<div class="participant-div-1"></div>');
-    return {
-      field: '<h2 class="text-xl font-semibold text-center py-4">How many additional adults?</h2>',
-      onRender: function () {
-        commonPayload(additionParticipantForm, newDiv, fieldData);
-      }
-    };
-  },
-  additionalMinors: function (fieldData) {
-    let newDiv = $('<div class="minor-div-1"></div>');
-    return {
-      field: `<h2 class="text-xl font-semibold text-center py-4"> How many minors are you consenting for?</h2>`,
-      onRender: function () {
-        commonPayload(additionMinorForm, newDiv, fieldData);
-      }
-    };
-  },
-  signature: function (fieldData) {
-    return {
-      onRender: function () {
-        let element = $(`.field-${fieldData.name}`);
-        element.append(`
+    primaryAdultParticipant: function (fieldData) {
+        return {
+            onRender: function () {
+                let element = $(`.field-${fieldData.name}`);
+                element.append(additionParticipantForm);
+                $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid transparent'});
+            }
+        };
+    },
+    additionalParticipants: function (fieldData) {
+        let newDiv = $('<div class="participant-div-1"></div>');
+        return {
+            field: '<h2 class="text-xl font-semibold text-center py-4">How many additional adults?</h2>',
+            onRender: function () {
+                commonPayload(additionParticipantForm, newDiv, fieldData);
+            }
+        };
+    },
+    additionalMinors: function (fieldData) {
+        let newDiv = $('<div class="minor-div-1"></div>');
+        return {
+            field: `<h2 class="text-xl font-semibold text-center py-4"> How many minors are you consenting for?</h2>`,
+            onRender: function () {
+                commonPayload(additionMinorForm, newDiv, fieldData);
+            }
+        };
+    },
+    signature: function (fieldData) {
+        return {
+            onRender: function () {
+                let element = $(`.field-${fieldData.name}`);
+                element.append(`
         <div class="relative main">
         <div class="absolute w-full h-full cursor-pointer align-middle" onclick="this.remove();">
           <h5 style="display: flex; justify-content: center; height: 100%; align-items: center; color: #9CA3AF;">
@@ -479,15 +482,15 @@ const templates = {
         <div class="js-signature"></div>
         </div>
       `);
-        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid transparent'});
-      }
-    };
-  },
-  address: function (fieldData) {
-    return {
-      onRender: function () {
-        let element = $(`.field-${fieldData.name}`);
-        element.append(`
+                $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid transparent'});
+            }
+        };
+    },
+    address: function (fieldData) {
+        return {
+            onRender: function () {
+                let element = $(`.field-${fieldData.name}`);
+                element.append(`
   <form id="address" class="space-y-4">
     <div class="flex flex-col items-start space-y-1">
       <label for="address">Address-1</label>
@@ -519,28 +522,28 @@ const templates = {
     </div>
   </form>
 `);
-      }
-    };
-  },
-  richTextEditor: function (fieldData) {
-    return {
-      onRender: function () {
-        let element = $(`.field-${fieldData.name}`);
-        element.append(`<textarea id=${fieldData.name} class="textarea-selector"></textarea>`);
-        tinymce.init({
-          selector: `#${fieldData.name}`,
-          promotion: false,
-          plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-          toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-        });
-      }
-    };
-  },
-  electronicSignatureConsent: function (fieldData) {
-    return {
-      onRender: function () {
-        let element = $(`.field-${fieldData.name}`);
-        element.append(`
+            }
+        };
+    },
+    richTextEditor: function (fieldData) {
+        return {
+            onRender: function () {
+                let element = $(`.field-${fieldData.name}`);
+                element.append(`<textarea id=${fieldData.name} class="textarea-selector"></textarea>`);
+                tinymce.init({
+                    selector: `#${fieldData.name}`,
+                    promotion: false,
+                    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                });
+            }
+        };
+    },
+    electronicSignatureConsent: function (fieldData) {
+        return {
+            onRender: function () {
+                let element = $(`.field-${fieldData.name}`);
+                element.append(`
         <div class="relative flex items-start py-4 px-2">
           <div class="flex h-5 items-center">
             <input name="electronic-signature-consent" id="electronicSign" type="checkbox" class="h-6 w-6 rounded border-gray-300 ring-primary focus:ring-primary">
@@ -550,50 +553,52 @@ const templates = {
           </div>
         </div>
       `);
-      }
-    };
-  },
-  capturePhoto: function (fieldData) {
-    return {
-      onRender: function () {
-        let element = $(`.field-${fieldData.name}`);
+            }
+        };
+    },
+    capturePhoto: function (fieldData) {
+        return {
+            onRender: function () {
+                let element = $(`.field-${fieldData.name}`);
 
-        function openCamera() {
-          let takePhotoButton = document.getElementById('takePhoto');
-          let imagePreviewDiv = document.getElementById('imagePreview');
-          navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function(stream) {
-              let video = document.getElementById('video');
-              video.classList.remove('hidden')
-              takePhotoButton.style.display = 'inline-block';
-              video.srcObject = stream;
-              video.play();
-              function takePicture() {
-                imagePreviewDiv.innerHTML='';
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(video, 0, 0);
-                const imageData = canvas.toDataURL('image/png');
-                const image = document.createElement('img');
-                image.id="preview-image";
-                image.src = imageData;
-                imagePreviewDiv.appendChild(image);
-                const tracks = stream.getTracks();
-                tracks.forEach((track) => track.stop());
-                video.srcObject = null;
-                video.classList.add('hidden')
-                takePhotoButton.style.display = 'none';
-              }
-              takePhotoButton.addEventListener('click', takePicture);
-            })
-            .catch(function(error) {
-              console.error('Failed to get access to the camera:', error);
-            });
-        }
+                function openCamera() {
+                    let takePhotoButton = document.getElementById('takePhoto');
+                    let imagePreviewDiv = document.getElementById('imagePreview');
+                    navigator.mediaDevices.getUserMedia({video: true})
+                        .then(function (stream) {
+                            let video = document.getElementById('video');
+                            video.classList.remove('hidden')
+                            takePhotoButton.style.display = 'inline-block';
+                            video.srcObject = stream;
+                            video.play();
 
-        element.append(`
+                            function takePicture() {
+                                imagePreviewDiv.innerHTML = '';
+                                const canvas = document.createElement('canvas');
+                                canvas.width = video.videoWidth;
+                                canvas.height = video.videoHeight;
+                                const ctx = canvas.getContext('2d');
+                                ctx.drawImage(video, 0, 0);
+                                const imageData = canvas.toDataURL('image/png');
+                                const image = document.createElement('img');
+                                image.id = "preview-image";
+                                image.src = imageData;
+                                imagePreviewDiv.appendChild(image);
+                                const tracks = stream.getTracks();
+                                tracks.forEach((track) => track.stop());
+                                video.srcObject = null;
+                                video.classList.add('hidden')
+                                takePhotoButton.style.display = 'none';
+                            }
+
+                            takePhotoButton.addEventListener('click', takePicture);
+                        })
+                        .catch(function (error) {
+                            console.error('Failed to get access to the camera:', error);
+                        });
+                }
+
+                element.append(`
         <div class="p-2 capture-photo">
           <h2 class="my-2 text-lg font-semibold text-gray-900">Please follow the provided instructions to complete your Photo Capture</h2>
           <ul class="max-w space-y-1 text-gray-700 list-disc list-inside">
@@ -609,373 +614,404 @@ const templates = {
            <div id="imagePreview" class="my-3"></div>
         </div>
       `);
-        document.getElementById('captureButton').addEventListener('click', openCamera);
-      }
-    };
-  },
-  timeComponent: function (fieldData) {
-    return {
-      onRender: function () {
-        let element = $(`.field-${fieldData.name}`);
-        element.append('<input type="time" class="w-full p-2.5" name="time-field">');
-      }
-    };
-  },
-  filesUpload: function (fieldData) {
-    return {
-      onRender: function () {
-        let element = $(`.field-${fieldData.name}`);
-        let inputFile = $('<input>', {
-          type: 'file',
-          multiple: true,
-          accept: "image/png, image/jpeg",
-          id: `fileInput-${fieldData.name}`,
-          class:'file-inp',
-          style: 'display: none',
-          change: function () {
-            displayUploadedFiles(fieldData.name);
-          }
-        });
-        let openButton = $('<button>', {
-          text: 'Upload Files',
-          type: 'button',
-          class: 'px-3 py-2 text-white bg-btnBg block w-fit my-4 rounded-lg',
-          click: function () {
-            $(`#fileInput-${fieldData.name}`).click();
-          }
-        });
-        let fileDisplayDiv = $('<div>', {
-          id: `uploadedFileDisplay-${fieldData.name}`,
-          class:'child:w-20 child:h-20 flex gap-3'
-        });
-        element.on('dragover', function (e) {
-          e.preventDefault();
-          element.addClass('drag-over');
-        });
-        element.on('dragleave', function () {
-          element.removeClass('drag-over');
-        });
-        element.on('drop', function (e) {
-          e.preventDefault();
-          element.removeClass('drag-over');
-          let files = e.originalEvent.dataTransfer.files;
-          if (files.length > 0) {
-            $(`#fileInput-${fieldData.name}`).prop('files', files);
-            displayUploadedFiles(fieldData.name);
-          }
-        });
-        element.append(inputFile, openButton, fileDisplayDiv);
-      }
-    };
+                document.getElementById('captureButton').addEventListener('click', openCamera);
+            }
+        };
+    },
+    timeComponent: function (fieldData) {
+        return {
+            onRender: function () {
+                let element = $(`.field-${fieldData.name}`);
+                element.append('<input type="time" class="w-full p-2.5" name="time-field">');
+            }
+        };
+    },
+    filesUpload: function (fieldData) {
+        return {
+            onRender: function () {
+                let element = $(`.field-${fieldData.name}`);
+                let inputFile = $('<input>', {
+                    type: 'file',
+                    multiple: true,
+                    accept: "image/png, image/jpeg",
+                    id: `fileInput-${fieldData.name}`,
+                    class: 'file-inp',
+                    style: 'display: none',
+                    change: function () {
+                        displayUploadedFiles(fieldData.name);
+                    }
+                });
+                let openButton = $('<button>', {
+                    text: 'Upload Files',
+                    type: 'button',
+                    class: 'px-3 py-2 text-white bg-btnBg block w-fit my-4 rounded-lg',
+                    click: function () {
+                        $(`#fileInput-${fieldData.name}`).click();
+                    }
+                });
+                let fileDisplayDiv = $('<div>', {
+                    id: `uploadedFileDisplay-${fieldData.name}`,
+                    class: 'child:w-20 child:h-20 flex gap-3'
+                });
+                element.on('dragover', function (e) {
+                    e.preventDefault();
+                    element.addClass('drag-over');
+                });
+                element.on('dragleave', function () {
+                    element.removeClass('drag-over');
+                });
+                element.on('drop', function (e) {
+                    e.preventDefault();
+                    element.removeClass('drag-over');
+                    let files = e.originalEvent.dataTransfer.files;
+                    if (files.length > 0) {
+                        $(`#fileInput-${fieldData.name}`).prop('files', files);
+                        displayUploadedFiles(fieldData.name);
+                    }
+                });
+                element.append(inputFile, openButton, fileDisplayDiv);
+            }
+        };
 
-    function displayUploadedFiles(fieldName) {
-      let fileInput = $(`#fileInput-${fieldName}`);
-      let displayDiv = $(`#uploadedFileDisplay-${fieldName}`);
-      displayDiv.empty();
+        function displayUploadedFiles(fieldName) {
+            let fileInput = $(`#fileInput-${fieldName}`);
+            let displayDiv = $(`#uploadedFileDisplay-${fieldName}`);
+            displayDiv.empty();
 
-      if (fileInput[0].files.length > 0) {
-        for (let i = 0; i < fileInput[0].files.length; i++) {
-          let file = fileInput[0].files[i];
-          if (file.type.startsWith('image/')) {
-            let imgElement = $('<img>', {
-              src: URL.createObjectURL(file),
-              alt: 'Uploaded Image'
-            });
-            displayDiv.append(imgElement);
-          } else {
-            displayDiv.append(`<p>File ${i + 1}: ${file.name} is not an image.</p>`);
-          }
+            if (fileInput[0].files.length > 0) {
+                for (let i = 0; i < fileInput[0].files.length; i++) {
+                    let file = fileInput[0].files[i];
+                    if (file.type.startsWith('image/')) {
+                        let imgElement = $('<img>', {
+                            src: URL.createObjectURL(file),
+                            alt: 'Uploaded Image'
+                        });
+                        displayDiv.append(imgElement);
+                    } else {
+                        displayDiv.append(`<p>File ${i + 1}: ${file.name} is not an image.</p>`);
+                    }
+                }
+            }
         }
-      }
     }
-  }
 
 };
 const inputSets = [{
-  label: 'Primary Adult Participant(editable)',
-  name: 'editable',
-  other: true,
-  icon: '✏️',
-  showHeader: true,
-  userData: [],
-  fields: [{
-    type: 'text',
-    label: 'First Name',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
-    placeholder: 'First Name'
-  }, {
-    type: 'text',
-    label: 'Last Name',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
-    placeholder: 'Last Name'
-  }, {
-    type: 'text',
-    label: 'Email',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
-    subtype: 'email',
-    placeholder: 'Email'
-  }, {
-    type: 'text',
-    subtype: 'tel',
-    label: 'Phone',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
-    placeholder: 'Phone'
-  }, {
-    type: 'date',
-    label: 'Date of Birth',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
-    placeholder: 'dd/mm/yyyy'
-  }, {
-    type: 'signature', label: 'Signature'
-  }]
+    label: 'Primary Adult Participant(editable)',
+    name: 'editable',
+    other: true,
+    icon: '✏️',
+    showHeader: true,
+    userData: [],
+    fields: [{
+        type: 'text',
+        label: 'First Name',
+        className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+        placeholder: 'First Name'
+    }, {
+        type: 'text',
+        label: 'Last Name',
+        className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+        placeholder: 'Last Name'
+    }, {
+        type: 'text',
+        label: 'Email',
+        className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+        subtype: 'email',
+        placeholder: 'Email'
+    }, {
+        type: 'text',
+        subtype: 'tel',
+        label: 'Phone',
+        className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+        placeholder: 'Phone'
+    }, {
+        type: 'date',
+        label: 'Date of Birth',
+        className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+        placeholder: 'dd/mm/yyyy'
+    }, {
+        type: 'signature', label: 'Signature'
+    }]
 }];
 export let options = {
-  fields,
-  templates,
-  disableFields: ['autocomplete', 'textarea', 'button', 'paragraph', 'file'],
-  disabledAttrs: [
-    'access',
-    'multiple',
-    'toggle',
-    'className',
-    'inline',
-    'other',
-    'subtype',
-    'maxlength',
-    'rows',
-    'name',
-  ],
-  disabledFieldButtons: {
-    richTextEditor: ['copy', 'edit'],
-  },
-  stickyControls: true,
-  controlPosition: 'right',
-  inputSets,
-  typeUserAttrs: {
-    primaryAdultParticipant: {
-      'Show First Name': {
-        label: 'Show First Name',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Middle Name': {
-        label: 'Show Middle Name',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Last Name': {
-        label: 'Show Last Name',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Email': {
-        label: 'Show Email',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Phone': {
-        label: 'Show Phone',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Date Of Birth': {
-        label: 'Show Date Of Birth',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Signature': {
-        label: 'Show Date Of Birth',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Scanner': {
-        label: 'Show Date Of Birth',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Age': {
-        label: 'Show Date Of Birth',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Address': {
-        label: 'Show Date Of Birth',
-        value: false,
-        type: 'checkbox',
-      }
+    fields,
+    templates,
+    disableFields: ['autocomplete', 'textarea', 'button', 'paragraph', 'file'],
+    disabledAttrs: [
+        'access',
+        'multiple',
+        'toggle',
+        'className',
+        'inline',
+        'other',
+        'subtype',
+        'maxlength',
+        'rows',
+        'name',
+    ],
+    disabledFieldButtons: {
+        richTextEditor: ['copy', 'edit'],
     },
-    additionalParticipants: {
-      'Show First Name': {
-        label: 'Show First Name',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Middle Name': {
-        label: 'Show Middle Name',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Last Name': {
-        label: 'Show Last Name',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Email': {
-        label: 'Show Email',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Phone': {
-        label: 'Show Phone',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Date Of Birth': {
-        label: 'Show Date Of Birth',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Signature': {
-        label: 'Show Date Of Birth',
-        value: false,
-        type: 'checkbox',
-      }
+    stickyControls: true,
+    controlPosition: 'right',
+    inputSets,
+    typeUserAttrs: {
+        primaryAdultParticipant: {
+            'Show First Name': {
+                label: 'Show First Name',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Middle Name': {
+                label: 'Show Middle Name',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Last Name': {
+                label: 'Show Last Name',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Email': {
+                label: 'Show Email',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Phone': {
+                label: 'Show Phone',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Date Of Birth': {
+                label: 'Show Date Of Birth',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Signature': {
+                label: 'Show Date Of Birth',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Scanner': {
+                label: 'Show Date Of Birth',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Age': {
+                label: 'Show Date Of Birth',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Address': {
+                label: 'Show Date Of Birth',
+                value: false,
+                type: 'checkbox',
+            }
+        },
+        additionalParticipants: {
+            'Show First Name': {
+                label: 'Show First Name',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Middle Name': {
+                label: 'Show Middle Name',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Last Name': {
+                label: 'Show Last Name',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Email': {
+                label: 'Show Email',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Phone': {
+                label: 'Show Phone',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Date Of Birth': {
+                label: 'Show Date Of Birth',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Signature': {
+                label: 'Show Date Of Birth',
+                value: false,
+                type: 'checkbox',
+            }
+        },
+        additionalMinors: {
+            'Show First Name': {
+                label: 'Show First Name',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Middle Name': {
+                label: 'Show Middle Name',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Last Name': {
+                label: 'Show Last Name',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Date Of Birth': {
+                label: 'Show Date Of Birth',
+                value: false,
+                type: 'checkbox',
+            },
+            'Show Relationship': {
+                label: 'Show Relationship',
+                value: false,
+                type: 'checkbox'
+            }
+        },
+        electronicSignatureConsent: {
+            'Content': {
+                label: 'Content',
+                type: 'textarea',
+                value: 'By checking here, you are consenting to the use of your electronic signature in lieu of an original signature on paper. You have the right to request that you sign a paper copy instead. By checking here, you are waiving that right. After consent, you may, upon written request to us, obtain a paper copy of an electronic record. No fee will be charged for such copy and no special hardware or software is required to view it. Your agreement to use an electronic signature with us for any documents will continue until such time as you notify us in writing that you no longer wish to use an electronic signature. There is no penalty for withdrawing your consent. You should always make sure that we have a current email address in order to contact you regarding any changes, if necessary.',
+            }
+        },
+        capturePhoto: {
+            'Instruction Header': {
+                label: 'Instruction Header',
+                type: 'text',
+                value: 'Please follow the provided instructions to complete your Photo Capture'
+            },
+            'Instruction Line 1': {
+                label: 'Instruction Line 1',
+                type: 'text',
+                value: 'Make sure your camera has a clear view of you.'
+            },
+            'Instruction Line 2': {
+                label: 'Instruction Line 2',
+                type: 'text',
+                value: 'When you are ready, press the Take photo button while facing your camera.'
+            },
+            'Instruction Line 3': {
+                label: 'Instruction Line 3',
+                type: 'text',
+                value: 'If you are not satisfied with the photo, press the Retake button to try again.'
+            },
+            'Instruction Line 4': {
+                label: 'Instruction Line 4',
+                type: 'text',
+                value: ''
+            },
+            'Button Text': {
+                label: 'Button Text',
+                type: 'text',
+                value: 'Capture Photo'
+            }
+        }
     },
-    additionalMinors:{
-      'Show First Name':{
-        label: 'Show First Name',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Middle Name':{
-        label: 'Show Middle Name',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Last Name':{
-        label: 'Show Last Name',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Date Of Birth':{
-        label: 'Show Date Of Birth',
-        value: false,
-        type: 'checkbox',
-      },
-      'Show Relationship':{
-        label: 'Show Relationship',
-        value: false,
-        type: 'checkbox'
-      }
-    },
-    electronicSignatureConsent:{
-      'Content':{
-        label: 'Content',
-        type:'textarea',
-        value: 'By checking here, you are consenting to the use of your electronic signature in lieu of an original signature on paper. You have the right to request that you sign a paper copy instead. By checking here, you are waiving that right. After consent, you may, upon written request to us, obtain a paper copy of an electronic record. No fee will be charged for such copy and no special hardware or software is required to view it. Your agreement to use an electronic signature with us for any documents will continue until such time as you notify us in writing that you no longer wish to use an electronic signature. There is no penalty for withdrawing your consent. You should always make sure that we have a current email address in order to contact you regarding any changes, if necessary.',
-      }
-    },
-    capturePhoto:{
-      'Instruction Header':{
-        label:'Instruction Header',
-        type:'text',
-        value:'Please follow the provided instructions to complete your Photo Capture'
-      },
-      'Instruction Line 1':{
-        label:'Instruction Line 1',
-        type:'text',
-        value:'Make sure your camera has a clear view of you.'
-      },
-      'Instruction Line 2':{
-        label:'Instruction Line 2',
-        type:'text',
-        value:'When you are ready, press the Take photo button while facing your camera.'
-      },
-      'Instruction Line 3':{
-        label:'Instruction Line 3',
-        type:'text',
-        value:'If you are not satisfied with the photo, press the Retake button to try again.'
-      },
-      'Instruction Line 4':{
-        label:'Instruction Line 4',
-        type:'text',
-        value:''
-      },
-      'Button Text':{
-        label:'Button Text',
-        type:'text',
-        value:'Capture Photo'
-      }
+    typeUserEvents: {
+        additionalParticipants: {}
     }
-  },
-  typeUserEvents: {
-    additionalParticipants: {}
-  }
 };
 export const staticForm = [
-  {
-    type: 'text',
-    label: 'Email',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
-    subtype: 'email',
-    required: true,
-    placeholder: 'Email',
-    name: 'defaultMail'
-  },
-  {
-    label: 'Electronic Signature Consent',
-    type: 'electronicSignatureConsent',
-    required: true,
-  }
+    {
+        type: 'text',
+        label: 'Email',
+        className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+        subtype: 'email',
+        required: true,
+        placeholder: 'Email',
+        name: 'defaultMail'
+    },
+    {
+        label: 'Electronic Signature Consent',
+        type: 'electronicSignatureConsent',
+        required: true,
+    }
 ]
 export const tabsData = [
-  {name: 'Overview', id: 1, url: 'overview'},
-  {name: 'Submissions', id: 2, url: 'submissions'},
-  {name: 'Builder', id: 3, url: 'builder'},
-  {name: 'Integrations', id: 4, url: 'integration'},
-  {name: 'Settings', id: 4, url: 'setting'},
+    {name: 'Overview', id: 1, url: 'overview'},
+    {name: 'Submissions', id: 2, url: 'submissions'},
+    {name: 'Builder', id: 3, url: 'builder'},
+    {name: 'Integrations', id: 4, url: 'integration'},
+    {name: 'Settings', id: 4, url: 'setting'},
 ]
-function commonPayload(form, newDiv, fieldData) {
-  let element = $(`.field-${fieldData.name}`);
-  let buttonsHTML = '';
 
-  function handleButtonClick(i) {
-    return function () {
-      newDiv.empty(); // Clear the contents of the newDiv
-      for (let j = 1; j <= i + 1; j++) {
-        newDiv.append(`<div class="participant-${j} ${fieldData.type === 'additionalParticipants' ? 'participants' : 'minors'}">
+function commonPayload(form, newDiv, fieldData) {
+    let element = $(`.field-${fieldData.name}`);
+    let buttonsHTML = '';
+
+    function handleButtonClick(i) {
+        return function () {
+            newDiv.empty(); // Clear the contents of the newDiv
+            for (let j = 1; j <= i + 1; j++) {
+                newDiv.append(`<div class="participant-${j} ${fieldData.type === 'additionalParticipants' ? 'participants' : 'minors'}">
             <button class="delete-button block w-full" data-index="${j}"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer text-red-500 w-6 h-6 ml-auto mr-2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
                     </svg></button>
            ${form}
           </div>`);
-      }
-      element.append(newDiv);
-      $('.js-signature').jqSignature({
-        autoFit: true,
-        height: 200,
-        border: '1px solid transparent',
-      });
-      element.find('.delete-button').each(function () {
-        $(this).on('click', function () {
-          const index = $(this).data('index');
-          $(`.participant-${index}`).remove();
-        });
-      });
-    };
-  }
+            }
+            element.append(newDiv);
+            $('.js-signature').jqSignature({
+                autoFit: true,
+                height: 200,
+                border: '1px solid transparent',
+            });
+            element.find('.delete-button').each(function () {
+                $(this).on('click', function () {
+                    const index = $(this).data('index');
+                    $(`.participant-${index}`).remove();
+                });
+            });
+        };
+    }
 
-  for (let i = 0; i < 6; i++) {
-    buttonsHTML += `<button type="button" class="text-sm px-4 py-2 bg-gray-800 rounded-md font-semibold text-white hover:bg-gray-700 active:bg-gray-900 focus:outline-none disabled:opacity-25 transition ease-in-out duration-150 part-btn">${i + 1}</button>`;
-  }
-  element.append(`<div class="flex items-center justify-center gap-2">${buttonsHTML}</div>`);
-  element.find('.part-btn').each(function (i) {
-    $(this).on('click', handleButtonClick(i));
-  });
+    for (let i = 0; i < 6; i++) {
+        buttonsHTML += `<button type="button" class="text-sm px-4 py-2 bg-gray-800 rounded-md font-semibold text-white hover:bg-gray-700 active:bg-gray-900 focus:outline-none disabled:opacity-25 transition ease-in-out duration-150 part-btn">${i + 1}</button>`;
+    }
+    element.append(`<div class="flex items-center justify-center gap-2">${buttonsHTML}</div>`);
+    element.find('.part-btn').each(function (i) {
+        $(this).on('click', handleButtonClick(i));
+    });
 }
+
 export const formatDate = (date) => {
-  const originalDate = new Date(date);
-  const options = {year: 'numeric', month: 'short', day: '2-digit'};
-  return originalDate.toLocaleDateString('en-US', options)
+    const originalDate = new Date(date);
+    const options = {year: 'numeric', month: 'short', day: '2-digit'};
+    return originalDate.toLocaleDateString('en-US', options)
 }
 //TODO : RICH EDITOR NEEDS MODIFICATIONS
+
+export const filterWaivers = (waivers, filters) => {
+    const {
+        status,
+        template,
+        search
+    } = filters;
+    let data = waivers;
+
+    if (status !== 'Status') {
+        data = data.filter(item => item.status === status.toLowerCase())
+    }
+    if (template !== 'Template') {
+        data = data.filter(item => item.waiver.name === template)
+    }
+
+    if (search) {
+        data = data.filter(item => {
+            return item.reference_no.toLowerCase().includes(search) ||
+                (item?.customer?.first_name && item.customer.first_name.toLowerCase().includes(search)) ||
+                (item?.customer?.last_name && item.customer.last_name.toLowerCase().includes(search)) ||
+                item.waiver.name.toLowerCase().includes(search)
+        })
+    }
+
+    return data
+};
+
+

@@ -3,13 +3,13 @@ import Input from "./inputs/Input";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import SelectInput from "./inputs/SelectInput";
 import DataTable from "./DataTable";
-import {addCheck, DashBoardHeaders, generateMonths, generateYears} from "../utils/generalFunctions";
+import {addCheck, DashBoardHeaders, filterWaivers, generateMonths, generateYears} from "../utils/generalFunctions";
 import DashboardRow from "../pages/dashboard/components/DashboardRow";
 import {FolderIcon} from "@heroicons/react/20/solid";
 import {getRequest, patchRequest} from "../redux/cwAPI";
 import toast from "react-hot-toast";
 
-const SubmissionTable = ({setSelectedCount, setLoading}) => {
+const SubmissionTable = ({setSelectedCount, setLoading, refetch}) => {
     const [template, setTemplate] = useState('Template');
     const [month, setMonth] = useState('Month');
     const [year, setYear] = useState('Year');
@@ -34,6 +34,7 @@ const SubmissionTable = ({setSelectedCount, setLoading}) => {
     const [allWaivers, setAllWaivers] = useState([]);
     const [selectAll, setSelectAll] = useState(false);
     const [filteredWaivers, setFilteredWaivers] = useState([]);
+    const [search, setSearch] = useState('');
     const searchRef = useRef();
 
     useEffect(() => {
@@ -51,44 +52,25 @@ const SubmissionTable = ({setSelectedCount, setLoading}) => {
                 setLoading(false);
                 toast.error(e.response.data.message)
             })
-    }, []);
+        // eslint-disable-next-line
+    }, [refetch]);
 
     useEffect(() => {
-        if (status === 'Status') setFilteredWaivers(addCheck(allWaivers))
-        else {
-            const filtered = allWaivers.filter(item => item.status.toLowerCase() === status.toLowerCase())
-            setFilteredWaivers(addCheck(filtered))
-        }
-    }, [status])
+        const data = filterWaivers(allWaivers, {
+            status,
+            month,
+            year,
+            template,
+            search: searchRef.current?.value
+        })
+        setFilteredWaivers(addCheck(data))
+        // eslint-disable-next-line
+    }, [status, template, search])
 
-    useEffect(() => {
-        if (template === 'Template') setFilteredWaivers(addCheck(allWaivers))
-        else {
-            const filtered = allWaivers.filter(item => item.waiver.name === template)
-            setFilteredWaivers(addCheck(filtered))
-        }
-    }, [template])
-
-    const handleSearching = (e) => {
-        const search = e.target.value.toLowerCase();
-        if (!search) setFilteredWaivers(addCheck(allWaivers))
-        else {
-            const filtered = allWaivers.filter(item => {
-                return item.reference_no.toLowerCase().includes(search) ||
-                    (item?.customer?.first_name && item.customer.first_name.toLowerCase().includes(search)) ||
-                    (item?.customer?.last_name && item.customer.last_name.toLowerCase().includes(search)) ||
-                    item.waiver.name.toLowerCase().includes(search)
-            })
-            setFilteredWaivers(filtered)
-        }
-    }
 
     const updateSubmissionStatus = async (id, status) => {
         setLoading(true)
-        if (status === 'Accept')
-            await patchRequest(`/submissions/${id}`, {status: 'approved'})
-        if (status === 'Reject')
-            await patchRequest(`/submissions/${id}`, {status: 'declined'})
+        await patchRequest(`/submissions/${id}`, {status})
 
         getRequest('/submissions')
             .then(r => {
@@ -109,9 +91,11 @@ const SubmissionTable = ({setSelectedCount, setLoading}) => {
                 <Input placeholder='Search' inputRef={searchRef} BtnIcon={MagnifyingGlassIcon}
                        inputClasses='rounded-md pl-11'
                        extraClasses='w-fit inline-block'
-                       onChange={handleSearching}
+                       onChange={(e) => {
+                           setSearch(e.target.value)
+                       }}
                 />
-                <SelectInput extraClasses='grow md:grow-0 w-28' options={templateMenu.options} state={template}
+                <SelectInput extraClasses='grow md:grow-0 w-32' options={templateMenu.options} state={template}
                              setState={setTemplate}/>
                 {selectData.map((item, index) => {
                     return <SelectInput extraClasses='grow md:grow-0 w-28' key={index} options={item.options}
