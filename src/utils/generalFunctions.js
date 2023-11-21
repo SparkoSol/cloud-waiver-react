@@ -686,6 +686,7 @@ const templates = {
           if (file.type.startsWith('image/')) {
             let imgElement = $('<img>', {
               src: URL.createObjectURL(file),
+              id: 'image-preview',
               alt: 'Uploaded Image'
             });
             displayDiv.append(imgElement);

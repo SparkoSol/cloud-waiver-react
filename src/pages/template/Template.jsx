@@ -62,6 +62,14 @@ function Template() {
       .then(r => setAllTemplates(newData))
       .finally(() => setLoading(false))
   }
+
+  function handleDelete(){
+    allTemplates.map(item=>{
+      if(item.checked){
+        console.log(item._id)
+      }
+    })
+  }
   return (
     <div>
       <h1 className='text-xl font-semibold mb-5'>Templates</h1>
@@ -71,7 +79,7 @@ function Template() {
           <div className='flex gap-2 items-center'>
             {selectedCount > 0 && <>
               <span className='text-gray-500'>Selected : {selectedCount}</span>
-              <Button btnText='Archive' btnClasses='bg-red-500' fullWidth='w-fit'/></>}
+              <Button btnText='Archive' onClick={handleDelete} btnClasses='bg-red-500' fullWidth='w-fit'/></>}
             <Button BtnIcon={ClipboardIcon}
                     btnText='Create waivers'
                     onClick={() => {

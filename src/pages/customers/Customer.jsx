@@ -32,7 +32,7 @@ const Customer = () => {
         .finally(() => setLoading(false))
     }
     // eslint-disable-next-line
-  }, []);
+  }, [searchParams]);
 
   return (
     <div className="bg-white rounded-md p-6 w-full">

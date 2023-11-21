@@ -91,7 +91,7 @@ const FormRender = () => {
           let allForms;
           if (item.type === 'additionalParticipants') allForms = document.querySelectorAll(".participant-div-1")[tracker.additionalParticipantsCount]
           else allForms = document.querySelectorAll(".minor-div-1")[tracker.additionalMinorsCount];
-          if(allForms){
+          if (allForms) {
             for (let form of allForms.childNodes) {
               let signature = $(document.querySelectorAll(`.${form.className.replace(' ', '.')} .js-signature`)[tracker.additionalParticipantsCount]);
               let temp = {};
@@ -114,13 +114,15 @@ const FormRender = () => {
           break
         case 'capturePhoto':
           const node = document.querySelectorAll('#preview-image')[tracker.capturePhotoCount];
-          let imageFile = dataURLtoFile(node.src, 'DCIM');
-          const frmData = new FormData();
-          frmData.append('file', imageFile);
-          const {data} = await postRequest('/upload',
-            frmData,
-          );
-          item.userData = [data.url];
+          if (node) {
+            let imageFile = dataURLtoFile(node.src, 'DCIM');
+            const frmData = new FormData();
+            frmData.append('file', imageFile);
+            const {data} = await postRequest('/upload',
+              frmData,
+            );
+            item.userData = [data.url];
+          }
           tracker.capturePhotoCount += 1;
           break;
         case 'electronicSignatureConsent':

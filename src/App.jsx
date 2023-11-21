@@ -256,14 +256,14 @@ function App() {
   const isResetPasswordPath = pathname.includes('reset-password');
 
   useEffect(() => {
-    if (code) {
-      localStorage.setItem("cw-access-token", code);
-    }
+    if (code) localStorage.setItem("cw-access-token", code);
     if (hasValidToken || isTemplatePath || isResetPasswordPath) {
       if (isEmptyObject(currentUser) && !isTemplatePath) {
         dispatch(userProfile(token));
       }
-      const redirectTo = (pathname === "/" || pathname === "/dashboard") ? "/dashboard" : pathname;
+      const redirectTo = (window.location.pathname === "/" || window.location.pathname === "/dashboard")
+        ? "/dashboard"
+        : window.location.pathname + window.location.search;
       router.navigate(redirectTo);
     } else {
       router.navigate("/");
