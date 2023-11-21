@@ -246,7 +246,7 @@ const router = createBrowserRouter([
 
 function App() {
   const dispatch = useDispatch();
-  const pathname = window.location;
+  const {pathname} = window.location;
   const currentUser = useSelector(selectCurrentUser);
   const token = localStorage.getItem("cw-access-token");
   const urlParams = new URLSearchParams(window.location.search);
@@ -268,7 +268,7 @@ function App() {
     } else {
       router.navigate("/");
     }
-  }, [code, currentUser, dispatch, hasValidToken, isTemplatePath, isResetPasswordPath, pathname, token]);
+  }, []);
 
   return (
     <>
@@ -279,7 +279,9 @@ function App() {
 }
 
 export default App;
-
+//const {pathname} = window.location;
+//   const dispatch = useDispatch();
+//   const currentUser = useSelector(selectCurrentUser)
 //useEffect(() => {
 //     const urlParams = new URLSearchParams(window.location.search);
 //     const code = urlParams.get("token");
