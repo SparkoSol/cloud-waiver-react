@@ -91,21 +91,23 @@ const FormRender = () => {
           let allForms;
           if (item.type === 'additionalParticipants') allForms = document.querySelectorAll(".participant-div-1")[tracker.additionalParticipantsCount]
           else allForms = document.querySelectorAll(".minor-div-1")[tracker.additionalMinorsCount];
-          for (let form of allForms.childNodes) {
-            let signature = $(document.querySelectorAll(`.${form.className.replace(' ', '.')} .js-signature`)[tracker.additionalParticipantsCount]);
-            let temp = {};
-            for (const element of form.children[1].elements) {
-              if (element.name !== "") {
-                temp[element.name] = element.value;
+          if(allForms){
+            for (let form of allForms.childNodes) {
+              let signature = $(document.querySelectorAll(`.${form.className.replace(' ', '.')} .js-signature`)[tracker.additionalParticipantsCount]);
+              let temp = {};
+              for (const element of form.children[1].elements) {
+                if (element.name !== "") {
+                  temp[element.name] = element.value;
+                }
               }
+              if (signature) {
+                temp = {
+                  ...temp,
+                  signature: signature.jqSignature('getDataURL')
+                };
+              }
+              finalArr.push(temp);
             }
-            if (signature) {
-              temp = {
-                ...temp,
-                signature: signature.jqSignature('getDataURL')
-              };
-            }
-            finalArr.push(temp);
           }
           item.userData = finalArr;
           tracker[`${item.type === 'additionalParticipants' ? 'additionalParticipantsCount' : 'additionalMinorsCount'}`] += 1;

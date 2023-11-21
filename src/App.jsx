@@ -245,31 +245,30 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  const {pathname} = window.location;
   const dispatch = useDispatch();
-  const currentUser = useSelector(selectCurrentUser)
+  const pathname = window.location;
+  const currentUser = useSelector(selectCurrentUser);
+  const token = localStorage.getItem("cw-access-token");
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get("token");
+  const hasValidToken = token && token !== "null";
+  const isTemplatePath = pathname.includes('template');
+  const isResetPasswordPath = pathname.includes('reset-password');
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("token");
     if (code) {
       localStorage.setItem("cw-access-token", code);
     }
-    const token = localStorage.getItem("cw-access-token");
-
-    if ((token && token !== "null") || pathname.includes('template')) {
-      if (isEmptyObject(currentUser) && !pathname.includes('template')) {
-        dispatch(userProfile(token))
+    if (hasValidToken || isTemplatePath || isResetPasswordPath) {
+      if (isEmptyObject(currentUser) && !isTemplatePath) {
+        dispatch(userProfile(token));
       }
-      if ((pathname === "/" || pathname === "/dashboard"))
-        router.navigate("/dashboard");
-      else if (pathname !== "/dashboard" || pathname.includes('reset-password') || pathname.includes('template'))
-        router.navigate(pathname);
+      const redirectTo = (pathname === "/" || pathname === "/dashboard") ? "/dashboard" : pathname;
+      router.navigate(redirectTo);
     } else {
       router.navigate("/");
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [code, currentUser, dispatch, hasValidToken, isTemplatePath, isResetPasswordPath, pathname, token]);
 
   return (
     <>
@@ -280,3 +279,24 @@ function App() {
 }
 
 export default App;
+
+//useEffect(() => {
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const code = urlParams.get("token");
+//     if (code) {
+//       localStorage.setItem("cw-access-token", code);
+//     }
+//     const token = localStorage.getItem("cw-access-token");
+//     if ((token && token !== "null") || pathname.includes('template') || pathname.includes('reset-password')) {
+//       if (isEmptyObject(currentUser) && !pathname.includes('template')) {
+//         dispatch(userProfile(token))
+//       }
+//       if ((pathname === "/" || pathname === "/dashboard"))
+//         router.navigate("/dashboard");
+//       else if (pathname !== "/dashboard" || pathname.includes('reset-password') || pathname.includes('template'))
+//         router.navigate(pathname);
+//     } else {
+//       router.navigate("/");
+//     }
+//     // eslint-disable-next-line
+//   }, []);
