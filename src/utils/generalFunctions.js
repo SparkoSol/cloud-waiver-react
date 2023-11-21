@@ -25,11 +25,12 @@ export function generateMonths(number) {
 
 export function generateYears(startingYear) {
     const currentYear = new Date().getFullYear();
-    const years = ['Year'];
+    const years = [];
     for (let year = startingYear; year <= currentYear; year++) {
         years.push(year);
     }
-    return years;
+    years.push('Year');
+    return years.reverse();
 }
 
 export function isValidBody(body) {
@@ -991,27 +992,27 @@ export const filterWaivers = (waivers, filters) => {
     const {
         status,
         template,
-        search
+        search,
+        month,
+        year,
     } = filters;
-    let data = waivers;
 
-    if (status !== 'Status') {
-        data = data.filter(item => item.status === status.toLowerCase())
-    }
-    if (template !== 'Template') {
-        data = data.filter(item => item.waiver.name === template)
-    }
+    return waivers.filter(item => {
+        const hasMatchingStatus = status === 'Status' || item.status === status.toLowerCase();
+        const hasMatchingTemplate = template === 'Template' || item.waiver.name === template;
+        const hasMatchingSearch = !search || (
+            item.reference_no.toLowerCase().includes(search) ||
+            (item?.customer?.first_name && item.customer.first_name.toLowerCase().includes(search)) ||
+            (item?.customer?.last_name && item.customer.last_name.toLowerCase().includes(search)) ||
+            item.waiver.name.toLowerCase().includes(search)
+        );
+        const hasMatchingMonth = month === 'Month' || new Date(item.updatedAt).getMonth() + 1 === month;
+        const hasMatchingYear = year === 'Year' || new Date(item.updatedAt).getFullYear() === year;
 
-    if (search) {
-        data = data.filter(item => {
-            return item.reference_no.toLowerCase().includes(search) ||
-                (item?.customer?.first_name && item.customer.first_name.toLowerCase().includes(search)) ||
-                (item?.customer?.last_name && item.customer.last_name.toLowerCase().includes(search)) ||
-                item.waiver.name.toLowerCase().includes(search)
-        })
-    }
-
-    return data
+        return hasMatchingStatus && hasMatchingTemplate && hasMatchingSearch && hasMatchingMonth && hasMatchingYear;
+    });
 };
+
+
 
 

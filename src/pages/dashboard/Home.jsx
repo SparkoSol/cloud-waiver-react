@@ -8,10 +8,9 @@ import Spinner from "../../components/Spinner.jsx";
 import {selectCurrentUser, selectMember} from "../../redux/user/userSlice.js";
 import {getMembers} from "../../redux/user/userThunk.js";
 import {useNavigate} from "react-router-dom";
-import {getRequest, patchRequest, postRequest} from "../../redux/cwAPI";
+import {getRequest, postRequest} from "../../redux/cwAPI";
 import toast from "react-hot-toast";
 import SubmissionTable from "../../components/SubmissionTable";
-import {addSelectedWaiver} from "../../redux/waivers/waiverSlice";
 
 const Dashboard = () => {
     const currentUser = useSelector(selectCurrentUser);
@@ -20,7 +19,6 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false);
-    const [selectedCount, setSelectedCount] = useState(0);
     const [usage, setUsage] = useState([
         {
             id: 1, title: 'Usage', value: '50', icon: '/database.svg'
@@ -33,9 +31,6 @@ const Dashboard = () => {
             id: 4, title: 'Customers', value: '50', icon: '/user.png'
         }
     ])
-
-    const selectedWaivers = useSelector(state => state.waivers.selectedWaivers)
-    const [refetch, setRefetch] = useState(false)
 
     function handleSubmit(name) {
         setLoading(true);
@@ -66,19 +61,6 @@ const Dashboard = () => {
             .finally(() => setLoading(false));
     }, []);
 
-    async function updateStatus(status) {
-        setLoading(true)
-        try {
-            for (const item of selectedWaivers) {
-                await patchRequest(`/submissions/${item._id}`, {status})
-            }
-            dispatch(addSelectedWaiver("CLEAR"))
-        } catch (e) {
-            toast.error(e.response.data.message)
-        }
-        setRefetch(!refetch)
-        setLoading(false)
-    }
 
     return (
         <div>
@@ -94,24 +76,14 @@ const Dashboard = () => {
                 </div>
             </div>
             <div>
-                <div className='flex justify-between'>
-                    <h1 className='text-xl font-semibold my-5'>Recent waiver</h1>
-                    <div className='flex items-center gap-2'>
-                        {selectedCount > 0 && <>
-                            <span className='text-gray-500'>Selected : {selectedCount}</span>
-                            <Button btnText='Approve' btnClasses='bg-green-700' fullWidth='w-fit'
-                                    onClick={() => updateStatus('approved')}/>
-                            <Button btnText='Decline' btnClasses='bg-red-500' fullWidth='w-fit'
-                                    onClick={() => updateStatus('declined')}/>
-                        </>}
-                        <Button BtnIcon={ClipboardIcon}
-                                btnText='Create waivers'
-                                onClick={() => setOpenModal(true)}
-                                btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
-                                iconClasses='w-4 h-4 text-white inline-block ml-2'/>
-                    </div>
+                <div className="flex justify-end">
+                    <Button BtnIcon={ClipboardIcon}
+                            btnText='Create waivers'
+                            onClick={() => setOpenModal(true)}
+                            btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
+                            iconClasses='w-4 h-4 text-white inline-block ml-2'/>
                 </div>
-                <SubmissionTable setSelectedCount={setSelectedCount} setLoading={setLoading} refetch={refetch}/>
+                <SubmissionTable title={'Recent waiver'}/>
             </div>
             <Modal open={openModal} setOpen={setOpenModal} functionCall={handleSubmit}/>
             {loading && <Spinner/>}
