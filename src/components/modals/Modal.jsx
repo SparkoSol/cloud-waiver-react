@@ -55,9 +55,10 @@ export default function Modal({
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="text-white text-sm align-items-center align-middle rounded-md bg-btnBg px-4 py-2 font-semibold w-full mb-2 sm:mb-0"
+                    className={`text-white text-sm align-items-center align-middle rounded-md bg-btnBg px-4 py-2 font-semibold w-full mb-2 sm:mb-0
+                     ${btnText.includes('Delete') ? 'bg-red-500' : ''}`}
                     onClick={() => {
-                      functionCall(inputRef.current?.value, title==='Duplicate Template'?'d':'s')
+                      functionCall(inputRef.current?.value, title)
                       setOpen(false)
                     }}
                   >

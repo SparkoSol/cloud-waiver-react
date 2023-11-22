@@ -59,7 +59,8 @@ li[type="address"] .field-label {
 
 .additionalParticipants-field :is(.label-wrap, .description-wrap, .placeholder-wrap, .value-wrap),
 .additionalMinors-field :is(.label-wrap, .description-wrap, .placeholder-wrap, .value-wrap),
-.capturePhoto-field :is(.description-wrap, .placeholder-wrap, .value-wrap) {
+.capturePhoto-field :is(.description-wrap, .placeholder-wrap, .value-wrap),
+.filesUpload-field :is(.description-wrap, .placeholder-wrap, .value-wrap){
   display: none !important;
 }
 

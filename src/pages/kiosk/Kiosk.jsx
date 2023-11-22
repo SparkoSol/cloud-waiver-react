@@ -8,7 +8,7 @@ import Button from "../../components/Button.jsx";
 import {getRequest, patchRequest, postRequest} from "../../redux/cwAPI";
 import {toast} from "react-hot-toast";
 import Spinner from "../../components/Spinner";
-import {addCheck} from "../../utils/generalFunctions";
+import {addCheck, isEmptyObject} from "../../utils/generalFunctions";
 import {Link} from "react-router-dom";
 
 const Kiosk = () => {
@@ -17,14 +17,13 @@ const Kiosk = () => {
   const fileInputRef = useRef(null);
   const [kioskData, setKioskData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [kioskId, setKioskId] = useState('');
   const [selectAll, setSelectAll] = useState(false);
+  const [kiosk, setKiosk] = useState({});
   const [state, setState] = useState({
     saved: false, _id: ''
   });
   // eslint-disable-next-line no-unused-vars
   const [selectedCount, setSelectedCount] = useState(0);
-
   useEffect(() => {
     setLoading(true)
     getRequest('/waivers?status=published')
@@ -33,10 +32,23 @@ const Kiosk = () => {
       .finally(() => setLoading(false))
 
     getRequest(`/kiosk`)
-      .then(r => setKioskId(r.data._id))
+      .then(r => setKiosk(r.data))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false))
   }, []);
+
+  useEffect(() => {
+    if (!isEmptyObject(kiosk)) {
+      let markedRows = kioskData.map(item => {
+        if (kiosk.waivers.includes(item._id)) {
+          item.checked = true;
+        }
+        return item
+      })
+      setKioskData(markedRows)
+    }
+  }, [kiosk, kioskData]);
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -47,21 +59,24 @@ const Kiosk = () => {
       }
       return ids;
     }, []);
-    // setLoading(true);
+    setLoading(true);
 
-    let formData = new FormData();
-    formData.append('file', fileInputRef.current.files[0])
+    let resp;
+    if (fileInputRef.current.files[0]) {
+      let formData = new FormData();
+      formData.append('file', fileInputRef.current.files[0])
 
-    const {data} = await postRequest('/upload',
-      formData
-    )
+      resp = await postRequest('/upload',
+        formData
+      )
+    }
     const body = {
       title: titleRef.current.value,
       description: descriptionRef.current.value,
-      logo: data.url,
+      logo: resp?.data.url || kiosk.logo,
       waivers: checkedTemplates
     }
-    patchRequest(`/kiosk/${kioskId}`, body)
+    patchRequest(`/kiosk`, body)
       .then(r => {
         toast.success('Saved Successfully.');
         setState({
@@ -85,10 +100,12 @@ const Kiosk = () => {
         </Link>}
       </div>
       <form onSubmit={handleSubmit} className='mt-8 space-y-6 w-3/5'>
-        <Input inputRef={titleRef} inputClasses='pl-2.5' label='Kiosk Title' placeholder='Kiosk Title'/>
+        <Input inputRef={titleRef} inputClasses='pl-2.5' label='Kiosk Title' placeholder='Kiosk Title'
+               defaultValue={kiosk.title}/>
         <Input inputRef={descriptionRef} inputClasses='pl-2.5' label='Kiosk Description'
+               defaultValue={kiosk.description}
                placeholder='Kiosk Description'/>
-        <FileInput label='Kiosk Logo' fileInputRef={fileInputRef}/>
+        <FileInput label='Kiosk Logo' fileInputRef={fileInputRef} image={kiosk.logo}/>
         <DataTable TableRow={KioskRow} headers={['Id', 'Template Name']}
                    items={kioskData}
                    setSelectedCount={setSelectedCount}

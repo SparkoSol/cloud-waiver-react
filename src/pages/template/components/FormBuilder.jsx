@@ -40,7 +40,7 @@ const FormBuilder = () => {
 
   function saveData(e, status) {
     setLoading(true);
-    const requestData = status ? {status: 'Published'} : {form_data: JSON.parse(FormBuilder.formData)};
+    const requestData = status ? {status: 'published'} : {form_data: JSON.parse(FormBuilder.formData)};
     patchRequest(`/waivers/${id}`, requestData)
       .then(() => toast.success('Saved Successfully'))
       .catch(e => toast.error(e.response.data.message))

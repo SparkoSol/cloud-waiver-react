@@ -4,7 +4,7 @@ import {ClipboardIcon, FolderIcon} from "@heroicons/react/24/outline";
 import {useEffect, useState} from "react";
 import Spinner from "../../components/Spinner";
 import Modal from "../../components/modals/Modal";
-import {deleteRequest, getRequest, postRequest} from "../../redux/cwAPI";
+import {deleteRequest, getRequest, patchRequest, postRequest} from "../../redux/cwAPI";
 import TemplateRow from "./components/TemplateRow";
 import {addCheck} from "../../utils/generalFunctions";
 import toast from "react-hot-toast";
@@ -16,6 +16,7 @@ function Template() {
   const [loading, setLoading] = useState(false);
   const [allTemplates, setAllTemplates] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
+  const [switchState, setSwitchState] = useState(false);
   const [duplicate, setDuplicate] = useState({
     btnText: 'Submit',
     title: 'New Template',
@@ -27,21 +28,39 @@ function Template() {
 
   useEffect(() => {
     setLoading(true);
-    getRequest('/waivers')
+    getRequest('/waivers?statuses=draft&statuses=published')
       .then(r => setAllTemplates(addCheck(r.data, 't')))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false));
-  }, []);
+  }, [switchState]);
 
   const handleSubmit = (name, type) => {
     setLoading(true);
     setOpenModal(false)
-    let body = type === 'd' ? {...allTemplates[duplicate.index], name} : {name};
+    let body;
+    setLoading(true)
+    if (type === 'Confirmation') {
+      let removedIds = allTemplates.map(item => {
+        if (item.checked) {
+          return item._id
+        }
+      })
+      patchRequest('/waivers/update-multiple', {
+        waiver_ids: removedIds,
+        status: 'archived'
+      }).then(e => setSwitchState(prev => !prev))
+        .finally(() => setLoading(false))
+      return
+    }
+    if (type === 'Duplicate Template') body = {...allTemplates[duplicate.index], name}
+    else body = {name}
+
     postRequest(`/waivers`, body)
       .then(r => navigate(`/templates/${r.data._id}/builder`))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false))
   }
+
   function customOpenModal(bool, index) {
     setOpenModal(true);
     setDuplicate({
@@ -52,6 +71,7 @@ function Template() {
       index
     })
   }
+
   function deleteRow(id, idx) {
     setLoading(true)
     const newData = [
@@ -63,13 +83,15 @@ function Template() {
       .finally(() => setLoading(false))
   }
 
-  function handleDelete(){
-    allTemplates.map(item=>{
-      if(item.checked){
-        console.log(item._id)
-      }
+  function handleDelete() {
+    setDuplicate({
+      btnText: 'Yes, Delete',
+      title: 'Confirmation',
+      description: 'Are you sure you want to delete these templates?',
     })
+    setOpenModal(true)
   }
+
   return (
     <div>
       <h1 className='text-xl font-semibold mb-5'>Templates</h1>

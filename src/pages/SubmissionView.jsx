@@ -99,7 +99,7 @@ const SubmissionView = () => {
           div.innerHTML = '';
           for (let j = 0; j < submissionData.data[i].userData.length; j++) {
             const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = additionParticipantForm;
+            tempDiv.innerHTML = additionParticipantForm(submissionData.data[i].userData[j]);
             let allInputs = tempDiv.getElementsByTagName('input');
             for (let k = 0; k < allInputs.length; k++) {
               allInputs[k].value = submissionData.data[i].userData[j][allInputs[k].name]
