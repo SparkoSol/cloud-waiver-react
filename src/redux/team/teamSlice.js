@@ -44,6 +44,8 @@ const customerSlice = createSlice({
         state.status = 'pending';
       })
       .addCase(removeMember.fulfilled, (state, {payload}) => {
+        console.log(payload)
+        state.currentTeam.members.splice(payload, 1);
         toast.success('Member Removed Successfully')
         state.status = 'fulfilled';
       })
@@ -67,4 +69,5 @@ const customerSlice = createSlice({
 
 export const selectAllTeams = (state) => state.teams.allTeams;
 export const selectCurrentTeam = (state) => state.teams.currentTeam;
+export const currentTeamStatus = (state) => state.teams.status;
 export default customerSlice.reducer

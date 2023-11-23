@@ -248,7 +248,6 @@ function App() {
   const dispatch = useDispatch();
   const {pathname} = window.location;
   const currentUser = useSelector(selectCurrentUser);
-  const token = localStorage.getItem("cw-access-token");
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("token");
   const isTemplatePath = pathname.includes('template');
@@ -256,7 +255,8 @@ function App() {
 
   useEffect(() => {
     if (code) localStorage.setItem("cw-access-token", code);
-    if (code || isTemplatePath || isResetPasswordPath) {
+    const token = localStorage.getItem("cw-access-token");
+    if (token || isTemplatePath || isResetPasswordPath) {
       if (isEmptyObject(currentUser) && !isTemplatePath) {
         dispatch(userProfile(token));
       }

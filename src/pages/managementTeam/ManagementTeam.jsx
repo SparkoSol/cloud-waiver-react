@@ -8,11 +8,12 @@ import TeamRow from "./components/TeamRow.jsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getSingleTeam, updateTeam} from "../../redux/team/teamThunk.js";
-import {selectCurrentTeam} from "../../redux/team/teamSlice.js";
+import {currentTeamStatus, selectCurrentTeam} from "../../redux/team/teamSlice.js";
 import Spinner from "../../components/Spinner.jsx";
 
 const ManagementTeam = () => {
   const selectedTeam = useSelector(selectCurrentTeam);
+  const status = useSelector(currentTeamStatus)
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const {id} = useParams();
@@ -92,11 +93,11 @@ const ManagementTeam = () => {
         <form onSubmit={handleUpdate} className='w-full md:w-8/12 bg-white rounded-md p-6 shadow-sm'>
           <h1 className='text-base font-bold text-gray-500 mb-2'>Permissions</h1>
           <div className='space-y-4 border-b py-6'>
-            {selectedTeam && menuItems.map(item => {
+            {(selectedTeam && status === 'fulfilled') ? menuItems.map(item => {
               return <CheckboxInput key={item.id} inputRef={item.ref} label={item.label}
                                     defaultChecked={selectedTeam?.permissions.includes(item.value)}
                                     extraClasses='text-sm text-gray-700'/>
-            })}
+            }) : <Spinner/>}
             {!selectedTeam && menuItems.map(item => {
               return <CheckboxInput key={item.id} inputRef={item.ref} label={item.label}
                                     extraClasses='text-sm text-gray-700'/>

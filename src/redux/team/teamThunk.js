@@ -23,6 +23,7 @@ export const getSingleTeam = createAsyncThunk('/team/getSingleTeam', async (payl
 export const removeMember = createAsyncThunk('/team/removeMember', async (payload) => {
   try {
     const {teamId, memberId, index} = payload;
+    console.log(index)
     await patchRequest(`/teams/${teamId}/member/${memberId}/remove`);
     return index
   } catch (e) {

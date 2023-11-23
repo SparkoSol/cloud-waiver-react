@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {selectCurrentTeam} from "../../../redux/team/teamSlice.js";
 
-const TeamRow = ({item}) => {
+const TeamRow = ({item, index}) => {
   const {id} = useParams();
   const selectedTeam = useSelector(selectCurrentTeam);
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const TeamRow = ({item}) => {
         </td>
         <td className='p-4 font-semibold text-sm text-gray-900 whitespace-nowrap'>
           {(selectedTeam?.admin !== item._id) &&
-            <button onClick={() => deleteMember(item.index)}><TrashIcon className='w-5 h-5 text-red-400'/></button>}
+            <button onClick={() => deleteMember(index)}><TrashIcon className='w-5 h-5 text-red-400'/></button>}
         </td>
       </tr>
     </>

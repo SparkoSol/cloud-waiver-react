@@ -79,7 +79,7 @@ const CreateTeam = () => {
             <Input key={item.id} type={item.type} inputRef={item.ref} placeholder={item.label} inputClasses='pl-4'/>
           )
         })}
-        <Button btnText='Invite User' fullWidth='w-full' onClick={()=>navigate(-1)}
+        <Button btnText='Invite User' fullWidth='w-full'
                 btnClasses='bg-bgDark border-textDark lg:px-16 sm:px-8 sm:py-3.5 py-3.5 w-full'/>
       </form>
       {loading && <Spinner/>}
