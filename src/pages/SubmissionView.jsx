@@ -30,6 +30,13 @@ const SubmissionView = () => {
       $(fb.current).formRender({
         formData: submissionData.data, ...options
       });
+      setTimeout(() => {
+        const iframe = document.querySelector("iframe")
+        if (iframe) {
+          const body = iframe.contentWindow.document.querySelector("body")
+          body.contentEditable = "false"
+        }
+      }, 1000)
     }
     //inject data to forms
     const allNodes = document.querySelectorAll('.rendered-form > *');
