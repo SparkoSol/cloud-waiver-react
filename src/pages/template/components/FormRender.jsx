@@ -175,7 +175,7 @@ const FormRender = () => {
     postRequest('/submissions', {
       reference_no: refNo.current?.innerText,
       status: 'submitted',
-      customer: hasEmail._id,
+      customer: hasEmail?._id,
       waiver: id,
       data: htmlArr
     }).then(r => {
