@@ -39,7 +39,7 @@ const Kiosk = () => {
 
   useEffect(() => {
     if (!isEmptyObject(kiosk)) {
-      let markedRows = kioskData.map(item => {
+      let markedRows = kioskData?.map(item => {
         if (kiosk.waivers.includes(item._id)) {
           item.checked = true;
         }
@@ -47,7 +47,8 @@ const Kiosk = () => {
       })
       setKioskData(markedRows)
     }
-  }, [kiosk, kioskData]);
+    //eslint-disable-next-line
+  }, [kiosk]);
 
 
   async function handleSubmit(e) {

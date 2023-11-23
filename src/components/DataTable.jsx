@@ -123,7 +123,7 @@ const DataTable = ({
                                     <TableRow key={item._id} functionCall={selectRows} item={item}
                                               index={index} {...otherProps}
                                     />)) : <tr>
-                                    <td colSpan={headers.length}
+                                    <td colSpan={headers.length + 2}
                                         className='py-4 pl-4 sm:pl-6 pr-3 text-sm'>{emptyMessage}</td>
                                 </tr>}
                                 </tbody>

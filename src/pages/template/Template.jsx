@@ -4,7 +4,7 @@ import {ClipboardIcon, FolderIcon} from "@heroicons/react/24/outline";
 import {useEffect, useState} from "react";
 import Spinner from "../../components/Spinner";
 import Modal from "../../components/modals/Modal";
-import {deleteRequest, getRequest, patchRequest, postRequest} from "../../redux/cwAPI";
+import {getRequest, patchRequest, postRequest} from "../../redux/cwAPI";
 import TemplateRow from "./components/TemplateRow";
 import {addCheck} from "../../utils/generalFunctions";
 import toast from "react-hot-toast";
@@ -82,8 +82,13 @@ function Template() {
       ...allTemplates.slice(0, idx),
       ...allTemplates.slice(idx + 1),
     ];
-    deleteRequest(`/waivers/${id}`)
-      .then(r => setAllTemplates(newData))
+
+    patchRequest('/waivers/update-multiple', {
+      waiver_ids: [id],
+      status: 'archived'
+    }).then(e => {
+      setAllTemplates(newData)
+    })
       .finally(() => setLoading(false))
   }
 

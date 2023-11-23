@@ -158,13 +158,13 @@ export let additionMinorForm = `
           <div class="mt-3">
             <h2 class="text-sm">Date of Birth</h2>
             <div class="flex items-center space-x-2">
-              <input type="date" value="" name="date_of_birth" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+              <input type="date" value="" name="date_of_birth" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
             </div>
           </div>
           <div class="mt-3">
             <h2 class="text-sm">Relationship</h2>
             <div class="flex items-center space-x-2">
-              <input type="text" value="" name="relationship" placeholder="Relationship" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+              <input type="text" value="" name="relationship" placeholder="Relationship" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
             </div>
           </div>
         </form>`
@@ -412,7 +412,7 @@ const templates = {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
         element.append(additionParticipantForm(fieldData));
-        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid transparent'});
+        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid gray'});
       }
     };
   },
@@ -460,30 +460,30 @@ const templates = {
   <form id="address" class="space-y-4">
     <div class="flex flex-col items-start space-y-1">
       <label for="address">Address-1</label>
-      <input type="text" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" value="" name="address" placeholder="Address">
+      <input type="text" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" value="" name="address" placeholder="Address">
     </div>
     <div>
       <label for="address_2">Address 2</label>
-      <input type="text" name="address_2" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Address 2 (Suite, optional)">
+      <input type="text" name="address_2" value="" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" placeholder="Address 2 (Suite, optional)">
     </div>
     <div class="w-full lg:flex items-center justify-between lg:space-x-4 space-y-4">
       <div class="w-full lg:w-1/2">
         <label for="city">City</label>
-        <input type="text" name="city" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="City">
+        <input type="text" name="city" value="" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" placeholder="City">
       </div>
       <div class="w-full lg:w-1/2">
         <label for="state">Province / State</label>
-        <input type="text" name="state" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Province / State">
+        <input type="text" name="state" value="" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" placeholder="Province / State">
       </div>
     </div>
     <div class="w-full lg:flex items-center justify-between lg:space-x-4 space-y-4">
       <div class="w-full lg:w-1/2">
         <label for="country">Country</label>
-        <input type="text" name="country" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Country">
+        <input type="text" name="country" value="" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" placeholder="Country">
       </div>
       <div class="w-full lg:w-1/2">
         <label for="zip_code">Zip code</label>
-        <input type="text" name="zip_code" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Zip code">
+        <input type="text" name="zip_code" value="" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" placeholder="Zip code">
       </div>
     </div>
   </form>
@@ -683,29 +683,29 @@ const inputSets = [{
   fields: [{
     type: 'text',
     label: 'First Name',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
     placeholder: 'First Name'
   }, {
     type: 'text',
     label: 'Last Name',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
     placeholder: 'Last Name'
   }, {
     type: 'text',
     label: 'Email',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
     subtype: 'email',
     placeholder: 'Email'
   }, {
     type: 'text',
     subtype: 'tel',
     label: 'Phone',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
     placeholder: 'Phone'
   }, {
     type: 'date',
     label: 'Date of Birth',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
     placeholder: 'dd/mm/yyyy'
   }, {
     type: 'signature', label: 'Signature'
@@ -915,7 +915,7 @@ export const staticForm = [
   {
     type: 'text',
     label: 'Email',
-    class: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
     subtype: 'email',
     required: true,
     placeholder: 'Email',
@@ -1010,28 +1010,28 @@ export function additionParticipantForm(data) {
   return `<form class="space-y-2" id="myForm">
           ${(data.f_name || data.showFirstName) ? `<div class="mt-3">
             <label for="f_name" class='text-sm text-gray-900 whitespace-nowrap'>First name</label>
-            <input type="text" name="f_name"  value="" placeholder="First name" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+            <input type="text" name="f_name"  value="" placeholder="First name" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
           </div>` : ''}
           ${(data.m_name || data.showMiddleName) && `<div class="mt-3">
             <label for="m_name" class='text-sm text-gray-900 whitespace-nowrap'>Middle name</label>
-            <input type="text" name="m_name"  value="" placeholder="Last name" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+            <input type="text" name="m_name"  value="" placeholder="Last name" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
           </div>`}
           ${(data.l_name || data.showLastName) ? `<div class="mt-3">
             <label for="l_name" class='text-sm text-gray-900 whitespace-nowrap'>Last name</label>
-            <input type="text" name="l_name"  value="" placeholder="Last name" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+            <input type="text" name="l_name"  value="" placeholder="Last name" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
           </div>` : ''}
           ${(data.phone || data.showPhone) ? `<div class="mt-3">
             <label class='text-sm text-gray-900 whitespace-nowrap' for="phone">Phone</label>
-            <input type="text" name="phone"  value="" placeholder="Phone" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+            <input type="text" name="phone"  value="" placeholder="Phone" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
           </div>` : ''}
           ${(data.email || data.showEmail) ? `<div class="mt-3">
             <label class='text-sm text-gray-900 whitespace-nowrap' for="email">Email</label>
-            <input type="email" name="email" value="" placeholder="Email" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+            <input type="email" name="email" value="" placeholder="Email" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
           </div>` : ''}
           ${(data.date_of_birth || data.showDateOfBirth) ? `<div class="mt-3">
             <h2 class="text-sm">Date of Birth</h2>
             <div class="flex items-center space-x-2">
-              <input type="date" value="" name="date_of_birth" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+              <input type="date" value="" name="date_of_birth" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
             </div>
           </div>` : ''}
           ${(data.signature || data.showSignature) ? `<div class="relative min-h-[200px] sign-container">

@@ -132,11 +132,13 @@ const SubmissionView = () => {
           break;
         case `${staticClass}capturePhoto`:
           let imagePreviewDiv = document.querySelectorAll(`.capture-photo`)[tracker.capturePhotoCount];
-          let imageElement = document.createElement('img');
-          imageElement.src = submissionData.data[i].userData[0];
-          imageElement.alt = '';
-          imagePreviewDiv.innerHTML = '';
-          imagePreviewDiv.appendChild(imageElement);
+          if(submissionData.data[i].userData){
+            let imageElement = document.createElement('img');
+            imageElement.src = submissionData.data[i].userData[0];
+            imageElement.alt = '';
+            imagePreviewDiv.innerHTML = '';
+            imagePreviewDiv.appendChild(imageElement);
+          }
           tracker.capturePhotoCount++;
           break;
         default:
