@@ -251,13 +251,12 @@ function App() {
   const token = localStorage.getItem("cw-access-token");
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("token");
-  const hasValidToken = token && token !== "null";
   const isTemplatePath = pathname.includes('template');
   const isResetPasswordPath = pathname.includes('reset-password');
 
   useEffect(() => {
     if (code) localStorage.setItem("cw-access-token", code);
-    if (hasValidToken || isTemplatePath || isResetPasswordPath) {
+    if (code || isTemplatePath || isResetPasswordPath) {
       if (isEmptyObject(currentUser) && !isTemplatePath) {
         dispatch(userProfile(token));
       }
