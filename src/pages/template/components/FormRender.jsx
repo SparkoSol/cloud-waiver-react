@@ -53,7 +53,8 @@ const FormRender = () => {
       additionalMinorsCount: 0,
       capturePhotoCount: 0,
       electronicSignatureConsentCount: 0,
-      richTextEditorCount: 0
+      richTextEditorCount: 0,
+      timeCount: 0
     }
     for (let item of htmlArr) {
       switch (item.type) {
@@ -152,6 +153,11 @@ const FormRender = () => {
             formData1.delete('file');
           }
           item.userData = urlArr
+          break;
+        case `timeComponent`:
+          const allTimeDivs = document.querySelectorAll('#time')[tracker.timeCount];
+          item.userData = allTimeDivs.value
+          tracker.timeCount++;
           break;
         default:
           break

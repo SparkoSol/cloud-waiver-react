@@ -412,7 +412,7 @@ const templates = {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
         element.append(additionParticipantForm(fieldData));
-        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid gray'});
+        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px dashed #D1D5DB '});
       }
     };
   },
@@ -590,7 +590,7 @@ const templates = {
     return {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
-        element.append('<input type="time" class="w-full p-2.5" name="time-field">');
+        element.append('<input type="time" class="w-full p-2.5" name="time-field" id="time">');
       }
     };
   },
@@ -714,7 +714,7 @@ const inputSets = [{
 export let options = {
   fields,
   templates,
-  disableFields: ['autocomplete', 'textarea', 'button', 'paragraph', 'file'],
+  disableFields: ['autocomplete', 'button', 'paragraph', 'file', 'textarea'],
   disabledAttrs: [
     'access',
     'multiple',
