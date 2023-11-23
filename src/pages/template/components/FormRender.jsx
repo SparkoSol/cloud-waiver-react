@@ -9,6 +9,7 @@ import Button from "../../../components/Button";
 import tinymce from "tinymce";
 import Spinner from "../../../components/Spinner";
 import {getDynamicTenantId, postRequest} from "../../../redux/cwAPI";
+import {toast} from 'react-hot-toast'
 
 window.jQuery = $; //JQuery alias
 window.$ = $; //JQuery alias
@@ -44,7 +45,7 @@ const FormRender = () => {
   const saveData = async (event) => {
     setLoading(true)
     const htmlArr = $(fb.current).formRender("userData");
-    let customerId = null;
+    let hasEmail = null;
     let tracker = {
       signatureCount: 0,
       primaryAdultParticipantCount: 0,
@@ -154,26 +155,34 @@ const FormRender = () => {
           }
           item.userData = urlArr
           break;
-        case `timeComponent`:
+        case 'timeComponent':
           const allTimeDivs = document.querySelectorAll('#time')[tracker.timeCount];
           item.userData = allTimeDivs.value
           tracker.timeCount++;
           break;
+        case 'text':
+          if (item.name === 'defaultMail') {
+            hasEmail = item.userData[0];
+          }
+          break
         default:
           break
       }
     }
+    if (hasEmail) {
+      postRequest('/customers', {email: hasEmail}).then(r => hasEmail = r.data).catch(e => toast.error(e.response.data.message))
+    }
     postRequest('/submissions', {
       reference_no: refNo.current?.innerText,
       status: 'submitted',
-      customer: customerId,
+      customer: hasEmail._id,
       waiver: id,
       data: htmlArr
     }).then(r => {
       navigate(`/template/${id}/submission`);
       localStorage.setItem('ref', r.data.reference_no)
     })
-      .catch(e => e.response.data.message)
+      .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false));
   }
 
