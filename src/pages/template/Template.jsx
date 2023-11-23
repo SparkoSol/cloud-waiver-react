@@ -40,15 +40,19 @@ function Template() {
     let body;
     setLoading(true)
     if (type === 'Confirmation') {
-      let removedIds = allTemplates.map(item => {
+      let removedIds = [];
+      allTemplates.forEach(item => {
         if (item.checked) {
-          return item._id
+          removedIds.push(item._id);
         }
-      })
+      });
       patchRequest('/waivers/update-multiple', {
         waiver_ids: removedIds,
         status: 'archived'
-      }).then(e => setSwitchState(prev => !prev))
+      }).then(e => {
+        setSwitchState(prev => !prev);
+        setSelectedCount(0)
+      })
         .finally(() => setLoading(false))
       return
     }
