@@ -42,10 +42,11 @@ const Integrations = () => {
   ]
 
   useEffect(() => {
+    console.log(dropbox)
     if(dropbox === true){
       const domain = window.location.hostname.split('.')[0];
       const url = window.location.href;
-      // console.log(domain)
+      console.log(domain)
       axios.get(`https://www.dropbox.com/oauth2/authorize?client_id=h8zd4n5p1xp6g7u&token_access_type=offline&response_type=code&redirect_uri=http://localhost:8000/auth&state=${domain},${url}`)
     }
   }, [dropbox]);
