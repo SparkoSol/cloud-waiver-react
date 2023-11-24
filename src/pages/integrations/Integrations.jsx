@@ -40,8 +40,8 @@ const Integrations = () => {
     }
   ]
 
+  // Dropbox Auth Setup
   useEffect(() => {
-    console.log(dropbox)
     if(dropbox === true){
       const domain = window.location.hostname.split('.')[0];
       const url = window.location.href;
@@ -50,6 +50,17 @@ const Integrations = () => {
       window.location.assign(auth_url)
     }
   }, [dropbox]);
+
+  // Constant Contact Auth Setup
+  useEffect(() => {
+    if(contact === true){
+      const domain = window.location.hostname.split('.')[0];
+      const url = window.location.href;
+      const auth_url =`https://authz.constantcontact.com/oauth2/default/v1/authorize?client_id=ce7089bc-d014-4dd7-9c3a-909174df3019&redirect_uri=http://localhost:8000/constant-cotact/auth&response_type=code&scope=contact_data%20campaign_data%20offline_access&state=${domain},${url}`
+      console.log(domain)
+      window.location.assign(auth_url)
+    }
+  }, [contact]);
 
   return (
     <div className="bg-white rounded-md p-6 w-full font-mulish">
