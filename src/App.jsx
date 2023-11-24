@@ -172,7 +172,7 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: ':templateId/submissions',
+        path: ':id/submissions',
         element: (
           <TemplateContainer>
             <Submissions/>

@@ -782,59 +782,59 @@ export let options = {
     additionalParticipants: {
       'showFirstName': {
         label: 'Show First Name',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showMiddleName': {
         label: 'Show Middle Name',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showLastName': {
         label: 'Show Last Name',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showEmail': {
         label: 'Show Email',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showPhone': {
         label: 'Show Phone',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showDateOfBirth': {
         label: 'Show Date Of Birth',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showSignature': {
         label: 'Show Signature',
-        value: false,
+        value: true,
         type: 'checkbox',
       }
     },
     additionalMinors: {
       'showFirstName': {
         label: 'Show First Name',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showLastName': {
         label: 'Show Last Name',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showDateOfBirth': {
         label: 'Show Date Of Birth',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showRelationship': {
         label: 'Show Relationship',
-        value: false,
+        value: true,
         type: 'checkbox'
       }
     },

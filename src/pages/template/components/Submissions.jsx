@@ -23,7 +23,7 @@ const Submissions = ({currentTab = ''}) => {
   const [selectedCount, setSelectedCount] = useState(0);
   const searchRef = useRef();
   const {id} = useParams();
-
+console.log(id)
   useEffect(() => {
     setLoading(true)
     getRequest(`/submissions?waiverId=${id}`)
