@@ -6,7 +6,7 @@ import {TrashIcon} from "@heroicons/react/24/outline";
 import {patchRequest} from "../../../redux/cwAPI";
 import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {resetWaiver, selectSingleWaiver} from "../../../redux/waivers/waiverSlice";
+import {resetStatus, selectSingleWaiver, selectWaiverStatus} from "../../../redux/waivers/waiverSlice";
 import Spinner from "../../../components/Spinner";
 import toast from 'react-hot-toast'
 import Modal from "../../../components/modals/Modal";
@@ -21,23 +21,23 @@ require("jq-signature");
 const FormBuilder = () => {
   const dispatch = useDispatch();
   const waiver = useSelector(selectSingleWaiver);
+  const status = useSelector(selectWaiverStatus);
   const fb = createRef();
   const [loading, setLoading] = useState(false);
   const [FormBuilder, setFormBuilder] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const {id} = useParams();
-
   useEffect(() => {
-    if (!FormBuilder?.formData && waiver) {
+    if (!FormBuilder?.formData && waiver && status === 'fulfilled') {
       setFormBuilder($(fb.current).formBuilder({
         disabledActionButtons: ['data', 'clear', 'save'],
         formData: waiver?.form_data.length > 0 ? waiver?.form_data : staticForm, ...options,
         controlOrder: ['primaryAdultParticipant', 'editable', 'additionalParticipants', 'additionalMinors', 'signature', 'address', 'richTextEditor', 'filesUpload', 'electronicSignatureConsent', 'capturePhoto']
       }))
-      dispatch(resetWaiver())
+      dispatch(resetStatus())
     }
     // eslint-disable-next-line
-  }, [waiver]);
+  }, [waiver, status]);
 
   function saveData(e, status) {
     setLoading(true);

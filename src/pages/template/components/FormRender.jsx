@@ -170,12 +170,14 @@ const FormRender = () => {
       }
     }
     if (hasEmail) {
-      postRequest('/customers', {email: hasEmail}).then(r => hasEmail = r.data).catch(e => toast.error(e.response.data.message))
+      const {data} = await postRequest('/customers', {email: hasEmail})
+      hasEmail = data._id;
     }
+    console.log(hasEmail)
     postRequest('/submissions', {
       reference_no: refNo.current?.innerText,
       status: 'submitted',
-      customer: hasEmail?._id,
+      customer: hasEmail,
       waiver: id,
       data: htmlArr
     }).then(r => {

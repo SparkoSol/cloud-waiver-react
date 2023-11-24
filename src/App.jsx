@@ -37,6 +37,7 @@ import Integration from "./pages/template/components/Integration";
 import Submissions from "./pages/template/components/Submissions";
 import SubmissionView from "./pages/SubmissionView";
 import SignedWaivers from "./pages/signedWaivers/SignedWaiver";
+import CustomerSubmissions from "./pages/customerSubmission/CustomerSubmissions";
 
 const router = createBrowserRouter([
   {
@@ -126,6 +127,11 @@ const router = createBrowserRouter([
       {
         path: ':id/edit',
         element: <UpdateCustomer/>
+      },
+      {
+        path: ':customerId',
+        element:
+          <CustomerSubmissions/>
       }
     ]
   },
@@ -166,7 +172,7 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: ':id/submissions',
+        path: ':templateId/submissions',
         element: (
           <TemplateContainer>
             <Submissions/>
@@ -267,6 +273,7 @@ function App() {
     } else {
       router.navigate("/");
     }
+    //eslint-disable-next-line
   }, []);
 
   return (

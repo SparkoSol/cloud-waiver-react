@@ -66,12 +66,7 @@ export const capitalize = (string) => {
 }
 export const addCheck = (arr, filter) => {
   return arr.map(item => {
-    // TODO: ( Kashif ) : Kindly verify this function you are returning the same object
-    if (filter === 't' && !item.reference_no) {
-      return {...item, checked: false}
-    } else {
-      return {...item, checked: false}
-    }
+    return {...item, checked: false}
   });
 }
 
@@ -979,32 +974,47 @@ export const formatDate = (date) => {
   const options = {year: 'numeric', month: 'short', day: '2-digit'};
   return originalDate.toLocaleDateString('en-US', options)
 }
-//TODO : RICH EDITOR NEEDS MODIFICATIONS
 
 export const filterWaivers = (waivers, filters) => {
   const {
     status,
-    template,
     search,
-    month,
-    year,
+    month = null,
+    year = null,
+    template = null,
   } = filters;
 
   return waivers.filter(item => {
     const hasMatchingStatus = status === 'Status' || item.status === status.toLowerCase();
-    const hasMatchingTemplate = template === 'Template' || item.waiver.name === template;
     const hasMatchingSearch = !search || (
-      item.reference_no.toLowerCase().includes(search) ||
+      item.reference_no?.toLowerCase().includes(search) ||
       (item?.customer?.first_name && item.customer.first_name.toLowerCase().includes(search)) ||
       (item?.customer?.last_name && item.customer.last_name.toLowerCase().includes(search)) ||
       item.waiver.name.toLowerCase().includes(search)
     );
-    const hasMatchingMonth = month === 'Month' || new Date(item.updatedAt).getMonth() + 1 === month;
-    const hasMatchingYear = year === 'Year' || new Date(item.updatedAt).getFullYear() === year;
+    let hasMatchingTemplate;
+    let hasMatchingMonth;
+    let hasMatchingYear;
+    if (month) {
+      hasMatchingTemplate = template === 'Template' || item.waiver.name === template;
+      hasMatchingMonth = month === 'Month' || new Date(item.updatedAt).getMonth() + 1 === month;
+      hasMatchingYear = year === 'Year' || new Date(item.updatedAt).getFullYear() === year;
 
-    return hasMatchingStatus && hasMatchingTemplate && hasMatchingSearch && hasMatchingMonth && hasMatchingYear;
+      return hasMatchingStatus && hasMatchingTemplate && hasMatchingSearch && hasMatchingMonth && hasMatchingYear;
+    }
+    return hasMatchingStatus && hasMatchingSearch
   });
 };
+
+export function searchWaiver(search, customers) {
+  return customers.filter(item => {
+    return !search || (
+      (item?.first_name && item.first_name.toLowerCase().includes(search)) ||
+      (item?.last_name && item.last_name.toLowerCase().includes(search)) ||
+      item.email.toLowerCase().includes(search)
+    );
+  })
+}
 
 export function additionParticipantForm(data) {
   return `<form class="space-y-2" id="myForm">

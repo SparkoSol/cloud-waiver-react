@@ -16,8 +16,8 @@ const waiverSlice = createSlice({
     addSelectedWaiver(state, {payload}) {
       state.selectedWaivers = payload
     },
-    resetWaiver(state) {
-      state.currentWaiver = null
+    resetStatus(state) {
+      state.status = 'idle';
     }
   },
   extraReducers: (builder) => {
@@ -36,6 +36,7 @@ const waiverSlice = createSlice({
   },
 })
 export const selectSingleWaiver = state => state.waivers.currentWaiver;
+export const selectWaiverStatus = state => state.waivers.status;
 export const {addSelectedWaiver} = waiverSlice.actions;
-export const {resetWaiver} = waiverSlice.actions
+export const {resetStatus} = waiverSlice.actions
 export default waiverSlice.reducer

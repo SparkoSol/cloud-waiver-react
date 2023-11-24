@@ -7,7 +7,7 @@ const Input = ({
                    type = 'text',
                    label = null,
                    BtnIcon = null,
-                   inputRef,
+                   inputRef=null,
                    extraClasses = '',
                    inputClasses,
                    value = '',
