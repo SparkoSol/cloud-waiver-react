@@ -30,13 +30,6 @@ const SubmissionView = () => {
       $(fb.current).formRender({
         formData: submissionData.data, ...options
       });
-      setTimeout(() => {
-        const iframe = document.querySelector("iframe")
-        if (iframe) {
-          const body = iframe.contentWindow.document.querySelector("body")
-          body.contentEditable = "false"
-        }
-      }, 1000)
     }
     //inject data to forms
     const allNodes = document.querySelectorAll('.rendered-form > *');
@@ -162,7 +155,12 @@ const SubmissionView = () => {
           break;
       }
     }
-    $(fb.current).find('input').prop('disabled', true);
+    const iframe = document.querySelector("iframe")
+    if (iframe) {
+      const body = iframe.contentWindow.document.querySelector("body")
+      body.contentEditable = "false"
+    }
+    $(fb.current).find('input, #captureButton, select').prop('disabled', true);
     // eslint-disable-next-line
   }, [submissionData])
 

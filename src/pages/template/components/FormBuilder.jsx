@@ -41,14 +41,16 @@ const FormBuilder = () => {
 
   function saveData(e, status) {
     setLoading(true);
-    const requestData = status ? {status: 'published'} : {form_data: JSON.parse(FormBuilder.formData)};
-    patchRequest(`/waivers/${id}`, requestData)
+    patchRequest(`/waivers/${id}`, {form_data: JSON.parse(FormBuilder.formData)})
       .then(() => toast.success('Saved Successfully'))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => {
         dispatch(getSingleWaiver(id));
         setLoading(false)
       });
+    if (status) {
+      patchRequest(`/waivers/${id}`, {status: 'published'})
+    }
   }
 
   return (<div className='common'>

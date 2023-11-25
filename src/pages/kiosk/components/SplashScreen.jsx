@@ -10,7 +10,7 @@ const SplashScreen = () => {
 
   useEffect(() => {
     setLoading(true);
-    getRequest(`/kiosk/${id}`)
+    getRequest(`/kiosk/public`)
       .then(r => setResponse(r.data))
       .catch(e => e.response.data.message)
       .finally(() => setLoading(false))
@@ -31,9 +31,9 @@ const SplashScreen = () => {
         </div>
 
         <div className="flex justify-center flex-col text-center">
-          {response?.waivers.map(item => {
+          {response?.waivers.map((item, index) => {
             return (
-              <Link to={`/waiver/${item._id}`} key={item._id}
+              <Link to={`/template/${item._id}`} key={index}
                     className="block my-4 text-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white
                      shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                 {item.name}

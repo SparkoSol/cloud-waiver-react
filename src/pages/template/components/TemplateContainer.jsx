@@ -27,6 +27,7 @@ const TemplateContainer = ({children}) => {
   }, []);
 
   function handleEdit(name) {
+    setLoading(true);
     patchRequest(`/waivers/${id}`, {name})
       .then(r => {
         toast.success('Updated Successfully');
@@ -46,7 +47,7 @@ const TemplateContainer = ({children}) => {
           <button className='outline-none' onClick={e => setEditMode(true)}>
             <PencilIcon className='w-5 h-5'/>
           </button>
-          <Modal setOpen={setEditMode} open={editMode} editMode={true} functionCall={handleEdit}/>
+          <Modal setOpen={setEditMode} open={editMode} editMode={true} title='Edit Template' functionCall={handleEdit} value={waiver?.name}/>
         </div>
         <span className="text-sm italic">{`${currentUser?.domain}.techtrival.com/template/${waiver?._id}`}</span>
       </div>

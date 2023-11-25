@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import Control from "formBuilder/src/js/control";
 import $ from 'jquery'
 import tinymce from "tinymce";
+import {patchRequest} from "../redux/cwAPI";
 
 export function generateMonths(number) {
   const months = ['Month'];
@@ -564,10 +565,10 @@ const templates = {
         <div class="p-2 capture-photo">
           <h2 class="my-2 text-lg font-semibold text-gray-900">${fieldData.instructionHeader}</h2>
           <ul class="max-w space-y-1 text-gray-700 list-disc list-inside">
-            <li>${fieldData.instructionLine1}</li>
-            <li>${fieldData.instructionLine2}</li>
-            <li>${fieldData.instructionLine3}</li>
-             <li>${fieldData.instructionLine4}</li>
+            ${fieldData.instructionLine1.length > 0 ? `<li>${fieldData.instructionLine1}</li>` : ''}
+            ${fieldData.instructionLine2.length > 0 ? `<li>${fieldData.instructionLine2}</li>` : ''}
+            ${fieldData.instructionLine3.length > 0 ? `<li>${fieldData.instructionLine3}</li>` : ''}
+            ${fieldData.instructionLine4?.length > 0 ? `<li>${fieldData.instructionLine4}</li>` : ''}
           </ul>
           <div>
             <button id="captureButton" type="button" class="mt-5 px-3 py-2 cursor-pointer text-sm font-medium text-center text-white bg-[#66615b] rounded-lg ">${fieldData.buttonText}</button>
@@ -592,14 +593,13 @@ const templates = {
   filesUpload: function (fieldData) {
     return {
       onRender: function () {
-        console.log(fieldData)
         let element = $(`.field-${fieldData.name}`);
         element.append(`
         <h2 class="my-2 text-lg font-semibold text-gray-900">${fieldData.instructionHeader}</h2>
           <ul class="max-w space-y-1 text-gray-700 list-disc list-inside">
-            <li>${fieldData.instructionLine1}</li>
-            <li>${fieldData.instructionLine2}</li>
-            <li>${fieldData.instructionLine3}</li>
+            ${fieldData.instructionLine1.length > 0 ? `<li>${fieldData.instructionLine1}</li>` : ''}
+            ${fieldData.instructionLine2.length > 0 ? `<li>${fieldData.instructionLine2}</li>` : ''}
+            ${fieldData.instructionLine3.length > 0 ? `<li>${fieldData.instructionLine3}</li>` : ''}
           </ul>`)
         let inputFile = $('<input>', {
           type: 'file',
@@ -1022,10 +1022,10 @@ export function additionParticipantForm(data) {
             <label for="f_name" class='text-sm text-gray-900 whitespace-nowrap'>First name</label>
             <input type="text" name="f_name"  value="" placeholder="First name" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
           </div>` : ''}
-          ${(data.m_name || data.showMiddleName) && `<div class="mt-3">
+          ${(data.m_name || data.showMiddleName) ? `<div class="mt-3">
             <label for="m_name" class='text-sm text-gray-900 whitespace-nowrap'>Middle name</label>
             <input type="text" name="m_name"  value="" placeholder="Last name" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
-          </div>`}
+          </div>` : ''}
           ${(data.l_name || data.showLastName) ? `<div class="mt-3">
             <label for="l_name" class='text-sm text-gray-900 whitespace-nowrap'>Last name</label>
             <input type="text" name="l_name"  value="" placeholder="Last name" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
@@ -1056,4 +1056,24 @@ export function additionParticipantForm(data) {
         </div>
 </div>` : ''}
         </form>`
+}
+
+export function updateAllSubmission(status, setSwitchState, setSelectedCount, setLoading, filteredWaivers) {
+  const arr = filteredWaivers.reduce((result, item) => {
+    if (item.checked) {
+      result.push(item._id);
+    }
+    return result;
+  }, []);
+  let body = {
+    status: status,
+    submission_ids: arr
+  }
+  patchRequest(`/submissions/update-multiple`, body)
+    .then(() => setSwitchState(prev => !prev))
+    .catch(e => toast(e.response.data.message))
+    .finally(() => {
+      setSelectedCount(0)
+      setLoading(false)
+    })
 }

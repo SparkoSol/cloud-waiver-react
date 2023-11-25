@@ -5,7 +5,7 @@ import React, {useEffect, useState} from "react";
 import Input from "../../../components/inputs/Input";
 import DataTable from "../../../components/DataTable";
 import SelectInput from "../../../components/inputs/SelectInput";
-import {addCheck, filterWaivers} from "../../../utils/generalFunctions";
+import {addCheck, filterWaivers, updateAllSubmission} from "../../../utils/generalFunctions";
 import DashboardRow from "../../dashboard/components/DashboardRow";
 import QRModal from "../../../components/modals/QRModal";
 import {getRequest, patchRequest} from "../../../redux/cwAPI";
@@ -52,27 +52,6 @@ const Submissions = ({currentTab = ''}) => {
     setSwitchState(prev => !prev)
   }
 
-  //Todo : duplicate detected
-  function updateAllSubmission(status) {
-    const arr = filteredWaivers.reduce((result, item) => {
-      if (item.checked) {
-        result.push(item._id);
-      }
-      return result;
-    }, []);
-    let body = {
-      status: status,
-      submission_ids: arr
-    }
-    patchRequest(`/submissions/update-multiple`, body)
-      .then(() => setSwitchState(prev => !prev))
-      .catch(e => toast(e.response.data.message))
-      .finally(() => {
-        setSelectedCount(0)
-        setLoading(false)
-      })
-  }
-
   return (
     <section>
       {currentTab !== 'Submissions' &&
@@ -87,8 +66,8 @@ const Submissions = ({currentTab = ''}) => {
       </div>}
       <div className='flex'>
         <div className='grow flex items-center gap-3'>
-          <Input placeholder='Search' onChange={e=>setSearch(e.target.value)} BtnIcon={MagnifyingGlassIcon}
-                 extraClasses='w-fit inline-block grow sm:grow-0'/>
+          <Input placeholder='Search' onChange={e => setSearch(e.target.value)} BtnIcon={MagnifyingGlassIcon}
+                 extraClasses='w-fit inline-block grow sm:grow-0' inputClasses='rounded-md pl-11'/>
           <SelectInput extraClasses='w-1/6 grow sm:grow-0'
                        options={['Submitted', 'Approved', 'Declined', 'Pending', 'Status']} setState={setStatus}
                        state={status}/>
@@ -97,9 +76,9 @@ const Submissions = ({currentTab = ''}) => {
           {selectedCount > 0 && <>
             <span className='text-gray-500'>Selected : {selectedCount}</span>
             <Button btnText='Approve' btnClasses='bg-green-700' fullWidth='w-fit'
-                    onClick={() => updateAllSubmission('approved')}/>
+                    onClick={() => updateAllSubmission('approved', setSwitchState, setSelectedCount, setLoading, filteredWaivers)}/>
             <Button btnText='Decline' btnClasses='bg-red-500' fullWidth='w-fit'
-                    onClick={() => updateAllSubmission('declined')}/>
+                    onClick={() => updateAllSubmission('declined', setSwitchState, setSelectedCount, setLoading, filteredWaivers)}/>
           </>}
         </div>
       </div>

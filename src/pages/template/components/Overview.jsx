@@ -36,6 +36,10 @@ const Overview = () => {
     }
   }, [currentWaiver]);
   const copyToClipboard = () => {
+    if(currentWaiver.status === 'draft'){
+      toast.error('Waiver not published yet');
+      return;
+    }
     if (setShowMessage) {
       navigator.clipboard.writeText(`${domain}.techtrival.com/template/${currentWaiver._id}`)
         .then(() => {
@@ -48,8 +52,12 @@ const Overview = () => {
   };
 
   function handleSubmit(e) {
-    setLoading(true);
     e.preventDefault();
+    if(currentWaiver.status === 'draft'){
+      toast.error('Waiver not published yet');
+      return
+    }
+    setLoading(true);
     const body = {
       email: inputRef.current.value,
       company: company_name,

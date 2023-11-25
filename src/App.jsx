@@ -257,13 +257,14 @@ function App() {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("token");
   const isTemplatePath = pathname.includes('template');
+  const isKioskPath = pathname.includes('kiosk-preview');
   const isResetPasswordPath = pathname.includes('reset-password');
 
   useEffect(() => {
     if (code) localStorage.setItem("cw-access-token", code);
     const token = localStorage.getItem("cw-access-token");
-    if (token || isTemplatePath || isResetPasswordPath) {
-      if (isEmptyObject(currentUser) && !isTemplatePath) {
+    if (token || isTemplatePath || isResetPasswordPath || isKioskPath) {
+      if (isEmptyObject(currentUser) && !isTemplatePath && !isKioskPath) {
         dispatch(userProfile(token));
       }
       const redirectTo = (window.location.pathname === "/" || window.location.pathname === "/dashboard")
