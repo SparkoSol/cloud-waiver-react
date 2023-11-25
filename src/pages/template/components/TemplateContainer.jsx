@@ -15,7 +15,7 @@ import {selectCurrentUser} from "../../../redux/user/userSlice";
 const TemplateContainer = ({children}) => {
   const dispatch = useDispatch();
   const waiver = useSelector(selectSingleWaiver);
-  const {domain} = useSelector(selectCurrentUser);
+  const currentUser = useSelector(selectCurrentUser);
   const [editMode, setEditMode] = useState(false)
   const [loading, setLoading] = useState(false);
   const {id} = useParams();
@@ -48,7 +48,7 @@ const TemplateContainer = ({children}) => {
           </button>
           <Modal setOpen={setEditMode} open={editMode} editMode={true} functionCall={handleEdit}/>
         </div>
-        <span className="text-sm italic">{`${domain}.techtrival.com/template/${waiver?._id}`}</span>
+        <span className="text-sm italic">{`${currentUser?.domain}.techtrival.com/template/${waiver?._id}`}</span>
       </div>
       <Tabs tabs={tabsData}/>
       <div className='shadow rounded-md sm:overflow-hidden bg-white py-6 px-4 space-y-6 sm:p-6'>
