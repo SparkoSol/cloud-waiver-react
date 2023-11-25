@@ -92,7 +92,6 @@ const Overview = () => {
                 <p className="text-sm font-normal text-gray-600">{item.title}</p>
                 <div className="flex items-center justify-between">
                   <h3 className="font-semibold text-3xl text-gray-800">{item.number}</h3>
-                  {index === 0 && <p className="text-xs font-normal text-gray-600">(Last 24 hours)</p>}
                 </div>
               </div>
             )

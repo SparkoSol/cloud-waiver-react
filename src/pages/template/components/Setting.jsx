@@ -5,10 +5,11 @@ import Button from "../../../components/Button";
 import ToggleButton from "../../../components/inputs/ToggleButton";
 import {useParams} from "react-router-dom";
 import {patchRequest} from "../../../redux/cwAPI";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import toast from 'react-hot-toast';
 import {selectSingleWaiver} from "../../../redux/waivers/waiverSlice";
 import Spinner from "../../../components/Spinner";
+import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
 
 const Setting = () => {
   const [notificationCustomer, setNotificationCustomer] = useState(false);
@@ -17,6 +18,7 @@ const Setting = () => {
   const [loading, setLoading] = useState(false);
   const emailRef = useRef()
   const {id} = useParams();
+  const dispatch = useDispatch();
 
   const waiver = useSelector(selectSingleWaiver)
 
@@ -55,6 +57,14 @@ const Setting = () => {
       emailRef.current.value = waiver.setting.new_waiver_notification.join(',')
     }
   }, [waiver])
+
+  useEffect(() => {
+    return () => {
+      dispatch(getSingleWaiver(id))
+    };
+    //eslint-disable-next-line
+  }, []);
+
 
   const submitHandler = async (e) => {
     e.preventDefault()
