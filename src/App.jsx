@@ -37,7 +37,6 @@ import Integration from "./pages/template/components/Integration";
 import Submissions from "./pages/template/components/Submissions";
 import SubmissionView from "./pages/SubmissionView";
 import SignedWaivers from "./pages/signedWaivers/SignedWaiver";
-import GoogleAuth from "./pages/integrations/GoogleAuth";
 
 const router = createBrowserRouter([
   {
@@ -45,12 +44,6 @@ const router = createBrowserRouter([
     element: (
       <Login/>
     ),
-  },
-  {
-    path: 'google-auth',
-    element: (
-        <GoogleAuth/>
-    )
   },
   {
     path: '/domain/select',
