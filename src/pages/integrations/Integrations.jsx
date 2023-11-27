@@ -45,7 +45,7 @@ const Integrations = () => {
     if (!drive)return
     // const domain = window.location.hostname.split('.')[0];
     const url = window.location.href;
-    const auth_url =`https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=624151635976-svriaorhnerjpgj61modfe8k7sh5fbde.apps.googleusercontent.com&redirect_uri=http://localhost:8000/google-drive/auth&scope=https://www.googleapis.com/auth/drive&access_type=offline&approval_prompt=force&state=${url}`
+    const auth_url =`https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=624151635976-l25unevsefskf8br0qjkenbh6i0f5ipv.apps.googleusercontent.com&redirect_uri=http://localhost:3000/google-drive&scope=https://www.googleapis.com/auth/drive&access_type=offline&approval_prompt=force&state=${url}`
     window.location.assign(auth_url)
   }, [drive]);
 
