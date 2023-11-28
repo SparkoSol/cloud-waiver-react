@@ -90,6 +90,11 @@ const Integrations = () => {
                                 } else {
                                     setToken("")
                                     setDrive(e)
+                                    axios.delete(`http://localhost:3000/google-drive/${user._id}`).then((value) => {
+                                        console.log(value)
+                                    }).catch((reason) => {
+                                        console.log(reason)
+                                    })
                                 }
                             }}
                                   subTitle={item.subtitle} title={item.title} image={item.image}/>
@@ -131,7 +136,7 @@ const Integrations = () => {
 
 export default Integrations
 
-export const Tile = ({state, setState, title, subTitle, image, token}) => {
+export const Tile = ({state, setState, title, subTitle, image}) => {
     return (
         <div className="bg-gray-50 border border-gray-300 rounded-xl flex items-center justify-between p-6">
             <div className='flex gap-4'>
