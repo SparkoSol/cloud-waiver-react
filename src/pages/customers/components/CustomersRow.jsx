@@ -5,7 +5,6 @@ import {EyeIcon} from "@heroicons/react/20/solid";
 import {PencilSquareIcon} from "@heroicons/react/24/solid";
 
 const CustomersRow = ({item, functionCall, index}) => {
-
   return (
     <tr>
       <td className='p-4 font-semibold text-sm text-gray-900 whitespace-nowrap'>
@@ -18,11 +17,11 @@ const CustomersRow = ({item, functionCall, index}) => {
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.first_name}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.last_name}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.customer?.email || item.email}</td>
-      <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.waiver.total_submissions}</td>
+      <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.waiver_submission_count}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>
         <div className="flex items-center space-x-6">
           <div className="flex items-center space-x-6">
-            <Link to="/customers/123">
+            <Link to={`/customers/${item._id}`}>
               <EyeIcon className='w-5 h-5 text-iconGray'/>
             </Link>
             <Link to={`/customers/${item._id}/edit`}>

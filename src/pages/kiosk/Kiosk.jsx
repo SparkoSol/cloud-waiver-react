@@ -19,27 +19,15 @@ const Kiosk = () => {
   const [loading, setLoading] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
   const [kiosk, setKiosk] = useState({});
-  const [state, setState] = useState({
-    saved: false, _id: ''
-  });
   // eslint-disable-next-line no-unused-vars
-  const [selectedCount, setSelectedCount] = useState(0);
   useEffect(() => {
     setLoading(true)
-    getRequest('/waivers?status=published')
-      .then(r => setKioskData(addCheck(r.data)))
-      .catch(e => toast.error(e.response.data.message))
-      .finally(() => setLoading(false))
-
-    getRequest(`/kiosk`)
-      .then(r => setKiosk(r.data))
-      .catch(e => toast.error(e.response.data.message))
-      .finally(() => setLoading(false))
+    getData().finally(() => setLoading(false))
   }, []);
 
   useEffect(() => {
     if (!isEmptyObject(kiosk)) {
-      let markedRows = kioskData.map(item => {
+      let markedRows = kioskData?.map(item => {
         if (kiosk.waivers.includes(item._id)) {
           item.checked = true;
         }
@@ -47,8 +35,19 @@ const Kiosk = () => {
       })
       setKioskData(markedRows)
     }
-  }, [kiosk, kioskData]);
+    //eslint-disable-next-line
+  }, [kiosk]);
 
+  async function getData() {
+    try {
+      const {data} = await getRequest('/waivers?status=published')
+      setKioskData(addCheck(data))
+      const resp = await getRequest(`/kiosk`)
+      setKiosk(resp.data)
+    } catch (error) {
+      toast.error(error.response.data.message)
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -79,10 +78,6 @@ const Kiosk = () => {
     patchRequest(`/kiosk`, body)
       .then(r => {
         toast.success('Saved Successfully.');
-        setState({
-          _id: r.data._id,
-          saved: true
-        })
       })
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false))
@@ -94,8 +89,8 @@ const Kiosk = () => {
       <div className='flex gap-3 items-end'>
         <Heading title='Kiosk' titleClasses='text-xl font-semibold'
                  subtitle='Manage your kiosk setting.' subTitleClasses='text-sm text-gray-900'/>
-        {state.saved && <Link to={`/kiosk-preview?id=${state._id}`}
-                              className='rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>
+        {!isEmptyObject(kiosk) && <Link to={`/kiosk-preview/${kiosk._id}`}
+                                        className='rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>
           Preview Splash Page
         </Link>}
       </div>
@@ -108,7 +103,6 @@ const Kiosk = () => {
         <FileInput label='Kiosk Logo' fileInputRef={fileInputRef} image={kiosk.logo}/>
         <DataTable TableRow={KioskRow} headers={['Id', 'Template Name']}
                    items={kioskData}
-                   setSelectedCount={setSelectedCount}
                    setState={setKioskData}
                    setSelectAll={setSelectAll} selectAll={selectAll}/>
         <div className='flex items-center gap-2 justify-end'>

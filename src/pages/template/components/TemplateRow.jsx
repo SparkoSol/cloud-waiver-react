@@ -22,7 +22,7 @@ const TemplateRow = ({item, functionCall, index, deleteRow, customOpenModal}) =>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>
         <div className="flex items-center justify-center gap-3">
           {item.status === 'draft' ?
-            <button onClick={e => toast.error('Template not Published!')}><EyeIcon className='w-5 h-5 text-gray-600'/>
+            <button onClick={e => toast.error('Template not published!')}><EyeIcon className='w-5 h-5 text-gray-600'/>
             </button> :
             <Link target='_blank' to={`/template/${item._id}`}>
               <EyeIcon className='w-5 h-5 text-gray-600'/>

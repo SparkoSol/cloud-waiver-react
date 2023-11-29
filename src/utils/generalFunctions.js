@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import Control from "formBuilder/src/js/control";
 import $ from 'jquery'
 import tinymce from "tinymce";
+import {patchRequest} from "../redux/cwAPI";
 
 export function generateMonths(number) {
   const months = ['Month'];
@@ -66,12 +67,7 @@ export const capitalize = (string) => {
 }
 export const addCheck = (arr, filter) => {
   return arr.map(item => {
-    // TODO: ( Kashif ) : Kindly verify this function you are returning the same object
-    if (filter === 't' && !item.reference_no) {
-      return {...item, checked: false}
-    } else {
-      return {...item, checked: false}
-    }
+    return {...item, checked: false}
   });
 }
 
@@ -158,13 +154,13 @@ export let additionMinorForm = `
           <div class="mt-3">
             <h2 class="text-sm">Date of Birth</h2>
             <div class="flex items-center space-x-2">
-              <input type="date" value="" name="date_of_birth" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+              <input type="date" value="" name="date_of_birth" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
             </div>
           </div>
           <div class="mt-3">
             <h2 class="text-sm">Relationship</h2>
             <div class="flex items-center space-x-2">
-              <input type="text" value="" name="relationship" placeholder="Relationship" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+              <input type="text" value="" name="relationship" placeholder="Relationship" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
             </div>
           </div>
         </form>`
@@ -412,7 +408,7 @@ const templates = {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
         element.append(additionParticipantForm(fieldData));
-        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid transparent'});
+        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px dashed #D1D5DB '});
       }
     };
   },
@@ -460,30 +456,30 @@ const templates = {
   <form id="address" class="space-y-4">
     <div class="flex flex-col items-start space-y-1">
       <label for="address">Address-1</label>
-      <input type="text" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" value="" name="address" placeholder="Address">
+      <input type="text" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" value="" name="address" placeholder="Address">
     </div>
     <div>
       <label for="address_2">Address 2</label>
-      <input type="text" name="address_2" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Address 2 (Suite, optional)">
+      <input type="text" name="address_2" value="" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" placeholder="Address 2 (Suite, optional)">
     </div>
     <div class="w-full lg:flex items-center justify-between lg:space-x-4 space-y-4">
       <div class="w-full lg:w-1/2">
         <label for="city">City</label>
-        <input type="text" name="city" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="City">
+        <input type="text" name="city" value="" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" placeholder="City">
       </div>
       <div class="w-full lg:w-1/2">
         <label for="state">Province / State</label>
-        <input type="text" name="state" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Province / State">
+        <input type="text" name="state" value="" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" placeholder="Province / State">
       </div>
     </div>
     <div class="w-full lg:flex items-center justify-between lg:space-x-4 space-y-4">
       <div class="w-full lg:w-1/2">
         <label for="country">Country</label>
-        <input type="text" name="country" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Country">
+        <input type="text" name="country" value="" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" placeholder="Country">
       </div>
       <div class="w-full lg:w-1/2">
         <label for="zip_code">Zip code</label>
-        <input type="text" name="zip_code" value="" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" placeholder="Zip code">
+        <input type="text" name="zip_code" value="" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" placeholder="Zip code">
       </div>
     </div>
   </form>
@@ -569,10 +565,10 @@ const templates = {
         <div class="p-2 capture-photo">
           <h2 class="my-2 text-lg font-semibold text-gray-900">${fieldData.instructionHeader}</h2>
           <ul class="max-w space-y-1 text-gray-700 list-disc list-inside">
-            <li>${fieldData.instructionLine1}</li>
-            <li>${fieldData.instructionLine2}</li>
-            <li>${fieldData.instructionLine3}</li>
-             <li>${fieldData.instructionLine4}</li>
+            ${fieldData.instructionLine1.length > 0 ? `<li>${fieldData.instructionLine1}</li>` : ''}
+            ${fieldData.instructionLine2.length > 0 ? `<li>${fieldData.instructionLine2}</li>` : ''}
+            ${fieldData.instructionLine3.length > 0 ? `<li>${fieldData.instructionLine3}</li>` : ''}
+            ${fieldData.instructionLine4?.length > 0 ? `<li>${fieldData.instructionLine4}</li>` : ''}
           </ul>
           <div>
             <button id="captureButton" type="button" class="mt-5 px-3 py-2 cursor-pointer text-sm font-medium text-center text-white bg-[#66615b] rounded-lg ">${fieldData.buttonText}</button>
@@ -590,21 +586,20 @@ const templates = {
     return {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
-        element.append('<input type="time" class="w-full p-2.5" name="time-field">');
+        element.append('<input type="time" class="w-full p-2.5" name="time-field" id="time">');
       }
     };
   },
   filesUpload: function (fieldData) {
     return {
       onRender: function () {
-        console.log(fieldData)
         let element = $(`.field-${fieldData.name}`);
         element.append(`
         <h2 class="my-2 text-lg font-semibold text-gray-900">${fieldData.instructionHeader}</h2>
           <ul class="max-w space-y-1 text-gray-700 list-disc list-inside">
-            <li>${fieldData.instructionLine1}</li>
-            <li>${fieldData.instructionLine2}</li>
-            <li>${fieldData.instructionLine3}</li>
+            ${fieldData.instructionLine1.length > 0 ? `<li>${fieldData.instructionLine1}</li>` : ''}
+            ${fieldData.instructionLine2.length > 0 ? `<li>${fieldData.instructionLine2}</li>` : ''}
+            ${fieldData.instructionLine3.length > 0 ? `<li>${fieldData.instructionLine3}</li>` : ''}
           </ul>`)
         let inputFile = $('<input>', {
           type: 'file',
@@ -683,29 +678,29 @@ const inputSets = [{
   fields: [{
     type: 'text',
     label: 'First Name',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
     placeholder: 'First Name'
   }, {
     type: 'text',
     label: 'Last Name',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
     placeholder: 'Last Name'
   }, {
     type: 'text',
     label: 'Email',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
     subtype: 'email',
     placeholder: 'Email'
   }, {
     type: 'text',
     subtype: 'tel',
     label: 'Phone',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
     placeholder: 'Phone'
   }, {
     type: 'date',
     label: 'Date of Birth',
-    className: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
     placeholder: 'dd/mm/yyyy'
   }, {
     type: 'signature', label: 'Signature'
@@ -714,7 +709,7 @@ const inputSets = [{
 export let options = {
   fields,
   templates,
-  disableFields: ['autocomplete', 'textarea', 'button', 'paragraph', 'file'],
+  disableFields: ['autocomplete', 'button', 'paragraph', 'file', 'textarea'],
   disabledAttrs: [
     'access',
     'multiple',
@@ -787,59 +782,59 @@ export let options = {
     additionalParticipants: {
       'showFirstName': {
         label: 'Show First Name',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showMiddleName': {
         label: 'Show Middle Name',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showLastName': {
         label: 'Show Last Name',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showEmail': {
         label: 'Show Email',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showPhone': {
         label: 'Show Phone',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showDateOfBirth': {
         label: 'Show Date Of Birth',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showSignature': {
         label: 'Show Signature',
-        value: false,
+        value: true,
         type: 'checkbox',
       }
     },
     additionalMinors: {
       'showFirstName': {
         label: 'Show First Name',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showLastName': {
         label: 'Show Last Name',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showDateOfBirth': {
         label: 'Show Date Of Birth',
-        value: false,
+        value: true,
         type: 'checkbox',
       },
       'showRelationship': {
         label: 'Show Relationship',
-        value: false,
+        value: true,
         type: 'checkbox'
       }
     },
@@ -915,7 +910,7 @@ export const staticForm = [
   {
     type: 'text',
     label: 'Email',
-    class: 'block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md',
+    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
     subtype: 'email',
     required: true,
     placeholder: 'Email',
@@ -979,59 +974,74 @@ export const formatDate = (date) => {
   const options = {year: 'numeric', month: 'short', day: '2-digit'};
   return originalDate.toLocaleDateString('en-US', options)
 }
-//TODO : RICH EDITOR NEEDS MODIFICATIONS
 
 export const filterWaivers = (waivers, filters) => {
   const {
     status,
-    template,
     search,
-    month,
-    year,
+    month = null,
+    year = null,
+    template = null,
   } = filters;
 
   return waivers.filter(item => {
     const hasMatchingStatus = status === 'Status' || item.status === status.toLowerCase();
-    const hasMatchingTemplate = template === 'Template' || item.waiver.name === template;
     const hasMatchingSearch = !search || (
-      item.reference_no.toLowerCase().includes(search) ||
+      item.reference_no?.toLowerCase().includes(search) ||
       (item?.customer?.first_name && item.customer.first_name.toLowerCase().includes(search)) ||
       (item?.customer?.last_name && item.customer.last_name.toLowerCase().includes(search)) ||
       item.waiver.name.toLowerCase().includes(search)
     );
-    const hasMatchingMonth = month === 'Month' || new Date(item.updatedAt).getMonth() + 1 === month;
-    const hasMatchingYear = year === 'Year' || new Date(item.updatedAt).getFullYear() === year;
+    let hasMatchingTemplate;
+    let hasMatchingMonth;
+    let hasMatchingYear;
+    if (month) {
+      hasMatchingTemplate = template === 'Template' || item.waiver.name === template;
+      hasMatchingMonth = month === 'Month' || new Date(item.updatedAt).getMonth() + 1 === month;
+      hasMatchingYear = year === 'Year' || new Date(item.updatedAt).getFullYear() === year;
 
-    return hasMatchingStatus && hasMatchingTemplate && hasMatchingSearch && hasMatchingMonth && hasMatchingYear;
+      return hasMatchingStatus && hasMatchingTemplate && hasMatchingSearch && hasMatchingMonth && hasMatchingYear;
+    }
+    return hasMatchingStatus && hasMatchingSearch
   });
 };
+
+export function searchWaiver(search, customers) {
+  return customers.filter(item => {
+    return !search || (
+      (item?.first_name && item.first_name.toLowerCase().includes(search)) ||
+      (item?.last_name && item.last_name.toLowerCase().includes(search)) ||
+      item.email.toLowerCase().includes(search)
+    );
+  })
+}
 
 export function additionParticipantForm(data) {
   return `<form class="space-y-2" id="myForm">
           ${(data.f_name || data.showFirstName) ? `<div class="mt-3">
             <label for="f_name" class='text-sm text-gray-900 whitespace-nowrap'>First name</label>
-            <input type="text" name="f_name"  value="" placeholder="First name" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+            <input type="text" name="f_name"  value="" placeholder="First name" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
           </div>` : ''}
-          ${(data.m_name || data.showMiddleName) && `<div class="mt-3">
+          ${(data.m_name || data.showMiddleName) ? `<div class="mt-3">
             <label for="m_name" class='text-sm text-gray-900 whitespace-nowrap'>Middle name</label>
-            <input type="text" name="m_name"  value="" placeholder="Last name" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
-          </div>`}
+            <input type="text" name="m_name"  value="" placeholder="Last name" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
+          </div>` : ''}
           ${(data.l_name || data.showLastName) ? `<div class="mt-3">
             <label for="l_name" class='text-sm text-gray-900 whitespace-nowrap'>Last name</label>
-            <input type="text" name="l_name"  value="" placeholder="Last name" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+            <input type="text" name="l_name"  value="" placeholder="Last name" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
           </div>` : ''}
           ${(data.phone || data.showPhone) ? `<div class="mt-3">
             <label class='text-sm text-gray-900 whitespace-nowrap' for="phone">Phone</label>
-            <input type="text" name="phone"  value="" placeholder="Phone" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+            <input type="text" name="phone"  value="" placeholder="Phone" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
           </div>` : ''}
           ${(data.email || data.showEmail) ? `<div class="mt-3">
             <label class='text-sm text-gray-900 whitespace-nowrap' for="email">Email</label>
-            <input type="email" name="email" value="" placeholder="Email" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+            <input type="email" name="email" value="" placeholder="Email" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
           </div>` : ''}
           ${(data.date_of_birth || data.showDateOfBirth) ? `<div class="mt-3">
             <h2 class="text-sm">Date of Birth</h2>
             <div class="flex items-center space-x-2">
-              <input type="date" value="" name="date_of_birth" class="block w-full p-2.5 border border-gray-300 bg-gray-200 text-gray-900 rounded-md" />
+              <input type="date" value="" name="date_of_birth" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
             </div>
           </div>` : ''}
           ${(data.signature || data.showSignature) ? `<div class="relative min-h-[200px] sign-container">
@@ -1046,4 +1056,24 @@ export function additionParticipantForm(data) {
         </div>
 </div>` : ''}
         </form>`
+}
+
+export function updateAllSubmission(status, setSwitchState, setSelectedCount, setLoading, filteredWaivers) {
+  const arr = filteredWaivers.reduce((result, item) => {
+    if (item.checked) {
+      result.push(item._id);
+    }
+    return result;
+  }, []);
+  let body = {
+    status: status,
+    submission_ids: arr
+  }
+  patchRequest(`/submissions/update-multiple`, body)
+    .then(() => setSwitchState(prev => !prev))
+    .catch(e => toast(e.response.data.message))
+    .finally(() => {
+      setSelectedCount(0)
+      setLoading(false)
+    })
 }

@@ -37,6 +37,7 @@ import Integration from "./pages/template/components/Integration";
 import Submissions from "./pages/template/components/Submissions";
 import SubmissionView from "./pages/SubmissionView";
 import SignedWaivers from "./pages/signedWaivers/SignedWaiver";
+import CustomerSubmissions from "./pages/customerSubmission/CustomerSubmissions";
 
 const router = createBrowserRouter([
   {
@@ -127,6 +128,11 @@ const router = createBrowserRouter([
       {
         path: ':id/edit',
         element: <UpdateCustomer/>
+      },
+      {
+        path: ':customerId',
+        element:
+          <CustomerSubmissions/>
       }
     ]
   },
@@ -252,13 +258,14 @@ function App() {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("token");
   const isTemplatePath = pathname.includes('template');
+  const isKioskPath = pathname.includes('kiosk-preview');
   const isResetPasswordPath = pathname.includes('reset-password');
 
   useEffect(() => {
     if (code) localStorage.setItem("cw-access-token", code);
     const token = localStorage.getItem("cw-access-token");
-    if (token || isTemplatePath || isResetPasswordPath) {
-      if (isEmptyObject(currentUser) && !isTemplatePath) {
+    if (token || isTemplatePath || isResetPasswordPath || isKioskPath) {
+      if (isEmptyObject(currentUser) && !isTemplatePath && !isKioskPath) {
         dispatch(userProfile(token));
       }
       const redirectTo = (window.location.pathname === "/" || window.location.pathname === "/dashboard")
@@ -268,6 +275,7 @@ function App() {
     } else {
       router.navigate("/");
     }
+    //eslint-disable-next-line
   }, []);
 
   return (

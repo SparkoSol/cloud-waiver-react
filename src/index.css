@@ -35,7 +35,7 @@ li[type="address"] .field-label {
 }
 
 #waiver-editor :is([type=date], [type=datetime-local], [type=email], [type=month], [type=number], [type=password], [type=search], [type=tel],
-[type=text], [type=timeComponent], [type=time], [type=url], [type=week], select, textarea){
+[type=text], [type=timeComponent], [type=time], [type=url], [type=week], select, textarea) {
   border: 1px solid #6b7280;
 }
 
@@ -48,10 +48,6 @@ li[type="address"] .field-label {
   font-size: 30px;
 }
 
-#waiver-editor .form-elements div.form-group > label, .form-builder .form-field.editing .form-elements .form-group label {
-  text-wrap: balance;
-}
-
 .form-wrap.form-builder .frmb .form-elements .input-wrap > input[type=checkbox] {
   width: 1rem;
   height: 1rem;
@@ -60,8 +56,10 @@ li[type="address"] .field-label {
 .additionalParticipants-field :is(.label-wrap, .description-wrap, .placeholder-wrap, .value-wrap),
 .additionalMinors-field :is(.label-wrap, .description-wrap, .placeholder-wrap, .value-wrap),
 .capturePhoto-field :is(.description-wrap, .placeholder-wrap, .value-wrap),
-.filesUpload-field :is(.description-wrap, .placeholder-wrap, .value-wrap){
+.filesUpload-field :is(.description-wrap, .placeholder-wrap, .value-wrap) {
   display: none !important;
 }
 
-/*TODO : https://github.com/kevinchappell/formBuilder/issues/905*/
+.form-wrap.form-builder .frmb .form-elements .false-label:first-child, .form-wrap.form-builder .frmb .form-elements label:first-child {
+  white-space: pre-wrap !important;
+}

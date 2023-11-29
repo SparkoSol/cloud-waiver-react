@@ -52,6 +52,7 @@ const Integrations = () => {
         }
     ]
 
+
     useEffect(() => {
         axios.get(`http://localhost:3000/google-drive/${user._id}`).then((value) => {
             if (user._id === value.data.userID) {
@@ -63,14 +64,39 @@ const Integrations = () => {
             console.log(reason)
         })
     }, []);
+  
+  // Dropbox Auth Setup
+  useEffect(() => {
+    if(dropbox === true){
+      const domain = window.location.hostname.split('.')[0];
+      const url = window.location.href;
+      const auth_url =`https://www.dropbox.com/oauth2/authorize?client_id=h8zd4n5p1xp6g7u&token_access_type=offline&response_type=code&redirect_uri=http://localhost:8000/auth&state=${domain},${url}`
+      console.log(domain)
+      window.location.assign(auth_url)
+    }
+  }, [dropbox]);
 
-    // useEffect(() => {
-    //   if (!drive)return
-    //   // const domain = window.location.hostname.split('.')[0];
-    //   const url = window.location.href;
-    //   const auth_url =`https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=624151635976-l25unevsefskf8br0qjkenbh6i0f5ipv.apps.googleusercontent.com&redirect_uri=http://localhost:3000/google-drive&scope=https://www.googleapis.com/auth/drive&access_type=offline&approval_prompt=force&state=${url},${user._id}`
-    //   window.location.assign(auth_url)
-    // }, [drive]);
+  // Constant Contact Auth Setup
+  useEffect(() => {
+    if(contact === true){
+      const domain = window.location.hostname.split('.')[0];
+      const url = window.location.href;
+      const auth_url =`https://authz.constantcontact.com/oauth2/default/v1/authorize?client_id=ce7089bc-d014-4dd7-9c3a-909174df3019&redirect_uri=http://localhost:8000/constant-cotact/auth&response_type=code&scope=contact_data%20campaign_data%20offline_access&state=${domain},${url}`
+      console.log(domain)
+      window.location.assign(auth_url)
+    }
+  }, [contact]);
+
+  // Mailchimp Auth Setup
+  useEffect(() => {
+    if(mailChimp === true){
+      const domain = window.location.hostname.split('.')[0];
+      const url = window.location.href;
+      const auth_url =`https://login.mailchimp.com/oauth2/authorize?response_type=code&client_id=613502474364&redirect_uri=http://127.0.0.1:8000/mailchimp/auth&state=${domain},${url}`
+      console.log(domain)
+      window.location.assign(auth_url)
+    }
+  }, [mailChimp]);
 
     return (
         <div className="bg-white rounded-md p-6 w-full font-mulish">

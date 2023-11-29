@@ -4,7 +4,7 @@ import Input from "../inputs/Input.jsx";
 
 export default function Modal({
                                 open, setOpen, functionCall, btnText = 'Submit', title = 'New Template',
-                                description, label = 'Please enter your template name'
+                                description, label = 'Please enter your template name', value = ''
                               }) {
   const cancelButtonRef = useRef(null)
   const inputRef = useRef();
@@ -46,7 +46,7 @@ export default function Modal({
                         {description}
                       </Dialog.Description>}
                       {!description && <div className="mt-8">
-                        <Input placeholder='eg. Waiver 101' inputRef={inputRef} label={label}
+                        <Input placeholder='eg. Waiver 101' inputRef={inputRef} label={label} defaultValue={value}
                                extraClasses='font-medium text-gray-500' inputClasses='pl-3 rounded-md'/>
                       </div>}
                     </div>

@@ -2,13 +2,14 @@ import $ from "jquery"; //Load jquery
 import React, {createRef, useEffect, useRef, useState} from "react"; //For react component
 import {dataURLtoFile, options, today} from "../../../utils/generalFunctions";
 import {useDispatch, useSelector} from "react-redux";
-import {selectSingleWaiver} from "../../../redux/waivers/waiverSlice";
-import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
+import {selectPublicWaiver} from "../../../redux/waivers/waiverSlice";
+import {getPublicWaiver} from "../../../redux/waivers/waiverThunk";
 import {useNavigate, useParams} from "react-router-dom";
 import Button from "../../../components/Button";
 import tinymce from "tinymce";
 import Spinner from "../../../components/Spinner";
 import {getDynamicTenantId, postRequest} from "../../../redux/cwAPI";
+import {toast} from 'react-hot-toast'
 
 window.jQuery = $; //JQuery alias
 window.$ = $; //JQuery alias
@@ -20,7 +21,7 @@ const FormRender = () => {
   const navigate = useNavigate();
   const {id} = useParams();
   const dispatch = useDispatch();
-  const waiver = useSelector(selectSingleWaiver);
+  const waiver = useSelector(selectPublicWaiver);
   const [loading, setLoading] = useState(false);
   const fb = createRef();
   const refNo = useRef();
@@ -36,7 +37,7 @@ const FormRender = () => {
 
   useEffect(() => {
     setLoading(true);
-    dispatch(getSingleWaiver(id))
+    dispatch(getPublicWaiver(id))
       .finally(() => setLoading(false))
     // eslint-disable-next-line
   }, []);
@@ -44,7 +45,7 @@ const FormRender = () => {
   const saveData = async (event) => {
     setLoading(true)
     const htmlArr = $(fb.current).formRender("userData");
-    let customerId = null;
+    let hasEmail = null;
     let tracker = {
       signatureCount: 0,
       primaryAdultParticipantCount: 0,
@@ -53,7 +54,8 @@ const FormRender = () => {
       additionalMinorsCount: 0,
       capturePhotoCount: 0,
       electronicSignatureConsentCount: 0,
-      richTextEditorCount: 0
+      richTextEditorCount: 0,
+      timeCount: 0
     }
     for (let item of htmlArr) {
       switch (item.type) {
@@ -153,21 +155,36 @@ const FormRender = () => {
           }
           item.userData = urlArr
           break;
+        case 'timeComponent':
+          const allTimeDivs = document.querySelectorAll('#time')[tracker.timeCount];
+          item.userData = allTimeDivs.value
+          tracker.timeCount++;
+          break;
+        case 'text':
+          if (item.name === 'defaultMail') {
+            hasEmail = item.userData[0];
+          }
+          break
         default:
           break
       }
     }
+    if (hasEmail) {
+      const {data} = await postRequest('/customers', {email: hasEmail})
+      hasEmail = data._id;
+    }
+    console.log(hasEmail)
     postRequest('/submissions', {
       reference_no: refNo.current?.innerText,
       status: 'submitted',
-      customer: customerId,
+      customer: hasEmail,
       waiver: id,
       data: htmlArr
     }).then(r => {
       navigate(`/template/${id}/submission`);
       localStorage.setItem('ref', r.data.reference_no)
     })
-      .catch(e => e.response.data.message)
+      .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false));
   }
 

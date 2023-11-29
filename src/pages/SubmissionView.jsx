@@ -31,7 +31,6 @@ const SubmissionView = () => {
         formData: submissionData.data, ...options
       });
     }
-    $(fb.current).find('input').prop('disabled', true);
     //inject data to forms
     const allNodes = document.querySelectorAll('.rendered-form > *');
     const staticClass = 'formbuilder-';
@@ -44,7 +43,8 @@ const SubmissionView = () => {
       capturePhotoCount: 0,
       electronicSignatureConsentCount: 0,
       richTextEditorCount: 0,
-      filesUploadCount: 0
+      filesUploadCount: 0,
+      timeCount: 0
     }
     for (let i = 0; i < allNodes.length; i++) {
       const firstClass = allNodes[i].classList.item(0);
@@ -125,25 +125,42 @@ const SubmissionView = () => {
         case `${staticClass}richTextEditor`:
           let textAreaArr = document.querySelectorAll('.textarea-selector')[tracker.richTextEditorCount];
           $(`#${textAreaArr.id}`).html(submissionData.data[i].userData);
+          tinymce.activeEditor.mode.set("readonly");
           tinymce.init({
-            selector: `#${textAreaArr.id}`
+            theme: "advanced",
+            selector: `#${textAreaArr.id}`,
+            readonly: 1
           })
           tracker.richTextEditorCount++;
           break;
         case `${staticClass}capturePhoto`:
           let imagePreviewDiv = document.querySelectorAll(`.capture-photo`)[tracker.capturePhotoCount];
-          let imageElement = document.createElement('img');
-          imageElement.src = submissionData.data[i].userData[0];
-          imageElement.alt = '';
-          imagePreviewDiv.innerHTML = '';
-          imagePreviewDiv.appendChild(imageElement);
+          if (submissionData.data[i].userData) {
+            let imageElement = document.createElement('img');
+            imageElement.src = submissionData.data[i].userData[0];
+            imageElement.alt = '';
+            imagePreviewDiv.innerHTML = '';
+            imagePreviewDiv.appendChild(imageElement);
+          }
           tracker.capturePhotoCount++;
+          break;
+        case `${staticClass}timeComponent`:
+          const timeDiv = document.querySelectorAll('#time')[tracker.timeCount];
+          console.log(submissionData.data[i].userData, timeDiv)
+          timeDiv.value = submissionData.data[i].userData
+          tracker.timeCount++
           break;
         default:
           // Handle other cases
           break;
       }
     }
+    const iframe = document.querySelector("iframe")
+    if (iframe) {
+      const body = iframe.contentWindow.document.querySelector("body")
+      body.contentEditable = "false"
+    }
+    $(fb.current).find('input, #captureButton, select').prop('disabled', true);
     // eslint-disable-next-line
   }, [submissionData])
 

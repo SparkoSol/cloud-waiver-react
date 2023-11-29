@@ -22,11 +22,13 @@ const FileInput = ({label, fileInputRef, image}) => {
   }
 
   useEffect(() => {
-    const img = new Image();
-    img.src = image;
-    img.className = 'w-full h-full object-cover';
-    imagePreviewRef.current.innerHTML = '';
-    imagePreviewRef.current.appendChild(img);
+    if (image) {
+      const img = new Image();
+      img.src = image;
+      img.className = 'w-full h-full object-cover';
+      imagePreviewRef.current.innerHTML = '';
+      imagePreviewRef.current.appendChild(img);
+    }
   }, [image, imagePreviewRef]);
 
   return (

@@ -29,7 +29,6 @@ const ManagementTeam = () => {
   const templateGalleryRef = useRef();
   const waiverSubmissionsRef = useRef();
   const webhooksManagementRef = useRef();
-
   const menuItems = [
     {id: 10, label: 'Api Management', ref: apiRef, value: 'api_management'},
     {id: 1, label: 'Billing', ref: billingRef, value: 'billing'},
@@ -93,11 +92,11 @@ const ManagementTeam = () => {
         <form onSubmit={handleUpdate} className='w-full md:w-8/12 bg-white rounded-md p-6 shadow-sm'>
           <h1 className='text-base font-bold text-gray-500 mb-2'>Permissions</h1>
           <div className='space-y-4 border-b py-6'>
-            {(selectedTeam && status === 'fulfilled') ? menuItems.map(item => {
+            {(selectedTeam && status === 'fulfilled') && menuItems.map(item => {
               return <CheckboxInput key={item.id} inputRef={item.ref} label={item.label}
                                     defaultChecked={selectedTeam?.permissions.includes(item.value)}
                                     extraClasses='text-sm text-gray-700'/>
-            }) : <Spinner/>}
+            })}
             {!selectedTeam && menuItems.map(item => {
               return <CheckboxInput key={item.id} inputRef={item.ref} label={item.label}
                                     extraClasses='text-sm text-gray-700'/>
