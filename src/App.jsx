@@ -40,250 +40,255 @@ import SignedWaivers from "./pages/signedWaivers/SignedWaiver";
 import CustomerSubmissions from "./pages/customerSubmission/CustomerSubmissions";
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: (
-      <Login/>
-    ),
-  },
-  {
-    path: '/domain/select',
-    element: (
-      <SelectDomain/>
-    )
-  }, {
-    path: '/dashboard',
-    element: (
-      <ProtectedRoute>
-        <Home/>
-      </ProtectedRoute>
-    )
-  }, {
-    path: '/register',
-    element: (
-      <Register/>
-    )
-  }, {
-    path: '/forgot-password',
-    element: (
-      <ForgotPassword/>
-    )
-  }, {
-    path: '/reset-password/:id',
-    element: (
-      <ResetPassword/>
-    )
-  }, {
-    path: '/verify-mail/:hashId/:id',
-    element: (
-      <VerifyMail/>
-    )
-  }, {
-    path: '/verify-account/:hashId/:id',
-    element: (
-      <VerificationClient/>
-    )
-  }, {
-    path: '/settings',
-    element: (
-      <ProtectedRoute>
-        <Outlet/>
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        index: true,
-        element: <Settings/>
-      }, {
-        path: 'integrations',
-        element: <Integrations/>
-      }
-    ]
-  }, {
-    path: '/settings/password',
-    element: (
-      <ProtectedRoute>
-        <UpdatePassword/>
-      </ProtectedRoute>
-    )
-  }, {
-    path: '/billing',
-    element: (
-      <ProtectedRoute>
-        <Billing/>
-      </ProtectedRoute>
-    )
-  }, {
-    path: '/customers',
-    element: (
-      <ProtectedRoute>
-        <Outlet/>
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        index: true,
-        element: <Customer/>
-      },
-      {
-        path: ':id/edit',
-        element: <UpdateCustomer/>
-      },
-      {
-        path: ':customerId',
-        element:
-          <CustomerSubmissions/>
-      }
-    ]
-  },
-  {
-    path: '/templates',
-    element: (
-      <ProtectedRoute>
-        <Outlet/>
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        index: true,
-        element: <Template/>
-      },
-      {
-        path: ':id/builder',
+    {
+        path: '/',
         element: (
-          <TemplateContainer>
-            <FormBuilder/>
-          </TemplateContainer>
-        )
-      },
-      {
-        path: ':id/overview',
+            <Login/>
+        ),
+    },
+    {
+        path: '/domain/select',
         element: (
-          <TemplateContainer>
-            <Overview/>
-          </TemplateContainer>
+            <SelectDomain/>
         )
-      },
-      {
-        path: ':id/setting',
+    }, {
+        path: '/dashboard',
         element: (
-          <TemplateContainer>
-            <Setting/>
-          </TemplateContainer>
+            <ProtectedRoute>
+                <Home/>
+            </ProtectedRoute>
         )
-      },
-      {
-        path: ':id/submissions',
+    }, {
+        path: '/register',
         element: (
-          <TemplateContainer>
-            <Submissions/>
-          </TemplateContainer>
+            <Register/>
         )
-      },
-      {
-        path: ':id/integration',
+    }, {
+        path: '/forgot-password',
         element: (
-          <TemplateContainer>
-            <Integration/>
-          </TemplateContainer>
+            <ForgotPassword/>
         )
-      },
-    ]
-  },
-  {
-    path: '/template/:id',
-    element: <FormRender/>
-  },
-  {
-    path: '/template/:id/submission',
-    element: <SuccessState/>
-  },
-  {
-    path: '/submission/:submissionId/view',
-    element: <SubmissionView/>
-  },
-  {
-    path: '/kiosk',
-    element: (
-      <ProtectedRoute>
-        <Kiosk/>
-      </ProtectedRoute>
-    )
-  },
-  {
-    path: '/kiosk-preview/:id',
-    element: (
-      <SplashScreen/>
-    )
-  },
-  {
-    path: 'signed',
-    element: (
-      <ProtectedRoute>
-        <SignedWaivers/>
-      </ProtectedRoute>
-    )
-  },
-  {
-    path: '/management',
-    element: (
-      <ProtectedRoute>
-        <Outlet/>
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        index: true,
-        element: <Management/>
-      }, {
-        path: 'team/:id',
-        element: <ManagementTeam/>
-      }, {
-        path: 'team/:id/user/create',
-        element: <CreateTeam/>
-      }, {
-        path: 'team/create',
-        element: <ManagementTeam/>
-      }
-    ]
-  }, {
-    path: '*', element: <NotFound/>
-  }
+    }, {
+        path: '/reset-password/:id',
+        element: (
+            <ResetPassword/>
+        )
+    }, {
+        path: '/verify-mail/:hashId/:id',
+        element: (
+            <VerifyMail/>
+        )
+    }, {
+        path: '/verify-account/:hashId/:id',
+        element: (
+            <VerificationClient/>
+        )
+    }, {
+        path: '/settings',
+        element: (
+            <ProtectedRoute>
+                <Outlet/>
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                index: true,
+                element: <Settings/>
+            }, {
+                path: 'integrations',
+                element: <Integrations/>
+            }
+        ]
+    }, {
+        path: '/settings/password',
+        element: (
+            <ProtectedRoute>
+                <UpdatePassword/>
+            </ProtectedRoute>
+        )
+    }, {
+        path: '/billing',
+        element: (
+            <ProtectedRoute>
+                <Billing/>
+            </ProtectedRoute>
+        )
+    }, {
+        path: '/customers',
+        element: (
+            <ProtectedRoute>
+                <Outlet/>
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                index: true,
+                element: <Customer/>
+            },
+            {
+                path: ':id/edit',
+                element: <UpdateCustomer/>
+            },
+            {
+                path: ':customerId',
+                element:
+                    <CustomerSubmissions/>
+            }
+        ]
+    },
+    {
+        path: '/templates',
+        element: (
+            <ProtectedRoute>
+                <Outlet/>
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                index: true,
+                element: <Template/>
+            },
+            {
+                path: ':id/builder',
+                element: (
+                    <TemplateContainer>
+                        <FormBuilder/>
+                    </TemplateContainer>
+                )
+            },
+            {
+                path: ':id/overview',
+                element: (
+                    <TemplateContainer>
+                        <Overview/>
+                    </TemplateContainer>
+                )
+            },
+            {
+                path: ':id/setting',
+                element: (
+                    <TemplateContainer>
+                        <Setting/>
+                    </TemplateContainer>
+                )
+            },
+            {
+                path: ':id/submissions',
+                element: (
+                    <TemplateContainer>
+                        <Submissions/>
+                    </TemplateContainer>
+                )
+            },
+            {
+                path: ':id/integration',
+                element: (
+                    <TemplateContainer>
+                        <Integration/>
+                    </TemplateContainer>
+                )
+            },
+        ]
+    },
+    {
+        path: '/template/:id',
+        element: <FormRender/>
+    },
+    {
+        path: '/pdf/:submissionId',
+        element: <SubmissionView/>
+    },
+    {
+        path: '/template/:id/submission',
+        element: <SuccessState/>
+    },
+    {
+        path: '/submission/:submissionId/view',
+        element: <SubmissionView/>
+    },
+    {
+        path: '/kiosk',
+        element: (
+            <ProtectedRoute>
+                <Kiosk/>
+            </ProtectedRoute>
+        )
+    },
+    {
+        path: '/kiosk-preview/:id',
+        element: (
+            <SplashScreen/>
+        )
+    },
+    {
+        path: 'signed',
+        element: (
+            <ProtectedRoute>
+                <SignedWaivers/>
+            </ProtectedRoute>
+        )
+    },
+    {
+        path: '/management',
+        element: (
+            <ProtectedRoute>
+                <Outlet/>
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                index: true,
+                element: <Management/>
+            }, {
+                path: 'team/:id',
+                element: <ManagementTeam/>
+            }, {
+                path: 'team/:id/user/create',
+                element: <CreateTeam/>
+            }, {
+                path: 'team/create',
+                element: <ManagementTeam/>
+            }
+        ]
+    }, {
+        path: '*', element: <NotFound/>
+    }
 ])
 
 function App() {
-  const dispatch = useDispatch();
-  const {pathname} = window.location;
-  const currentUser = useSelector(selectCurrentUser);
-  const urlParams = new URLSearchParams(window.location.search);
-  const code = urlParams.get("token");
-  const isTemplatePath = pathname.includes('template');
-  const isKioskPath = pathname.includes('kiosk-preview');
-  const isResetPasswordPath = pathname.includes('reset-password');
+    const dispatch = useDispatch();
+    const {pathname} = window.location;
+    const currentUser = useSelector(selectCurrentUser);
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("token");
+    const isTemplatePath = pathname.includes('template');
+    const isPdfPath = pathname.includes('pdf');
+    const isKioskPath = pathname.includes('kiosk-preview');
+    const isResetPasswordPath = pathname.includes('reset-password');
 
-  useEffect(() => {
-    if (code) localStorage.setItem("cw-access-token", code);
-    const token = localStorage.getItem("cw-access-token");
-    if (token || isTemplatePath || isResetPasswordPath || isKioskPath) {
-      if (isEmptyObject(currentUser) && !isTemplatePath && !isKioskPath) {
-        dispatch(userProfile(token));
-      }
-      const redirectTo = (window.location.pathname === "/" || window.location.pathname === "/dashboard")
-        ? "/dashboard"
-        : window.location.pathname + window.location.search;
-      router.navigate(redirectTo);
-    } else {
-      router.navigate("/");
-    }
-    //eslint-disable-next-line
-  }, []);
+    useEffect(() => {
+        if (code) localStorage.setItem("cw-access-token", code);
+        const token = localStorage.getItem("cw-access-token");
+        if (token || isTemplatePath || isPdfPath || isResetPasswordPath || isKioskPath) {
+            if (isEmptyObject(currentUser) && !isTemplatePath && !isPdfPath && !isKioskPath) {
+                dispatch(userProfile(token));
+            }
+            const redirectTo = (window.location.pathname === "/" || window.location.pathname === "/dashboard")
+                ? "/dashboard"
+                : window.location.pathname + window.location.search;
+            router.navigate(redirectTo);
+        } else {
+            router.navigate("/");
+        }
+        //eslint-disable-next-line
+    }, []);
 
-  return (
-    <>
-      <Toaster position="bottom-center"/>
-      <RouterProvider router={router}/>
-    </>
-  );
+    return (
+        <>
+            <Toaster position="bottom-center"/>
+            <RouterProvider router={router}/>
+        </>
+    );
 }
 
 export default App;
