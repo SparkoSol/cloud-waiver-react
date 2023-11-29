@@ -44,8 +44,9 @@ const router = createBrowserRouter([
     path: '/',
     element: (
       <Login/>
-    )
-  }, {
+    ),
+  },
+  {
     path: '/domain/select',
     element: (
       <SelectDomain/>
@@ -186,7 +187,7 @@ const router = createBrowserRouter([
             <Integration/>
           </TemplateContainer>
         )
-      }
+      },
     ]
   },
   {
