@@ -6,6 +6,9 @@ import {selectCurrentUser} from "../../redux/user/userSlice";
 import axios from "axios";
 import Input from "../../components/inputs/Input";
 import Button from "../../components/Button";
+import toast from 'react-hot-toast'
+import {authUrl} from "../../utils/generalFunctions";
+
 
 const Integrations = () => {
     const [mailChimp, setMailChimp] = useState(false);
@@ -19,6 +22,9 @@ const Integrations = () => {
         accessToken: ""
     })
     const user = useSelector(selectCurrentUser)
+
+    let url = window.location.href
+    let domain = window.location.hostname.split('.')[0];
 
     const data = [
         {
@@ -61,42 +67,52 @@ const Integrations = () => {
                 setDriveData({...driveData, accessToken: value.data.access_token})
             }
         }).catch((reason) => {
-            console.log(reason)
+            toast.error(reason.response.data.message)
         })
     }, []);
-  
-  // Dropbox Auth Setup
-  useEffect(() => {
-    if(dropbox === true){
-      const domain = window.location.hostname.split('.')[0];
-      const url = window.location.href;
-      const auth_url =`https://www.dropbox.com/oauth2/authorize?client_id=h8zd4n5p1xp6g7u&token_access_type=offline&response_type=code&redirect_uri=http://localhost:8000/auth&state=${domain},${url}`
-      console.log(domain)
-      window.location.assign(auth_url)
-    }
-  }, [dropbox]);
 
-  // Constant Contact Auth Setup
-  useEffect(() => {
-    if(contact === true){
-      const domain = window.location.hostname.split('.')[0];
-      const url = window.location.href;
-      const auth_url =`https://authz.constantcontact.com/oauth2/default/v1/authorize?client_id=ce7089bc-d014-4dd7-9c3a-909174df3019&redirect_uri=http://localhost:8000/constant-cotact/auth&response_type=code&scope=contact_data%20campaign_data%20offline_access&state=${domain},${url}`
-      console.log(domain)
-      window.location.assign(auth_url)
-    }
-  }, [contact]);
+    // Dropbox Auth Setup
+    useEffect(() => {
+        if (dropbox === true) {
+            window.location.assign(`${authUrl("dropbox")}${domain},${url}`)
+        }
+    }, [dropbox]);
 
-  // Mailchimp Auth Setup
-  useEffect(() => {
-    if(mailChimp === true){
-      const domain = window.location.hostname.split('.')[0];
-      const url = window.location.href;
-      const auth_url =`https://login.mailchimp.com/oauth2/authorize?response_type=code&client_id=613502474364&redirect_uri=http://127.0.0.1:8000/mailchimp/auth&state=${domain},${url}`
-      console.log(domain)
-      window.location.assign(auth_url)
+    // Constant Contact Auth Setup
+    useEffect(() => {
+        if (contact === true) {
+            window.location.assign(`${authUrl("contact")}${domain},${url}`)
+        }
+    }, [contact]);
+
+    // Mailchimp Auth Setup
+    useEffect(() => {
+        if (mailChimp === true) {
+            window.location.assign(`${authUrl("mailChimp")}${domain},${url}`)
+        }
+    }, [mailChimp]);
+
+    const driveDataSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            await axios.post("http://localhost:3000/google-drive/upload-svc", driveData)
+        } catch (e) {
+            toast.error(e.response.data.message)
+        }
     }
-  }, [mailChimp]);
+
+    const toggleButtonState = (e) => {
+        if (!drive) {
+            window.location.assign(`${authUrl("googleDrive")}${url},${user._id}`)
+            setDrive(e)
+        } else {
+            setToken("")
+            setDrive(e)
+            axios.delete(`http://localhost:3000/google-drive/${user._id}`).catch((reason) => {
+                toast.error(reason.response.data.message)
+            })
+        }
+    }
 
     return (
         <div className="bg-white rounded-md p-6 w-full font-mulish">
@@ -106,23 +122,7 @@ const Integrations = () => {
                 {data.map(item => {
                     if (item.title === "Google Drive") {
                         return (
-                            <Tile token={token} key={item.id} state={item.state} setState={(e) => {
-                                console.log(e)
-                                if (!drive) {
-                                    const url = window.location.href;
-                                    const auth_url = `https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=624151635976-l25unevsefskf8br0qjkenbh6i0f5ipv.apps.googleusercontent.com&redirect_uri=http://localhost:3000/google-drive&scope=https://www.googleapis.com/auth/drive&access_type=offline&approval_prompt=force&state=${url},${user._id}`
-                                    window.location.assign(auth_url)
-                                    setDrive(e)
-                                } else {
-                                    setToken("")
-                                    setDrive(e)
-                                    axios.delete(`http://localhost:3000/google-drive/${user._id}`).then((value) => {
-                                        console.log(value)
-                                    }).catch((reason) => {
-                                        console.log(reason)
-                                    })
-                                }
-                            }}
+                            <Tile token={token} key={item.id} state={item.state} setState={toggleButtonState}
                                   subTitle={item.subtitle} title={item.title} image={item.image}/>
                         )
                     } else {
@@ -135,15 +135,7 @@ const Integrations = () => {
             </div>
             {token === "available" &&
                 <div>
-                    <form className="flex w-full gap-4 items-center h-28" onSubmit={async (e) => {
-                        e.preventDefault()
-                        try {
-                            const {data} = await axios.post("http://localhost:3000/google-drive/upload-svc", driveData)
-                            console.log(data)
-                        } catch (e) {
-                            console.log(e)
-                        }
-                    }}>
+                    <form className="flex w-full gap-4 items-center h-28" onSubmit={driveDataSubmit}>
                         <Input onChange={(e) => {
                             setDriveData({...driveData, file: e.target.value})
                         }} label="File" placeholder="file" extraClasses={"w-[30%]"}/>
@@ -159,7 +151,6 @@ const Integrations = () => {
         </div>
     )
 }
-
 export default Integrations
 
 export const Tile = ({state, setState, title, subTitle, image}) => {
