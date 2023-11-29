@@ -62,6 +62,17 @@ const Integrations = () => {
     }
   }, [contact]);
 
+  // Mailchimp Auth Setup
+  useEffect(() => {
+    if(mailChimp === true){
+      const domain = window.location.hostname.split('.')[0];
+      const url = window.location.href;
+      const auth_url =`https://login.mailchimp.com/oauth2/authorize?response_type=code&client_id=613502474364&redirect_uri=http://127.0.0.1:8000/mailchimp/auth&state=${domain},${url}`
+      console.log(domain)
+      window.location.assign(auth_url)
+    }
+  }, [mailChimp]);
+
   return (
     <div className="bg-white rounded-md p-6 w-full font-mulish">
       <Heading title='Integrations' subtitle='Lorem ipsum mit dollar' subTitleClasses='text-sm text-btnBg' titleClasses='text-xl font-semibold'/>
