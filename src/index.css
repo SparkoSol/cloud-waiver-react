@@ -56,7 +56,8 @@ li[type="address"] .field-label {
 .additionalParticipants-field :is(.label-wrap, .description-wrap, .placeholder-wrap, .value-wrap),
 .additionalMinors-field :is(.label-wrap, .description-wrap, .placeholder-wrap, .value-wrap),
 .capturePhoto-field :is(.description-wrap, .placeholder-wrap, .value-wrap),
-.filesUpload-field :is(.description-wrap, .placeholder-wrap, .value-wrap) {
+.filesUpload-field :is(.description-wrap, .placeholder-wrap, .value-wrap),
+.max-w-4xl.mx-auto.my-6.common label.formbuilder-richTextEditor-label{
   display: none !important;
 }
 

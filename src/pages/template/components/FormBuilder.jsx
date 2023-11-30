@@ -11,6 +11,7 @@ import Spinner from "../../../components/Spinner";
 import toast from 'react-hot-toast'
 import Modal from "../../../components/modals/Modal";
 import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
+import tinymce from "tinymce";
 
 window.jQuery = $;
 window.$ = $;
@@ -35,13 +36,23 @@ const FormBuilder = () => {
         controlOrder: ['primaryAdultParticipant', 'editable', 'additionalParticipants', 'additionalMinors', 'signature', 'address', 'richTextEditor', 'filesUpload', 'electronicSignatureConsent', 'capturePhoto']
       }))
       dispatch(resetStatus())
+      setTimeout(()=>{
+        let textAreaArr = document.querySelectorAll('.textarea-selector');
+        for(let i=0;i<textAreaArr.length;i++){
+          $(`#${textAreaArr[i].id}`).html(waiver?.form_data[i].userData);
+        }
+      }, 300);
     }
     // eslint-disable-next-line
   }, [waiver, status]);
 
   function saveData(e, status) {
     setLoading(true);
-    patchRequest(`/waivers/${id}`, {form_data: JSON.parse(FormBuilder.formData)})
+    let jsonData = JSON.parse(FormBuilder.formData);
+    let textAreaArr = document.querySelectorAll('.textarea-selector')[0];
+    const richEditor = tinymce.get(textAreaArr.id);
+    jsonData[0]['userData'] = richEditor.getContent();
+    patchRequest(`/waivers/${id}`, {form_data: jsonData})
       .then(() => toast.success('Saved Successfully'))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => {

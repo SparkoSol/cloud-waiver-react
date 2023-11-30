@@ -4,12 +4,11 @@ import {dataURLtoFile, options, today} from "../../../utils/generalFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {selectPublicWaiver} from "../../../redux/waivers/waiverSlice";
 import {getPublicWaiver} from "../../../redux/waivers/waiverThunk";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import Button from "../../../components/Button";
 import tinymce from "tinymce";
 import Spinner from "../../../components/Spinner";
 import {getDynamicTenantId, postRequest} from "../../../redux/cwAPI";
-import {toast} from 'react-hot-toast'
 
 window.jQuery = $; //JQuery alias
 window.$ = $; //JQuery alias
@@ -18,7 +17,6 @@ require("jquery-ui-sortable"); //For FormBuilder Element Drag and Drop
 require("formBuilder/dist/form-render.min.js")
 
 const FormRender = () => {
-  const navigate = useNavigate();
   const {id} = useParams();
   const dispatch = useDispatch();
   const waiver = useSelector(selectPublicWaiver);
@@ -31,6 +29,19 @@ const FormRender = () => {
       $(fb.current).formRender({
         formData: JSON.stringify(waiver?.form_data), ...options
       });
+      let textAreaArr = document.querySelectorAll('.textarea-selector');
+      for (let i = 0; i < textAreaArr.length; i++) {
+        $(`#${textAreaArr[i].id}`).html(waiver?.form_data[i].userData);
+        const iframe = document.querySelector("iframe");
+        console.log(iframe)
+        if (iframe) {
+          const body = iframe.contentWindow.document.querySelector("body form");
+          console.log(body)
+          body.addEventListener('change', (e)=>{
+            console.log(e)
+          })
+        }
+      }
     }
     // eslint-disable-next-line
   }, [waiver])
@@ -43,7 +54,7 @@ const FormRender = () => {
   }, []);
 
   const saveData = async (event) => {
-    setLoading(true)
+    // setLoading(true)
     const htmlArr = $(fb.current).formRender("userData");
     let hasEmail = null;
     let tracker = {
@@ -134,8 +145,7 @@ const FormRender = () => {
           tracker.electronicSignatureConsentCount += 1;
           break
         case 'richTextEditor':
-          let textAreaArr = document.querySelectorAll('.textarea-selector');
-          textAreaArr = textAreaArr[tracker.richTextEditorCount];
+          let textAreaArr = document.querySelectorAll('.textarea-selector')[tracker.richTextEditorCount];
           const richEditor = tinymce.get(textAreaArr.id);
           item.userData = richEditor.getContent();
           tracker.richTextEditorCount += 1;
@@ -173,23 +183,22 @@ const FormRender = () => {
       const {data} = await postRequest('/customers', {email: hasEmail})
       hasEmail = data._id;
     }
-    console.log(hasEmail)
-    postRequest('/submissions', {
-      reference_no: refNo.current?.innerText,
-      status: 'submitted',
-      customer: hasEmail,
-      waiver: id,
-      data: htmlArr
-    }).then(r => {
-      navigate(`/template/${id}/submission`);
-      localStorage.setItem('ref', r.data.reference_no)
-    })
-      .catch(e => toast.error(e.response.data.message))
-      .finally(() => setLoading(false));
+  //   postRequest('/submissions', {
+  //     reference_no: refNo.current?.innerText,
+  //     status: 'submitted',
+  //     customer: hasEmail,
+  //     waiver: id,
+  //     data: htmlArr
+  //   }).then(r => {
+  //     navigate(`/template/${id}/submission`);
+  //     localStorage.setItem('ref', r.data.reference_no)
+  //   })
+  //     .catch(e => toast.error(e.response.data.message))
+  //     .finally(() => setLoading(false));
   }
 
   return (
-    <div className='max-w-4xl mx-auto my-6 common'>
+    <div className='max-w-5xl mx-auto my-6 common'>
       <p className='text-sm my-6'>Refrence No : <span
         ref={refNo}>{`${getDynamicTenantId()}.${today()}.${Math.floor(Math.random() * 1000000)}`}</span>
       </p>
