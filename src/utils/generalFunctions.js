@@ -1087,7 +1087,7 @@ export function authUrl(service) {
         case "mailChimp" :
             return "https://login.mailchimp.com/oauth2/authorize?response_type=code&client_id=613502474364&redirect_uri=http://127.0.0.1:8000/mailchimp/auth&state="
         case "googleDrive" :
-            return "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=624151635976-l25unevsefskf8br0qjkenbh6i0f5ipv.apps.googleusercontent.com&redirect_uri=http://localhost:3000/google-drive&scope=https://www.googleapis.com/auth/drive&access_type=offline&approval_prompt=force&state="
+            return "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=624151635976-l25unevsefskf8br0qjkenbh6i0f5ipv.apps.googleusercontent.com&redirect_uri=http://localhost:3000/integration/google-drive&scope=https://www.googleapis.com/auth/drive&access_type=offline&approval_prompt=force&state="
         default :
             return ""
     }

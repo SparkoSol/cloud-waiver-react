@@ -60,11 +60,11 @@ const Integrations = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/google-drive/${user._id}`).then((value) => {
+        axios.get(`http://localhost:3000/integration/google-drive/${user._id}`).then((value) => {
             if (user._id === value.data.userID) {
                 setDrive(true)
                 setToken("available")
-                setDriveData({...driveData, accessToken: value.data.access_token})
+                setDriveData({...driveData, accessToken: value.data.refresh_token})
             }
         }).catch((reason) => {
             toast.error(reason.response.data.message)
@@ -95,7 +95,7 @@ const Integrations = () => {
     const driveDataSubmit = async (e) => {
         e.preventDefault()
         try {
-            await axios.post("http://localhost:3000/google-drive/upload-svc", driveData)
+            await axios.post("http://localhost:3000/integration/google-drive/upload-svc", driveData)
         } catch (e) {
             toast.error(e.response.data.message)
         }
@@ -108,7 +108,7 @@ const Integrations = () => {
         } else {
             setToken("")
             setDrive(e)
-            axios.delete(`http://localhost:3000/google-drive/${user._id}`).catch((reason) => {
+            axios.delete(`http://localhost:3000/integration/google-drive/${user._id}`).catch((reason) => {
                 toast.error(reason.response.data.message)
             })
         }
