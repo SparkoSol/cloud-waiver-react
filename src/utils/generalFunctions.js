@@ -501,8 +501,8 @@ const templates = {
           menubar: window.location.pathname.includes('templates'),
           contextmenu: window.location.pathname.includes('templates'),
           table_sizing_mode: 'fixed',
-          contentEditable: false,
-          readonly: true
+          contentEditable: !window.location.pathname.includes('templates'),
+          readonly: !window.location.pathname.includes('templates')
         });
       }
     };
@@ -1098,3 +1098,49 @@ export function authUrl(service) {
       return ""
   }
 }
+
+export function recursiveFunction(state, setIframeState) {
+  if (state && state.contentWindow && state.contentWindow.document.readyState === 'complete') {
+    console.log(state.contentWindow.document.readyState)
+    setIframeState(state);
+    return state;
+  }
+
+  setTimeout(function () {
+    const temp = document.querySelector("iframe");
+    recursiveFunction(temp, setIframeState);
+  }, 500);
+}
+
+export const htmlModal = `<div class="container">
+<div class="container-body">
+<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+    <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Sign your initial
+      </h3>
+    </div>
+    <div class="p-6 space-y-6">
+         <div class="js-signature modal"></div>
+    <div
+      class="space-between">
+      <div class="space-x-2">
+        <button id="rich-text-1684444988207-0-initials-1-done" type="button"
+                class="btn btn-blue">
+          Done
+        </button>
+        <button id="rich-text-1684444988207-0-initials-1-cancel" type="button"
+                class="btn btn-gray">
+          Cancel
+        </button>
+      </div>
+      <button id="rich-text-1684444988207-0-initials-1-clear-signature" type="button"
+              class="btn btn-red"
+              style="">
+        Clear
+      </button>
+
+    </div>
+  </div>
+</div>
+</div>`

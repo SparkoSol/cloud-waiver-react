@@ -3,7 +3,13 @@ import {useParams} from "react-router-dom";
 import React, {createRef, useEffect, useState} from "react";
 import {getRequest} from "../redux/cwAPI";
 import toast from 'react-hot-toast';
-import {additionMinorForm, additionParticipantForm, formatDate, options} from "../utils/generalFunctions";
+import {
+  additionMinorForm,
+  additionParticipantForm,
+  formatDate,
+  options,
+  recursiveFunction
+} from "../utils/generalFunctions";
 import Spinner from "../components/Spinner";
 import tinymce from "tinymce";
 
@@ -16,6 +22,7 @@ const SubmissionView = () => {
   const fb = createRef();
   const {submissionId} = useParams();
   const [submissionData, setSubmissionData] = useState(null);
+  const [iframe, setIframe] = useState(null);
   const [loading, setLoading] = useState(false);
   const isPdfPath = pathname.includes('pdf')
 
@@ -134,7 +141,7 @@ const SubmissionView = () => {
             readonly: 1,
             menubar: false,
             statusbar: false,
-            toolbar: false
+            toolbar: false,
           })
           tracker.richTextEditorCount++;
           break;
@@ -151,7 +158,6 @@ const SubmissionView = () => {
           break;
         case `${staticClass}timeComponent`:
           const timeDiv = document.querySelectorAll('#time')[tracker.timeCount];
-          console.log(submissionData.data[i].userData, timeDiv)
           timeDiv.value = submissionData.data[i].userData
           tracker.timeCount++
           break;
@@ -160,14 +166,18 @@ const SubmissionView = () => {
           break;
       }
     }
-    const iframe = document.querySelector("iframe")
-    if (iframe) {
-      const body = iframe.contentWindow.document.querySelector("body")
-      body.contentEditable = "false"
-    }
     $(fb.current).find('input, #captureButton, select').prop('disabled', true);
+    recursiveFunction(iframe, setIframe)
     // eslint-disable-next-line
   }, [submissionData])
+
+useEffect(() => {
+  const iframe = document.querySelector("iframe")
+  if (iframe) {
+    const body = iframe.contentWindow.document.querySelector("body");
+    body.contentEditable = "false"
+  }
+}, [iframe]);
 
 
   return (
