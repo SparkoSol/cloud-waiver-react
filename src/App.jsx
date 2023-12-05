@@ -38,6 +38,7 @@ import Submissions from "./pages/template/components/Submissions";
 import SubmissionView from "./pages/SubmissionView";
 import SignedWaivers from "./pages/signedWaivers/SignedWaiver";
 import CustomerSubmissions from "./pages/customerSubmission/CustomerSubmissions";
+import Configure from "./pages/integrations/Configure";
 
 const router = createBrowserRouter([
     {
@@ -94,9 +95,14 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <Settings/>
-            }, {
+            },
+            {
                 path: 'integrations',
                 element: <Integrations/>
+            },
+            {
+                path: 'configure',
+                element: <Configure/>
             }
         ]
     }, {
