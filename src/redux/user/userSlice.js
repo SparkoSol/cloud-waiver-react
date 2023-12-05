@@ -4,15 +4,18 @@ import toast from "react-hot-toast";
 
 const initialUserState = {
   currentUser: null,
-  members:null,
+  members: null,
   status: 'idle'
 }
-
 
 const userSlice = createSlice({
   name: 'user',
   initialState: initialUserState,
-  reducers: {},
+  reducers: {
+    updateUserProfile: (state, {payload}) => {
+      state.currentUser.profile_picture = payload
+    }
+  },
   extraReducers: (builder) => {
     // Add extra reducers using the builder notation
     builder
@@ -30,32 +33,32 @@ const userSlice = createSlice({
         toast.error(error.message)
       })
 
-      builder
-        .addCase(userProfile.pending, (state) => {
-          state.status = 'pending';
-        })
-        .addCase(userProfile.fulfilled, (state, {payload}) => {
-          state.status = 'fulfilled';
-          state.currentUser = payload;
-        })
-        .addCase(userProfile.rejected, (state, {error}) => {
-          state.status = 'failed';
-          toast.error(error.message)
-        })
+    builder
+      .addCase(userProfile.pending, (state) => {
+        state.status = 'pending';
+      })
+      .addCase(userProfile.fulfilled, (state, {payload}) => {
+        state.status = 'fulfilled';
+        state.currentUser = payload;
+      })
+      .addCase(userProfile.rejected, (state, {error}) => {
+        state.status = 'failed';
+        toast.error(error.message)
+      })
 
-      builder
-        .addCase(updateProfile.pending, (state) => {
-          state.status = 'pending';
-        })
-        .addCase(updateProfile.fulfilled, (state, {payload}) => {
-          state.status = 'fulfilled';
-          state.currentUser = payload;
-          toast.success('Updated Successfully')
-        })
-        .addCase(updateProfile.rejected, (state, {error}) => {
-          state.status = 'failed';
-          toast.error(error.message)
-        })
+    builder
+      .addCase(updateProfile.pending, (state) => {
+        state.status = 'pending';
+      })
+      .addCase(updateProfile.fulfilled, (state, {payload}) => {
+        state.status = 'fulfilled';
+        state.currentUser = payload;
+        toast.success('Updated Successfully')
+      })
+      .addCase(updateProfile.rejected, (state, {error}) => {
+        state.status = 'failed';
+        toast.error(error.message)
+      })
 
     builder
       .addCase(getMembers.pending, (state) => {
@@ -75,4 +78,5 @@ const userSlice = createSlice({
 export const selectCurrentUser = (state) => state.user.currentUser;
 export const selectMember = (state) => state.user.members;
 
+export const {updateUserProfile} = userSlice.actions;
 export default userSlice.reducer
