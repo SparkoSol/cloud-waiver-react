@@ -47,7 +47,7 @@ const LoginForm = () => {
         if (currentUser && token) {
             if (currentUser.workspaces.length === 1) {
                 localStorage.clear();
-                window.location.href = `http://${currentUser.workspaces[0].domain}.cloudwaiver.com/dashboard?token=${token}`
+                window.location.href = `https://${currentUser.workspaces[0].domain}.cloudwaiver.com/dashboard?token=${token}`
             } else {
                 navigate('/domain/select')
             }
