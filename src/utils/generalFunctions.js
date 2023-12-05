@@ -407,7 +407,7 @@ const templates = {
     return {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
-        element.append(additionParticipantForm(fieldData));
+        element.append(additionParticipantForm(fieldData, 'email'));
         $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px dashed #D1D5DB '});
       }
     };
@@ -659,7 +659,7 @@ const templates = {
         for (let i = 0; i < fileInput[0].files.length; i++) {
           let file = fileInput[0].files[i];
           if (file.type.startsWith('image/')) {
-            let imgElement = $('<img>', {
+            let imgElement = $('<img alt="">', {
               src: URL.createObjectURL(file),
               id: 'image-preview',
               alt: 'Uploaded Image'
@@ -671,9 +671,21 @@ const templates = {
         }
       }
     }
+  },
+  emailInput: function (fieldData) {
+    return {
+      onRender: function () {
+        let element = $(`.field-${fieldData.name}`);
+        element.append(`
+          <div>
+          <label for="defaultMail" class="text-base text-gray-900 whitespace-nowrap">Email</label>
+          <input placeholder='Email' name="defaultMail" type='email' class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md"/>
+</div>
+      `);
+      }
+    };
   }
-
-};
+}
 const inputSets = [{
   label: 'Primary Adult Participant(editable)',
   name: 'editable',
@@ -728,6 +740,7 @@ export let options = {
   ],
   disabledFieldButtons: {
     richTextEditor: ['copy', 'edit'],
+    emailInput: ['remove', 'copy']
   },
   stickyControls: true,
   controlPosition: 'right',
@@ -914,13 +927,13 @@ export let options = {
 };
 export const staticForm = [
   {
-    type: 'text',
-    label: 'Email',
-    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
-    subtype: 'email',
+    type: 'emailInput',
+    // label: 'Email',
+    // className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
+    // subtype: 'email',
     required: true,
-    placeholder: 'Email',
-    name: 'defaultMail'
+    // placeholder: 'Email',
+    // name: 'defaultMail',
   },
   {
     label: 'Electronic Signature Consent',
@@ -1022,7 +1035,7 @@ export function searchWaiver(search, customers) {
   })
 }
 
-export function additionParticipantForm(data) {
+export function additionParticipantForm(data, email=null) {
   return `<form class="space-y-2" id="myForm">
           ${(data.f_name || data.showFirstName) ? `<div class="mt-3">
             <label for="f_name" class='text-sm text-gray-900 whitespace-nowrap'>First name</label>
@@ -1040,7 +1053,7 @@ export function additionParticipantForm(data) {
             <label class='text-sm text-gray-900 whitespace-nowrap' for="phone">Phone</label>
             <input type="text" name="phone"  value="" placeholder="Phone" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
           </div>` : ''}
-          ${(data.email || data.showEmail) ? `<div class="mt-3">
+          ${((data.email || data.showEmail) && !email) ? `<div class="mt-3">
             <label class='text-sm text-gray-900 whitespace-nowrap' for="email">Email</label>
             <input type="email" name="email" value="" placeholder="Email" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
           </div>` : ''}
@@ -1099,48 +1112,61 @@ export function authUrl(service) {
   }
 }
 
-export function recursiveFunction(state, setIframeState) {
+export function recursiveFunction(state, setSwitchState) {
   if (state && state.contentWindow && state.contentWindow.document.readyState === 'complete') {
-    console.log(state.contentWindow.document.readyState)
-    setIframeState(state);
+    const iframeBody = state.contentWindow?.document.querySelector("body > div");
+    const body = document.querySelector('.tox.tox-tinymce');
+    if (!iframeBody || !body) {
+      recursiveFunction(null, setSwitchState);
+      return
+    }
+    body.innerHTML = iframeBody.innerHTML;
+    body.removeAttribute('style');
+    body.removeAttribute('class');
+    setSwitchState(true);
     return state;
   }
 
   setTimeout(function () {
     const temp = document.querySelector("iframe");
-    recursiveFunction(temp, setIframeState);
+    recursiveFunction(temp, setSwitchState);
   }, 500);
 }
 
-export const htmlModal = `<div class="container">
-<div class="container-body">
-<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-    <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-        Sign your initial
-      </h3>
-    </div>
-    <div class="p-6 space-y-6">
-         <div class="js-signature modal"></div>
-    <div
-      class="space-between">
-      <div class="space-x-2">
-        <button id="rich-text-1684444988207-0-initials-1-done" type="button"
-                class="btn btn-blue">
-          Done
-        </button>
-        <button id="rich-text-1684444988207-0-initials-1-cancel" type="button"
-                class="btn btn-gray">
-          Cancel
-        </button>
-      </div>
-      <button id="rich-text-1684444988207-0-initials-1-clear-signature" type="button"
-              class="btn btn-red"
-              style="">
-        Clear
-      </button>
+export function htmlModal(index) {
+  return (`<div
+      id="initials-${index}" class="init-${index}"
+      <small> Initial Sign </small>
+    </div><div id="init-${index}-modal" data-modal-backdrop="static" tabindex="-1" class="modal fixed hidden top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full justify-center items-center flex" aria-modal="true" role="dialog">
+                <div class="relative w-full max-w-2xl max-h-full">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <!-- Modal header -->
+                        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                Sign your initial
+                            </h3>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="p-6 space-y-6">
+                            <div class="js-signature initial-signature-pad"></div>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="flex justify-between items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                            <div class="space-x-2">
+                                <button id="done-${index}-done" type="button" class="done-${index} text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Done
+                                </button>
+                                <button id="cac-${index}-cancel" type="button" class="cac-${index} text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5">
+                                    Cancel
+                                </button>
+                            </div>
+                            <button id="rich-text-1684444988207-0-initials-1-clear-signature" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" style="display: none;">
+                                Clear
+                            </button>
 
-    </div>
-  </div>
-</div>
-</div>`
+                        </div>
+                    </div>
+                </div>
+            </div>`)
+}

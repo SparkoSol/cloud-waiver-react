@@ -56,7 +56,6 @@ const UpdateCustomer = () => {
       .finally(() => setLoading(false))
   }
 
-  console.log(formData)
   return (
     <div className='p-5'>
       <Heading title='Update Customer -' titleClasses='text-xl leading-tight text-gray-800 mb-4'/>

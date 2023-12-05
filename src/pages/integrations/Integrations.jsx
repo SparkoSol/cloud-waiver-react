@@ -69,6 +69,7 @@ const Integrations = () => {
         }).catch((reason) => {
             toast.error(reason.response.data.message)
         })
+        //eslint-disable-next-line
     }, []);
 
     // Dropbox Auth Setup
@@ -76,6 +77,7 @@ const Integrations = () => {
         if (dropbox === true) {
             window.location.assign(`${authUrl("dropbox")}${domain},${url}`)
         }
+        //eslint-disable-next-line
     }, [dropbox]);
 
     // Constant Contact Auth Setup
@@ -83,6 +85,7 @@ const Integrations = () => {
         if (contact === true) {
             window.location.assign(`${authUrl("contact")}${domain},${url}`)
         }
+        //eslint-disable-next-line
     }, [contact]);
 
     // Mailchimp Auth Setup
@@ -90,6 +93,7 @@ const Integrations = () => {
         if (mailChimp === true) {
             window.location.assign(`${authUrl("mailChimp")}${domain},${url}`)
         }
+        //eslint-disable-next-line
     }, [mailChimp]);
 
     const driveDataSubmit = async (e) => {

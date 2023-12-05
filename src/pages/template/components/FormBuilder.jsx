@@ -36,9 +36,9 @@ const FormBuilder = () => {
         controlOrder: ['primaryAdultParticipant', 'editable', 'additionalParticipants', 'additionalMinors', 'signature', 'address', 'richTextEditor', 'filesUpload', 'electronicSignatureConsent', 'capturePhoto']
       }))
       dispatch(resetStatus())
-      setTimeout(()=>{
+      setTimeout(() => {
         let textAreaArr = document.querySelectorAll('.textarea-selector');
-        for(let i=0;i<textAreaArr.length;i++){
+        for (let i = 0; i < textAreaArr.length; i++) {
           $(`#${textAreaArr[i].id}`).html(waiver?.form_data[i].userData);
         }
       }, 300);
@@ -50,8 +50,10 @@ const FormBuilder = () => {
     setLoading(true);
     let jsonData = JSON.parse(FormBuilder.formData);
     let textAreaArr = document.querySelectorAll('.textarea-selector')[0];
-    const richEditor = tinymce.get(textAreaArr.id);
-    jsonData[0]['userData'] = richEditor.getContent();
+    if (textAreaArr) {
+      const richEditor = tinymce.get(textAreaArr.id);
+      jsonData[0]['userData'] = richEditor.getContent();
+    }
     patchRequest(`/waivers/${id}`, {form_data: jsonData})
       .then(() => toast.success('Saved Successfully'))
       .catch(e => toast.error(e.response.data.message))
