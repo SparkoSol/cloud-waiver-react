@@ -136,13 +136,14 @@ const DataTable = ({
                 </thead>
                 <tbody
                   className="divide-y divide-gray-300 sm:divide-transparent bg-white">
-                {items.length > 0 ? items.map((item, index) => (
-                  <TableRow key={item._id} functionCall={selectRows} item={item}
-                            index={index} {...otherProps}
+                {items.length > 0 ? items.map((item, index) =>  (
+                  <TableRow key={item._id} functionCall={selectRows} item={item} {...otherProps}
+                            index={index}
                   />)) : <tr>
                   <td colSpan={headers.length + 2}
-                      className='py-4 pl-4 sm:pl-6 pr-3 text-sm'>{emptyMessage}</td>
-                </tr>}
+                      className='py-4 pl-4 sm:pl-6 pr-3 text-sm text-center'>{emptyMessage}</td>
+                </tr>
+                }
                 </tbody>
               </table>
             </div>

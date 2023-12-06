@@ -1,10 +1,32 @@
 import {Fragment, useRef} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
 import {CreditCardIcon} from "@heroicons/react/24/outline";
-import Input from "../inputs/Input.jsx";
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import {useDispatch} from "react-redux";
+import {updatePaymentMethods} from "../../redux/user/userThunk";
 
 export default function PaymentModal({open, setOpen}) {
+  const dispatch = useDispatch();
+  const stripe = useStripe();
+  const elements = useElements();
   const cancelButtonRef = useRef(null)
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const cardElement = elements.getElement(CardElement);
+    const { paymentMethod, error } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: cardElement,
+    });
+
+    if (error) {
+      console.log(error);
+    } else {
+      // send method id and client id if available to backend
+      dispatch(updatePaymentMethods({ type: "ADD", paymentMethod}))
+      console.log('Payment method added successfully:', paymentMethod);
+    }
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -54,14 +76,17 @@ export default function PaymentModal({open, setOpen}) {
                   </div>
                 </div>
                 <form>
-                  <div className='mx-4'>
-                    <Input placeholder='xxxx-xxxx-xxxx-xxxx' inputClasses='pl-3' />
+                  <div className='m-4'>
+                    <CardElement className="pl-3"/>
                   </div>
                   <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     <button
                       type="submit"
                       className="text-white text-sm align-items-center align-middle rounded-md bg-bgDark px-4 py-2 font-semibold w-full mb-2 sm:mb-0"
-                      onClick={() => setOpen(false)}
+                      onClick={(e) => {
+                        setOpen(false)
+                        handleSubmit(e)
+                      }}
                     >
                       Add
                     </button>

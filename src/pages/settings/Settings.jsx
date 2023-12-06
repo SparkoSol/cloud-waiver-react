@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateProfile} from "../../redux/user/userThunk.js";
 import {selectCurrentUser} from "../../redux/user/userSlice.js";
 import toast from "react-hot-toast";
+import ProfileImageUpload from "./profileImageUpload/ProfileImageUpload";
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -123,6 +124,8 @@ const Account = () => {
       <Heading title='Personal Information' subtitle='Ensure all details are correct'
                titleClasses='text-lg leading-6 font-medium text-gray-900'
                subTitleClasses='text-sm font-normal text-gray-500'/>
+      <ProfileImageUpload />
+
       <form className='flex flex-wrap mt-7' onSubmit={handleSubmit}>
         {data.map(item => {
           if (item.id === 4) {

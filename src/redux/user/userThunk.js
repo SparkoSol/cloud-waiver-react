@@ -1,12 +1,13 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
 import {getRequest, patchRequest, postRequest} from '../cwAPI'
+import axios from "axios";
 
 export const login = createAsyncThunk('user/login', async (payload, thunkAPI) => {
   try {
     const {data: tokens} = await postRequest('/auth/sign-in', payload)
     localStorage.setItem('cw-access-token', tokens?.access_token);
     localStorage.setItem('cw-refresh-token', tokens?.refresh_token);
-    const {data: user} = await getRequest('/auth/profile', payload);
+    const {data: user} = await getRequest('/auth/profile');
     if(!user.verified){
       await postRequest('/persons/resend-verification-email', {
         email: user.username, id: user._id, name: user.first_name
@@ -79,5 +80,32 @@ export const getMembers = createAsyncThunk('/user/getMembers', async (payload, t
     return data
   } catch (e) {
     thunkAPI.dispatch(getMembers.rejected(e.response.data.message));
+  }
+})
+
+export const updateProfilePicture = createAsyncThunk('/user/updateProfilePicture', async (payload, thunkAPI) => {
+  try {
+    const {data} = await postRequest('/upload', payload);
+    return data
+  } catch (e) {
+    thunkAPI.dispatch(updateProfilePicture.rejected(e.response.data.message));
+  }
+})
+// TODO: Remove localhost url
+export const updatePaymentMethods = createAsyncThunk('/user/updatePaymentMethods', async (payload, thunkAPI) => {
+  try {
+    const {data} = await axios.post('http://localhost:8000/update-payment-methods', payload);
+    return data
+  } catch (e) {
+    thunkAPI.dispatch(updatePaymentMethods.rejected(e.response.data.message));
+  }
+})
+// TODO: Remove localhost url
+export const updatePlan = createAsyncThunk('/user/updatePlan', async (payload, thunkAPI) => {
+  try {
+    const {data} = await axios.post('http://localhost:8000/update-plan', payload);
+    return data
+  } catch (e) {
+    thunkAPI.dispatch(updatePlan.rejected(e.response.data.message));
   }
 })

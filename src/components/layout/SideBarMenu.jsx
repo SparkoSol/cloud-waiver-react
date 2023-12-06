@@ -19,7 +19,6 @@ const SideBarMenu = ({
                      }) => {
   const {pathname} = useLocation();
   const currentUser = useSelector(selectCurrentUser);
-  console.log()
   return (
     <aside
       onMouseEnter={() => {
@@ -44,14 +43,14 @@ const SideBarMenu = ({
           <img className='w-full max-w-[112px] mx-auto' alt='Loading..' src='/images/logo.png'/>
         </Link>
       </div>
-      <div className="flex gap-2 items-center py-4 w-60 px-2 border-b border-btnBg">
-        <div className="w-8 h-8 rounded-full border border-1 border-iconGray bg-white overflow-hidden">
-          <img src="/images/user.png" className='w-full h-full' alt=""/>
-        </div>
-        {(open || hover) && <Link className="text-sm text-iconGray font-semibold" to="/dashboard">
-          {`${currentUser?.first_name} ${currentUser?.last_name}`}
+        {(open || hover) && <Link className="text-sm text-iconGray font-semibold" to="/settings">
+          <div className="flex gap-2 items-center py-4 w-60 px-2 border-b border-btnBg">
+            <div className="w-8 h-8 rounded-full border border-1 border-iconGray bg-white overflow-hidden">
+              <img src={currentUser?.profile_picture} className='w-full h-full' alt=""/>
+            </div>
+              {`${currentUser?.first_name} ${currentUser?.last_name}`}
+          </div>
         </Link>}
-      </div>
       <div className='block lg:hidden'>
         <Input extraClasses='pt-4' inputRef={searchRef} BtnIcon={MagnifyingGlassIcon} placeholder='Search'/>
       </div>
