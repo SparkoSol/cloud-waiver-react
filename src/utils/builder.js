@@ -425,12 +425,12 @@ const templates = {
       let fileInput = $(`#fileInput-${fieldName}`);
       let displayDiv = $(`#uploadedFileDisplay-${fieldName}`);
       displayDiv.empty();
-
       if (fileInput[0].files.length > 0) {
         for (let i = 0; i < fileInput[0].files.length; i++) {
           let file = fileInput[0].files[i];
           if (file.type.startsWith('image/')) {
-            let imgElement = $('<img alt="">', {
+            console.log(URL.createObjectURL(file))
+            let imgElement = $('<img />', {
               src: URL.createObjectURL(file),
               id: 'image-preview',
               alt: 'Uploaded Image'
