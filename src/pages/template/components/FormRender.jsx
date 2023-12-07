@@ -1,15 +1,20 @@
 import $ from "jquery"; //Load jquery
 import React, {createRef, useEffect, useRef, useState} from "react"; //For react component
-import {dataURLtoFile, htmlModal, options, recursiveFunction, today} from "../../../utils/generalFunctions";
+import {
+  dataURLtoFile,
+  isEmptyObject,
+  recursiveFunction,
+  today
+} from "../../../utils/generalFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {selectPublicWaiver} from "../../../redux/waivers/waiverSlice";
 import {getPublicWaiver} from "../../../redux/waivers/waiverThunk";
 import {useNavigate, useParams} from "react-router-dom";
 import Button from "../../../components/Button";
-import tinymce from "tinymce";
 import Spinner from "../../../components/Spinner";
 import {getDynamicTenantId, postRequest} from "../../../redux/cwAPI";
 import toast from 'react-hot-toast'
+import {htmlModal, options} from "../../../utils/builder";
 
 window.jQuery = $; //JQuery alias
 window.$ = $; //JQuery alias
@@ -33,9 +38,11 @@ const FormRender = () => {
         formData: JSON.stringify(waiver?.form_data), ...options
       });
       let textAreaArr = document.querySelectorAll('.textarea-selector');
-      for (let i = 0; i < textAreaArr.length; i++) {
-        $(`#${textAreaArr[i].id}`).html(waiver?.form_data[i].userData);
-      }
+      waiver?.form_data
+        .filter(item => item.type === 'richTextEditor')
+        .forEach((filteredItem, index) => {
+          $(`#${textAreaArr[index].id}`).html(filteredItem.userData);
+        });
       recursiveFunction(null, setSwitchState)
     }
     // eslint-disable-next-line
@@ -44,6 +51,7 @@ const FormRender = () => {
   useEffect(() => {
     setLoading(true);
     dispatch(getPublicWaiver(id))
+      .then(()=>navigator.clipboard.writeText(''))
       .finally(() => setLoading(false))
     // eslint-disable-next-line
   }, []);
@@ -57,12 +65,27 @@ const FormRender = () => {
         let idx = e.target.classList[0]?.split('-')[1]
         //open the sign modal
         if (e.target.classList[0]?.includes('init')) {
+          navigator.clipboard.readText().then(r=>{
+            if(!r.includes('data:image/png')){
+              document.querySelectorAll(`.modal`)[idx].classList.remove('hidden')
+            }else{
+              const tableCell = document.getElementById(`initials-${idx}`);
+              tableCell.innerHTML += `<img src="${r}" style="width: 100px; height: 52px;" alt='' />`;
+            }
+          })
+        }
+        else if(e.target.tagName === 'IMG'){
+          let idx = e.target.parentNode.classList[0]?.split('-')[1];
+          document.querySelectorAll(`.js-signature.initial-signature-pad`)[idx].innerHTML =
+            `<img src="${e.target.src}" style="width: 620px; height: 200px;" alt='' />`
           document.querySelectorAll(`.modal`)[idx].classList.remove('hidden')
         }
         //handle cancel button click
         else if (e.target.classList[0]?.includes('cac')) {
           const cancelBtn = document.getElementById(`${e.target.classList[0]}-cancel`);
           cancelBtn.addEventListener('click', function (e) {
+            let signNode = document.querySelectorAll('.js-signature.initial-signature-pad')[idx];
+            $(signNode).jqSignature('clearCanvas');
             document.querySelectorAll(`.modal`)[idx].classList.add('hidden')
           })
           cancelBtn.click();
@@ -71,15 +94,25 @@ const FormRender = () => {
         else if (e.target.classList[0]?.includes('done')) {
           const doneBtn = document.getElementById(`${e.target.classList[0]}-done`);
           doneBtn.addEventListener('click', function (e) {
-            let signNode = document.querySelectorAll('.js-signature.initial-signature-pad');
-            signNode = signNode[idx];
+            let signNode = document.querySelectorAll('.js-signature.initial-signature-pad')[idx];
             let sign = $(signNode).jqSignature('getDataURL');
+            navigator.clipboard.writeText(sign);
             const tableCell = document.getElementById(`initials-${idx}`)
-            tableCell.insertAdjacentHTML('afterend', `<img src=${sign} alt='' />`)
-            tableCell.remove();
+            let children = tableCell.children;
+            if(children.length > 1) children[1].innerHTML += `<img src="${sign}" style="width: 100px; height: 52px;" alt='' />`;
+            else tableCell.innerHTML += `<img src="${sign}" style="width: 100px; height: 52px;" alt='' />`;
             document.querySelectorAll(`.modal`)[idx].classList.add('hidden')
           })
           doneBtn.click();
+        }
+        //clear button
+        else if (e.target.classList[0]?.includes('clear')) {
+          const clearBtn = document.querySelector(`.${e.target.classList[0]}`);
+          clearBtn.addEventListener('click', function (e) {
+            let signNode = document.querySelectorAll('.js-signature.initial-signature-pad')[idx];
+            $(signNode).jqSignature('clearCanvas');
+          })
+          clearBtn.click();
         }
         // if checkbox is checked
         else if (e.target.type === 'checkbox' && e.target.checked) {
@@ -98,15 +131,15 @@ const FormRender = () => {
       for (let i = 0; i < signCell.length; i++) {
         signCell[i].innerHTML = htmlModal(i);
       }
-      $('.js-signature.initial-signature-pad').jqSignature({width: 600, height: 200,});
+      $('.js-signature.initial-signature-pad').jqSignature({width: 620, height: 200, lineWidth: 3});
       setLoading(false)
     }
   }, [switchState]);
 
-  const saveData = async (event) => {
+  const saveData = async () => {
     setLoading(true)
     const htmlArr = $(fb.current).formRender("userData");
-    let hasEmail = null;
+    let hasEmail = {};
     let tracker = {
       signatureCount: 0,
       primaryAdultParticipantCount: 0,
@@ -141,6 +174,9 @@ const FormRender = () => {
           }
           item.userData = formData;
           if (signatureComponent) {
+            hasEmail['first_name'] = formData.f_name;
+            hasEmail['last_name'] = formData.l_name;
+            hasEmail['phone'] = formData.phone;
             item.userData = {
               ...formData, signature: signatureComponent.jqSignature('getDataURL')
             };
@@ -184,25 +220,29 @@ const FormRender = () => {
           }
           tracker.capturePhotoCount += 1;
           break;
-        case
-        'electronicSignatureConsent'
-        :
+        case 'electronicSignatureConsent':
           let checkbox = document.querySelectorAll('#electronicSign');
           checkbox = checkbox[tracker.electronicSignatureConsentCount].checked;
           item.userData = [checkbox]
           tracker.electronicSignatureConsentCount += 1;
           break
-        case
-        'richTextEditor'
-        :
-          let textAreaArr = document.querySelectorAll('.textarea-selector')[tracker.richTextEditorCount];
-          const richEditor = tinymce.get(textAreaArr.id);
-          item.userData = richEditor.getContent();
+        case 'richTextEditor':
+          // let textAreaArr = document.querySelectorAll('.textarea-selector')[tracker.richTextEditorCount];
+          // const richEditor = tinymce.get(textAreaArr.id);
+          // item.userData = richEditor.getContent();
+          let imgStr = document.querySelector('div[role="application"]');
+          let signArr = document.querySelectorAll('.sign');
+          imgStr = document.querySelectorAll('table img');
+          if(imgStr.length < signArr.length){
+            toast.error('Please Add Initials')
+            setLoading(false)
+            return
+          }
+          $(fb.current).find('input').prop('disabled', true);
+          item.userData = document.querySelector('div[role="application"]').outerHTML
           tracker.richTextEditorCount += 1;
           break
-        case
-        'filesUpload'
-        :
+        case 'filesUpload':
           const fileInp = document.querySelector('.file-inp');
           const urlArr = [];
           let formData1 = new FormData();
@@ -222,19 +262,24 @@ const FormRender = () => {
           break;
         case 'emailInput':
           let mail = document.querySelector(`input[name='defaultMail']`).value;
+          if(!mail){
+            toast.error("Email is required!")
+            setLoading(false);
+            return
+          }
           item.userData = mail
-          hasEmail = mail
+          hasEmail['email'] = mail
           break
         default:
           break
       }
     }
-    if (hasEmail) {
-      const {data} = await postRequest('/customers', {email: hasEmail})
-      hasEmail = data._id;
+    if (!isEmptyObject(hasEmail)) {
+      const {data} = await postRequest('/customers', hasEmail)
+      hasEmail['_id'] = data._id;
     }
     postRequest('/submissions', {
-      reference_no: refNo.current?.innerText, status: 'submitted', customer: hasEmail, waiver: id, data: htmlArr
+      reference_no: refNo.current?.innerText, status: 'submitted', customer: hasEmail._id, waiver: id, data: htmlArr
     }).then(r => {
       navigate(`/template/${id}/submission`);
       localStorage.setItem('ref', r.data.reference_no)
@@ -247,7 +292,8 @@ const FormRender = () => {
     <p className='text-sm my-6'>Refrence No : <span
       ref={refNo}>{`${getDynamicTenantId()}.${today()}.${Math.floor(Math.random() * 1000000)}`}</span>
     </p>
-    <form ref={fb}></form>
+    <form ref={fb}>
+    </form>
     {waiver?.form_data.length > 0 && <Button btnText='Submit Data' onClick={saveData}
                                              btnClasses='bg-btnBg' fullWidth='w-fit mx-auto mt-8'/>}
     {loading && <Spinner/>}

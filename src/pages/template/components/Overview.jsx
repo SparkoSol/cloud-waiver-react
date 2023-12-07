@@ -41,7 +41,7 @@ const Overview = () => {
             return;
         }
         if (setShowMessage) {
-            navigator.clipboard.writeText(`${domain}.cloudwaiver.com/template/${currentWaiver._id}`)
+            navigator.clipboard.writeText(`${domain}.cloudwaiver.com/template/${currentWaiver._id}/public`)
                 .then(() => {
                     setShowMessage(true);
                     setTimeout(() => {
@@ -61,7 +61,7 @@ const Overview = () => {
         const body = {
             email: inputRef.current.value,
             company: company_name,
-            link: `${domain}.cloudwaiver.com/template/${currentWaiver._id}`,
+            link: `${domain}.cloudwaiver.com/template/${currentWaiver._id}/public`,
             waiverId: id
         }
         if (inputRef.current.value) {
@@ -105,7 +105,7 @@ const Overview = () => {
                         {currentWaiver?._id &&
                             <Input placeholder='eg. Waiver 101' label='Share your waiver with the following link'
                                    extraClasses='font-medium text-gray-500 lg:w-72' inputClasses='pl-3'
-                                   value={`${domain}.cloudwaiver.com/template/${currentWaiver._id}`}/>}
+                                   value={`${domain}.cloudwaiver.com/template/${currentWaiver._id}/public`}/>}
                         <div>
                             {showMessage && <CheckIcon className='w-5 h-5 mx-auto'/>}
                             <Button btnText='Copy' onClick={copyToClipboard}

@@ -51,7 +51,7 @@ const TemplateContainer = ({children}) => {
                            functionCall={handleEdit} value={waiver?.name}/>
                 </div>
                 <span
-                    className="text-sm italic">{`${currentUser?.domain}.cloudwaiver.com/template/${waiver?._id}`}</span>
+                    className="text-sm italic">{`${currentUser?.domain}.cloudwaiver.com/template/${waiver?._id}/public`}</span>
             </div>
             <Tabs tabs={tabsData}/>
             <div className='shadow rounded-md sm:overflow-hidden bg-white py-6 px-4 space-y-6 sm:p-6'>

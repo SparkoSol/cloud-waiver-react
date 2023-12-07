@@ -1,6 +1,6 @@
 import $ from "jquery";
 import React, {createRef, useEffect, useState} from "react";
-import {capitalize, options, staticForm} from "../../../utils/generalFunctions";
+import {capitalize, staticForm} from "../../../utils/generalFunctions";
 import Button from "../../../components/Button";
 import {TrashIcon} from "@heroicons/react/24/outline";
 import {patchRequest} from "../../../redux/cwAPI";
@@ -12,6 +12,7 @@ import toast from 'react-hot-toast'
 import Modal from "../../../components/modals/Modal";
 import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
 import tinymce from "tinymce";
+import {options} from "../../../utils/builder";
 
 window.jQuery = $;
 window.$ = $;
@@ -38,9 +39,11 @@ const FormBuilder = () => {
       dispatch(resetStatus())
       setTimeout(() => {
         let textAreaArr = document.querySelectorAll('.textarea-selector');
-        for (let i = 0; i < textAreaArr.length; i++) {
-          $(`#${textAreaArr[i].id}`).html(waiver?.form_data[i].userData);
-        }
+        waiver?.form_data
+          .filter(item => item.type === 'richTextEditor')
+          .forEach((filteredItem, index) => {
+            $(`#${textAreaArr[index].id}`).html(filteredItem.userData);
+          });
       }, 300);
     }
     // eslint-disable-next-line
@@ -52,7 +55,12 @@ const FormBuilder = () => {
     let textAreaArr = document.querySelectorAll('.textarea-selector')[0];
     if (textAreaArr) {
       const richEditor = tinymce.get(textAreaArr.id);
-      jsonData[0]['userData'] = richEditor.getContent();
+      jsonData.map((item, index) => {
+        if (item.type === 'richTextEditor') {
+          jsonData[index]['userData'] = richEditor.getContent();
+        }
+        return item;
+      });
     }
     patchRequest(`/waivers/${id}`, {form_data: jsonData})
       .then(() => toast.success('Saved Successfully'))
@@ -74,7 +82,7 @@ const FormBuilder = () => {
       <div className='flex gap-3 items-center'>
         <span
           className="text-yellow-800 text-sm font-semibold px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">{capitalize(waiver?.status)}</span>
-        {waiver?.status !== 'draft' && <Link to={`/template/${id}`} target='_blank'
+        {waiver?.status !== 'draft' && <Link to={`/template/${id}/public`} target='_blank'
                                              className='bg-btnBg w-fit py-2.5 px-8 text-sm text-white font-semibold rounded-full'>Preview</Link>}
         {waiver?.status === 'draft' ? <>
             <Button btnText='Publish' btnClasses='bg-btnBg' fullWidth='w-fit' onClick={e => saveData(e, 'publish')}/>

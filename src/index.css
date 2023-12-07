@@ -64,3 +64,6 @@ li[type="address"] .field-label {
 .form-wrap.form-builder .frmb .form-elements .false-label:first-child, .form-wrap.form-builder .frmb .form-elements label:first-child {
   white-space: pre-wrap !important;
 }
+.sign{
+  overflow: hidden;
+}

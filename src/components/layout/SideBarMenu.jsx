@@ -87,7 +87,9 @@ const SideBarMenu = ({
                         {item.subList ? (
                             <div>
                                 <button onClick={() => handleReplyClick(index)}
-                                        className={`flex items-center gap-4 py-2.5 pl-2 mt-2.5 w-full relative ${pathname.includes(item.url) ? 'text-blue-400' : 'text-iconGray'}`}>
+                                        className={`flex items-center gap-4 py-2.5 pl-2 mt-2.5 w-full relative
+                                         ${pathname.includes(item.url) ? 'text-blue-400' : 'text-iconGray'}`}
+                                >
                                     <item.icon className='w-7 h-7'/>
                                     <span
                                         className={`${open || hover ? 'opacity-100' : 'opacity-0'} transition-all duration-500`}>
