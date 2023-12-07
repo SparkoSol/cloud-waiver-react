@@ -77,7 +77,7 @@ const SideBarMenu = ({
           {(open || hover) && <Link className="text-sm text-iconGray font-semibold" to="/settings">
             <div className="flex gap-2 items-center py-4 w-60 px-2 border-b border-btnBg">
               <div className="w-8 h-8 rounded-full border border-1 border-iconGray bg-white overflow-hidden">
-                <img src={currentUser?.profile_picture} className='w-full h-full' alt=""/>
+                <img src={currentUser?.profile_picture || "/images/avatar.png"} className='w-full h-full' alt=""/>
               </div>
               {`${currentUser?.first_name} ${currentUser?.last_name}`}
             </div>

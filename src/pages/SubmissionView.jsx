@@ -203,7 +203,7 @@ const SubmissionView = () => {
           <div className="py-3 space-y-4">
             <h3 className="font-bold text-base text-gray-800">Participant Details</h3>
             <div className="flex items-center justify-between">
-              <p className="font-normal text-sm text-gray-500">Name</p>
+              <p className="font-normal text-sm text-gray-500">Waiver Name</p>
               <p className="font-semibold text-sm text-gray-800">{submissionData?.waiver?.name}</p>
             </div>
             <div className="flex items-center justify-between">
