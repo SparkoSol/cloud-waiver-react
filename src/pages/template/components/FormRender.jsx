@@ -247,8 +247,7 @@ const FormRender = () => {
           const urlArr = [];
           let formData1 = new FormData();
           for (let i = 0; i < fileInp.files.length; i++) {
-            formData1.append(`
-          file`, fileInp.files[i])
+            formData1.append(`file`, fileInp.files[i])
             const {data} = await postRequest('/upload', formData1)
             urlArr.push(data.url)
             formData1.delete('file');

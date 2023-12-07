@@ -179,7 +179,7 @@ const templates = {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
         element.append(additionParticipantForm(fieldData, 'email'));
-        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px dashed #D1D5DB '});
+        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px dashed #D1D5DB', lineWidth:3});
       }
     };
   },
@@ -215,7 +215,7 @@ const templates = {
         <div class="js-signature"></div>
         </div>
       `);
-        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid transparent'});
+        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid transparent', lineWidth:3});
       }
     };
   },
@@ -786,6 +786,7 @@ function commonPayload(form, newDiv, fieldData) {
       element.append(newDiv);
       $('.js-signature').jqSignature({
         autoFit: true,
+        lineWidth:3,
         height: 200,
         border: '1px solid transparent',
       });
