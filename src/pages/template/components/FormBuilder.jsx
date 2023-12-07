@@ -39,11 +39,13 @@ const FormBuilder = () => {
       dispatch(resetStatus())
       setTimeout(() => {
         let textAreaArr = document.querySelectorAll('.textarea-selector');
-        waiver?.form_data
-          .filter(item => item.type === 'richTextEditor')
-          .forEach((filteredItem, index) => {
-            $(`#${textAreaArr[index].id}`).html(filteredItem.userData);
-          });
+        if(textAreaArr.length > 0){
+          waiver?.form_data
+            .filter(item => item.type === 'richTextEditor')
+            .forEach((filteredItem, index) => {
+              $(`#${textAreaArr[index].id}`).html(filteredItem.userData);
+            });
+        }
       }, 300);
     }
     // eslint-disable-next-line
