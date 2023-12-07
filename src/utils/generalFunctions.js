@@ -11,10 +11,7 @@ import {
 import {AdjustmentsVerticalIcon} from "@heroicons/react/20/solid";
 import toast from "react-hot-toast";
 import Control from "formBuilder/src/js/control";
-import $ from 'jquery'
-import tinymce from "tinymce";
 import {patchRequest} from "../redux/cwAPI";
-import {additionParticipantForm} from "./builder";
 
 export function generateMonths(number) {
   const months = ['Month'];

@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {getMembers, login, updateProfile, userProfile} from './userThunk'
+import {getMembers, login, updateProfile, updateProfilePicture, userProfile} from './userThunk'
 import toast from "react-hot-toast";
 
 const initialUserState = {
@@ -69,6 +69,19 @@ const userSlice = createSlice({
         state.members = payload;
       })
       .addCase(getMembers.rejected, (state, {error}) => {
+        state.status = 'failed';
+        toast.error(error.message)
+      })
+
+    builder
+      .addCase(updateProfilePicture.pending, (state, {payload}) => {
+        state.status = 'pending';
+      })
+      .addCase(updateProfilePicture.fulfilled, (state, {payload}) => {
+        state.status = 'fulfilled';
+        state.currentUser.profile_picture = payload.url;
+      })
+      .addCase(updateProfilePicture.rejected, (state, {error}) => {
         state.status = 'failed';
         toast.error(error.message)
       })

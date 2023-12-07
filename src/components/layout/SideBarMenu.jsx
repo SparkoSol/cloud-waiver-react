@@ -3,10 +3,8 @@ import Input from "../inputs/Input.jsx";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import {Transition} from "@headlessui/react";
-import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentUser, updateUserProfile} from "../../redux/user/userSlice.js";
-import {useRef} from "react";
-import {patchRequest, postRequest} from "../../redux/cwAPI";
+import {useSelector} from "react-redux";
+import {selectCurrentUser} from "../../redux/user/userSlice.js";
 
 const SideBarMenu = ({
                          searchRef,
@@ -20,20 +18,18 @@ const SideBarMenu = ({
                          setOpen
                      }) => {
     const {pathname} = useLocation();
-    const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
-    const imageRef = useRef();
 
-    const handleFileChange = async (e) => {
-        const selectedFile = e.target.files[0];
-        const frmData = new FormData();
-        frmData.append('file', selectedFile);
-        const {data} = await postRequest('/upload', frmData)
-        dispatch(updateUserProfile(data.url))
-        await patchRequest(`/persons/${currentUser._id}`, {
-            profile_picture: data.url
-        })
-    };
+    // const handleFileChange = async (e) => {
+    //     const selectedFile = e.target.files[0];
+    //     const frmData = new FormData();
+    //     frmData.append('file', selectedFile);
+    //     const {data} = await postRequest('/upload', frmData)
+    //     dispatch(updateUserProfile(data.url))
+    //     await patchRequest(`/persons/${currentUser._id}`, {
+    //         profile_picture: data.url
+    //     })
+    // };
     return (
         <aside
             onMouseEnter={() => {
@@ -58,26 +54,34 @@ const SideBarMenu = ({
                     <img className='w-full max-w-[112px] mx-auto' alt='Loading..' src='/images/logo.png'/>
                 </Link>
             </div>
+            {/*<div className="flex gap-2 items-center py-4 w-60 px-2 border-b border-btnBg">*/}
+            {/*    <div className="w-8 h-8 rounded-full border border-1 border-iconGray bg-white overflow-hidden">*/}
+            {/*        <img*/}
+            {/*            src={currentUser?.profile_picture || '/images/user.png'}*/}
+            {/*            className='w-full h-full'*/}
+            {/*            alt=""*/}
+            {/*            ref={imageRef}*/}
+            {/*            onClick={e => imageRef.current.click()}*/}
+            {/*        />*/}
+            {/*        <input*/}
+            {/*            type='file'*/}
+            {/*            className='hidden'*/}
+            {/*            onChange={handleFileChange}*/}
+            {/*            ref={imageRef}*/}
+            {/*        />*/}
+            {/*    </div>*/}
+            {/*    {(open || hover) && <Link className="text-sm text-iconGray font-semibold" to="/dashboard">*/}
+            {/*        {`${currentUser?.first_name} ${currentUser?.last_name}`}*/}
+            {/*    </Link>}*/}
+            {/*</div>*/}
+          {(open || hover) && <Link className="text-sm text-iconGray font-semibold" to="/settings">
             <div className="flex gap-2 items-center py-4 w-60 px-2 border-b border-btnBg">
-                <div className="w-8 h-8 rounded-full border border-1 border-iconGray bg-white overflow-hidden">
-                    <img
-                        src={currentUser?.profile_picture || '/images/user.png'}
-                        className='w-full h-full'
-                        alt=""
-                        ref={imageRef}
-                        onClick={e => imageRef.current.click()}
-                    />
-                    <input
-                        type='file'
-                        className='hidden'
-                        onChange={handleFileChange}
-                        ref={imageRef}
-                    />
-                </div>
-                {(open || hover) && <Link className="text-sm text-iconGray font-semibold" to="/dashboard">
-                    {`${currentUser?.first_name} ${currentUser?.last_name}`}
-                </Link>}
+              <div className="w-8 h-8 rounded-full border border-1 border-iconGray bg-white overflow-hidden">
+                <img src={currentUser?.profile_picture} className='w-full h-full' alt=""/>
+              </div>
+              {`${currentUser?.first_name} ${currentUser?.last_name}`}
             </div>
+          </Link>}
             <div className='block lg:hidden'>
                 <Input extraClasses='pt-4' inputRef={searchRef} BtnIcon={MagnifyingGlassIcon} placeholder='Search'/>
             </div>

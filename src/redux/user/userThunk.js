@@ -81,3 +81,12 @@ export const getMembers = createAsyncThunk('/user/getMembers', async (payload, t
     thunkAPI.dispatch(getMembers.rejected(e.response.data.message));
   }
 })
+
+export const updateProfilePicture = createAsyncThunk('/user/updateProfilePicture', async (payload, thunkAPI) => {
+  try {
+    const {data} = await postRequest('/upload', payload);
+    return data
+  } catch (e) {
+    thunkAPI.dispatch(updateProfilePicture.rejected(e.response.data.message));
+  }
+})
