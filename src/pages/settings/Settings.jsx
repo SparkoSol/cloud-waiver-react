@@ -22,7 +22,6 @@ const Account = () => {
   const postalCodeRef = useRef(null)
 
   const [country, setCountry] = useState('Please Select');
-
   const data = [
     {
       id: 1,
@@ -108,6 +107,7 @@ const Account = () => {
       first_name: firstNameRef.current.value,
       last_name: lastNameRef.current.value,
       username: emailRef.current.value,
+      profile_picture: currentUser.profile_picture,
       address: {
         country,
         street_address: streetRef.current.value,
