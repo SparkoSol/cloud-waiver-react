@@ -97,7 +97,7 @@ const FormRender = () => {
         case 'signature':
           let signNode = document.querySelectorAll('.main .js-signature')[tracker.signatureCount];
           //check if it is required
-          label = signNode.closest('.formbuilder-signature').firstChild.lastChild.classList;
+          label = signNode.closest('.formbuilder-signature').firstChild.lastChild?.classList;
           if ($(signNode).jqSignature('getDataURL') === initSignCode && label) {
             toast.error('Signature is required.')
             setLoading(false)
@@ -114,7 +114,7 @@ const FormRender = () => {
           let formElements = document.querySelectorAll(`${item.type === 'primaryAdultParticipant' ? '#myForm' : '#address'}`);
           formElements = formElements[item.type === 'primaryAdultParticipant' ? tracker.primaryAdultParticipantCount : tracker.addressCount]
           //check if it is required
-          label = formElements.parentNode.firstChild.lastChild.classList;
+          label = formElements.parentNode.firstChild.lastChild?.classList;
           const formData = {};
           for (const element of formElements) {
             if (element.value.trim() === '' && label) {
@@ -172,7 +172,7 @@ const FormRender = () => {
         case 'capturePhoto':
           const node = document.querySelectorAll('#preview-image')[tracker.capturePhotoCount];
           const parentNode = document.querySelectorAll('.formbuilder-capturePhoto-label')[tracker.capturePhotoCount];
-          label = parentNode.lastChild.classList;
+          label = parentNode.lastChild?.classList;
           console.log(label)
           if (label && !node) {
             toast.error('Capture Image is required.')
@@ -191,7 +191,7 @@ const FormRender = () => {
         case 'electronicSignatureConsent':
           let checkboxDiv = document.querySelectorAll('#electronicSign')[tracker.electronicSignatureConsentCount];
           let checkbox = checkboxDiv.checked;
-          label = checkboxDiv.closest(`.formbuilder-electronicSignatureConsent`).firstChild.lastChild.classList;
+          label = checkboxDiv.closest(`.formbuilder-electronicSignatureConsent`).firstChild.lastChild?.classList;
           console.log(label)
           if (!checkbox && label) {
             toast.error('Consent is required.')
@@ -222,7 +222,7 @@ const FormRender = () => {
           break
         case 'filesUpload':
           const fileInp = document.querySelectorAll('.file-inp')[tracker.fileUpload];
-          label = fileInp.closest('.formbuilder-filesUpload').firstChild.lastChild.classList;
+          label = fileInp.closest('.formbuilder-filesUpload').firstChild.lastChild?.classList;
           const urlArr = [];
           let formData1 = new FormData();
           for (let i = 0; i < fileInp.files.length; i++) {
@@ -241,7 +241,7 @@ const FormRender = () => {
           break;
         case 'timeComponent':
           const allTimeDivs = document.querySelectorAll('#time')[tracker.timeCount];
-          label = allTimeDivs.parentNode.firstChild.lastChild.classList;
+          label = allTimeDivs.parentNode.firstChild.lastChild?.classList;
           if (label && allTimeDivs.value === '') {
             toast.error('Time is required.')
             setLoading(false)
