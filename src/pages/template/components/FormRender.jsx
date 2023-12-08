@@ -135,7 +135,7 @@ const FormRender = () => {
             hasEmail['phone'] = formData.phone;
             let signCode = signatureComponent.jqSignature('getDataURL');
             if (signCode === initSignCode) {
-              toast.error('Additional Participants cannot be empty');
+              toast.error('Adult Participants cannot be empty');
               setLoading(false);
               $(fb.current).find('input').prop('disabled', false);
               return
