@@ -382,7 +382,6 @@ export function searchWaiver(search, customers) {
 }
 
 
-
 export function updateAllSubmission(status, setSwitchState, setSelectedCount, setLoading, filteredWaivers) {
   const arr = filteredWaivers.reduce((result, item) => {
     if (item.checked) {
@@ -418,13 +417,18 @@ export function authUrl(service) {
   }
 }
 
-export function recursiveFunction(state, setSwitchState) {
+export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
+  // Check if the recursion count exceeds 5
+  if (recursionCount > 5) {
+    console.warn("Recursion limit reached. Returning nothing.");
+    return;
+  }
   if (state && state.contentWindow && state.contentWindow.document.readyState === 'complete') {
     const iframeBody = state.contentWindow?.document.querySelector("body > div");
     const body = document.querySelector('.tox.tox-tinymce');
     if (!iframeBody || !body) {
-      recursiveFunction(null, setSwitchState);
-      return
+      recursiveFunction(null, setSwitchState, recursionCount + 1);
+      return;
     }
     body.innerHTML = iframeBody.innerHTML;
     body.removeAttribute('style');
@@ -435,9 +439,10 @@ export function recursiveFunction(state, setSwitchState) {
 
   setTimeout(function () {
     const temp = document.querySelector("iframe");
-    recursiveFunction(temp, setSwitchState);
+    recursiveFunction(temp, setSwitchState, recursionCount + 1);
   }, 500);
 }
+
 
 
 

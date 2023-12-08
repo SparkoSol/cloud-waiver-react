@@ -14,7 +14,8 @@ import Button from "../../../components/Button";
 import Spinner from "../../../components/Spinner";
 import {getDynamicTenantId, postRequest} from "../../../redux/cwAPI";
 import toast from 'react-hot-toast'
-import {htmlModal, options} from "../../../utils/builder";
+import {events, htmlModal, initSignCode, options} from "../../../utils/builder";
+import tinymce from "tinymce";
 
 window.jQuery = $; //JQuery alias
 window.$ = $; //JQuery alias
@@ -41,6 +42,7 @@ const FormRender = () => {
       waiver?.form_data
         .filter(item => item.type === 'richTextEditor')
         .forEach((filteredItem, index) => {
+          console.log(filteredItem, textAreaArr[index].id)
           $(`#${textAreaArr[index].id}`).html(filteredItem.userData);
         });
       recursiveFunction(null, setSwitchState)
@@ -51,7 +53,7 @@ const FormRender = () => {
   useEffect(() => {
     setLoading(true);
     dispatch(getPublicWaiver(id))
-      .then(()=>navigator.clipboard.writeText(''))
+      .then(() => navigator.clipboard.writeText(''))
       .finally(() => setLoading(false))
     // eslint-disable-next-line
   }, []);
@@ -60,83 +62,25 @@ const FormRender = () => {
   useEffect(() => {
     if (switchState !== 'idle') {
       setLoading(true)
-      const body = document.querySelector(`table`);
-      body.addEventListener('click', function (e) {
-        let idx = e.target.classList[0]?.split('-')[1]
-        //open the sign modal
-        if (e.target.classList[0]?.includes('init')) {
-          navigator.clipboard.readText().then(r=>{
-            if(!r.includes('data:image/png')){
-              document.querySelectorAll(`.modal`)[idx].classList.remove('hidden')
-            }else{
-              const tableCell = document.getElementById(`initials-${idx}`);
-              tableCell.innerHTML += `<img src="${r}" style="width: 100px; height: 52px;" alt='' />`;
-            }
-          })
-        }
-        else if(e.target.tagName === 'IMG'){
-          let idx = e.target.parentNode.classList[0]?.split('-')[1];
-          document.querySelectorAll(`.js-signature.initial-signature-pad`)[idx].innerHTML =
-            `<img src="${e.target.src}" style="width: 620px; height: 200px;" alt='' />`
-          document.querySelectorAll(`.modal`)[idx].classList.remove('hidden')
-        }
-        //handle cancel button click
-        else if (e.target.classList[0]?.includes('cac')) {
-          const cancelBtn = document.getElementById(`${e.target.classList[0]}-cancel`);
-          cancelBtn.addEventListener('click', function (e) {
-            let signNode = document.querySelectorAll('.js-signature.initial-signature-pad')[idx];
-            $(signNode).jqSignature('clearCanvas');
-            document.querySelectorAll(`.modal`)[idx].classList.add('hidden')
-          })
-          cancelBtn.click();
-        }
-        //handle done button
-        else if (e.target.classList[0]?.includes('done')) {
-          const doneBtn = document.getElementById(`${e.target.classList[0]}-done`);
-          doneBtn.addEventListener('click', function (e) {
-            let signNode = document.querySelectorAll('.js-signature.initial-signature-pad')[idx];
-            let sign = $(signNode).jqSignature('getDataURL');
-            navigator.clipboard.writeText(sign);
-            const tableCell = document.getElementById(`initials-${idx}`)
-            let children = tableCell.children;
-            if(children.length > 1) children[1].innerHTML += `<img src="${sign}" style="width: 100px; height: 52px;" alt='' />`;
-            else tableCell.innerHTML += `<img src="${sign}" style="width: 100px; height: 52px;" alt='' />`;
-            document.querySelectorAll(`.modal`)[idx].classList.add('hidden')
-          })
-          doneBtn.click();
-        }
-        //clear button
-        else if (e.target.classList[0]?.includes('clear')) {
-          const clearBtn = document.querySelector(`.${e.target.classList[0]}`);
-          clearBtn.addEventListener('click', function (e) {
-            let signNode = document.querySelectorAll('.js-signature.initial-signature-pad')[idx];
-            $(signNode).jqSignature('clearCanvas');
-          })
-          clearBtn.click();
-        }
-        // if checkbox is checked
-        else if (e.target.type === 'checkbox' && e.target.checked) {
-          e.target.setAttribute("checked", "checked");
-        }
-        // if checkbox is not checked
-        else if (e.target.type === 'checkbox' && !e.target.checked) {
-          console.log('if 2')
-          e.target.removeAttribute("checked");
-        } else {
-          console.log('default checj')
-        }
-      })
-
-      const signCell = document.querySelectorAll('.sign');
-      for (let i = 0; i < signCell.length; i++) {
-        signCell[i].innerHTML = htmlModal(i);
-      }
-      $('.js-signature.initial-signature-pad').jqSignature({width: 620, height: 200, lineWidth: 3});
+      events();
       setLoading(false)
     }
   }, [switchState]);
 
   const saveData = async () => {
+    const mainForm = document.querySelector('.rendered-form');
+    let allInputs = mainForm.querySelectorAll('input[required]');
+    let hasEmptyField = false;
+    allInputs.forEach(input => {
+      if (input.value.trim() === '') {
+        hasEmptyField = true;
+        return; // This will exit the loop early if an empty field is found
+      }
+    });
+    if (hasEmptyField) {
+      toast.error('Required fields cannot be empty');
+      return;
+    }
     setLoading(true)
     const htmlArr = $(fb.current).formRender("userData");
     let hasEmail = {};
@@ -149,34 +93,55 @@ const FormRender = () => {
       capturePhotoCount: 0,
       electronicSignatureConsentCount: 0,
       richTextEditorCount: 0,
-      timeCount: 0
+      timeCount: 0,
+      fileUpload: 0
     }
     for (let item of htmlArr) {
+      let label = '';
       switch (item.type) {
         case 'signature':
-          let signNode = document.querySelectorAll('.main .js-signature');
-          signNode = signNode[tracker.signatureCount];
+          let signNode = document.querySelectorAll('.main .js-signature')[tracker.signatureCount];
+          //check if it is required
+          label = signNode.closest('.formbuilder-signature').firstChild.lastChild.classList;
+          if ($(signNode).jqSignature('getDataURL') === initSignCode && label) {
+            toast.error('Signature is required.')
+            setLoading(false)
+            return
+          }
           item.userData = $(signNode).jqSignature('getDataURL');
           tracker.signatureCount += 1;
           break;
         case 'primaryAdultParticipant':
         case 'address':
           let signatureComponent = document.querySelectorAll('.adult .js-signature');
-
+          let breakLoop = false;
           signatureComponent = $(signatureComponent[tracker.primaryAdultParticipantCount]);
           let formElements = document.querySelectorAll(`${item.type === 'primaryAdultParticipant' ? '#myForm' : '#address'}`);
           formElements = formElements[item.type === 'primaryAdultParticipant' ? tracker.primaryAdultParticipantCount : tracker.addressCount]
+          //check if it is required
+          label = formElements.parentNode.firstChild.lastChild.classList;
           const formData = {};
           for (const element of formElements) {
-            if (element.name !== "") { //TODO Remove the if block
-              formData[element.name] = element.value;
+            if (element.value.trim() === '' && label) {
+              toast.error(`${item.type === 'primaryAdultParticipant' ? 'Additional Participants' : 'Address'} cannot be empty`);
+              setLoading(false)
+              breakLoop = true
+              return
             }
+            formData[element.name] = element.value;
           }
+          if (breakLoop) return
           item.userData = formData;
           if (signatureComponent) {
             hasEmail['first_name'] = formData.f_name;
             hasEmail['last_name'] = formData.l_name;
             hasEmail['phone'] = formData.phone;
+            let signCode = signatureComponent.jqSignature('getDataURL');
+            if (signCode === initSignCode) {
+              toast.error('Additional Participants cannot be empty');
+              setLoading(false)
+              return
+            }
             item.userData = {
               ...formData, signature: signatureComponent.jqSignature('getDataURL')
             };
@@ -211,6 +176,14 @@ const FormRender = () => {
           break;
         case 'capturePhoto':
           const node = document.querySelectorAll('#preview-image')[tracker.capturePhotoCount];
+          const parentNode = document.querySelectorAll('.formbuilder-capturePhoto-label')[tracker.capturePhotoCount];
+          label = parentNode.lastChild.classList;
+          console.log(label)
+          if (label && !node) {
+            toast.error('Capture Image is required.')
+            setLoading(false)
+            return
+          }
           if (node) {
             let imageFile = dataURLtoFile(node.src, 'DCIM');
             const frmData = new FormData();
@@ -221,29 +194,40 @@ const FormRender = () => {
           tracker.capturePhotoCount += 1;
           break;
         case 'electronicSignatureConsent':
-          let checkbox = document.querySelectorAll('#electronicSign');
-          checkbox = checkbox[tracker.electronicSignatureConsentCount].checked;
+          let checkboxDiv = document.querySelectorAll('#electronicSign')[tracker.electronicSignatureConsentCount];
+          let checkbox = checkboxDiv.checked;
+          label = checkboxDiv.closest(`.formbuilder-electronicSignatureConsent`).firstChild.lastChild.classList;
+          console.log(label)
+          if (!checkbox && label) {
+            toast.error('Consent is required.')
+            setLoading(false)
+            return
+          }
           item.userData = [checkbox]
           tracker.electronicSignatureConsentCount += 1;
           break
         case 'richTextEditor':
-          // let textAreaArr = document.querySelectorAll('.textarea-selector')[tracker.richTextEditorCount];
-          // const richEditor = tinymce.get(textAreaArr.id);
-          // item.userData = richEditor.getContent();
+          let textAreaArr = document.querySelectorAll('.textarea-selector')[tracker.richTextEditorCount];
+          const richEditor = tinymce.get(textAreaArr.id);
           let imgStr = document.querySelector('div[role="application"]');
           let signArr = document.querySelectorAll('.sign');
           imgStr = document.querySelectorAll('table img');
-          if(imgStr.length < signArr.length){
+          if (imgStr.length < signArr.length) {
             toast.error('Please Add Initials')
             setLoading(false)
             return
           }
-          $(fb.current).find('input').prop('disabled', true);
-          item.userData = document.querySelector('div[role="application"]').outerHTML
+          let itemData = document.querySelector('div[role="application"] table');
+          if (itemData) {
+            item.userData = document.querySelector('div[role="application"]').outerHTML;
+          } else {
+            item.userData = richEditor.getContent();
+          }
           tracker.richTextEditorCount += 1;
           break
         case 'filesUpload':
-          const fileInp = document.querySelector('.file-inp');
+          const fileInp = document.querySelectorAll('.file-inp')[tracker.fileUpload];
+          label = fileInp.closest('.formbuilder-filesUpload').firstChild.lastChild.classList;
           const urlArr = [];
           let formData1 = new FormData();
           for (let i = 0; i < fileInp.files.length; i++) {
@@ -252,16 +236,28 @@ const FormRender = () => {
             urlArr.push(data.url)
             formData1.delete('file');
           }
+          if (urlArr.length === 0 && label) {
+            toast.error('File Upload is required.')
+            setLoading(false)
+            return
+          }
           item.userData = urlArr
+          tracker.fileUpload += 1
           break;
         case 'timeComponent':
           const allTimeDivs = document.querySelectorAll('#time')[tracker.timeCount];
+          label = allTimeDivs.parentNode.firstChild.lastChild.classList;
+          if (label && allTimeDivs.value === '') {
+            toast.error('Time is required.')
+            setLoading(false)
+            return
+          }
           item.userData = allTimeDivs.value
           tracker.timeCount++;
           break;
         case 'emailInput':
           let mail = document.querySelector(`input[name='defaultMail']`).value;
-          if(!mail){
+          if (!mail) {
             toast.error("Email is required!")
             setLoading(false);
             return
@@ -277,6 +273,7 @@ const FormRender = () => {
       const {data} = await postRequest('/customers', hasEmail)
       hasEmail['_id'] = data._id;
     }
+    $(htmlArr).find('input').prop('disabled', true);
     postRequest('/submissions', {
       reference_no: refNo.current?.innerText, status: 'submitted', customer: hasEmail._id, waiver: id, data: htmlArr
     }).then(r => {

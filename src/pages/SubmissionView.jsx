@@ -136,15 +136,6 @@ const SubmissionView = () => {
           case `${staticClass}richTextEditor`:
             let textAreaArr = document.querySelectorAll('.textarea-selector')[tracker.richTextEditorCount];
             $(`#${textAreaArr.id}`).html(submissionData.data[i].userData);
-            // tinymce.activeEditor.mode.set("readonly");
-            // tinymce.init({
-            //   theme: "advanced",
-            //   selector: `#${textAreaArr.id}`,
-            //   readonly: 1,
-            //   menubar: false,
-            //   statusbar: false,
-            //   toolbar: false,
-            // })
             tracker.richTextEditorCount++;
             break;
           case `${staticClass}capturePhoto`:

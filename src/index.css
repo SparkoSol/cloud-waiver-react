@@ -29,7 +29,6 @@
 li[type="additionalParticipants"] .field-label,
 li[type="additionalMinors"] .field-label,
 li[type="richTextEditor"] .field-label,
-.formbuilder-address-label,
 li[type="address"] .field-label {
   display: none !important;
 }

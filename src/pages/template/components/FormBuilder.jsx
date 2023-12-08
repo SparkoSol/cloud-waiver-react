@@ -29,6 +29,7 @@ const FormBuilder = () => {
   const [FormBuilder, setFormBuilder] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const {id} = useParams();
+
   useEffect(() => {
     if (!FormBuilder?.formData && waiver && status === 'fulfilled') {
       setFormBuilder($(fb.current).formBuilder({
@@ -55,7 +56,7 @@ const FormBuilder = () => {
     setLoading(true);
     let jsonData = JSON.parse(FormBuilder.formData);
     let textAreaArr = document.querySelectorAll('.textarea-selector')[0];
-    if (textAreaArr) {
+    if (textAreaArr && jsonData) {
       const richEditor = tinymce.get(textAreaArr.id);
       jsonData.map((item, index) => {
         if (item.type === 'richTextEditor') {
@@ -97,6 +98,7 @@ const FormBuilder = () => {
            setOpen={setOpenModal}
            btnText='Confirm'
            functionCall={() => {
+             console.log(FormBuilder)
              FormBuilder.actions.clearFields();
              for (let i = 0; i < staticForm.length; i++) {
                FormBuilder.actions.addField(staticForm[i])
