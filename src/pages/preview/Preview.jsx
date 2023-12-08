@@ -4,7 +4,7 @@ import {getDynamicTenantId} from "../../redux/cwAPI";
 import Button from "../../components/Button";
 import toast from 'react-hot-toast';
 import $ from "jquery";
-import {events, htmlModal, options, staticData} from "../../utils/builder";
+import {events, options, staticData} from "../../utils/builder";
 
 window.jQuery = $; //JQuery alias
 window.$ = $; //JQuery alias

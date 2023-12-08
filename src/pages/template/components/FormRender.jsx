@@ -1,11 +1,6 @@
 import $ from "jquery"; //Load jquery
 import React, {createRef, useEffect, useRef, useState} from "react"; //For react component
-import {
-  dataURLtoFile,
-  isEmptyObject,
-  recursiveFunction,
-  today
-} from "../../../utils/generalFunctions";
+import {dataURLtoFile, isEmptyObject, recursiveFunction, today} from "../../../utils/generalFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {selectPublicWaiver} from "../../../redux/waivers/waiverSlice";
 import {getPublicWaiver} from "../../../redux/waivers/waiverThunk";
@@ -14,7 +9,7 @@ import Button from "../../../components/Button";
 import Spinner from "../../../components/Spinner";
 import {getDynamicTenantId, postRequest} from "../../../redux/cwAPI";
 import toast from 'react-hot-toast'
-import {events, htmlModal, initSignCode, options} from "../../../utils/builder";
+import {events, initSignCode, options} from "../../../utils/builder";
 import tinymce from "tinymce";
 
 window.jQuery = $; //JQuery alias
@@ -257,10 +252,11 @@ const FormRender = () => {
           break;
         case 'emailInput':
           let mail = document.querySelector(`input[name='defaultMail']`).value;
-          if (!mail) {
-            toast.error("Email is required!")
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!mail || !emailRegex.test(mail)) {
+            toast.error("Email is required or not in a valid format!");
             setLoading(false);
-            return
+            return;
           }
           item.userData = mail
           hasEmail['email'] = mail

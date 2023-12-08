@@ -1,5 +1,5 @@
 import Heading from "../../components/Heading";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import Modal from "../../components/modals/Modal";
 import React, {useState} from "react";
 import Button from "../../components/Button";
@@ -9,7 +9,6 @@ import Spinner from "../../components/Spinner";
 import {staticData} from "../../utils/builder";
 
 const TemplateGallery = () => {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
 
@@ -21,7 +20,7 @@ const TemplateGallery = () => {
     }
     setLoading(true)
     postRequest(`/waivers`, body)
-      .then(r => navigate(`/templates/${r.data._id}/builder`))
+      .then(r => window.location.pathname = `/templates/${r.data._id}/builder`)
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false))
   }

@@ -1,4 +1,3 @@
-import {useNavigate} from "react-router-dom";
 import Button from "../../../components/Button";
 import {CheckCircleIcon} from "@heroicons/react/24/outline";
 import {getRequest} from "../../../redux/cwAPI";
@@ -9,7 +8,6 @@ import Spinner from "../../../components/Spinner";
 const SuccessState = () => {
   const [companyName, setCompanyName] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
     getRequest('/persons/company-details')
@@ -38,7 +36,7 @@ const SuccessState = () => {
           </p>
           <div className="mt-10 text-center">
             <Button btnText='Submit another waiver' btnClasses='bg-green-400' fullWidth='w-fit mx-auto'
-                    onClick={e => navigate(-1)}/>
+                    onClick={e => window.history.go(-1)}/>
           </div>
         </div>
       </div>

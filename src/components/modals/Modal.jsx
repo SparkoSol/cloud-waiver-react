@@ -1,8 +1,6 @@
 import {Fragment, useRef} from "react";
 import {Dialog, Transition} from '@headlessui/react'
 import Input from "../inputs/Input.jsx";
-import {useDispatch} from "react-redux";
-import {resetCurrentWaiver} from "../../redux/waivers/waiverSlice";
 
 export default function Modal({
                                   open, setOpen, functionCall, btnText = 'Submit', title = 'New Template',
@@ -10,7 +8,6 @@ export default function Modal({
                               }) {
     const cancelButtonRef = useRef(null)
     const inputRef = useRef();
-    const dispatch = useDispatch()
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
@@ -66,9 +63,9 @@ export default function Modal({
                                         onClick={() => {
                                             functionCall(inputRef.current?.value, title)
                                             setOpen(false)
-                                            if (btnText === "Submit") {
-                                                dispatch(resetCurrentWaiver())
-                                            }
+                                            // if (btnText === "Submit") {
+                                            //     dispatch(resetCurrentWaiver())
+                                            // }
                                         }}
                                     >
                                         {btnText}

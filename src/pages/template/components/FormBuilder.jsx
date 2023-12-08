@@ -12,7 +12,7 @@ import toast from 'react-hot-toast'
 import Modal from "../../../components/modals/Modal";
 import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
 import tinymce from "tinymce";
-import {options} from "../../../utils/builder";
+import {hideList, options} from "../../../utils/builder";
 
 window.jQuery = $;
 window.$ = $;
@@ -34,13 +34,22 @@ const FormBuilder = () => {
     if (!FormBuilder?.formData && waiver && status === 'fulfilled') {
       setFormBuilder($(fb.current).formBuilder({
         disabledActionButtons: ['data', 'clear', 'save'],
-        formData: waiver?.form_data.length > 0 ? waiver?.form_data : staticForm, ...options,
+        formData: waiver?.form_data?.length > 0 ? waiver?.form_data : staticForm,
+        ...options,
         controlOrder: ['primaryAdultParticipant', 'editable', 'additionalParticipants', 'additionalMinors', 'signature', 'address', 'richTextEditor', 'filesUpload', 'electronicSignatureConsent', 'capturePhoto']
       }))
       dispatch(resetStatus())
       setTimeout(() => {
         let textAreaArr = document.querySelectorAll('.textarea-selector');
-        if(textAreaArr.length > 0){
+        hideList();
+        document.querySelector('.form-wrap')?.addEventListener('click', function (e) {
+          if (e.target.closest('.input-control')?.getAttribute('data-type') === 'primaryAdultParticipant') {
+            hideList();
+          }else if(e.target.parentNode.parentNode.classList[0] === 'primaryAdultParticipant-field'){
+            document.querySelector('li[data-type="primaryAdultParticipant"]').style.display = 'block';
+          }
+        })
+        if (textAreaArr.length > 0) {
           waiver?.form_data
             .filter(item => item.type === 'richTextEditor')
             .forEach((filteredItem, index) => {
@@ -98,8 +107,7 @@ const FormBuilder = () => {
            setOpen={setOpenModal}
            btnText='Confirm'
            functionCall={() => {
-             console.log(FormBuilder)
-             FormBuilder.actions.clearFields();
+             FormBuilder.actions?.clearFields();
              for (let i = 0; i < staticForm.length; i++) {
                FormBuilder.actions.addField(staticForm[i])
              }

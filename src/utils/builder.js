@@ -131,7 +131,7 @@ export function htmlModal(index) {
             </div>`)
 }
 
-export function additionParticipantForm(data, email=null) {
+export function additionParticipantForm(data, email = null) {
   return `<form class="space-y-2" id="myForm">
           ${(data.f_name || data.showFirstName) ? `<div class="mt-3">
             <label for="f_name" class='text-sm text-gray-900 whitespace-nowrap'>First name</label>
@@ -177,10 +177,9 @@ const templates = {
   primaryAdultParticipant: function (fieldData) {
     return {
       onRender: function () {
-        console.log('rendered')
         let element = $(`.field-${fieldData.name}`);
         element.append(additionParticipantForm(fieldData, 'email'));
-        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px dashed #D1D5DB', lineWidth:3});
+        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px dashed #D1D5DB', lineWidth: 3});
       }
     };
   },
@@ -216,7 +215,7 @@ const templates = {
         <div class="js-signature"></div>
         </div>
       `);
-        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid transparent', lineWidth:3});
+        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px solid transparent', lineWidth: 3});
       }
     };
   },
@@ -267,15 +266,6 @@ const templates = {
         tinymce.init({
           selector: `#${fieldData.name}`,
           promotion: true,
-          // plugins: 'code anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-          // toolbar: 'undo redo | styleselect fontselect fontsizeselect | bold italic underline strikethrough | link image media table | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | emoticons charmap | removeformat code',
-          // statusbar: true,
-          // menubar: 'file edit insert view format table tools help',
-          // contextmenu: true,
-          // table_sizing_mode: 'fixed',
-          // contentEditable: true,
-          // readonly: false
-
           plugins: window.location.pathname.includes('view') ? '' : 'code anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
           toolbar: window.location.pathname.includes('view') ? false : 'undo redo | styleselect fontselect fontsizeselect | bold italic underline strikethrough | link image media table | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | emoticons charmap | removeformat code',
           statusbar: !window.location.pathname.includes('view'),
@@ -284,7 +274,7 @@ const templates = {
           table_sizing_mode: 'fixed',
           contentEditable: !window.location.pathname.includes('view'),
           readonly: window.location.pathname.includes('view')
-        }).then(r=>console.log(r)).catch(e=>console.log(e));
+        }).then(r => console.log(r)).catch(e => console.log(e));
       }
     };
   },
@@ -633,7 +623,7 @@ export let options = {
         label: 'Show Signature',
         value: true,
         type: 'checkbox',
-      },
+      }
       // 'show-scanner': {
       //   label: 'Show Scanner',
       //   value: true,
@@ -796,7 +786,7 @@ function commonPayload(form, newDiv, fieldData) {
       element.append(newDiv);
       $('.js-signature').jqSignature({
         autoFit: true,
-        lineWidth:3,
+        lineWidth: 3,
         height: 200,
         border: '1px solid transparent',
       });
@@ -818,22 +808,21 @@ function commonPayload(form, newDiv, fieldData) {
   });
 }
 
-export function events(){
+export function events() {
   const body = document.querySelector(`table`);
   body.addEventListener('click', function (e) {
     let idx = e.target.classList[0]?.split('-')[1]
     //open the sign modal
     if (e.target.classList[0]?.includes('init')) {
-      navigator.clipboard.readText().then(r=>{
-        if(!r.includes('data:image/png')){
+      navigator.clipboard.readText().then(r => {
+        if (!r.includes('data:image/png')) {
           document.querySelectorAll(`.modal`)[idx].classList.remove('hidden')
-        }else{
+        } else {
           const tableCell = document.getElementById(`initials-${idx}`);
           tableCell.innerHTML += `<img src="${r}" style="width: 100px; height: 52px;" alt='' />`;
         }
       })
-    }
-    else if(e.target.tagName === 'IMG'){
+    } else if (e.target.tagName === 'IMG') {
       let idx = e.target.parentNode.classList[0]?.split('-')[1];
       document.querySelectorAll(`.js-signature.initial-signature-pad`)[idx].innerHTML =
         `<img src="${e.target.src}" style="width: 620px; height: 200px;" alt='' />`
@@ -858,7 +847,7 @@ export function events(){
         navigator.clipboard.writeText(sign);
         const tableCell = document.getElementById(`initials-${idx}`)
         let children = tableCell.children;
-        if(children.length > 1) children[1].innerHTML += `<img src="${sign}" style="width: 100px; height: 52px;" alt='' />`;
+        if (children.length > 1) children[1].innerHTML += `<img src="${sign}" style="width: 100px; height: 52px;" alt='' />`;
         else tableCell.innerHTML += `<img src="${sign}" style="width: 100px; height: 52px;" alt='' />`;
         document.querySelectorAll(`.modal`)[idx].classList.add('hidden')
       })
@@ -892,4 +881,12 @@ export function events(){
   }
   $('.js-signature.initial-signature-pad').jqSignature({width: 620, height: 200, lineWidth: 3});
 }
+
 export let initSignCode = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAADICAYAAAB26ZNJAAAAAXNSR0IArs4c6QAAD6xJREFUeF7t2EEBAAAIAjHtX9oe3mzA8MWOI0CAAAECBAgQIECAAAECBN4L7PuEAhIgQIAAAQIECBAgQIAAAQJjAPAEBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQMAH6AAAECBAgQIECAAAECBAgEBAwAgZJFJECAAAECBAgQIECAAAECBgA/QIAAAQIECBAgQIAAAQIEAgIGgEDJIhIgQIAAAQIECBAgQIAAAQOAHyBAgAABAgQIECBAgAABAgEBA0CgZBEJECBAgAABAgQIECBAgIABwA8QIECAAAECBAgQIECAAIGAgAEgULKIBAgQIECAAAECBAgQIEDAAOAHCBAgQIAAAQIECBAgQIBAQMAAEChZRAIECBAgQIAAAQIECBAgYADwAwQIECBAgAABAgQIECBAICBgAAiULCIBAgQIECBAgAABAgQIEDAA+AECBAgQIECAAAECBAgQIBAQMAAEShaRAAECBAgQIECAAAECBAgYAPwAAQIECBAgQIAAAQIECBAICBgAAiWLSIAAAQIECBAgQIAAAQIEDAB+gAABAgQIECBAgAABAgQIBAQMAIGSRSRAgAABAgQIECBAgAABAgYAP0CAAAECBAgQIECAAAECBAICBoBAySISIECAAAECBAgQIECAAAEDgB8gQIAAAQIECBAgQIAAAQIBAQNAoGQRCRAgQIAAAQIECBAgQICAAcAPECBAgAABAgQIECBAgACBgIABIFCyiAQIECBAgAABAgQIECBAwADgBwgQIECAAAECBAgQIECAQEDAABAoWUQCBAgQIECAAAECBAgQIGAA8AMECBAgQIAAAQIECBAgQCAgYAAIlCwiAQIECBAgQIAAAQIECBAwAPgBAgQIECBAgAABAgQIECAQEDAABEoWkQABAgQIECBAgAABAgQIGAD8AAECBAgQIECAAAECBAgQCAgYAAIli0iAAAECBAgQIECAAAECBAwAfoAAAQIECBAgQIAAAQIECAQEDACBkkUkQIAAAQIECBAgQIAAAQIGAD9AgAABAgQIECBAgAABAgQCAgaAQMkiEiBAgAABAgQIECBAgAABA4AfIECAAAECBAgQIECAAAECAQEDQKBkEQkQIECAAAECBAgQIECAgAHADxAgQIAAAQIECBAgQIAAgYCAASBQsogECBAgQIAAAQIECBAgQMAA4AcIECBAgAABAgQIECBAgEBAwAAQKFlEAgQIECBAgAABAgQIECBgAPADBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQMAH6AAAECBAgQIECAAAECBAgEBAwAgZJFJECAAAECBAgQIECAAAECBgA/QIAAAQIECBAgQIAAAQIEAgIGgEDJIhIgQIAAAQIECBAgQIAAAQOAHyBAgAABAgQIECBAgAABAgEBA0CgZBEJECBAgAABAgQIECBAgIABwA8QIECAAAECBAgQIECAAIGAgAEgULKIBAgQIECAAAECBAgQIEDAAOAHCBAgQIAAAQIECBAgQIBAQMAAEChZRAIECBAgQIAAAQIECBAgYADwAwQIECBAgAABAgQIECBAICBgAAiULCIBAgQIECBAgAABAgQIEDAA+AECBAgQIECAAAECBAgQIBAQMAAEShaRAAECBAgQIECAAAECBAgYAPwAAQIECBAgQIAAAQIECBAICBgAAiWLSIAAAQIECBAgQIAAAQIEDAB+gAABAgQIECBAgAABAgQIBAQMAIGSRSRAgAABAgQIECBAgAABAgYAP0CAAAECBAgQIECAAAECBAICBoBAySISIECAAAECBAgQIECAAAEDgB8gQIAAAQIECBAgQIAAAQIBAQNAoGQRCRAgQIAAAQIECBAgQICAAcAPECBAgAABAgQIECBAgACBgIABIFCyiAQIECBAgAABAgQIECBAwADgBwgQIECAAAECBAgQIECAQEDAABAoWUQCBAgQIECAAAECBAgQIGAA8AMECBAgQIAAAQIECBAgQCAgYAAIlCwiAQIECBAgQIAAAQIECBAwAPgBAgQIECBAgAABAgQIECAQEDAABEoWkQABAgQIECBAgAABAgQIGAD8AAECBAgQIECAAAECBAgQCAgYAAIli0iAAAECBAgQIECAAAECBAwAfoAAAQIECBAgQIAAAQIECAQEDACBkkUkQIAAAQIECBAgQIAAAQIGAD9AgAABAgQIECBAgAABAgQCAgaAQMkiEiBAgAABAgQIECBAgAABA4AfIECAAAECBAgQIECAAAECAQEDQKBkEQkQIECAAAECBAgQIECAgAHADxAgQIAAAQIECBAgQIAAgYCAASBQsogECBAgQIAAAQIECBAgQMAA4AcIECBAgAABAgQIECBAgEBAwAAQKFlEAgQIECBAgAABAgQIECBgAPADBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQMAH6AAAECBAgQIECAAAECBAgEBAwAgZJFJECAAAECBAgQIECAAAECBgA/QIAAAQIECBAgQIAAAQIEAgIGgEDJIhIgQIAAAQIECBAgQIAAAQOAHyBAgAABAgQIECBAgAABAgEBA0CgZBEJECBAgAABAgQIECBAgIABwA8QIECAAAECBAgQIECAAIGAgAEgULKIBAgQIECAAAECBAgQIEDAAOAHCBAgQIAAAQIECBAgQIBAQMAAEChZRAIECBAgQIAAAQIECBAgYADwAwQIECBAgAABAgQIECBAICBgAAiULCIBAgQIECBAgAABAgQIEDAA+AECBAgQIECAAAECBAgQIBAQMAAEShaRAAECBAgQIECAAAECBAgYAPwAAQIECBAgQIAAAQIECBAICBgAAiWLSIAAAQIECBAgQIAAAQIEDAB+gAABAgQIECBAgAABAgQIBAQMAIGSRSRAgAABAgQIECBAgAABAgYAP0CAAAECBAgQIECAAAECBAICBoBAySISIECAAAECBAgQIECAAAEDgB8gQIAAAQIECBAgQIAAAQIBAQNAoGQRCRAgQIAAAQIECBAgQICAAcAPECBAgAABAgQIECBAgACBgIABIFCyiAQIECBAgAABAgQIECBAwADgBwgQIECAAAECBAgQIECAQEDAABAoWUQCBAgQIECAAAECBAgQIGAA8AMECBAgQIAAAQIECBAgQCAgYAAIlCwiAQIECBAgQIAAAQIECBAwAPgBAgQIECBAgAABAgQIECAQEDAABEoWkQABAgQIECBAgAABAgQIGAD8AAECBAgQIECAAAECBAgQCAgYAAIli0iAAAECBAgQIECAAAECBAwAfoAAAQIECBAgQIAAAQIECAQEDACBkkUkQIAAAQIECBAgQIAAAQIGAD9AgAABAgQIECBAgAABAgQCAgaAQMkiEiBAgAABAgQIECBAgAABA4AfIECAAAECBAgQIECAAAECAQEDQKBkEQkQIECAAAECBAgQIECAgAHADxAgQIAAAQIECBAgQIAAgYCAASBQsogECBAgQIAAAQIECBAgQMAA4AcIECBAgAABAgQIECBAgEBAwAAQKFlEAgQIECBAgAABAgQIECBgAPADBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQMAH6AAAECBAgQIECAAAECBAgEBAwAgZJFJECAAAECBAgQIECAAAECBgA/QIAAAQIECBAgQIAAAQIEAgIGgEDJIhIgQIAAAQIECBAgQIAAAQOAHyBAgAABAgQIECBAgAABAgEBA0CgZBEJECBAgAABAgQIECBAgIABwA8QIECAAAECBAgQIECAAIGAgAEgULKIBAgQIECAAAECBAgQIEDAAOAHCBAgQIAAAQIECBAgQIBAQMAAEChZRAIECBAgQIAAAQIECBAgYADwAwQIECBAgAABAgQIECBAICBgAAiULCIBAgQIECBAgAABAgQIEDAA+AECBAgQIECAAAECBAgQIBAQMAAEShaRAAECBAgQIECAAAECBAgYAPwAAQIECBAgQIAAAQIECBAICBgAAiWLSIAAAQIECBAgQIAAAQIEDAB+gAABAgQIECBAgAABAgQIBAQMAIGSRSRAgAABAgQIECBAgAABAgYAP0CAAAECBAgQIECAAAECBAICBoBAySISIECAAAECBAgQIECAAAEDgB8gQIAAAQIECBAgQIAAAQIBAQNAoGQRCRAgQIAAAQIECBAgQICAAcAPECBAgAABAgQIECBAgACBgIABIFCyiAQIECBAgAABAgQIECBAwADgBwgQIECAAAECBAgQIECAQEDAABAoWUQCBAgQIECAAAECBAgQIGAA8AMECBAgQIAAAQIECBAgQCAgYAAIlCwiAQIECBAgQIAAAQIECBAwAPgBAgQIECBAgAABAgQIECAQEDAABEoWkQABAgQIECBAgAABAgQIGAD8AAECBAgQIECAAAECBAgQCAgYAAIli0iAAAECBAgQIECAAAECBAwAfoAAAQIECBAgQIAAAQIECAQEDACBkkUkQIAAAQIECBAgQIAAAQIGAD9AgAABAgQIECBAgAABAgQCAgaAQMkiEiBAgAABAgQIECBAgAABA4AfIECAAAECBAgQIECAAAECAQEDQKBkEQkQIECAAAECBAgQIECAgAHADxAgQIAAAQIECBAgQIAAgYCAASBQsogECBAgQIAAAQIECBAgQMAA4AcIECBAgAABAgQIECBAgEBAwAAQKFlEAgQIECBAgAABAgQIECBgAPADBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQOWacAyQIYvuUAAAAASUVORK5CYII='
+
+export function hideList() {
+  let existingForms = document.querySelectorAll('.primaryAdultParticipant-field');
+  if (existingForms.length > 0) {
+    document.querySelector('li[data-type="primaryAdultParticipant"]').style.display = 'none';
+  }
+}

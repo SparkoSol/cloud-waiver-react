@@ -8,10 +8,8 @@ import {getRequest, patchRequest, postRequest} from "../../redux/cwAPI";
 import TemplateRow from "./components/TemplateRow";
 import {addCheck} from "../../utils/generalFunctions";
 import toast from "react-hot-toast";
-import {useNavigate} from "react-router-dom";
 
 function Template() {
-  const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [allTemplates, setAllTemplates] = useState([]);
@@ -60,7 +58,7 @@ function Template() {
     else body = {name}
 
     postRequest(`/waivers`, body)
-      .then(r => navigate(`/templates/${r.data._id}/builder`))
+      .then(r => window.location.pathname = `/templates/${r.data._id}/builder`)
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false))
   }
