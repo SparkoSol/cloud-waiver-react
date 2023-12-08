@@ -1,4 +1,4 @@
-import {getRequest, patchRequest} from "../cwAPI.js";
+import {getRequest, patchRequest, postRequest} from "../cwAPI.js";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import toast from 'react-hot-toast'
 
@@ -46,6 +46,16 @@ export const updateTeam = createAsyncThunk('/team/updateTeam', async (payload) =
   try {
     const {teamId, body} = payload;
     const {data} = await patchRequest(`/teams/${teamId}`, body);
+    return data
+  } catch (e) {
+    toast.error(e.response.data.message)
+    throw(e.response.data.message);
+  }
+})
+
+export const createTeam = createAsyncThunk('/team/createTeam', async (payload) => {
+  try {
+    const {data} = await postRequest('/teams', payload);
     return data
   } catch (e) {
     toast.error(e.response.data.message)

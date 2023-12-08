@@ -7,7 +7,7 @@ import DataTable from "../../components/DataTable.jsx";
 import TeamRow from "./components/TeamRow.jsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getSingleTeam, updateTeam} from "../../redux/team/teamThunk.js";
+import {createTeam, getSingleTeam, updateTeam} from "../../redux/team/teamThunk.js";
 import {currentTeamStatus, selectCurrentTeam} from "../../redux/team/teamSlice.js";
 import Spinner from "../../components/Spinner.jsx";
 
@@ -51,7 +51,6 @@ const ManagementTeam = () => {
 
   function handleUpdate(e) {
     e.preventDefault();
-    setLoading(true);
     const body = {
       name: inputRef.current.value,
       permissions: []
@@ -61,13 +60,18 @@ const ManagementTeam = () => {
         body.permissions.push(item.value);
       }
     }
+    setLoading(true)
     if (id) {
       dispatch(updateTeam({teamId: id, body})).unwrap()
         .then(() => {
-          setLoading(false);
+          navigate('/management')
+        }).catch(e => setLoading(false)).finally(() => setLoading(false));
+    } else {
+      dispatch(createTeam(body)).unwrap()
+        .then(() => {
           navigate('/management')
         })
-        .catch(e => setLoading(false));
+        .catch(e => setLoading(false)).finally(() => setLoading(false));
     }
   }
 
