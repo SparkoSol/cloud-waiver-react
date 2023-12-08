@@ -70,7 +70,8 @@ export const addCheck = (arr, filter) => {
 }
 
 export function limitChars(str, number) {
-  return str.slice(0, number) + '...';
+  // return str.slice(0, number) + '...';
+  return str.slice(0)
 }
 
 export function today() {
@@ -164,7 +165,7 @@ export let additionMinorForm = `
         </form>`
 
 //static headers
-export const DashBoardHeaders = ['ID', 'Signed Date', 'First Name', 'Last Name', 'Reference No', 'Template Name', 'Status'];
+export const DashBoardHeaders = ['Reference No', 'Signed Date', 'First Name', 'Last Name', 'Template Name', 'Status'];
 export const sideBarOptions = [
   {
     id: 1,

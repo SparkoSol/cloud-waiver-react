@@ -71,7 +71,7 @@ const CustomerSubmissions = ({currentTab = ''}) => {
       {
         allWaivers.length > 0 ?
           <DataTable
-            headers={['ID', 'Signed Date', 'Reference No', 'Template Name', 'Status']}
+            headers={['Reference No','Signed Date', 'Template Name', 'Status']}
             setSelectedCount={setSelectedCount}
             TableRow={CustomerSubmissionRow} items={filteredWaivers} setSelectAll={setSelectAll}
             selectAll={selectAll} deleteRow={updateSubmissionStatus}

@@ -13,7 +13,7 @@ const CustomersRow = ({item, functionCall, index}) => {
             onChange={() => functionCall(index)}/>
         </div>
       </td>
-      <td className='py-4 px-6 font-semibold text-sm text-gray-900 whitespace-nowrap'>{limitChars(item._id, 6)}</td>
+      {/*<td className='py-4 px-6 font-semibold text-sm text-gray-900 whitespace-nowrap'>{limitChars(item._id, 6)}</td>*/}
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.first_name}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.last_name}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.customer?.email || item.email}</td>
