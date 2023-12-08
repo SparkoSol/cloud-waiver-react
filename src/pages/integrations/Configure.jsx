@@ -1,29 +1,57 @@
 import DataTable from "../../components/DataTable";
-import ConfigureRow from "./components/ConfigureRow";
-import {useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import GoogleDriveConfigRow from "./components/GoogleDriveConfigRow";
+import {useLocation} from "react-router-dom";
 import GoogleDriveConfig from "./components/GoogleDriveConfig";
+import DropBoxConfig from "./components/DropBoxConfig";
+import DropboxConfigRow from "./components/DropboxConfigRow";
+import MailChimpConfigRow from "./components/MailChimpConfigRow";
+import MailChimpConfig from "./components/MailChimpConfig";
+import ConstantContactConfig from "./components/ContactConfig";
+import ContactConfigRow from "./components/ContactConfigRow";
 
 const Configure = () => {
-    const {deletedDriveAccount} = useSelector(state => state.integration)
-    const navigate = useNavigate()
 
-
-    useEffect(() => {
-        if (deletedDriveAccount) {
-            navigate("/settings/integrations")
-        }
-    }, []);
-
+    const location = useLocation()
 
     return (
         <>
-            <GoogleDriveConfig/>
-            <DataTable colspan={0} headers={["Template Name", "Choose Folder"]} TableRow={ConfigureRow}
-                       items={[
-                           {templateName: "template", Inputs: "Folders"},
-                       ]}/>
+            {location?.state?.config === "googleDrive" ?
+                <>
+                    <GoogleDriveConfig/>
+                    <DataTable colspan={0} headers={["Template Name", "Choose Folder"]} TableRow={GoogleDriveConfigRow}
+                               items={[
+                                   {templateName: "template", Inputs: "Folders"},
+                               ]}/>
+                </>
+                : location?.state?.config === "dropbox" ?
+                    <>
+                        <DropBoxConfig/>
+                        <DataTable colspan={0} headers={["Template Name", "Choose Folder"]} TableRow={DropboxConfigRow}
+                                   items={[
+                                       {templateName: "template", Inputs: "Folders"},
+                                   ]}/>
+                    </>
+                    :
+                    location?.state?.config === "mailchimp" ?
+                        <>
+                            <MailChimpConfig/>
+                            <DataTable colspan={0} headers={["Template Name", "Choose List"]}
+                                       TableRow={MailChimpConfigRow}
+                                       items={[
+                                           {templateName: "template", Inputs: "List"},
+                                       ]}/>
+                        </> : location?.state?.config === "constantContact" ?
+                            <>
+                                <ConstantContactConfig/>
+                                <DataTable colspan={0} headers={["Template Name", "Choose List"]}
+                                           TableRow={ContactConfigRow}
+                                           items={[
+                                               {templateName: "template", Inputs: "List"},
+                                           ]}/>
+                            </> :
+                            <></>
+            }
+
         </>
     );
 };

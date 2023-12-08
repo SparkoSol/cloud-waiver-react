@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {deleteDropbox, toggleDropBoxState} from "../../../redux/integration/integrationSlice";
+import {deleteMailchimp, toggleMailchimp} from "../../../redux/integration/integrationSlice";
 import axios from "axios";
 import toast from "react-hot-toast";
 import {selectCurrentUser} from "../../../redux/user/userSlice";
@@ -9,26 +9,26 @@ import ConfigCard from "./ConfigCard";
 
 const DropBoxConfig = () => {
     const dispatch = useDispatch()
-    const {dropBoxActive, deletedDropBox} = useSelector(state => state.integration)
+    const {deletedMailchimp, mailchimpActive} = useSelector(state => state.integration)
     const user = useSelector(selectCurrentUser)
     const navigate = useNavigate()
 
     const toggleButtonState = () => {
-        dispatch(toggleDropBoxState(!dropBoxActive))
+        dispatch(toggleMailchimp(!mailchimpActive))
     }
     const deleteButton = () => {
-        dispatch(deleteDropbox(true))
-        dispatch(dispatch(toggleDropBoxState(false)))
-        axios.delete(`http://localhost:3000/integration/dropbox-tokens/${user._id}`).then(() => {
+        dispatch(deleteMailchimp(true))
+        dispatch(toggleMailchimp(false))
+        axios.delete(`http://localhost:3000/integration/mail-chimp/${user._id}`).then(() => {
             navigate("/settings/integrations")
         }).catch((reason) => {
             toast.error(reason.response.data.message)
         })
     }
     return (
-        <ConfigCard activeStatus={dropBoxActive} deletedStatus={deletedDropBox} deleteToken={deleteButton}
-                    serviceImage={'/dropbox.svg'} toggleState={toggleButtonState} serviceName={"Dropbox"}
-                    serviceDescription={"Upload waiver to dropbox"}/>
+        <ConfigCard activeStatus={mailchimpActive} deletedStatus={deletedMailchimp} deleteToken={deleteButton}
+                    toggleState={toggleButtonState} serviceImage={'/mailchimp.svg'} serviceName={"Mailchimp"}
+                    serviceDescription={"Syncs with subscriber list"}/>
     );
 };
 

@@ -1,18 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import SelectInput from "../../../components/inputs/SelectInput";
-import axios from "axios";
 import {useSelector} from "react-redux";
 import {selectCurrentUser} from "../../../redux/user/userSlice";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 import toast from "react-hot-toast";
+import SelectInput from "../../../components/inputs/SelectInput";
 
-const ConfigureRow = ({item}) => {
+const MailChimpConfigRow = ({item}) => {
     const user = useSelector(selectCurrentUser)
     const [folders, setFolders] = useState([])
     const [selected, setSelected] = useState(item.Inputs)
     useEffect(() => {
-        axios.get(`http://localhost:3000/Integration/google-drive-folders/${user._id}`).then((value) => {
+        axios.get(`http://localhost:3000/Integration/mail-chimp-lists/${user._id}`).then((value) => {
             setFolders(value.data.map((folder) => folder.name))
-            console.log(folders)
         }).catch((reason) => {
             toast.error(reason.response.data.message)
         })
@@ -27,4 +26,4 @@ const ConfigureRow = ({item}) => {
     );
 };
 
-export default ConfigureRow;
+export default MailChimpConfigRow;
