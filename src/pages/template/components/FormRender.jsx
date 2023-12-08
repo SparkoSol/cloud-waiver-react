@@ -101,7 +101,7 @@ const FormRender = () => {
           if ($(signNode).jqSignature('getDataURL') === initSignCode && label) {
             toast.error('Signature is required.')
             setLoading(false)
-            $(fb.current).find('input').prop('disabled', true);
+            $(fb.current).find('input').prop('disabled', false);
             return
           }
           item.userData = $(signNode).jqSignature('getDataURL');
@@ -119,9 +119,9 @@ const FormRender = () => {
           const formData = {};
           for (const element of formElements) {
             if (element.value.trim() === '' && label) {
-              toast.error(`${item.type === 'primaryAdultParticipant' ? 'Additional Participants' : 'Address'} cannot be empty`);
+              toast.error(`${item.type === 'primaryAdultParticipant' ? 'Adult Participants' : 'Address'} cannot be empty`);
               setLoading(false);
-              $(fb.current).find('input').prop('disabled', true);
+              $(fb.current).find('input').prop('disabled', false);
               breakLoop = true
               return
             }
@@ -137,7 +137,7 @@ const FormRender = () => {
             if (signCode === initSignCode) {
               toast.error('Additional Participants cannot be empty');
               setLoading(false);
-              $(fb.current).find('input').prop('disabled', true);
+              $(fb.current).find('input').prop('disabled', false);
               return
             }
             item.userData = {
@@ -176,11 +176,10 @@ const FormRender = () => {
           const node = document.querySelectorAll('#preview-image')[tracker.capturePhotoCount];
           const parentNode = document.querySelectorAll('.formbuilder-capturePhoto-label')[tracker.capturePhotoCount];
           label = parentNode.lastChild?.classList;
-          console.log(label)
           if (label && !node) {
             toast.error('Capture Image is required.')
             setLoading(false)
-            $(fb.current).find('input').prop('disabled', true);
+            $(fb.current).find('input').prop('disabled', false);
             return
           }
           if (node) {
@@ -200,7 +199,7 @@ const FormRender = () => {
           if (!checkbox && label) {
             toast.error('Consent is required.')
             setLoading(false)
-            $(fb.current).find('input').prop('disabled', true);
+            $(fb.current).find('input').prop('disabled', false);
             return
           }
           item.userData = [checkbox]
@@ -215,7 +214,7 @@ const FormRender = () => {
           if (imgStr.length < signArr.length) {
             toast.error('Please Add Initials')
             setLoading(false);
-            $(fb.current).find('input').prop('disabled', true);
+            $(fb.current).find('input').prop('disabled', false);
             return
           }
           let itemData = document.querySelector('div[role="application"] table');
@@ -241,7 +240,7 @@ const FormRender = () => {
           if (urlArr.length === 0 && label) {
             toast.error('File Upload is required.')
             setLoading(false);
-            $(fb.current).find('input').prop('disabled', true);
+            $(fb.current).find('input').prop('disabled', false);
             return
           }
           item.userData = urlArr
@@ -253,7 +252,7 @@ const FormRender = () => {
           if (label && allTimeDivs.value === '') {
             toast.error('Time is required.')
             setLoading(false);
-            $(fb.current).find('input').prop('disabled', true);
+            $(fb.current).find('input').prop('disabled', false);
             return
           }
           item.userData = allTimeDivs.value
@@ -264,7 +263,7 @@ const FormRender = () => {
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!mail || !emailRegex.test(mail)) {
             toast.error("Email is required or not in a valid format!");
-            $(fb.current).find('input').prop('disabled', true);
+            $(fb.current).find('input').prop('disabled', false);
             setLoading(false);
             return;
           }
@@ -279,7 +278,6 @@ const FormRender = () => {
       const {data} = await postRequest('/customers', hasEmail)
       hasEmail['_id'] = data._id;
     }
-    $(htmlArr).find('input').prop('disabled', true);
     postRequest('/submissions', {
       reference_no: refNo.current?.innerText, status: 'submitted', customer: hasEmail._id, waiver: id, data: htmlArr
     }).then(r => {
