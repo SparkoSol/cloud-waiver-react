@@ -101,6 +101,7 @@ const FormRender = () => {
           if ($(signNode).jqSignature('getDataURL') === initSignCode && label) {
             toast.error('Signature is required.')
             setLoading(false)
+            $(fb.current).find('input').prop('disabled', true);
             return
           }
           item.userData = $(signNode).jqSignature('getDataURL');
@@ -119,7 +120,8 @@ const FormRender = () => {
           for (const element of formElements) {
             if (element.value.trim() === '' && label) {
               toast.error(`${item.type === 'primaryAdultParticipant' ? 'Additional Participants' : 'Address'} cannot be empty`);
-              setLoading(false)
+              setLoading(false);
+              $(fb.current).find('input').prop('disabled', true);
               breakLoop = true
               return
             }
@@ -134,7 +136,8 @@ const FormRender = () => {
             let signCode = signatureComponent.jqSignature('getDataURL');
             if (signCode === initSignCode) {
               toast.error('Additional Participants cannot be empty');
-              setLoading(false)
+              setLoading(false);
+              $(fb.current).find('input').prop('disabled', true);
               return
             }
             item.userData = {
@@ -177,6 +180,7 @@ const FormRender = () => {
           if (label && !node) {
             toast.error('Capture Image is required.')
             setLoading(false)
+            $(fb.current).find('input').prop('disabled', true);
             return
           }
           if (node) {
@@ -196,6 +200,7 @@ const FormRender = () => {
           if (!checkbox && label) {
             toast.error('Consent is required.')
             setLoading(false)
+            $(fb.current).find('input').prop('disabled', true);
             return
           }
           item.userData = [checkbox]
@@ -209,10 +214,12 @@ const FormRender = () => {
           imgStr = document.querySelectorAll('table img');
           if (imgStr.length < signArr.length) {
             toast.error('Please Add Initials')
-            setLoading(false)
+            setLoading(false);
+            $(fb.current).find('input').prop('disabled', true);
             return
           }
           let itemData = document.querySelector('div[role="application"] table');
+          $(fb.current).find('input').prop('disabled', true);
           if (itemData) {
             item.userData = document.querySelector('div[role="application"]').outerHTML;
           } else {
@@ -233,7 +240,8 @@ const FormRender = () => {
           }
           if (urlArr.length === 0 && label) {
             toast.error('File Upload is required.')
-            setLoading(false)
+            setLoading(false);
+            $(fb.current).find('input').prop('disabled', true);
             return
           }
           item.userData = urlArr
@@ -244,7 +252,8 @@ const FormRender = () => {
           label = allTimeDivs.parentNode.firstChild.lastChild?.classList;
           if (label && allTimeDivs.value === '') {
             toast.error('Time is required.')
-            setLoading(false)
+            setLoading(false);
+            $(fb.current).find('input').prop('disabled', true);
             return
           }
           item.userData = allTimeDivs.value
@@ -255,6 +264,7 @@ const FormRender = () => {
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!mail || !emailRegex.test(mail)) {
             toast.error("Email is required or not in a valid format!");
+            $(fb.current).find('input').prop('disabled', true);
             setLoading(false);
             return;
           }
