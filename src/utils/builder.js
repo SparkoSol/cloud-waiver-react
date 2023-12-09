@@ -819,7 +819,7 @@ export function events() {
           document.querySelectorAll(`.modal`)[idx].classList.remove('hidden')
         } else {
           const tableCell = document.getElementById(`initials-${idx}`);
-          tableCell.innerHTML += `<img src="${r}" style="width: 100px; height: 52px;" alt='' />`;
+          tableCell.innerHTML += `<img src="${r}" style="height: 100%;" alt='' />`;
         }
       })
     } else if (e.target.tagName === 'IMG') {
@@ -847,8 +847,8 @@ export function events() {
         navigator.clipboard.writeText(sign);
         const tableCell = document.getElementById(`initials-${idx}`)
         let children = tableCell.children;
-        if (children.length > 1) children[1].innerHTML += `<img src="${sign}" style="width: 100px; height: 52px;" alt='' />`;
-        else tableCell.innerHTML += `<img src="${sign}" style="width: 100px; height: 52px;" alt='' />`;
+        if (children.length > 1) children[1].innerHTML += `<img src="${sign}" style="height: 100%;" alt='' />`;
+        else tableCell.innerHTML += `<img src="${sign}" style="height: 100%;" alt='' />`;
         document.querySelectorAll(`.modal`)[idx].classList.add('hidden')
       })
       doneBtn.click();

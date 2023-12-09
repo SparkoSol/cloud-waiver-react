@@ -5,7 +5,6 @@ import {Toaster} from "react-hot-toast";
 import Register from "./pages/register/Register.jsx";
 import ForgotPassword from "./pages/forgotPassword/ForgotPassword.jsx";
 import ResetPassword from "./pages/reset-password/ResetPassword.jsx";
-import VerifyMail from "./pages/verify-mail/VerifyMail.jsx";
 import VerificationClient from "./pages/verify-account/VerificationClient.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Settings from "./pages/settings/Settings.jsx";
