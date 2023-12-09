@@ -81,12 +81,14 @@ const router = createBrowserRouter([
     element: (
       <ResetPassword/>
     )
-  }, {
-    path: '/verify-mail/:hashId/:id',
-    element: (
-      <VerifyMail/>
-    )
-  }, {
+  },
+  // {
+  //   path: '/verify-mail/:hashId/:id',
+  //   element: (
+  //     <VerifyMail/>
+  //   )
+  // },
+  {
     path: '/verify-account/:hashId/:id',
     element: (
       <VerificationClient/>
@@ -281,11 +283,8 @@ function App() {
   const isResetPasswordPath = pathname.includes('reset-password');
 
   useEffect(() => {
-    if (code){
-      localStorage.setItem("cw-access-token", code)
-      return
-    }
     const token = localStorage.getItem("cw-access-token");
+    if (code) localStorage.setItem("cw-access-token", code);
     if (token || isTemplatePath || isPdfPath || isResetPasswordPath || isKioskPath) {
       if (isEmptyObject(currentUser) && !isTemplatePath && !isPdfPath && !isKioskPath) {
         dispatch(userProfile(token));
