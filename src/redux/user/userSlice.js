@@ -14,6 +14,9 @@ const userSlice = createSlice({
   reducers: {
     updateUserProfile: (state, {payload}) => {
       state.currentUser.profile_picture = payload
+    },
+    resetUser:(state, {payload})=>{
+      state.currentUser = null
     }
   },
   extraReducers: (builder) => {
@@ -91,5 +94,5 @@ const userSlice = createSlice({
 export const selectCurrentUser = (state) => state.user.currentUser;
 export const selectMember = (state) => state.user.members;
 
-export const {updateUserProfile} = userSlice.actions;
+export const {updateUserProfile, resetUser} = userSlice.actions;
 export default userSlice.reducer

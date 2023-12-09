@@ -283,8 +283,8 @@ function App() {
   const isResetPasswordPath = pathname.includes('reset-password');
 
   useEffect(() => {
-    const token = localStorage.getItem("cw-access-token");
     if (code) localStorage.setItem("cw-access-token", code);
+    const token = localStorage.getItem("cw-access-token");
     if (token || isTemplatePath || isPdfPath || isResetPasswordPath || isKioskPath) {
       if (isEmptyObject(currentUser) && !isTemplatePath && !isPdfPath && !isKioskPath) {
         dispatch(userProfile(token));

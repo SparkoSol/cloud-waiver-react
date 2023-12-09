@@ -2,11 +2,15 @@ import {Menu, Transition} from '@headlessui/react'
 import {Fragment} from 'react'
 // import { Cog6ToothIcon } from '@heroicons/react/20/outline';
 import {Cog6ToothIcon} from '@heroicons/react/24/outline';
+import {useDispatch} from "react-redux";
+import {resetUser} from "../../redux/user/userSlice";
 
 
 export default function DropDown() {
+    const dispatch = useDispatch();
     function handleClick() {
         localStorage.clear();
+        dispatch(resetUser());
         window.location.href = 'https://cloudwaiver.com';
     }
 
