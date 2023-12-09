@@ -28,7 +28,7 @@ export let staticData = [
     "label": "First Name",
     "placeholder": "First Name",
     "className": "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
-    "name": "text-1701925858198-0",
+    "name": "livery-f-name",
     "subtype": "text"
   },
   {
@@ -37,7 +37,7 @@ export let staticData = [
     "label": "Last Name",
     "placeholder": "Last Name",
     "className": "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
-    "name": "text-1701925858202-0",
+    "name": "livery-l-name",
     "subtype": "text"
   },
   {

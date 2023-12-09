@@ -37,7 +37,6 @@ const FormRender = () => {
       waiver?.form_data
         .filter(item => item.type === 'richTextEditor')
         .forEach((filteredItem, index) => {
-          console.log(filteredItem, textAreaArr[index].id)
           $(`#${textAreaArr[index].id}`).html(filteredItem.userData);
         });
       recursiveFunction(null, setSwitchState)
@@ -269,6 +268,13 @@ const FormRender = () => {
           }
           item.userData = mail
           hasEmail['email'] = mail
+          break
+        case 'text':
+          if (item.name === 'livery-f-name') {
+            hasEmail['first_name'] = item.userData[0];
+          } else if (item.name === 'livery-l-name') {
+            hasEmail['last_name'] = item.userData[0];
+          }
           break
         default:
           break
