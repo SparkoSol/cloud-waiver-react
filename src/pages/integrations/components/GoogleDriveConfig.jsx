@@ -19,7 +19,7 @@ const GoogleDriveConfig = () => {
     const deleteButton = () => {
         dispatch(deleteDriveAccount(true))
         dispatch(toggleDriveState(false))
-        axios.delete(`http://localhost:3000/integration/google-drive/${user._id}`).then(() => {
+        axios.delete(`http://localhost:3000/integration/auth-token/${user._id}?integration_type=google_drive`).then(() => {
             navigate("/settings/integrations")
         }).catch((reason) => {
             toast.error(reason.response.data.message)

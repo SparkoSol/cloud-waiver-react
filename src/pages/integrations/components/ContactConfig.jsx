@@ -19,7 +19,7 @@ const ConstantContactConfig = () => {
     const deleteButton = () => {
         dispatch(deleteConstantContact(true))
         dispatch(toggleConstantContact(false))
-        axios.delete(`http://localhost:3000/integration/constant-contact/${user._id}`).then(() => {
+        axios.delete(`http://localhost:3000/integration/auth-token/${user._id}?integration_type=constant_contact`).then(() => {
             navigate("/settings/integrations")
         }).catch((reason) => {
             toast.error(reason.response.data.message)

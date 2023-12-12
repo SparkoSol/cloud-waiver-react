@@ -19,7 +19,7 @@ const DropBoxConfig = () => {
     const deleteButton = () => {
         dispatch(deleteDropbox(true))
         dispatch(dispatch(toggleDropBoxState(false)))
-        axios.delete(`http://localhost:3000/integration/dropbox-tokens/${user._id}`).then(() => {
+        axios.delete(`http://localhost:3000/integration/auth-token/${user._id}?integration_type=dropbox`).then(() => {
             navigate("/settings/integrations")
         }).catch((reason) => {
             toast.error(reason.response.data.message)

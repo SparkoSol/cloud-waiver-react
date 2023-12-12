@@ -8,6 +8,8 @@ import MailChimpConfigRow from "./components/MailChimpConfigRow";
 import MailChimpConfig from "./components/MailChimpConfig";
 import ConstantContactConfig from "./components/ContactConfig";
 import ContactConfigRow from "./components/ContactConfigRow";
+import Button from "../../components/Button";
+import React from "react";
 
 const Configure = () => {
 
@@ -20,8 +22,19 @@ const Configure = () => {
                     <GoogleDriveConfig/>
                     <DataTable colspan={0} headers={["Template Name", "Choose Folder"]} TableRow={GoogleDriveConfigRow}
                                items={[
-                                   {templateName: "template", Inputs: "Folders"},
+                                   {templateName: "template", Inputs: "Folders"}, {
+                                       templateName: "template",
+                                       Inputs: "Folders"
+                                   }, {templateName: "template", Inputs: "Folders"}, {
+                                       templateName: "template",
+                                       Inputs: "Folders"
+                                   }, {templateName: "template", Inputs: "Folders"},
                                ]}/>
+                    <div className="w-full flex justify-end">
+                        <Button btnText='Submit' type='button'
+                                btnClasses='border border-gray-400 py-2 text-gray-900 mx-4 my-4'
+                                fullWidth='w-fit'/>
+                    </div>
                 </>
                 : location?.state?.config === "dropbox" ?
                     <>
@@ -30,6 +43,11 @@ const Configure = () => {
                                    items={[
                                        {templateName: "template", Inputs: "Folders"},
                                    ]}/>
+                        <div className="w-full flex justify-end">
+                            <Button btnText='Submit' type='button'
+                                    btnClasses='border border-gray-400 py-2 text-gray-900 mx-4 my-4'
+                                    fullWidth='w-fit'/>
+                        </div>
                     </>
                     :
                     location?.state?.config === "mailchimp" ?
@@ -40,6 +58,11 @@ const Configure = () => {
                                        items={[
                                            {templateName: "template", Inputs: "List"},
                                        ]}/>
+                            <div className="w-full flex justify-end">
+                                <Button btnText='Submit' type='button'
+                                        btnClasses='border border-gray-400 py-2 text-gray-900 mx-4 my-4'
+                                        fullWidth='w-fit'/>
+                            </div>
                         </> : location?.state?.config === "constantContact" ?
                             <>
                                 <ConstantContactConfig/>
@@ -48,6 +71,11 @@ const Configure = () => {
                                            items={[
                                                {templateName: "template", Inputs: "List"},
                                            ]}/>
+                                <div className="w-full flex justify-end">
+                                    <Button btnText='Submit' type='button'
+                                            btnClasses='border border-gray-400 py-2 text-gray-900 mx-4 my-4'
+                                            fullWidth='w-fit'/>
+                                </div>
                             </> :
                             <></>
             }

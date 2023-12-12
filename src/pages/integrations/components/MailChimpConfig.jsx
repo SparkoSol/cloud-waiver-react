@@ -19,7 +19,7 @@ const DropBoxConfig = () => {
     const deleteButton = () => {
         dispatch(deleteMailchimp(true))
         dispatch(toggleMailchimp(false))
-        axios.delete(`http://localhost:3000/integration/mail-chimp/${user._id}`).then(() => {
+        axios.delete(`http://localhost:3000/integration/auth-token/${user._id}?integration_type=mailchimp`).then(() => {
             navigate("/settings/integrations")
         }).catch((reason) => {
             toast.error(reason.response.data.message)
