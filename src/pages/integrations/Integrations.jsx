@@ -16,6 +16,8 @@ import {
     toggleMailchimp
 } from "../../redux/integration/integrationSlice";
 import {twMerge} from "tailwind-merge";
+import {useEffect} from "react";
+import axios from "axios";
 
 
 const Integrations = () => {
@@ -65,6 +67,48 @@ const Integrations = () => {
         }
     ]
 
+    useEffect(() => {
+        axios.get(`http://192.168.1.42:3000/integration/auth-token/${user._id}?integration_type=dropbox`).then((value) => {
+            if (value) {
+                dispatch(deleteDropbox(false))
+            }
+        }).catch((reason) => {
+            if (reason) {
+                dispatch(deleteDropbox(true))
+                dispatch(toggleDropBoxState(false))
+            }
+        })
+        axios.get(`http://192.168.1.42:3000/integration/auth-token/${user._id}?integration_type=mailchimp`).then((value) => {
+            if (value) {
+                dispatch(deleteMailchimp(false))
+            }
+        }).catch((reason) => {
+            if (reason) {
+                dispatch(deleteMailchimp(true))
+                dispatch(toggleMailchimp(false))
+            }
+        })
+        axios.get(`http://192.168.1.42:3000/integration/auth-token/${user._id}?integration_type=google_drive`).then((value) => {
+            if (value) {
+                dispatch(deleteDriveAccount(false))
+            }
+        }).catch((reason) => {
+            if (reason) {
+                dispatch(deleteDriveAccount(true))
+                dispatch(toggleDriveState(false))
+            }
+        })
+        axios.get(`http://192.168.1.42:3000/integration/auth-token/${user._id}?integration_type=constant_contact`).then((value) => {
+            if (value) {
+                dispatch(deleteConstantContact(false))
+            }
+        }).catch((reason) => {
+            if (reason) {
+                dispatch(deleteConstantContact(true))
+                dispatch(toggleConstantContact(false))
+            }
+        })
+    }, []);
 
     // toggle google drive auth token
     const toggleGoogleDrive = async () => {
@@ -83,7 +127,7 @@ const Integrations = () => {
         }
     }
     // toggle mailchimp auth token
-    const toggleMailChimp = async () => {
+    const toggleMailChimpState = async () => {
         dispatch(toggleMailchimp(!mailchimpActive))
         console.log("mail chimp", mailchimpActive)
         if (deletedMailchimp) {
@@ -120,7 +164,7 @@ const Integrations = () => {
                     }
                     if (item.title === "Mailchimp") {
                         return (
-                            <Tile key={item.id} state={item.state} setState={toggleMailChimp}
+                            <Tile key={item.id} state={item.state} setState={toggleMailChimpState}
                                   subTitle={item.subtitle} title={item.title} image={item.image}/>
                         )
                     }
