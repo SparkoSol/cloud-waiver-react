@@ -185,9 +185,9 @@ const SubmissionView = () => {
     <section className='max-w-4xl mx-auto py-6'>
       {loading && <Spinner/>}
       <div className='bg-white shadow-md px-5 py-2'>
-        <p className='text-sm my-6'>Refrence No : <span>{submissionData?.reference_no}</span></p>
+        <p className='text-sm my-6'>Reference No : <span>{submissionData?.reference_no}</span></p>
         <form ref={fb}></form>
-        <p className='text-sm my-6'>Refrence No : <span>{submissionData?.reference_no}</span></p>
+        <p className='text-sm my-6'>Reference No : <span>{submissionData?.reference_no}</span></p>
       </div>
       <div className={`bg-white shadow-md mt-6 ${isPdfPath ? "w-full" : "w-fit"} p-5`}>
         <div className="space-y-2 divide-gray-200 divide-y">
