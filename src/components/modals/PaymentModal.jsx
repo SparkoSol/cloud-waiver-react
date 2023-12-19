@@ -1,20 +1,21 @@
 import {Fragment, useRef} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
 import {CreditCardIcon} from "@heroicons/react/24/outline";
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import {useDispatch} from "react-redux";
-import {updatePaymentMethods} from "../../redux/user/userThunk";
+import {updatePaymentMethods, userProfile} from "../../redux/user/userThunk";
+import toast from 'react-hot-toast';
 
 export default function PaymentModal({open, setOpen}) {
+  const cancelButtonRef = useRef(null)
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
-  const cancelButtonRef = useRef(null)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const cardElement = elements.getElement(CardElement);
-    const { paymentMethod, error } = await stripe.createPaymentMethod({
+    const {paymentMethod, error} = await stripe.createPaymentMethod({
       type: 'card',
       card: cardElement,
     });
@@ -22,9 +23,9 @@ export default function PaymentModal({open, setOpen}) {
     if (error) {
       console.log(error);
     } else {
-      // send method id and client id if available to backend
-      dispatch(updatePaymentMethods({ type: "ADD", paymentMethod}))
-      console.log('Payment method added successfully:', paymentMethod);
+      await dispatch(updatePaymentMethods({paymentMethodId: paymentMethod.id}))
+      await dispatch(userProfile())
+      toast.success('Payment method added successfully');
     }
   };
 

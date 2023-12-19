@@ -2,12 +2,12 @@ import Button from "../../../components/Button.jsx";
 
 const InvoiceRow = ({item}) => {
     const handleDownloadInvoice = async () => {
-        window.location.href = item.downloadPdfUrl
+        window.location.href = item.invoice_pdf
     }
   return (
     <tr>
       <td className='relative py-4 pl-4 sm:pl-6 pr-3 text-sm whitespace-nowrap'>
-        {item.invoiceNumber}
+        {item.id}
       </td>
       <td className='relative py-4 pl-4 sm:pl-6 pr-3 text-sm whitespace-nowrap'>
         {item.period}
