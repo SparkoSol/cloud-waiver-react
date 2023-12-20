@@ -1,5 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {
+  createPlan,
+  updatePlan,
   detachPaymentMethod,
   getAllInvoices,
   getAllMethods,
@@ -7,7 +9,6 @@ import {
   login,
   setDefaultMethod,
   updatePaymentMethods,
-  updatePlan,
   updateProfile,
   updateProfilePicture,
   userProfile
@@ -31,7 +32,7 @@ const userSlice = createSlice({
     updateUserProfile: (state, {payload}) => {
       state.currentUser.profile_picture = payload
     },
-    resetUser:(state, {payload})=>{
+    resetUser: (state, {payload}) => {
       state.currentUser = null
     }
   },
@@ -111,6 +112,9 @@ const userSlice = createSlice({
       })
       .addCase(updatePaymentMethods.fulfilled, (state, {payload}) => {
         state.status = 'fulfilled';
+        if (!state.currentUser.customer) state.currentUser.customer = {}
+        state.currentUser.customer.invoice_settings = {default_payment_method: payload.id};
+
         if (Array.isArray(state.methods)) {
           state.methods.push(payload);
         } else {
@@ -167,7 +171,7 @@ const userSlice = createSlice({
       })
       .addCase(getAllInvoices.fulfilled, (state, {payload}) => {
         state.status = 'fulfilled';
-        state.invoices = payload.data
+        state.invoices = payload?.data
       })
       .addCase(getAllInvoices.rejected, (state, {error}) => {
         state.status = 'failed';
@@ -175,7 +179,28 @@ const userSlice = createSlice({
       })
 
     builder
-      .addCase(updatePlan.pending, (state, {payload}) => {
+      .addCase(createPlan.pending, (state, {payload}) => {
+        state.status = 'pending';
+      })
+      .addCase(createPlan.fulfilled, (state, {payload}) => {
+        const {data = null, items} = payload;
+        state.status = 'fulfilled';
+        state.currentUser.subscription = {
+          id: data?.id,
+          status: "active",
+          current_period_start: data?.start,
+          current_period_end: data?.end,
+          items: convertToObjects(items)
+        }
+        toast.success('Plan updates Successfully')
+      })
+      .addCase(createPlan.rejected, (state, {error}) => {
+        state.status = 'failed';
+        toast.error(error.message)
+      })
+
+    builder
+      .addCase(updatePlan.pending, (state) => {
         state.status = 'pending';
       })
       .addCase(updatePlan.fulfilled, (state, {payload}) => {
@@ -188,15 +213,13 @@ const userSlice = createSlice({
           current_period_end: data.end,
           items: convertToObjects(items)
         }
+        toast.success('Plan updates Successfully')
       })
       .addCase(updatePlan.rejected, (state, {error}) => {
         state.status = 'failed';
         toast.error(error.message)
       })
-
-  initialState: initialUserState,
-  name: 'user',
-  reducers: {},
+  }
 })
 
 export const selectCurrentUser = (state) => state.user.currentUser;

@@ -18,6 +18,7 @@ const PaymentRow = ({item, setRemoveMethodId, totalLength}) => {
     {id: 1, func: handlePaymentMethodRemoval, text: 'Remove'},
     {id: 2, func: handleMakePaymentMethodDefault, text: 'Default'}
   ]
+
   return (
     <tr>
       <td className="py-4 px-6 text-base text-black flex gap-1">

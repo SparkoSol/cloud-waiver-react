@@ -1,6 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
 import {getRequest, patchRequest, postRequest} from '../cwAPI'
-import axios from "axios";
 
 export const login = createAsyncThunk('user/login', async (payload, thunkAPI) => {
   try {
@@ -145,18 +144,35 @@ export const getAllMethods = createAsyncThunk('/user/getAllMethods', async (payl
   }
 })
 
-export const updatePlan = createAsyncThunk('/user/updatePlan', async (payload, thunkAPI) => {
+export const createPlan = createAsyncThunk('/user/createPlan', async (payload, thunkAPI) => {
   try {
     let {data} = await postRequest('/payments/subscription/create', payload);
     return {
       data: {
-        id:data.id,
+        id: data.id,
         end: data.current_period_end,
         start: data.current_period_start
       },
       items: payload.prices
     }
   } catch (e) {
+    thunkAPI.dispatch(createPlan.rejected(e.response.data.message));
+  }
+})
+
+export const updatePlan = createAsyncThunk('/user/updatePlan', async (payload, thunkAPI) => {
+  try {
+    let {data} = await postRequest('/payments/subscription/update', payload);
+    return {
+      data: {
+        id: data.id,
+        end: data.current_period_end,
+        start: data.current_period_start
+      },
+      items: [payload.price]
+    }
+  } catch (e) {
     thunkAPI.dispatch(updatePlan.rejected(e.response.data.message));
   }
 })
+

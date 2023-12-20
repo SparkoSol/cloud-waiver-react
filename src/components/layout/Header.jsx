@@ -8,7 +8,7 @@ import {Cog6ToothIcon} from '@heroicons/react/24/outline';
 const Header = ({searchRef, setOpen}) => {
   function handleClick() {
     localStorage.clear();
-    window.location.href = 'https://techtrival.com';
+    window.location.href = 'http://localhost:3333';
   }
 
   const data = [

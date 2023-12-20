@@ -1,9 +1,9 @@
 import {Fragment, useRef} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
 import {CreditCardIcon} from "@heroicons/react/24/outline";
-import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
+import {CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
 import {useDispatch} from "react-redux";
-import {updatePaymentMethods, userProfile} from "../../redux/user/userThunk";
+import {updatePaymentMethods} from "../../redux/user/userThunk";
 import toast from 'react-hot-toast';
 
 export default function PaymentModal({open, setOpen}) {
@@ -24,7 +24,7 @@ export default function PaymentModal({open, setOpen}) {
       console.log(error);
     } else {
       await dispatch(updatePaymentMethods({paymentMethodId: paymentMethod.id}))
-      await dispatch(userProfile())
+      // await dispatch(userProfile())
       toast.success('Payment method added successfully');
     }
   };

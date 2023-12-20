@@ -27,9 +27,13 @@ const Billing = () => {
   const currentPlan = useSelector(state => state.user.currentUser?.currentPlan);
 
   useEffect(() => {
-    getPackages(setPrices, setVariablePrice, setLoading);
-    dispatch(getAllInvoices())
-    dispatch(getAllMethods())
+    async function fetchData() {
+      await getPackages(setPrices, setVariablePrice);
+      await dispatch(getAllInvoices())
+      await dispatch(getAllMethods())
+    }
+
+    fetchData().finally(() => setLoading(false))
   }, [])
   return (
     <>
@@ -82,6 +86,7 @@ const Billing = () => {
         <Elements stripe={stripePromise}>
           <PaymentModal open={open} setOpen={setOpen}/>
         </Elements>
+        {loading && <Spinner/>}
       </section>
     </>
   )

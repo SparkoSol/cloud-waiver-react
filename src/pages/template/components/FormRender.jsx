@@ -194,7 +194,6 @@ const FormRender = () => {
           let checkboxDiv = document.querySelectorAll('#electronicSign')[tracker.electronicSignatureConsentCount];
           let checkbox = checkboxDiv.checked;
           label = checkboxDiv.closest(`.formbuilder-electronicSignatureConsent`).firstChild.lastChild?.classList;
-          console.log(label)
           if (!checkbox && label) {
             toast.error('Consent is required.')
             setLoading(false)

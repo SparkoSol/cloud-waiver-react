@@ -429,7 +429,6 @@ const templates = {
         for (let i = 0; i < fileInput[0].files.length; i++) {
           let file = fileInput[0].files[i];
           if (file.type.startsWith('image/')) {
-            console.log(URL.createObjectURL(file))
             let imgElement = $('<img />', {
               src: URL.createObjectURL(file),
               id: 'image-preview',
@@ -868,10 +867,7 @@ export function events() {
     }
     // if checkbox is not checked
     else if (e.target.type === 'checkbox' && !e.target.checked) {
-      console.log('if 2')
       e.target.removeAttribute("checked");
-    } else {
-      console.log('default checj')
     }
   })
 

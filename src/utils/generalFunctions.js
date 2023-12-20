@@ -11,7 +11,7 @@ import {
 import {AdjustmentsVerticalIcon} from "@heroicons/react/20/solid";
 import toast from "react-hot-toast";
 import Control from "formBuilder/src/js/control";
-import {patchRequest} from "../redux/cwAPI";
+import {getRequest, patchRequest} from "../redux/cwAPI";
 
 export function generateMonths(number) {
   const months = ['Month'];
@@ -415,16 +415,13 @@ export function authUrl(service) {
       return ""
   }
 }
-export function getPackages(setPrices, setVariablePrice, setLoading) {
-  return getRequest(`/payments/prices`)
-    .then(r => {
-      let temp = r.data.data.pop();
-      setVariablePrice(temp)
-      r.data.data.sort((a, b) => a.metadata.waiver_limit - b.metadata.waiver_limit)
-      setPrices(r.data.data)
-    })
-    .catch(e => toast.error(e.response.data.message))
-    .finally(() => setLoading(false))
+
+export async function getPackages(setPrices, setVariablePrice) {
+  const response = await getRequest(`/payments/prices`);
+  const temp = response.data.data.pop();
+  setVariablePrice(temp);
+  response.data.data.sort((a, b) => a.metadata.waiver_limit - b.metadata.waiver_limit);
+  setPrices(response.data.data);
 }
 
 export function timeToDate(startSeconds, endSeconds) {
@@ -439,8 +436,12 @@ export function timeToDate(startSeconds, endSeconds) {
 }
 
 export function convertToObjects(items) {
-  return items.map((myId) => ({ id: myId }));
+  if (!items) {
+    return []
+  }
+  return items.map((myId) => ({price_id: myId}));
 }
+
 export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
   // Check if the recursion count exceeds 5
   if (recursionCount > 5) {
