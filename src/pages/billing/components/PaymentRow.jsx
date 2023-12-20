@@ -6,15 +6,12 @@ import {Bars3Icon} from "@heroicons/react/20/solid";
 
 const PaymentRow = ({item, setRemoveMethodId, totalLength}) => {
   const currentPlan = useSelector(selectCurrentPlan);
-  const disabled = item.default;
   const dispatch = useDispatch()
   const handlePaymentMethodRemoval = async () => {
     dispatch(detachPaymentMethod({paymentMethodId: item.id}))
   }
   const handleMakePaymentMethodDefault = async () => {
-    if (!disabled) {
-      await dispatch(setDefaultMethod({paymentMethodId: item.id}))
-    }
+    await dispatch(setDefaultMethod({paymentMethodId: item.id}))
   }
 
   let data = [

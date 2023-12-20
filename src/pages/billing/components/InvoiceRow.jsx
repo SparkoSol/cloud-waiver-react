@@ -1,4 +1,5 @@
 import Button from "../../../components/Button.jsx";
+import {timeToDate} from "../../../utils/generalFunctions";
 
 const InvoiceRow = ({item}) => {
     const handleDownloadInvoice = async () => {
@@ -10,7 +11,7 @@ const InvoiceRow = ({item}) => {
         {item.id}
       </td>
       <td className='relative py-4 pl-4 sm:pl-6 pr-3 text-sm whitespace-nowrap'>
-        {item.period}
+        {timeToDate(item.period_start, item.period_end)}
       </td>
       <td className='relative py-4 pl-4 sm:pl-6 pr-3 text-sm whitespace-nowrap'>
         {item.total}

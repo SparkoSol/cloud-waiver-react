@@ -1104,3 +1104,18 @@ export function getPackages(setPrices, setVariablePrice, setLoading) {
     .catch(e => toast.error(e.response.data.message))
     .finally(() => setLoading(false))
 }
+
+export function timeToDate(startSeconds, endSeconds) {
+  const startDate = new Date(startSeconds * 1000);
+  const endDate = new Date(endSeconds * 1000);
+
+  // Format the date strings (adjust the format as needed)
+  const startDateString = startDate.toISOString().split('T')[0];
+  const endDateString = endDate.toISOString().split('T')[0];
+
+  return `${startDateString} - ${endDateString}`;
+}
+
+export function convertToObjects(items) {
+  return items.map((myId) => ({ id: myId }));
+}

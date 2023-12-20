@@ -147,8 +147,15 @@ export const getAllMethods = createAsyncThunk('/user/getAllMethods', async (payl
 
 export const updatePlan = createAsyncThunk('/user/updatePlan', async (payload, thunkAPI) => {
   try {
-    const {data} = await axios.post('http://192.168.1.22:8000/update-plan', payload);
-    return data
+    let {data} = await postRequest('/payments/subscription/create', payload);
+    return {
+      data: {
+        id:data.id,
+        end: data.current_period_end,
+        start: data.current_period_start
+      },
+      items: payload.prices
+    }
   } catch (e) {
     thunkAPI.dispatch(updatePlan.rejected(e.response.data.message));
   }

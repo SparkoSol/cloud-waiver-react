@@ -1,8 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {
-  detachPaymentMethod, getAllInvoices, getAllMethods,
+  detachPaymentMethod,
+  getAllInvoices,
+  getAllMethods,
   getMembers,
-  login, setDefaultMethod,
+  login,
+  setDefaultMethod,
   updatePaymentMethods,
   updatePlan,
   updateProfile,
@@ -10,6 +13,7 @@ import {
   userProfile
 } from './userThunk'
 import toast from "react-hot-toast";
+import {convertToObjects} from "../../utils/generalFunctions";
 
 const initialUserState = {
   currentUser: null,
@@ -168,8 +172,15 @@ const userSlice = createSlice({
         state.status = 'pending';
       })
       .addCase(updatePlan.fulfilled, (state, {payload}) => {
+        const {data, items} = payload;
         state.status = 'fulfilled';
-        state.currentUser = payload.user;
+        state.currentUser.subscription = {
+          id: data.id,
+          status: "active",
+          current_period_start: data.start,
+          current_period_end: data.end,
+          items: convertToObjects(items)
+        }
       })
       .addCase(updatePlan.rejected, (state, {error}) => {
         state.status = 'failed';

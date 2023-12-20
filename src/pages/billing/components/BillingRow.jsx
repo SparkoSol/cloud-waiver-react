@@ -1,18 +1,18 @@
 import Button from "../../../components/Button.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {updatePlan} from "../../../redux/user/userThunk";
-import {selectPaymentMethods} from "../../../redux/user/userSlice";
+import {selectCurrentUser, selectPaymentMethods} from "../../../redux/user/userSlice";
 import toast from "react-hot-toast";
 
 const BillingRow = ({item, variablePrice}) => {
-  const currentPlan = useSelector(state => state.user.currentUser?.currentPlan)
   const paymentMethodsCount = useSelector(state => selectPaymentMethods(state))?.length
-  // const disable = currentPlan === item.plan
-  const disable = false
+  const currentUser = useSelector(selectCurrentUser);
+  const disable = currentUser.subscription.items.some(row=>row.id === item.id);
+  console.log(disable)
   const dispatch = useDispatch();
-  const handleChangePlan = () => {
+  const handleChangePlan = async () => {
     if (paymentMethodsCount > 0) {
-      dispatch(updatePlan({plan: item.plan}))
+      await dispatch(updatePlan({prices: [item.id, variablePrice.id]}))
     } else {
       toast.error("Add payment method first.")
     }
