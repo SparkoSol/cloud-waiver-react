@@ -1,6 +1,6 @@
 import $ from "jquery";
 import React, {createRef, useEffect, useState} from "react";
-import {capitalize, options, staticForm} from "../../../utils/generalFunctions";
+import {capitalize, staticForm} from "../../../utils/generalFunctions";
 import Button from "../../../components/Button";
 import {TrashIcon} from "@heroicons/react/24/outline";
 import {patchRequest} from "../../../redux/cwAPI";
@@ -11,6 +11,8 @@ import Spinner from "../../../components/Spinner";
 import toast from 'react-hot-toast'
 import Modal from "../../../components/modals/Modal";
 import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
+import tinymce from "tinymce";
+import {hideList, options} from "../../../utils/builder";
 
 window.jQuery = $;
 window.$ = $;
@@ -27,21 +29,52 @@ const FormBuilder = () => {
   const [FormBuilder, setFormBuilder] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const {id} = useParams();
+
   useEffect(() => {
     if (!FormBuilder?.formData && waiver && status === 'fulfilled') {
       setFormBuilder($(fb.current).formBuilder({
         disabledActionButtons: ['data', 'clear', 'save'],
-        formData: waiver?.form_data.length > 0 ? waiver?.form_data : staticForm, ...options,
+        formData: waiver?.form_data?.length > 0 ? waiver?.form_data : staticForm,
+        ...options,
         controlOrder: ['primaryAdultParticipant', 'editable', 'additionalParticipants', 'additionalMinors', 'signature', 'address', 'richTextEditor', 'filesUpload', 'electronicSignatureConsent', 'capturePhoto']
       }))
       dispatch(resetStatus())
+      setTimeout(() => {
+        let textAreaArr = document.querySelectorAll('.textarea-selector');
+        hideList();
+        document.querySelector('.form-wrap')?.addEventListener('click', function (e) {
+          if (e.target.closest('.input-control')?.getAttribute('data-type') === 'primaryAdultParticipant') {
+            hideList();
+          }else if(e.target.parentNode.parentNode.classList[0] === 'primaryAdultParticipant-field'){
+            document.querySelector('li[data-type="primaryAdultParticipant"]').style.display = 'block';
+          }
+        })
+        if (textAreaArr.length > 0) {
+          waiver?.form_data
+            .filter(item => item.type === 'richTextEditor')
+            .forEach((filteredItem, index) => {
+              $(`#${textAreaArr[index].id}`).html(filteredItem.userData);
+            });
+        }
+      }, 300);
     }
     // eslint-disable-next-line
   }, [waiver, status]);
 
   function saveData(e, status) {
     setLoading(true);
-    patchRequest(`/waivers/${id}`, {form_data: JSON.parse(FormBuilder.formData)})
+    let jsonData = JSON.parse(FormBuilder.formData);
+    let textAreaArr = document.querySelectorAll('.textarea-selector')[0];
+    if (textAreaArr && jsonData) {
+      const richEditor = tinymce.get(textAreaArr.id);
+      jsonData.map((item, index) => {
+        if (item.type === 'richTextEditor') {
+          jsonData[index]['userData'] = richEditor.getContent();
+        }
+        return item;
+      });
+    }
+    patchRequest(`/waivers/${id}`, {form_data: jsonData})
       .then(() => toast.success('Saved Successfully'))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => {
@@ -61,7 +94,7 @@ const FormBuilder = () => {
       <div className='flex gap-3 items-center'>
         <span
           className="text-yellow-800 text-sm font-semibold px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">{capitalize(waiver?.status)}</span>
-        {waiver?.status !== 'draft' && <Link to={`/template/${id}`} target='_blank'
+        {waiver?.status !== 'draft' && <Link to={`/template/${id}/public`} target='_blank'
                                              className='bg-btnBg w-fit py-2.5 px-8 text-sm text-white font-semibold rounded-full'>Preview</Link>}
         {waiver?.status === 'draft' ? <>
             <Button btnText='Publish' btnClasses='bg-btnBg' fullWidth='w-fit' onClick={e => saveData(e, 'publish')}/>
@@ -74,7 +107,7 @@ const FormBuilder = () => {
            setOpen={setOpenModal}
            btnText='Confirm'
            functionCall={() => {
-             FormBuilder.actions.clearFields();
+             FormBuilder.actions?.clearFields();
              for (let i = 0; i < staticForm.length; i++) {
                FormBuilder.actions.addField(staticForm[i])
              }

@@ -89,7 +89,7 @@ const Kiosk = () => {
       <div className='flex gap-3 items-end'>
         <Heading title='Kiosk' titleClasses='text-xl font-semibold'
                  subtitle='Manage your kiosk setting.' subTitleClasses='text-sm text-gray-900'/>
-        {!isEmptyObject(kiosk) && <Link to={`/kiosk-preview/${kiosk._id}`}
+        {!isEmptyObject(kiosk) && <Link to={`/kiosk-preview/${kiosk._id}`} target='_blank'
                                         className='rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>
           Preview Splash Page
         </Link>}

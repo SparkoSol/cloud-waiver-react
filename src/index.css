@@ -29,7 +29,6 @@
 li[type="additionalParticipants"] .field-label,
 li[type="additionalMinors"] .field-label,
 li[type="richTextEditor"] .field-label,
-.formbuilder-address-label,
 li[type="address"] .field-label {
   display: none !important;
 }
@@ -56,10 +55,14 @@ li[type="address"] .field-label {
 .additionalParticipants-field :is(.label-wrap, .description-wrap, .placeholder-wrap, .value-wrap),
 .additionalMinors-field :is(.label-wrap, .description-wrap, .placeholder-wrap, .value-wrap),
 .capturePhoto-field :is(.description-wrap, .placeholder-wrap, .value-wrap),
-.filesUpload-field :is(.description-wrap, .placeholder-wrap, .value-wrap) {
+.filesUpload-field :is(.description-wrap, .placeholder-wrap, .value-wrap),
+.max-w-4xl.mx-auto.my-6.common label.formbuilder-richTextEditor-label{
   display: none !important;
 }
 
 .form-wrap.form-builder .frmb .form-elements .false-label:first-child, .form-wrap.form-builder .frmb .form-elements label:first-child {
   white-space: pre-wrap !important;
+}
+.sign{
+  overflow: hidden;
 }

@@ -7,7 +7,7 @@ import {useParams} from "react-router-dom";
 import Spinner from "../../../components/Spinner";
 import {useDispatch, useSelector} from "react-redux";
 import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
-import {selectSingleWaiver} from "../../../redux/waivers/waiverSlice";
+import {selectSingleWaiver, updateWaiver} from "../../../redux/waivers/waiverSlice";
 import {patchRequest} from "../../../redux/cwAPI";
 import toast from 'react-hot-toast';
 import {selectCurrentUser} from "../../../redux/user/userSlice";
@@ -31,8 +31,7 @@ const TemplateContainer = ({children}) => {
     patchRequest(`/waivers/${id}`, {name})
       .then(r => {
         toast.success('Updated Successfully');
-        dispatch(getSingleWaiver(id))
-          .finally(() => setLoading(false))
+        dispatch(updateWaiver(name))
       })
       .catch(e => e.response.data.message)
       .finally(() => setLoading(false))
@@ -47,9 +46,11 @@ const TemplateContainer = ({children}) => {
           <button className='outline-none' onClick={e => setEditMode(true)}>
             <PencilIcon className='w-5 h-5'/>
           </button>
-          <Modal setOpen={setEditMode} open={editMode} editMode={true} title='Edit Template' functionCall={handleEdit} value={waiver?.name}/>
+          <Modal setOpen={setEditMode} open={editMode} editMode={true} title='Edit Template'
+                 functionCall={handleEdit} value={waiver?.name}/>
         </div>
-        <span className="text-sm italic">{`${currentUser?.domain}.techtrival.com/template/${waiver?._id}`}</span>
+        <span
+          className="text-sm italic">{`${currentUser?.domain}.cloudwaiver.com/template/${waiver?._id}/public`}</span>
       </div>
       <Tabs tabs={tabsData}/>
       <div className='shadow rounded-md sm:overflow-hidden bg-white py-6 px-4 space-y-6 sm:p-6'>

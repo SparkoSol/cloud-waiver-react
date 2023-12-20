@@ -12,6 +12,7 @@ import {
   updateProfilePicture,
   userProfile
 } from './userThunk'
+
 import toast from "react-hot-toast";
 import {convertToObjects} from "../../utils/generalFunctions";
 
@@ -23,8 +24,17 @@ const initialUserState = {
   status: 'idle'
 }
 
-
 const userSlice = createSlice({
+  name: 'user',
+  initialState: initialUserState,
+  reducers: {
+    updateUserProfile: (state, {payload}) => {
+      state.currentUser.profile_picture = payload
+    },
+    resetUser:(state, {payload})=>{
+      state.currentUser = null
+    }
+  },
   extraReducers: (builder) => {
     // Add extra reducers using the builder notation
     builder
@@ -49,8 +59,6 @@ const userSlice = createSlice({
       .addCase(userProfile.fulfilled, (state, {payload}) => {
         state.status = 'fulfilled';
         state.currentUser = payload;
-
-
       })
       .addCase(userProfile.rejected, (state, {error}) => {
         state.status = 'failed';
@@ -90,14 +98,13 @@ const userSlice = createSlice({
       })
       .addCase(updateProfilePicture.fulfilled, (state, {payload}) => {
         state.status = 'fulfilled';
-        console.log("here: ", payload)
+
         state.currentUser.profile_picture = payload.url;
       })
       .addCase(updateProfilePicture.rejected, (state, {error}) => {
         state.status = 'failed';
         toast.error(error.message)
       })
-
     builder
       .addCase(updatePaymentMethods.pending, (state, {payload}) => {
         state.status = 'pending';
@@ -186,7 +193,7 @@ const userSlice = createSlice({
         state.status = 'failed';
         toast.error(error.message)
       })
-  },
+
   initialState: initialUserState,
   name: 'user',
   reducers: {},
@@ -197,4 +204,7 @@ export const selectMember = (state) => state.user.members;
 export const selectPaymentMethods = (state) => state.user.methods;
 export const selectInvoicesData = (state) => state.user.invoices;
 export const selectCurrentPlan = state => state.user.currentUser.customer?.invoice_settings.default_payment_method;
+
+
+export const {updateUserProfile, resetUser} = userSlice.actions;
 export default userSlice.reducer

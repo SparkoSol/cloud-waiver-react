@@ -60,15 +60,16 @@ const Integrations = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/google-drive/${user._id}`).then((value) => {
+        axios.get(`http://localhost:3000/integration/google-drive/${user._id}`).then((value) => {
             if (user._id === value.data.userID) {
                 setDrive(true)
                 setToken("available")
-                setDriveData({...driveData, accessToken: value.data.access_token})
+                setDriveData({...driveData, accessToken: value.data.refresh_token})
             }
         }).catch((reason) => {
             toast.error(reason.response.data.message)
         })
+        //eslint-disable-next-line
     }, []);
 
     // Dropbox Auth Setup
@@ -76,6 +77,7 @@ const Integrations = () => {
         if (dropbox === true) {
             window.location.assign(`${authUrl("dropbox")}${domain},${url}`)
         }
+        //eslint-disable-next-line
     }, [dropbox]);
 
     // Constant Contact Auth Setup
@@ -83,6 +85,7 @@ const Integrations = () => {
         if (contact === true) {
             window.location.assign(`${authUrl("contact")}${domain},${url}`)
         }
+        //eslint-disable-next-line
     }, [contact]);
 
     // Mailchimp Auth Setup
@@ -90,12 +93,13 @@ const Integrations = () => {
         if (mailChimp === true) {
             window.location.assign(`${authUrl("mailChimp")}${domain},${url}`)
         }
+        //eslint-disable-next-line
     }, [mailChimp]);
 
     const driveDataSubmit = async (e) => {
         e.preventDefault()
         try {
-            await axios.post("http://localhost:3000/google-drive/upload-svc", driveData)
+            await axios.post("http://localhost:3000/integration/google-drive/upload-svc", driveData)
         } catch (e) {
             toast.error(e.response.data.message)
         }
@@ -108,7 +112,7 @@ const Integrations = () => {
         } else {
             setToken("")
             setDrive(e)
-            axios.delete(`http://localhost:3000/google-drive/${user._id}`).catch((reason) => {
+            axios.delete(`http://localhost:3000/integration/google-drive/${user._id}`).catch((reason) => {
                 toast.error(reason.response.data.message)
             })
         }

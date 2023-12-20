@@ -59,7 +59,7 @@ const Customer = () => {
                    setSelectAll={setSelectAll}
                    selectAll={selectAll}
                    setState={setFilteredCustomers}
-                   headers={['ID', 'FIRST NAME', 'LAST NAME', 'EMAIL', 'WAIVERS COUNT']}/>
+                   headers={['FIRST NAME', 'LAST NAME', 'EMAIL', 'WAIVERS COUNT']}/>
       </div>
       {loading && <Spinner/>}
     </div>

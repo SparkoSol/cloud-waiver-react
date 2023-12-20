@@ -22,7 +22,6 @@ const Account = () => {
   const postalCodeRef = useRef(null)
 
   const [country, setCountry] = useState('Please Select');
-
   const data = [
     {
       id: 1,
@@ -108,6 +107,7 @@ const Account = () => {
       first_name: firstNameRef.current.value,
       last_name: lastNameRef.current.value,
       username: emailRef.current.value,
+      profile_picture: currentUser.profile_picture,
       address: {
         country,
         street_address: streetRef.current.value,
@@ -124,8 +124,8 @@ const Account = () => {
       <Heading title='Personal Information' subtitle='Ensure all details are correct'
                titleClasses='text-lg leading-6 font-medium text-gray-900'
                subTitleClasses='text-sm font-normal text-gray-500'/>
-      <ProfileImageUpload />
 
+      <ProfileImageUpload/>
       <form className='flex flex-wrap mt-7' onSubmit={handleSubmit}>
         {data.map(item => {
           if (item.id === 4) {

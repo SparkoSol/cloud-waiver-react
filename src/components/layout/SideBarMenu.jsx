@@ -3,8 +3,8 @@ import Input from "../inputs/Input.jsx";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import {Transition} from "@headlessui/react";
-import {useSelector} from "react-redux";
-import {selectCurrentUser} from "../../redux/user/userSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+import {resetUser, selectCurrentUser} from "../../redux/user/userSlice.js";
 
 const SideBarMenu = ({
                        searchRef,
@@ -17,6 +17,7 @@ const SideBarMenu = ({
                        width,
                        setOpen
                      }) => {
+  const dispatch = useDispatch();
   const {pathname} = useLocation();
   const currentUser = useSelector(selectCurrentUser);
   return (
@@ -43,14 +44,16 @@ const SideBarMenu = ({
           <img className='w-full max-w-[112px] mx-auto' alt='Loading..' src='/images/logo.png'/>
         </Link>
       </div>
-        {(open || hover) && <Link className="text-sm text-iconGray font-semibold" to="/settings">
-          <div className="flex gap-2 items-center py-4 w-60 px-2 border-b border-btnBg">
-            <div className="w-8 h-8 rounded-full border border-1 border-iconGray bg-white overflow-hidden">
-              <img src={currentUser?.profile_picture} className='w-full h-full' alt=""/>
-            </div>
-              {`${currentUser?.first_name} ${currentUser?.last_name}`}
+
+      {(open || hover) && <Link className="text-sm text-iconGray font-semibold" to="/settings">
+        <div className="flex gap-2 items-center py-4 w-60 px-2 border-b border-btnBg">
+          <div className="w-8 h-8 rounded-full border border-1 border-iconGray bg-white overflow-hidden">
+            <img src={currentUser?.profile_picture || "/images/avatar.png"} className='w-full h-full object-cover'
+                 alt=""/>
           </div>
-        </Link>}
+          {`${currentUser?.first_name} ${currentUser?.last_name}`}
+        </div>
+      </Link>}
       <div className='block lg:hidden'>
         <Input extraClasses='pt-4' inputRef={searchRef} BtnIcon={MagnifyingGlassIcon} placeholder='Search'/>
       </div>
@@ -60,7 +63,9 @@ const SideBarMenu = ({
             {item.subList ? (
               <div>
                 <button onClick={() => handleReplyClick(index)}
-                        className={`flex items-center gap-4 py-2.5 pl-2 mt-2.5 w-full relative ${pathname.includes(item.url) ? 'text-blue-400' : 'text-iconGray'}`}>
+                        className={`flex items-center gap-4 py-2.5 pl-2 mt-2.5 w-full relative
+                                         ${pathname.includes(item.url) ? 'text-blue-400' : 'text-iconGray'}`}
+                >
                   <item.icon className='w-7 h-7'/>
                   <span
                     className={`${open || hover ? 'opacity-100' : 'opacity-0'} transition-all duration-500`}>
@@ -100,7 +105,8 @@ const SideBarMenu = ({
               <Link to={item.url}
                     onClick={item.url === "#" ? () => {
                         localStorage.clear();
-                        window.location.href = 'https://techtrival.com';
+                        dispatch(resetUser());
+                        window.location.href = 'https://cloudwaiver.com';
                       } :
                       () => {
                         if (width < 1024) {

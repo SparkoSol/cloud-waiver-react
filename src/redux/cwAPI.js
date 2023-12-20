@@ -1,16 +1,14 @@
 import axios from 'axios'
 
-// const baseUrl = 'https://api.cloudwaiver.com'
-const baseUrl = 'http://192.168.1.36:3000'
-// http://192.168.1.22:8000
+const baseUrl = 'https://api.cloudwaiver.com'
 const cwAPI = axios
 
 // Add a request interceptor
 axios.interceptors.request.use(
   config => {
     const token = localStorage.getItem('cw-access-token')
-      config.headers['Authorization'] = 'Bearer ' + token
-      config.headers['X-TENANT-ID'] = getDynamicTenantId();
+    config.headers['Authorization'] = 'Bearer ' + token
+    config.headers['X-TENANT-ID'] = getDynamicTenantId();
     return config
   },
   error => {
@@ -45,9 +43,9 @@ export function getDynamicTenantId() {
   const currentURL = window.location.href;
   const urlParts = currentURL.split('.');
   if (urlParts[0].includes('https')) {
-    return urlParts[0].replace('https://', '');
+    return urlParts[0].replace('https://', '')
   }
-  return urlParts[0].replace('http://', '');
+  return urlParts[0].replace('http://', '')
 }
 
 export default cwAPI
