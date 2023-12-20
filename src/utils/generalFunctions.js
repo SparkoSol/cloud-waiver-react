@@ -70,7 +70,6 @@ export const addCheck = (arr, filter) => {
 }
 
 export function limitChars(str, number) {
-  // return str.slice(0, number) + '...';
   return str.slice(0)
 }
 
@@ -165,6 +164,7 @@ export let additionMinorForm = `
         </form>`
 
 //static headers
+
 export const DashBoardHeaders = ['Reference No', 'Signed Date', 'First Name', 'Last Name', 'Template Name', 'Status'];
 export const sideBarOptions = [
   {
@@ -381,7 +381,6 @@ export function searchWaiver(search, customers) {
   })
 }
 
-
 export function updateAllSubmission(status, setSwitchState, setSelectedCount, setLoading, filteredWaivers) {
   const arr = filteredWaivers.reduce((result, item) => {
     if (item.checked) {
@@ -416,7 +415,32 @@ export function authUrl(service) {
       return ""
   }
 }
+export function getPackages(setPrices, setVariablePrice, setLoading) {
+  return getRequest(`/payments/prices`)
+    .then(r => {
+      let temp = r.data.data.pop();
+      setVariablePrice(temp)
+      r.data.data.sort((a, b) => a.metadata.waiver_limit - b.metadata.waiver_limit)
+      setPrices(r.data.data)
+    })
+    .catch(e => toast.error(e.response.data.message))
+    .finally(() => setLoading(false))
+}
 
+export function timeToDate(startSeconds, endSeconds) {
+  const startDate = new Date(startSeconds * 1000);
+  const endDate = new Date(endSeconds * 1000);
+
+  // Format the date strings (adjust the format as needed)
+  const startDateString = startDate.toISOString().split('T')[0];
+  const endDateString = endDate.toISOString().split('T')[0];
+
+  return `${startDateString} - ${endDateString}`;
+}
+
+export function convertToObjects(items) {
+  return items.map((myId) => ({ id: myId }));
+}
 export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
   // Check if the recursion count exceeds 5
   if (recursionCount > 5) {
@@ -442,7 +466,4 @@ export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
     recursiveFunction(temp, setSwitchState, recursionCount + 1);
   }, 500);
 }
-
-
-
 

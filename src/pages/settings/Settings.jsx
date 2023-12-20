@@ -124,6 +124,7 @@ const Account = () => {
       <Heading title='Personal Information' subtitle='Ensure all details are correct'
                titleClasses='text-lg leading-6 font-medium text-gray-900'
                subTitleClasses='text-sm font-normal text-gray-500'/>
+
       <ProfileImageUpload/>
       <form className='flex flex-wrap mt-7' onSubmit={handleSubmit}>
         {data.map(item => {
