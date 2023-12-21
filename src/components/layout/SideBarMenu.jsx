@@ -71,7 +71,6 @@ const SideBarMenu = ({
       </div>
       <ul>
         {permissions.length > 0 && data.map((item, index) => {
-          console.log(permissions.includes(item.permission))
           if (permissions.includes(item.permission)) {
             return <li className='text-sm relative font-semibold text-iconGray w-[244px]' key={index}>
               {item.subList ? (

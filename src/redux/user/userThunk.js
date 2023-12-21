@@ -128,7 +128,10 @@ export const updatePaymentMethods = createAsyncThunk('/user/updatePaymentMethods
 
 export const getAllInvoices = createAsyncThunk('/user/getAllInvoices', async (payload, thunkAPI) => {
   try {
-    const {data} = await getRequest('/payments/invoices', payload);
+    const {data, status} = await getRequest('/payments/invoices', payload);
+    if (status === 200 && data === '') {
+      return {data: []}
+    }
     return data
   } catch (e) {
     thunkAPI.dispatch(getAllInvoices.rejected(e.response.data.message));
@@ -137,7 +140,10 @@ export const getAllInvoices = createAsyncThunk('/user/getAllInvoices', async (pa
 
 export const getAllMethods = createAsyncThunk('/user/getAllMethods', async (payload, thunkAPI) => {
   try {
-    const {data} = await getRequest('/payments/payment-methods', payload)
+    const {data, status} = await getRequest('/payments/payment-methods', payload)
+    if (status === 200 && data === '') {
+      return {data: []}
+    }
     return data
   } catch (e) {
     thunkAPI.dispatch(getAllMethods.rejected(e.response.data.message));
