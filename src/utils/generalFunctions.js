@@ -171,49 +171,57 @@ export const sideBarOptions = [
     id: 1,
     title: 'Dashboard',
     icon: Squares2X2Icon,
-    url: '/dashboard'
+    url: '/dashboard',
+    permission: "api_management"
   },
   {
     id: 2,
     title: 'Waiver Templates',
     icon: DocumentTextIcon,
-    url: '/templates'
+    url: '/templates',
+    permission: "waiver_templates"
   },
   {
     id: 5,
     title: 'Signed Waivers',
     url: '/signed',
-    icon: ClipboardDocumentIcon
+    icon: ClipboardDocumentIcon,
+    permission: "waiver_submissions"
   },
   {
     id: 6,
     title: 'Template Gallery',
     url: '/gallery',
     icon: UsersIcon,
+    permission: "template_gallery"
   },
   {
     id: 9,
     title: 'Customers',
     url: '/customers',
-    icon: UserIcon
+    icon: UserIcon,
+    permission: "customers"
   },
   {
     id: 10,
     title: 'Kiosk Settings',
     url: '/kiosk',
-    icon: ComputerDesktopIcon
+    icon: ComputerDesktopIcon,
+    permission: "kiosk_settings"
   },
   {
     id: 16,
     title: 'Staff Management',
     url: '/management',
-    icon: UsersIcon
+    icon: UsersIcon,
+    permission: "team_management"
   },
   {
     id: 11,
     title: 'Settings',
     url: '/settings',
     icon: Cog6ToothIcon,
+    permission: "settings",
     subList: [
       {
         id: 13,
@@ -236,13 +244,15 @@ export const sideBarOptions = [
     id: 12,
     title: 'Billing',
     url: '/billing',
-    icon: AdjustmentsVerticalIcon
+    icon: AdjustmentsVerticalIcon,
+    permission: "billing"
   },
   {
     id: 17,
     title: 'Sign Out',
     url: '#',
-    icon: ArrowRightOnRectangleIcon
+    icon: ArrowRightOnRectangleIcon,
+    permission: "sign_out"
   }
 ];
 export const countries = ["Pakistan", "Germany", "United States", "United Kingdom", "France", "Australia", "Canada", "Japan"];
@@ -448,7 +458,7 @@ export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
     console.warn("Recursion limit reached. Returning nothing.");
     return;
   }
-  if (state && state.contentWindow && state.contentWindow.document.readyState === 'complete') {
+  if (state && state.contentWindow && state.contentWindow?.document.readyState === 'complete') {
     const iframeBody = state.contentWindow?.document.querySelector("body > div");
     const body = document.querySelector('.tox.tox-tinymce');
     if (!iframeBody || !body) {
@@ -463,7 +473,7 @@ export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
   }
 
   setTimeout(function () {
-    const temp = document.querySelector("iframe");
+    const temp = document.querySelector("iframe.tox-edit-area__iframe");
     recursiveFunction(temp, setSwitchState, recursionCount + 1);
   }, 500);
 }

@@ -8,8 +8,11 @@ import {getRequest, patchRequest, postRequest} from "../../redux/cwAPI";
 import TemplateRow from "./components/TemplateRow";
 import {addCheck} from "../../utils/generalFunctions";
 import toast from "react-hot-toast";
+import {useSelector} from "react-redux";
+import {allPermissions} from "../../redux/team/teamSlice";
 
 function Template() {
+  const permissions = useSelector(allPermissions);
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [allTemplates, setAllTemplates] = useState([]);
@@ -109,14 +112,15 @@ function Template() {
             {selectedCount > 0 && <>
               <span className='text-gray-500'>Selected : {selectedCount}</span>
               <Button btnText='Archive' onClick={handleDelete} btnClasses='bg-red-500' fullWidth='w-fit'/></>}
-            <Button BtnIcon={ClipboardIcon}
-                    btnText='Create waivers'
-                    onClick={() => {
-                      setOpenModal(true);
-                      setDuplicate(prev => ({...prev, index: null}));
-                    }}
-                    btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
-                    iconClasses='w-4 h-4 text-white inline-block ml-2'/>
+
+            {permissions.includes("template_creation") && <Button BtnIcon={ClipboardIcon}
+                                                                  btnText='Create waivers'
+                                                                  onClick={() => {
+                                                                    setOpenModal(true);
+                                                                    setDuplicate(prev => ({...prev, index: null}));
+                                                                  }}
+                                                                  btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
+                                                                  iconClasses='w-4 h-4 text-white inline-block ml-2'/>}
           </div>
         </div>
         <div>

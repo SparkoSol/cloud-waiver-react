@@ -39,6 +39,7 @@ import SignedWaivers from "./pages/signedWaivers/SignedWaiver";
 import CustomerSubmissions from "./pages/customerSubmission/CustomerSubmissions";
 import TemplateGallery from "./pages/templateGallery/TemplateGallery";
 import Preview from "./pages/preview/Preview";
+import {getAllTeams} from "./redux/team/teamThunk";
 
 const router = createBrowserRouter([
   {
@@ -287,6 +288,7 @@ function App() {
     if (token || isTemplatePath || isPdfPath || isResetPasswordPath || isKioskPath) {
       if (isEmptyObject(currentUser) && !isTemplatePath && !isPdfPath && !isKioskPath) {
         dispatch(userProfile(token));
+        dispatch(getAllTeams());
       }
       const redirectTo = (window.location.pathname === "/" || window.location.pathname === "/dashboard")
         ? "/dashboard"

@@ -18,7 +18,7 @@ const allReducers = persistCombineReducers({
       },
     }),
   ],
-  whitelist: ['user'],
+  whitelist: ['user', 'teams'],
 }, {
   user: userSlice,
   customers: customerSlice,
