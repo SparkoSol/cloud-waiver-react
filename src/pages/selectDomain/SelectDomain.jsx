@@ -16,7 +16,7 @@ const SelectDomain = () => {
                        className='bg-gray-100 text-sm border p-3 text-center rounded-md cursor-pointer hover:bg-gray-200'
                        onClick={() => {
                          localStorage.clear();
-                         window.location.href = `http://${item.domain}.localhost:3333/dashboard?token=${token}`}
+                         window.location.href = `https://${item.domain}.cloudwaiver.com/dashboard?token=${token}`}
                        }>
               <h4 className='font-semibold text-gray-600'>{item.company_name}</h4>
               <span className='text-gray-900'>{item.domain}.cloudwaiver.com</span>

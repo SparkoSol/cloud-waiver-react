@@ -8,7 +8,7 @@ import {Cog6ToothIcon} from '@heroicons/react/24/outline';
 const Header = ({searchRef, setOpen}) => {
   function handleClick() {
     localStorage.clear();
-    window.location.href = 'http://localhost:3333';
+    window.location.href = 'https://cloudwaiver.com';
   }
 
   const data = [
