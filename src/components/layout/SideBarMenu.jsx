@@ -27,7 +27,7 @@ const SideBarMenu = ({
   useEffect(() => {
     if (allTeams && currentUser) {
       let temp = allTeams.find(item => item.members.includes(currentUser._id));
-      dispatch(userPermissions([...temp.permissions, "waiver_templates", "sign_out", "settings"]))
+      dispatch(userPermissions([...temp?.permissions, "waiver_templates", "sign_out", "settings"]))
     }
   }, [allTeams, currentUser, dispatch]);
 
