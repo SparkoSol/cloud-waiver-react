@@ -5,13 +5,18 @@ import {addMember, getAllTeams, getSingleTeam, removeMember} from "./teamThunk.j
 const initialTeamsState = {
   allTeams: null,
   currentTeam: null,
+  allowedPermissions: [],
   status: 'idle'
 }
 
-const customerSlice = createSlice({
+const teamSlice = createSlice({
   name: 'teams',
   initialState: initialTeamsState,
-  reducers: {},
+  reducers: {
+    userPermissions: (state, {payload}) => {
+      state.allowedPermissions = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllTeams.pending, (state) => {
@@ -69,4 +74,6 @@ const customerSlice = createSlice({
 export const selectAllTeams = (state) => state.teams.allTeams;
 export const selectCurrentTeam = (state) => state.teams.currentTeam;
 export const currentTeamStatus = (state) => state.teams.status;
-export default customerSlice.reducer
+export const allPermissions = (state) => state.teams.allowedPermissions;
+export const {userPermissions} = teamSlice.actions
+export default teamSlice.reducer

@@ -3,9 +3,21 @@ import {Bars3Icon} from "@heroicons/react/20/solid";
 import Input from "../inputs/Input.jsx";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/solid";
 import DropDown from "../inputs/DropDown.jsx";
+import {Cog6ToothIcon} from '@heroicons/react/24/outline';
 
 const Header = ({searchRef, setOpen}) => {
+  function handleClick() {
+    localStorage.clear();
+    window.location.href = 'http://localhost:3333';
+  }
 
+  const data = [
+    {
+      id: 1,
+      func: handleClick,
+      text: 'Sign out'
+    }
+  ]
   return (
     <header
       className={`text-center bg-gray-100 border z-10 sticky top-0 flex left-0 right-0 justify-between items-center p-4`}>
@@ -24,7 +36,7 @@ const Header = ({searchRef, setOpen}) => {
         {/*<Link to='/' className='text-iconGray flex items-center gap-2 hover:text-blue-400'>*/}
         {/*  <BellIcon className='w-5 h-5'/>*/}
         {/*  5</Link>*/}
-        <DropDown/>
+        <DropDown data={data} Icon={Cog6ToothIcon}/>
       </div>
       <Button btnClasses='p-0' BtnIcon={Bars3Icon}
               onClick={() => setOpen(prev => !prev)}

@@ -6,8 +6,8 @@ export const login = createAsyncThunk('user/login', async (payload, thunkAPI) =>
     const {data: tokens} = await postRequest('/auth/sign-in', payload)
     localStorage.setItem('cw-access-token', tokens?.access_token);
     localStorage.setItem('cw-refresh-token', tokens?.refresh_token);
-    const {data: user} = await getRequest('/auth/profile', payload);
-    if(!user.verified){
+    const {data: user} = await getRequest('/auth/profile');
+    if (!user.verified) {
       await postRequest('/persons/resend-verification-email', {
         email: user.username, id: user._id, name: user.first_name
       });
@@ -90,3 +90,89 @@ export const updateProfilePicture = createAsyncThunk('/user/updateProfilePicture
     thunkAPI.dispatch(updateProfilePicture.rejected(e.response.data.message));
   }
 })
+
+export const detachPaymentMethod = createAsyncThunk('/user/detachPaymentMethod', async (payload, thunkAPI) => {
+  try {
+    const {data} = await patchRequest('/payments/payment-methods/detach', payload);
+    return data
+  } catch (e) {
+    thunkAPI.dispatch(detachPaymentMethod.rejected(e.response.data.message));
+  }
+})
+
+export const setDefaultMethod = createAsyncThunk('/user/setDefaultMethod', async (payload, thunkAPI) => {
+  try {
+    const {data} = await patchRequest('/payments/payment-methods/set-default', payload);
+    return data
+  } catch (e) {
+    thunkAPI.dispatch(setDefaultMethod.rejected(e.response.data.message));
+  }
+})
+
+export const updatePaymentMethods = createAsyncThunk('/user/updatePaymentMethods', async (payload, thunkAPI) => {
+  try {
+    const {data} = await postRequest('/payments/payment-methods/attach', payload)
+    return data
+  } catch (e) {
+    thunkAPI.dispatch(updatePaymentMethods.rejected(e.response.data.message));
+  }
+
+
+  // try {
+  //   const {data} = await axios.post('http://192.168.1.22:8000/update-payment-methods', payload);
+  //   return data
+  // } catch (e) {
+  //   thunkAPI.dispatch(updatePaymentMethods.rejected(e.response.data.message));
+  // }
+})
+
+export const getAllInvoices = createAsyncThunk('/user/getAllInvoices', async (payload, thunkAPI) => {
+  try {
+    const {data} = await getRequest('/payments/invoices', payload);
+    return data
+  } catch (e) {
+    thunkAPI.dispatch(getAllInvoices.rejected(e.response.data.message));
+  }
+})
+
+export const getAllMethods = createAsyncThunk('/user/getAllMethods', async (payload, thunkAPI) => {
+  try {
+    const {data} = await getRequest('/payments/payment-methods', payload)
+    return data
+  } catch (e) {
+    thunkAPI.dispatch(getAllMethods.rejected(e.response.data.message));
+  }
+})
+
+export const createPlan = createAsyncThunk('/user/createPlan', async (payload, thunkAPI) => {
+  try {
+    let {data} = await postRequest('/payments/subscription/create', payload);
+    return {
+      data: {
+        id: data.id,
+        end: data.current_period_end,
+        start: data.current_period_start
+      },
+      items: payload.prices
+    }
+  } catch (e) {
+    thunkAPI.dispatch(createPlan.rejected(e.response.data.message));
+  }
+})
+
+export const updatePlan = createAsyncThunk('/user/updatePlan', async (payload, thunkAPI) => {
+  try {
+    let {data} = await postRequest('/payments/subscription/update', payload);
+    return {
+      data: {
+        id: data.id,
+        end: data.current_period_end,
+        start: data.current_period_start
+      },
+      items: [payload.price]
+    }
+  } catch (e) {
+    thunkAPI.dispatch(updatePlan.rejected(e.response.data.message));
+  }
+})
+

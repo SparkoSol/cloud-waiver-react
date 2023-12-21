@@ -14,8 +14,7 @@ const Management = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchTeams().then(() => {
-    })
+    fetchTeams().then(() => {})
     // eslint-disable-next-line
   }, []);
 

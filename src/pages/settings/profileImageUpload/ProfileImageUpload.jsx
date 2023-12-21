@@ -22,8 +22,6 @@ const ProfileImageUpload = () => {
       formData.append('file', file);
       dispatch(updateProfilePicture(formData))
       setLoading(true)
-    } else {
-      console.log("No file selected")
     }
   }
   function toggleHover(){

@@ -11,7 +11,7 @@ import {
 import {AdjustmentsVerticalIcon} from "@heroicons/react/20/solid";
 import toast from "react-hot-toast";
 import Control from "formBuilder/src/js/control";
-import {patchRequest} from "../redux/cwAPI";
+import {getRequest, patchRequest} from "../redux/cwAPI";
 
 export function generateMonths(number) {
   const months = ['Month'];
@@ -70,7 +70,6 @@ export const addCheck = (arr, filter) => {
 }
 
 export function limitChars(str, number) {
-  // return str.slice(0, number) + '...';
   return str.slice(0)
 }
 
@@ -165,55 +164,64 @@ export let additionMinorForm = `
         </form>`
 
 //static headers
+
 export const DashBoardHeaders = ['Reference No', 'Signed Date', 'First Name', 'Last Name', 'Template Name', 'Status'];
 export const sideBarOptions = [
   {
     id: 1,
     title: 'Dashboard',
     icon: Squares2X2Icon,
-    url: '/dashboard'
+    url: '/dashboard',
+    permission: "api_management"
   },
   {
     id: 2,
     title: 'Waiver Templates',
     icon: DocumentTextIcon,
-    url: '/templates'
+    url: '/templates',
+    permission: "waiver_templates"
   },
   {
     id: 5,
     title: 'Signed Waivers',
     url: '/signed',
-    icon: ClipboardDocumentIcon
+    icon: ClipboardDocumentIcon,
+    permission: "waiver_submissions"
   },
   {
     id: 6,
     title: 'Template Gallery',
     url: '/gallery',
     icon: UsersIcon,
+    permission: "template_gallery"
   },
   {
     id: 9,
     title: 'Customers',
     url: '/customers',
-    icon: UserIcon
+    icon: UserIcon,
+    permission: "customers"
   },
   {
     id: 10,
     title: 'Kiosk Settings',
     url: '/kiosk',
-    icon: ComputerDesktopIcon
+    icon: ComputerDesktopIcon,
+    permission: "kiosk_settings"
   },
   {
     id: 16,
     title: 'Staff Management',
     url: '/management',
-    icon: UsersIcon
+    icon: UsersIcon,
+    permission: "team_management"
   },
   {
     id: 11,
     title: 'Settings',
     url: '/settings',
     icon: Cog6ToothIcon,
+    permission: "settings",
     subList: [
       {
         id: 13,
@@ -236,13 +244,15 @@ export const sideBarOptions = [
     id: 12,
     title: 'Billing',
     url: '/billing',
-    icon: AdjustmentsVerticalIcon
+    icon: AdjustmentsVerticalIcon,
+    permission: "billing"
   },
   {
     id: 17,
     title: 'Sign Out',
     url: '#',
-    icon: ArrowRightOnRectangleIcon
+    icon: ArrowRightOnRectangleIcon,
+    permission: "sign_out"
   }
 ];
 export const countries = ["Pakistan", "Germany", "United States", "United Kingdom", "France", "Australia", "Canada", "Japan"];
@@ -381,7 +391,6 @@ export function searchWaiver(search, customers) {
   })
 }
 
-
 export function updateAllSubmission(status, setSwitchState, setSelectedCount, setLoading, filteredWaivers) {
   const arr = filteredWaivers.reduce((result, item) => {
     if (item.checked) {
@@ -417,13 +426,39 @@ export function authUrl(service) {
   }
 }
 
+export async function getPackages(setPrices, setVariablePrice) {
+  const response = await getRequest(`/payments/prices`);
+  const temp = response.data.data.pop();
+  setVariablePrice(temp);
+  response.data.data.sort((a, b) => a.metadata.waiver_limit - b.metadata.waiver_limit);
+  setPrices(response.data.data);
+}
+
+export function timeToDate(startSeconds, endSeconds) {
+  const startDate = new Date(startSeconds * 1000);
+  const endDate = new Date(endSeconds * 1000);
+
+  // Format the date strings (adjust the format as needed)
+  const startDateString = startDate.toISOString().split('T')[0];
+  const endDateString = endDate.toISOString().split('T')[0];
+
+  return `${startDateString} - ${endDateString}`;
+}
+
+export function convertToObjects(items) {
+  if (!items) {
+    return []
+  }
+  return items.map((myId) => ({price_id: myId}));
+}
+
 export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
   // Check if the recursion count exceeds 5
   if (recursionCount > 5) {
     console.warn("Recursion limit reached. Returning nothing.");
     return;
   }
-  if (state && state.contentWindow && state.contentWindow.document.readyState === 'complete') {
+  if (state && state.contentWindow && state.contentWindow?.document.readyState === 'complete') {
     const iframeBody = state.contentWindow?.document.querySelector("body > div");
     const body = document.querySelector('.tox.tox-tinymce');
     if (!iframeBody || !body) {
@@ -438,11 +473,8 @@ export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
   }
 
   setTimeout(function () {
-    const temp = document.querySelector("iframe");
+    const temp = document.querySelector("iframe.tox-edit-area__iframe");
     recursiveFunction(temp, setSwitchState, recursionCount + 1);
   }, 500);
 }
-
-
-
 
