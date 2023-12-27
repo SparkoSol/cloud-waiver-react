@@ -36,6 +36,13 @@ const Integrations = () => {
     const user = useSelector(selectCurrentUser)
 
     let url = window.location.href
+    // Extract the hostname
+    let newUrl = new URL(url);
+    let hostname = newUrl.hostname;
+
+    let parts = hostname.split('.');
+    let domain = parts[0]
+
     const data = [
         {
             id: 1,
@@ -68,7 +75,7 @@ const Integrations = () => {
     ]
 
     useEffect(() => {
-        axios.get(`http://192.168.1.42:3000/integration/auth-token/${user._id}?integration_type=dropbox`).then((value) => {
+        axios.get(`http://localhost:3000/integration/auth-token/${user._id}?integration_type=dropbox`).then((value) => {
             if (value) {
                 dispatch(deleteDropbox(false))
             }
@@ -78,7 +85,7 @@ const Integrations = () => {
                 dispatch(toggleDropBoxState(false))
             }
         })
-        axios.get(`http://192.168.1.42:3000/integration/auth-token/${user._id}?integration_type=mailchimp`).then((value) => {
+        axios.get(`http://localhost:3000/integration/auth-token/${user._id}?integration_type=mailchimp`).then((value) => {
             if (value) {
                 dispatch(deleteMailchimp(false))
             }
@@ -88,7 +95,7 @@ const Integrations = () => {
                 dispatch(toggleMailchimp(false))
             }
         })
-        axios.get(`http://192.168.1.42:3000/integration/auth-token/${user._id}?integration_type=google_drive`).then((value) => {
+        axios.get(`http://localhost:3000/integration/auth-token/${user._id}?integration_type=google_drive`).then((value) => {
             if (value) {
                 dispatch(deleteDriveAccount(false))
             }
@@ -98,7 +105,7 @@ const Integrations = () => {
                 dispatch(toggleDriveState(false))
             }
         })
-        axios.get(`http://192.168.1.42:3000/integration/auth-token/${user._id}?integration_type=constant_contact`).then((value) => {
+        axios.get(`http://localhost:3000/integration/auth-token/${user._id}?integration_type=constant_contact`).then((value) => {
             if (value) {
                 dispatch(deleteConstantContact(false))
             }
@@ -108,13 +115,14 @@ const Integrations = () => {
                 dispatch(toggleConstantContact(false))
             }
         })
+
     }, []);
 
     // toggle google drive auth token
     const toggleGoogleDrive = async () => {
         dispatch(toggleDriveState(!googleDrive))
         if (deletedDriveAccount) {
-            window.location.assign(`${authUrl("googleDrive")}${url},${user._id}`)
+            window.location.assign(`${authUrl("googleDrive")}${url},${user._id},${domain}`)
             dispatch(deleteDriveAccount(false))
         }
     }
@@ -122,7 +130,7 @@ const Integrations = () => {
     const toggleDropbox = async () => {
         dispatch(toggleDropBoxState(!dropBoxActive))
         if (deletedDropBox) {
-            window.location.assign(`${authUrl("dropbox")}${url},${user._id}`)
+            window.location.assign(`${authUrl("dropbox")}${url},${user._id},${domain}`)
             dispatch(deleteDropbox(false))
         }
     }
@@ -131,7 +139,7 @@ const Integrations = () => {
         dispatch(toggleMailchimp(!mailchimpActive))
         console.log("mail chimp", mailchimpActive)
         if (deletedMailchimp) {
-            window.location.assign(`${authUrl("mailChimp")}${url},${user._id}`)
+            window.location.assign(`${authUrl("mailChimp")}${url},${user._id},${domain}`)
             dispatch(deleteMailchimp(false))
         }
     }
@@ -139,7 +147,7 @@ const Integrations = () => {
     const toggleConstantContactAuth = async () => {
         dispatch(toggleConstantContact(!constantContactActive))
         if (deletedConstantContact) {
-            window.location.assign(`${authUrl("contact")}${url},${user._id}`)
+            window.location.assign(`${authUrl("contact")}${url},${user._id},${domain}`)
             dispatch(deleteConstantContact(false))
         }
     }

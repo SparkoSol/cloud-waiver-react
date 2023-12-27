@@ -4,6 +4,9 @@ import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {Fragment} from "react";
 
 const SelectInput = ({options, state, setState, extraClasses, label}) => {
+    const truncatedState = state?.length > 9 ? `${state.substring(0, 9)}...` : state;
+    const displayText = truncatedState !== undefined ? truncatedState : '--Choose--';
+
     return (
         <div className={`${extraClasses}`}>
             <Listbox value={state} onChange={setState}>
@@ -12,7 +15,7 @@ const SelectInput = ({options, state, setState, extraClasses, label}) => {
                         <label className='block text-sm font-medium text-gray-500 mb-2 text-start'>{label}</label>}
                     <Listbox.Button
                         className="relative block w-full p-2.5 rounded-md border border-gray-300 bg-gray-200 focus:border-gray-300 focus-visible:outline-none sm:text-sm text-gray-500 text-start">
-                        <span className="truncate">{state.length > 9 ? `${state.substring(0, 9)}...` : state}</span>
+                        <span className="truncate">{displayText}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronDownIcon
                   className="h-5 w-5 text-gray-400"
