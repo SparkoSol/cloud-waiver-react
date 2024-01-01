@@ -33,24 +33,6 @@ const GoogleDriveConfigRow = ({item}) => {
             .catch(e => toast.error(e.response.data.message))
     }, []);
 
-    const onSubmit = async () => {
-
-        try {
-            const data = {
-                folder_name: selected,
-                customers: customers
-            }
-            setLoading(true)
-            const res = await axios.post(`http://localhost:3000/Integration/save-file/${user._id}?integration_type=google_drive`, data)
-            setLoading(false)
-            toast.custom(res.data.message)
-            navigate(-1)
-        } catch (e) {
-            setLoading(false)
-            toast.error(e.response.data.message)
-        }
-    }
-
     return (
         <>
             <tr>
@@ -60,11 +42,6 @@ const GoogleDriveConfigRow = ({item}) => {
                         <SelectInput extraClasses='grow md:grow-0' options={folders} setState={setSelected}
                                      state={selected}/>
                     </div>
-                </td>
-                <td className='py-4 text-sm text-gray-900 whitespace-nowrap'>
-                    {googleDrive && <Button onClick={onSubmit} btnText='Submit' type='button'
-                                            btnClasses='border border-gray-400 py-2 text-gray-900 my-4'
-                                            fullWidth='w-fit'/>}
                 </td>
             </tr>
             {loading && <Spinner/>}

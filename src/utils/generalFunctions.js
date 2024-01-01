@@ -1081,7 +1081,7 @@ export function updateAllSubmission(status, setSwitchState, setSelectedCount, se
 export function authUrl(service) {
     switch (service) {
         case "dropbox":
-            return "https://www.dropbox.com/oauth2/authorize?client_id=530914lv29dsett&token_access_type=offline&response_type=code&redirect_uri=http://localhost:3000/integration/dropbox-tokens&state="
+            return "https://www.dropbox.com/oauth2/authorize?client_id=efru4ey6czp9jbo&token_access_type=offline&response_type=code&redirect_uri=https://a14c-182-186-103-200.ngrok-free.app/integration/dropbox-tokens&state="
         case "contact" :
             return "https://authz.constantcontact.com/oauth2/default/v1/authorize?client_id=f304b755-b095-44f4-9866-e215a5340a25&redirect_uri=http://localhost:3000/integration/constant-contacts&response_type=code&scope=contact_data%20campaign_data%20offline_access&state="
         case "mailChimp" :

@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentUser} from "../../../redux/user/userSlice";
 import {useNavigate} from "react-router-dom";
-import {deleteDriveAccount, toggleDriveState} from "../../../redux/integration/integrationSlice";
+import {toggleDriveState} from "../../../redux/integration/integrationSlice";
 import axios from "axios";
 import toast from "react-hot-toast";
 import ConfigCard from "./ConfigCard";
@@ -17,7 +17,7 @@ const GoogleDriveConfig = () => {
         dispatch(toggleDriveState(!googleDrive))
     }
     const deleteButton = () => {
-        dispatch(deleteDriveAccount(true))
+        // dispatch(deleteDriveAccount(true))
         dispatch(toggleDriveState(false))
         axios.delete(`http://localhost:3000/integration/auth-token/${user._id}?integration_type=google_drive`).then(() => {
             navigate("/settings/integrations")

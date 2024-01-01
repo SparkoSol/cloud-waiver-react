@@ -12,65 +12,83 @@ import {getAllWaiver} from "../../redux/waivers/waiverThunk";
 import MailChimpConfigRow from "./components/MailChimpConfigRow";
 import ContactConfigRow from "./components/ContactConfigRow";
 import DropboxConfigRow from "./components/DropboxConfigRow";
+import Button from "../../components/Button";
 
 const Configure = () => {
 
-    const location = useLocation()
-    const allWaivers = useSelector(selectAllWaivers)
-    const dispatch = useDispatch()
-    const [filteredWaivers, setFilteredWaivers] = useState([{templateName: "Customers", Inputs: "List"}]);
+  const location = useLocation()
+  const allWaivers = useSelector(selectAllWaivers)
+  const dispatch = useDispatch()
+  const [filteredWaivers, setFilteredWaivers] = useState([]);
 
-    useEffect(() => {
-        dispatch(getAllWaiver())
-    }, []);
+  useEffect(() => {
+    dispatch(getAllWaiver())
+  }, []);
 
-    useEffect(() => {
-        if (allWaivers) {
-            const filterWaiversForSelection = allWaivers?.map((waiver) => {
-                return {
-                    name: waiver.name,
-                    inputs: "folders"
-                }
-            })
-            setFilteredWaivers(filterWaiversForSelection)
+  useEffect(() => {
+    if (allWaivers) {
+      const filterWaiversForSelection = allWaivers?.map((waiver) => {
+        return {
+          name: waiver.name,
+          inputs: "folders"
         }
-    }, [allWaivers]);
+      })
+      setFilteredWaivers(filterWaiversForSelection)
+    }
+  }, [allWaivers]);
 
-    return (
+  const handleSubmit = async () => {
+    console.log(filteredWaivers)
+    // try {
+    //   const data = {
+    //     folder_name: selected,
+    //     customers: customers
+    //   }
+    //   setLoading(true)
+    //   const res = await axios.post(`http://localhost:3000/Integration/save-file/${user._id}?integration_type=google_drive`, data)
+    //   setLoading(false)
+    //   toast.custom(res.data.message)
+    //   navigate(-1)
+    // } catch (e) {
+    //   setLoading(false)
+    //   toast.error(e.response.data.message)
+    // }
+  }
+
+  return (
+    <>
+      {location?.state?.config === "googleDrive" &&
         <>
-            {location?.state?.config === "googleDrive" ?
-                <>
-                    <GoogleDriveConfig/>
-                    <DataTable colspan={0} headers={["Template Name", "Choose Folder", "Submission"]}
-                               TableRow={GoogleDriveConfigRow}
-                               items={filteredWaivers}/>
-                </>
-                : location?.state?.config === "dropbox" ?
-                    <>
-                        <DropBoxConfig/>
-                        <DataTable colspan={0} headers={["Template Name", "Choose Folder", "Submission"]}
-                                   TableRow={DropboxConfigRow}
-                                   items={filteredWaivers}/>
-                    </>
-                    :
-                    location?.state?.config === "mailchimp" ?
-                        <>
-                            <MailChimpConfig/>
-                            <DataTable colspan={0} headers={["Template Name", "Choose List", "Submission"]}
-                                       TableRow={MailChimpConfigRow}
-                                       items={filteredWaivers}/>
-                        </> : location?.state?.config === "constantContact" ?
-                            <>
-                                <ConstantContactConfig/>
-                                <DataTable colspan={0} headers={["Template Name", "Choose List", "Submission"]}
-                                           TableRow={ContactConfigRow}
-                                           items={filteredWaivers}/>
-                            </> :
-                            <></>
-            }
-
-        </>
-    );
+          <GoogleDriveConfig/>
+          <DataTable colspan={0} headers={["Template Name", "Choose Folder"]}
+                     TableRow={GoogleDriveConfigRow}
+                     items={filteredWaivers}/>
+        </>}
+      {location?.state?.config === "dropbox" &&
+        <>
+          <DropBoxConfig/>
+          <DataTable colspan={0} headers={["Template Name", "Choose Folder"]}
+                     TableRow={DropboxConfigRow}
+                     items={filteredWaivers}/>
+        </>}
+      {
+        location?.state?.config === "mailchimp" &&
+        <>
+          <MailChimpConfig/>
+          <DataTable colspan={0} headers={["Template Name", "Choose List"]}
+                     TableRow={MailChimpConfigRow}
+                     items={filteredWaivers}/>
+        </>}
+      {location?.state?.config === "constantContact" &&
+        <>
+          <ConstantContactConfig/>
+          <DataTable colspan={0} headers={["Template Name", "Choose List"]}
+                     TableRow={ContactConfigRow}
+                     items={filteredWaivers}/>
+        </>}
+      <Button btnClasses='bg-btnBg mt-4 ml-auto' onClick={handleSubmit} btnText='Submit'></Button>
+    </>
+  );
 };
 
 export default Configure;

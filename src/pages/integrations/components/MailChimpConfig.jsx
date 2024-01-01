@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {deleteMailchimp, toggleMailchimp} from "../../../redux/integration/integrationSlice";
+import {toggleMailchimp} from "../../../redux/integration/integrationSlice";
 import axios from "axios";
 import toast from "react-hot-toast";
 import {selectCurrentUser} from "../../../redux/user/userSlice";
@@ -17,7 +17,6 @@ const DropBoxConfig = () => {
         dispatch(toggleMailchimp(!mailchimpActive))
     }
     const deleteButton = () => {
-        dispatch(deleteMailchimp(true))
         dispatch(toggleMailchimp(false))
         axios.delete(`http://localhost:3000/integration/auth-token/${user._id}?integration_type=mailchimp`).then(() => {
             navigate("/settings/integrations")

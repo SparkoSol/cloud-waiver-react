@@ -13,14 +13,13 @@ import Spinner from "../../../components/Spinner";
 const DropboxConfigRow = ({item}) => {
     const user = useSelector(selectCurrentUser)
     const [folders, setFolders] = useState([])
-    const {dropBoxActive} = useSelector(state => state.integration)
     const [selected, setSelected] = useState(item.Inputs)
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/Integration/all-folders/${user._id}?integration_type=dropbox`).then((value) => {
+        getRequest(`/Integration/all-folders/${user._id}?integration_type=dropbox`).then((value) => {
             setFolders(value.data.map((folder) => folder.name))
         }).catch((reason) => {
             toast.error(reason.response.data.message)
@@ -53,15 +52,10 @@ const DropboxConfigRow = ({item}) => {
     return (
         <>
             <tr>
-                <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.templateName}</td>
+                <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.name}</td>
                 <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>
                     <SelectInput extraClasses='grow md:grow-0' options={folders} setState={setSelected}
                                  state={selected}/>
-                </td>
-                <td className='py-4 text-sm text-gray-900 whitespace-nowrap'>
-                    {dropBoxActive && <Button onClick={onSubmit} btnText='Submit' type='button'
-                                              btnClasses='border border-gray-400 py-2 text-gray-900 my-4'
-                                              fullWidth='w-fit'/>}
                 </td>
             </tr>
             {loading && <Spinner/>}

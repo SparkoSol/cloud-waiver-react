@@ -12,8 +12,7 @@ const SelectDomain = () => {
         <ul className='space-y-4 mt-6'>
           {currentUser && currentUser.workspaces.map(item => {
             return <li key={item._id} className='bg-gray-100 text-sm border p-3 text-center rounded-md cursor-pointer hover:bg-gray-200'
-
-                       onClick={() => window.location.href = `http://${item.domain}.techtrival.com/dashboard`}>
+                       onClick={() => window.location.href = `http://${item.domain}.localhost:3333/dashboard`}>
               <h4 className='font-semibold text-gray-600'>{item.company_name}</h4>
               <span className='text-gray-900'>{item.domain}.cloudwaiver.com</span>
             </li>
