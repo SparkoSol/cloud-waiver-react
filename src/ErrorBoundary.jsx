@@ -21,7 +21,7 @@ class ErrorBoundary extends React.Component {
         <div className='fixed inset-0 h-screen w-screen w-100'>
           <div
             className='bg-wwlWhite p-6 text-black text-center rounded-xl shadow-wwlDefault h-full flex justify-center items-center flex-col'>
-            <div className='text-4xl font-bold pb-3 font-chivo text-wwlOrange'>Coming Soom</div>
+            <div className='text-4xl font-bold pb-3 font-chivo text-wwlOrange'>Coming Soon</div>
             <div className='p-3 pb-6 font-chivo'>Oops! Something went wrong<br/>Our team has been notified, and we
               are working on a resolution for you!
             </div>

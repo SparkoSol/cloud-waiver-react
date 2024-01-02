@@ -12,7 +12,7 @@ import Settings from "./pages/settings/Settings.jsx";
 import UpdatePassword from "./pages/updatePassword/updatePassword.jsx";
 import Billing from "./pages/billing/Billing.jsx";
 import {useEffect} from "react";
-import Integrations from "./pages/integrations/Integrations.jsx";
+import Integrations from "./pages/integrations-new/Integrations.jsx";
 import Customer from "./pages/customers/Customer.jsx";
 import UpdateCustomer from "./pages/updateCustomer/UpdateCustomer.jsx";
 import Management from "./pages/management/Management.jsx";
@@ -38,7 +38,8 @@ import Submissions from "./pages/template/components/Submissions";
 import SubmissionView from "./pages/SubmissionView";
 import SignedWaivers from "./pages/signedWaivers/SignedWaiver";
 import CustomerSubmissions from "./pages/customerSubmission/CustomerSubmissions";
-import Configure from "./pages/integrations/Configure";
+import Configure from "./pages/integrations-new/Configure";
+import ConfigureOld from "./pages/integrations/Configure";
 
 const router = createBrowserRouter([
     {
@@ -103,7 +104,11 @@ const router = createBrowserRouter([
             {
                 path: 'configure',
                 element: <Configure/>
-            }
+            },
+            {
+                path: 'configure/old',
+                element: <ConfigureOld/>
+            },
         ]
     }, {
         path: '/settings/password',

@@ -5,7 +5,7 @@ import userSlice from "./user/userSlice.js";
 import customerSlice from "./customers/customerSlice.js";
 import teamSlice from "./team/teamSlice.js";
 import waiverSlice from "./waivers/waiverSlice";
-import integrationSlice from "./integration/integrationSlice";
+import integrationSlice from "./integration-new/integrationSlice";
 
 
 const allReducers = persistCombineReducers({
