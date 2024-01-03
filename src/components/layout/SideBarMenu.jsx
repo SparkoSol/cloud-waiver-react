@@ -19,7 +19,6 @@ const SideBarMenu = ({
                      }) => {
   const {pathname} = useLocation();
   const currentUser = useSelector(selectCurrentUser);
-  console.log()
   return (
     <aside
       onMouseEnter={() => {

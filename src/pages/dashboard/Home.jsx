@@ -60,11 +60,6 @@ const Dashboard = () => {
       ]))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false));
-    getRequest(`/integration/auth-token/${currentUser?._id}?integration_type=dropbox`).then((value) => {
-      if (value) {
-        dispatch(toggleDropBoxState(true))
-      }
-    })
   }, []);
 
 

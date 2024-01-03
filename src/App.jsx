@@ -102,7 +102,7 @@ const router = createBrowserRouter([
                 element: <Integrations/>
             },
             {
-                path: 'configure',
+                path: 'configure/:id',
                 element: <Configure/>
             },
             {
