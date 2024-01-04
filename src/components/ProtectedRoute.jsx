@@ -19,8 +19,7 @@ const ProtectedRoute = ({children}) => {
 
   return (
     <div className='bg-gray-100 min-h-screen font-mulish'>
-      <SideBarMenu searchRef={searchRef}
-                   handleReplyClick={handleReplyClick}
+      <SideBarMenu handleReplyClick={handleReplyClick}
                    setHover={setHover}
                    hover={hover}
                    openReplyMenuIndex={openReplyMenuIndex}
@@ -29,7 +28,7 @@ const ProtectedRoute = ({children}) => {
                    setOpen={setOpen}
                    data={sideBarOptions}/>
       <div className={`${open || hover ? 'lg:ml-64' : 'lg:ml-20'} transition-all duration-500 relative`}>
-        <Header setOpen={setOpen} searchRef={searchRef}/>
+        <Header setOpen={setOpen}/>
         <section className='p-5 max-w-6xl mx-auto'>
           <ErrorBoundary>
             {children}

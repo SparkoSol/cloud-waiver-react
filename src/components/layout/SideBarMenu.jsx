@@ -7,7 +7,6 @@ import {useSelector} from "react-redux";
 import {selectCurrentUser} from "../../redux/user/userSlice.js";
 
 const SideBarMenu = ({
-                       searchRef,
                        data,
                        open,
                        openReplyMenuIndex,
@@ -50,9 +49,6 @@ const SideBarMenu = ({
         {(open || hover) && <Link className="text-sm text-iconGray font-semibold" to="/dashboard">
           {`${currentUser?.first_name} ${currentUser?.last_name}`}
         </Link>}
-      </div>
-      <div className='block lg:hidden'>
-        <Input extraClasses='pt-4' inputRef={searchRef} BtnIcon={MagnifyingGlassIcon} placeholder='Search'/>
       </div>
       <ul>
         {data.map((item, index) => (

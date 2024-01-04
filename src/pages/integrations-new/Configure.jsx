@@ -21,17 +21,12 @@ const Configure = () => {
   const [loading, setLoading] = useState(false);
   const [folders, setFolders] = useState([]);
 
-
   useEffect(() => {
-    dispatch(getAllWaiver());
-  }, [dispatch, item]);
-
-  useEffect(() => {
-    if(allWaivers?.length > 0) updateWaiverFolders().then(() => {})
-  }, [allWaivers]);
-
+    updateWaiverFolders().finally(() => setLoading(false))
+  }, [item, dispatch]);
 
   const handleSubmit = async (id) => {
+    setLoading(true)
     const folders = allWaivers.reduce((acc, item) => {
       if (item.hasOwnProperty('folder_name')) {
         acc.push({folder_name: item.folder_name, waiver_id: item._id});
@@ -41,28 +36,26 @@ const Configure = () => {
     patchRequest(`/integration/${id}`, {
       authenticated: true,
       waiver_folders: folders
-    });
+    }).finally(() => setLoading(false));
   }
 
   async function updateWaiverFolders() {
     setLoading(true);
     try {
+      const data = await dispatch(getAllWaiver()).unwrap()
       const foldersResponse = await getRequest(`/integration/${item.id}/folders`);
       setFolders(foldersResponse.data.map(item => item.name));
       const integrationResponse = await getRequest(`/integration`);
-      const dropBox = integrationResponse.data.find(item => item.integration_type === 'DROPBOX').waiver_folders;
-      for (let index = 0; index < allWaivers.length; index++) {
-        const item = allWaivers[index];
+      const dropBox = integrationResponse.data.find(item => item.integration_type === id).waiver_folders;
+      for (let index = 0; index < data.length; index++) {
+        const item = data[index];
         const matchingDropboxItem = dropBox.find(dropboxItem => dropboxItem.waiver_id === item._id);
-        if (matchingDropboxItem) dispatch(updateFolder({ index, folder: matchingDropboxItem.folder_name }));
+        if (matchingDropboxItem) dispatch(updateFolder({index, folder: matchingDropboxItem.folder_name}));
       }
     } catch (error) {
       toast.error(error.response.data.message);
-    } finally {
-      setLoading(false);
     }
   }
-
 
   return (
     <>
@@ -73,32 +66,27 @@ const Configure = () => {
         width={'w-[500px]'}
       />
 
-      {(allWaivers && allWaivers.length > 0) ? <div>
-          <table className={'w-full mt-2 border'}>
-            <thead className='border h-12 text-sm text-left font-semibold text-gray-600 bg-gray-50'>
-            <tr>
-              <th className={'px-4'}>Template Name</th>
-              <th className={'px-4'}>Choose Folder</th>
-            </tr>
-            </thead>
-            <tbody className={'bg-white'}>
-            {
-              allWaivers?.map((item, index) => <SocialServiceRow key={index} item={item}
-                                                                 folders={folders}
-                                                                 index={index}/>)
-            }
-            </tbody>
-          </table>
-          <Button btnClasses='bg-btnBg mt-4 ml-auto' onClick={() => handleSubmit(id)}
-                  btnText='Save Changes'></Button>
-        </div> :
-        <div className={'flex justify-center mt-28'}>
-          <div
-            className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-sky-500 border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]">
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
+      {(allWaivers && allWaivers.length > 0) && <div>
+        <table className={'w-full mt-2 border'}>
+          <thead className='border h-12 text-sm text-left font-semibold text-gray-600 bg-gray-50'>
+          <tr>
+            <th className={'px-4'}>Template Name</th>
+            <th className={'px-4'}>Choose Folder</th>
+          </tr>
+          </thead>
+          <tbody className={'bg-white'}>
+          {
+            !loading && allWaivers?.map((item, index) => <SocialServiceRow key={index} item={item}
+                                                                          folders={folders}
+                                                                          index={index}/>)
+          }
+          </tbody>
+        </table>
+        <Button btnClasses='bg-btnBg mt-4 ml-auto' onClick={() => handleSubmit(id)}
+                btnText='Save Changes'></Button>
+      </div>
       }
+      {loading && <Spinner/>}
     </>
   );
 };

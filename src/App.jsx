@@ -39,7 +39,6 @@ import SubmissionView from "./pages/SubmissionView";
 import SignedWaivers from "./pages/signedWaivers/SignedWaiver";
 import CustomerSubmissions from "./pages/customerSubmission/CustomerSubmissions";
 import Configure from "./pages/integrations-new/Configure";
-import ConfigureOld from "./pages/integrations/Configure";
 
 const router = createBrowserRouter([
     {
@@ -105,10 +104,10 @@ const router = createBrowserRouter([
                 path: 'configure/:id',
                 element: <Configure/>
             },
-            {
-                path: 'configure/old',
-                element: <ConfigureOld/>
-            },
+            // {
+            //     path: 'configure/old',
+            //     element: <ConfigureOld/>
+            // },
         ]
     }, {
         path: '/settings/password',

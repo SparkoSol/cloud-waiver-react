@@ -1,7 +1,7 @@
 import Button from "../../../components/Button";
 import ToggleButton from "../../../components/inputs/ToggleButton";
 import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Badge from "../../../components/Badge";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentUser} from "../../../redux/user/userSlice";
@@ -11,6 +11,7 @@ import {toast} from "react-hot-toast";
 import Spinner from "../../../components/Spinner";
 
 const SocialServiceCard = ({state, item, width, showConfig = false}) => {
+  const {id} = useParams();
   const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser)
   const {title, subtitle, image, url, type} = item
@@ -18,11 +19,15 @@ const SocialServiceCard = ({state, item, width, showConfig = false}) => {
   const [loading, setLoading] = useState(false);
 
   function handleToggle(bool) {
+    setLoading(true)
     dispatch(updateIntegrationStatus({actionType: item.id, status: bool}))
     patchRequest(`/integration/${item.id}`, {
       authenticated: bool
-    })
-    if (bool) window.location.assign(`${url} ${window.location.href},${user._id},${getDynamicTenantId()},${type}`)
+    }).then(() => {
+      if (bool) window.location.assign(`${url}${window.location.href},${user._id},${getDynamicTenantId()},${type}`)
+      if (id) navigate(-1);
+    }).catch(e => toast.error(e.response.data.message))
+      .finally(() => setLoading(false))
   }
 
   function handleDelete(id) {

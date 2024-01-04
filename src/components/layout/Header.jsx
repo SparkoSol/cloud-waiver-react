@@ -1,10 +1,8 @@
 import Button from "../Button.jsx";
 import {Bars3Icon} from "@heroicons/react/20/solid";
-import Input from "../inputs/Input.jsx";
-import {MagnifyingGlassIcon} from "@heroicons/react/24/solid";
 import DropDown from "../inputs/DropDown.jsx";
 
-const Header = ({searchRef, setOpen}) => {
+const Header = ({setOpen}) => {
 
   return (
     <header
@@ -14,8 +12,6 @@ const Header = ({searchRef, setOpen}) => {
                 fullWidth='w-fit hidden lg:block' onClick={() => setOpen(prev => !prev)}
                 iconClasses='w-4 h-4 text-white'/>
         <h1 className='text-xl font-semibold'>Overview</h1>
-        <Input BtnIcon={MagnifyingGlassIcon} inputRef={searchRef} placeholder='Search'
-               extraClasses='w-fit hidden lg:block'/>
       </div>
       <div className='flex items-center gap-8 px-4 py-2.5 hidden lg:flex'>
         {/*<Link to='/' className='text-iconGray flex items-center hover:text-blue-400 gap-2'>*/}
