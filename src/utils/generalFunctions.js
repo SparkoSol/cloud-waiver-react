@@ -1078,17 +1078,17 @@ export function updateAllSubmission(status, setSwitchState, setSelectedCount, se
         })
 }
 
-export function authUrl(service) {
-    switch (service) {
-        case "dropbox":
-            return "https://www.dropbox.com/oauth2/authorize?client_id=efru4ey6czp9jbo&token_access_type=offline&response_type=code&redirect_uri=https://a14c-182-186-103-200.ngrok-free.app/integration/dropbox-tokens&state="
-        case "contact" :
-            return "https://authz.constantcontact.com/oauth2/default/v1/authorize?client_id=f304b755-b095-44f4-9866-e215a5340a25&redirect_uri=http://localhost:3000/integration/constant-contacts&response_type=code&scope=contact_data%20campaign_data%20offline_access&state="
-        case "mailChimp" :
-            return "https://login.mailchimp.com/oauth2/authorize?response_type=code&client_id=760072457749&redirect_uri=http://127.0.0.1:3000/integration/mail-chimp&state="
-        case "googleDrive" :
-            return "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=624151635976-l25unevsefskf8br0qjkenbh6i0f5ipv.apps.googleusercontent.com&redirect_uri=http://localhost:3000/integration/google-drive&scope=https://www.googleapis.com/auth/drive&access_type=offline&approval_prompt=force&state="
-        default :
-            return ""
-    }
-}
+// export function authUrl(service) {
+//     switch (service) {
+//         case "dropbox":
+//             return "https://www.dropbox.com/oauth2/authorize?client_id=efru4ey6czp9jbo&token_access_type=offline&response_type=code&redirect_uri=https://a14c-182-186-103-200.ngrok-free.app/integration/dropbox-tokens&state="
+//         case "contact" :
+//             return "https://authz.constantcontact.com/oauth2/default/v1/authorize?client_id=f304b755-b095-44f4-9866-e215a5340a25&redirect_uri=http://localhost:3000/integration/constant-contacts&response_type=code&scope=contact_data%20campaign_data%20offline_access&state="
+//         case "mailChimp" :
+//             return "https://login.mailchimp.com/oauth2/authorize?response_type=code&client_id=760072457749&redirect_uri=http://127.0.0.1:3000/integration/mail-chimp&state="
+//         case "googleDrive" :
+//             return "https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=624151635976-l25unevsefskf8br0qjkenbh6i0f5ipv.apps.googleusercontent.com&redirect_uri=http://localhost:3000/integration/google-drive&scope=https://www.googleapis.com/auth/drive&access_type=offline&approval_prompt=force&state="
+//         default :
+//             return ""
+//     }
+// }
