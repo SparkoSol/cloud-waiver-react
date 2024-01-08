@@ -8,11 +8,13 @@ import {getRequest, patchRequest, postRequest} from "../../redux/cwAPI";
 import TemplateRow from "./components/TemplateRow";
 import {addCheck} from "../../utils/generalFunctions";
 import toast from "react-hot-toast";
+import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {allPermissions} from "../../redux/team/teamSlice";
 
 function Template() {
   const permissions = useSelector(allPermissions);
+  const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [allTemplates, setAllTemplates] = useState([]);
@@ -60,11 +62,11 @@ function Template() {
     if (type === 'Duplicate Template') body = {...allTemplates[duplicate.index], name}
     else body = {name}
 
-    postRequest(`/waivers`, body)
-      .then(r => window.location.pathname = `/templates/${r.data._id}/builder`)
-      .catch(e => toast.error(e.response.data.message))
-      .finally(() => setLoading(false))
-  }
+        postRequest(`/waivers`, body)
+            .then(r => navigate(`/templates/${r.data._id}/builder`))
+            .catch(e => toast.error(e.response.data.message))
+            .finally(() => setLoading(false))
+    }
 
   function customOpenModal(bool, index) {
     setOpenModal(true);

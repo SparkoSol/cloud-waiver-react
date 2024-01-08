@@ -18,3 +18,11 @@ export const getPublicWaiver = createAsyncThunk('/waivers/getPublicWaiver', asyn
     thunkAPI.dispatch(getPublicWaiver.rejected(e.response.data.message));
   }
 });
+export const getAllWaiver = createAsyncThunk('/waivers', async (payload, thunkAPI) => {
+  try {
+    const {data} = await getRequest(`/waivers?statuses=published&statuses=published`)
+    return data
+  } catch (e) {
+    thunkAPI.dispatch(getPublicWaiver.rejected(e.response.data.message));
+  }
+});
