@@ -19,11 +19,11 @@ const Header = ({setOpen}) => {
   useEffect(() => {
     if (currentUser) {
       // incomplete, incomplete_expired, trialing, active, past_due, canceled, or unpaid.
-      const trialEnd = new Date(currentUser.subscription.trial_end).toISOString();
+      const trialEnd = new Date(currentUser.subscription?.trial_end).toISOString();
       const currentDate = new Date().toISOString();
       const isTrialExpired = trialEnd < currentDate;
       const allowedLocations = ['/billing', '/settings', '/settings/password'];
-      switch (currentUser.subscription.status) {
+      switch (currentUser.subscription?.status) {
         case 'incomplete':
           setDescription({
             title: 'Incomplete Subscription',
@@ -61,14 +61,13 @@ const Header = ({setOpen}) => {
           });
           break;
         default:
-          // Handle any other cases if needed
           setDescription({
             title: '',
             desc: ''
           });
           break;
       }
-      if (!isTrialExpired && currentUser.subscription.status !== 'active' && !allowedLocations.includes(location)) setIsOpen(true);
+      if (isTrialExpired && currentUser.subscription.status !== 'active' && !allowedLocations.includes(location)) setIsOpen(true);
     }
   }, [currentUser, location]);
 
