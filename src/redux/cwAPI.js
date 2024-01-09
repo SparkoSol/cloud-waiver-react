@@ -7,15 +7,15 @@ const cwAPI = axios
 
 // Add a request interceptor
 axios.interceptors.request.use(
-    config => {
-        const token = localStorage.getItem('cw-access-token')
-        config.headers['Authorization'] = 'Bearer ' + token
-        config.headers['X-TENANT-ID'] = getDynamicTenantId();
-        return config
-    },
-    error => {
-        Promise.reject(error)
-    }
+  config => {
+    const token = localStorage.getItem('cw-access-token')
+    config.headers['Authorization'] = 'Bearer ' + token
+    config.headers['X-TENANT-ID'] = getDynamicTenantId();
+    return config
+  },
+  error => {
+    Promise.reject(error)
+  }
 )
 
 window.http = cwAPI

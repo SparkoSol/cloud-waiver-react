@@ -165,15 +165,6 @@ export let additionMinorForm = `
 
 //static headers
 export const DashBoardHeaders = ['ID', 'Signed Date', 'First Name', 'Last Name', 'Reference No', 'Template Name', 'Status'];
-export const dashboardData = [{
-    _id: '1111111',
-    signedDate: 'Oct 05, 2023',
-    firstName: 'John',
-    lastName: 'Doe',
-    refrenceNo: 'SPARKO',
-    templateName: 'Lorem',
-    status: 'Submitted'
-}]
 export const sideBarOptions = [
     {
         id: 1,

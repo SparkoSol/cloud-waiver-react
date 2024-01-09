@@ -16,10 +16,16 @@ const integrationSlice = createSlice({
     updateIntegrationStatus(state, action) {
       const {actionType, status} = action.payload;
       state.integrationsStatus[actionType] = status
+    },
+    resetIntegrations(state){
+      state.integrationsStatus.MAILCHIMP = false
+      state.integrationsStatus.DROPBOX = false
+      state.integrationsStatus.GOOGLE_DRIVE = false
+      state.integrationsStatus.CONSTANT_CONTACT = false
     }
   }
 })
 
-export const {updateIntegrationStatus} = integrationSlice.actions
+export const {updateIntegrationStatus, resetIntegrations} = integrationSlice.actions
 export const selectIntegrations = (state) => state.integration.integrationsStatus;
 export default integrationSlice.reducer

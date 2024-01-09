@@ -5,7 +5,7 @@ export const data = [
     title: 'Mailchimp',
     subtitle: 'Syncs with subscriber list',
     image: 'mailchimp.svg',
-    url: 'https://login.mailchimp.com/oauth2/authorize?response_type=code&client_id=247204538935&redirect_uri=https://api.cloudwaiver.com/integration/connect&state=',
+    url: `https://login.mailchimp.com/oauth2/authorize?response_type=code&client_id=133989150046&redirect_uri=https://api.cloudwaiver.com/integration/connect&state=`,
     type:'MAILCHIMP'
   },
   {
@@ -13,7 +13,7 @@ export const data = [
     title: 'Dropbox',
     subtitle: 'Upload waiver to dropbox',
     image: 'dropbox.svg',
-    url: 'https://www.dropbox.com/oauth2/authorize?client_id=efru4ey6czp9jbo&token_access_type=offline&response_type=code&redirect_uri=https://api.cloudwaiver.com/integration/connect&state=',
+    url: `https://www.dropbox.com/oauth2/authorize?client_id=efru4ey6czp9jbo&token_access_type=offline&response_type=code&redirect_uri=https://api.cloudwaiver.com/integration/connect&state=`,
     type:'DROPBOX'
   },
   {

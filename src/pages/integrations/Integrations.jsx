@@ -9,7 +9,7 @@ import Button from "../../components/Button";
 import toast from 'react-hot-toast'
 import {authUrl} from "../../utils/generalFunctions";
 
-
+//TODO : Remove this folder
 const Integrations = () => {
     const [mailChimp, setMailChimp] = useState(false);
     const [dropbox, setDropbox] = useState(false);
