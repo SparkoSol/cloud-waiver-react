@@ -2,7 +2,7 @@ import {getRequest, patchRequest, postRequest} from "../cwAPI.js";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import toast from 'react-hot-toast'
 
-export const getAllTeams = createAsyncThunk('/team/getAllTeams', async (payload, thunkAPI) => {
+export const getAllTeams = createAsyncThunk('/team/getAllTeams', async () => {
   try {
     const {data} = await getRequest(`/teams`);
     return data

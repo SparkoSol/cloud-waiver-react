@@ -9,7 +9,6 @@ import {allPermissions, selectAllTeams, userPermissions} from "../../redux/team/
 import {useEffect} from "react";
 
 const SideBarMenu = ({
-                       searchRef,
                        data,
                        open,
                        openReplyMenuIndex,
@@ -28,7 +27,7 @@ const SideBarMenu = ({
     if (allTeams && currentUser) {
       let temp = allTeams.find(item => item.members.includes(currentUser._id));
       if (temp) {
-        dispatch(userPermissions([...temp?.permissions, "waiver_templates", "sign_out", "settings"]))
+        dispatch(userPermissions([...temp?.permissions, "waiver_templates", "sign_out", "settings", "dashboard"]))
       }
     }
   }, [allTeams, currentUser, dispatch]);
@@ -69,7 +68,7 @@ const SideBarMenu = ({
         </div>
       </Link>}
       <div className='block lg:hidden'>
-        <Input extraClasses='pt-4' inputRef={searchRef} BtnIcon={MagnifyingGlassIcon} placeholder='Search'/>
+        <Input extraClasses='pt-4' BtnIcon={MagnifyingGlassIcon} placeholder='Search'/>
       </div>
       <ul>
         {permissions.length > 0 && data.map((item, index) => {

@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getPublicWaiver, getSingleWaiver} from "./waiverThunk";
+import {getAllWaiver, getPublicWaiver, getSingleWaiver} from "./waiverThunk";
 import toast from 'react-hot-toast';
 
 const initialWaiverState = {
@@ -19,6 +19,13 @@ const waiverSlice = createSlice({
     },
     resetStatus(state) {
       state.status = 'idle';
+    },
+    updateFolder(state, {payload}) {
+      const {index, folder} = payload;
+      if (!state.allWaivers[index].hasOwnProperty('folder_name')) {
+        state.allWaivers[index].folder_name = {};
+      }
+      state.allWaivers[index].folder_name = folder
     },
     resetCurrentWaiver(state) {
       state.currentWaiver = null;
@@ -53,10 +60,25 @@ const waiverSlice = createSlice({
         state.status = 'failed';
         toast.error(error.message)
       })
+
+    // get all waives
+    builder
+      .addCase(getAllWaiver.pending, (state) => {
+        state.status = 'pending';
+      })
+      .addCase(getAllWaiver.fulfilled, (state, {payload}) => {
+        state.status = 'fulfilled';
+        state.allWaivers = payload;
+      })
+      .addCase(getAllWaiver.rejected, (state, {error}) => {
+        state.status = 'failed';
+        toast.error(error.message)
+      })
   },
 })
 export const selectSingleWaiver = state => state.waivers.currentWaiver;
 export const selectPublicWaiver = state => state.waivers.publicWaiver;
 export const selectWaiverStatus = state => state.waivers.status;
-export const {resetStatus, addSelectedWaiver, resetCurrentWaiver, updateWaiver} = waiverSlice.actions
+export const selectAllWaivers = state => state.waivers.allWaivers;
+export const {resetStatus, updateFolder, addSelectedWaiver, updateWaiver} = waiverSlice.actions
 export default waiverSlice.reducer

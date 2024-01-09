@@ -92,7 +92,7 @@ const DataTable = ({
 
   return (
     (<>
-      <div className={`flex flex-col overflow-x-auto sm:rounded-lg py-2 font-mulish`}>
+      <div className={`flex flex-col overflow-x-auto relative sm:rounded-lg py-2 font-mulish`}>
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
             <div className="overflow-hidden">
@@ -135,7 +135,7 @@ const DataTable = ({
                 </tr>
                 </thead>
                 <tbody
-                  className="divide-y divide-gray-300 sm:divide-transparent bg-white">
+                  className="divide-y divide-gray-300 sm:divide-transparent h-28 bg-white">
                 {items.length > 0 ? items.map((item, index) =>  (
                   <TableRow key={(item._id || item.id) + index} functionCall={selectRows} item={item} {...otherProps}
                             index={index}
