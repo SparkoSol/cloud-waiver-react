@@ -19,7 +19,7 @@ const Header = ({setOpen}) => {
   useEffect(() => {
     if (currentUser) {
       // incomplete, incomplete_expired, trialing, active, past_due, canceled, or unpaid.
-      const trialEnd = new Date(currentUser.subscription?.trial_end).toISOString();
+      const trialEnd = currentUser.trial_until;
       const currentDate = new Date().toISOString();
       const isTrialExpired = trialEnd < currentDate;
       const allowedLocations = ['/billing', '/settings', '/settings/password'];
