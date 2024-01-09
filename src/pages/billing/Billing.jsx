@@ -14,16 +14,15 @@ import {selectInvoicesData, selectPaymentMethods} from "../../redux/user/userSli
 import Spinner from "../../components/Spinner";
 import {getAllInvoices, getAllMethods} from "../../redux/user/userThunk";
 
-const stripePromise = loadStripe('pk_test_51NcNFQLXaNTLpBGT9RGxzW7Lpt8z0dABeSsaJ0EoFvlWrtzPSR1V33aHad44xpbqJXBNZaepVVQGsViSnYfWdogX00ozgABTKi');
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 const Billing = () => {
   const dispatch = useDispatch();
   const paymentMethodsOptions = useSelector(selectPaymentMethods) || [];
   const invoiceData = useSelector(selectInvoicesData) || [];
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const [prices, setPrices] = useState([]);
-  const [variablePrice, setVariablePrice] = useState({})
-  const [loading, setLoading] = useState(false);
-  const loadingSlice = useSelector(state => state.user.status) === 'pending'
+  const [variablePrice, setVariablePrice] = useState({});
+  const loadingSlice = useSelector(state => state.user.status) === 'pending';
   const currentPlan = useSelector(state => state.user.currentUser?.currentPlan);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const Billing = () => {
       await dispatch(getAllMethods())
     }
 
-    fetchData().finally(() => setLoading(false))
+    fetchData()
   }, [])
   return (
     <>
@@ -86,7 +85,6 @@ const Billing = () => {
         <Elements stripe={stripePromise}>
           <PaymentModal open={open} setOpen={setOpen}/>
         </Elements>
-        {loading && <Spinner/>}
       </section>
     </>
   )

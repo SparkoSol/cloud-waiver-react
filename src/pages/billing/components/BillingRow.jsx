@@ -1,6 +1,6 @@
 import Button from "../../../components/Button.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {createPlan, updatePlan} from "../../../redux/user/userThunk";
+import {createPlan, updatePlan, userProfile} from "../../../redux/user/userThunk";
 import {selectCurrentUser, selectPaymentMethods} from "../../../redux/user/userSlice";
 import toast from "react-hot-toast";
 
@@ -13,6 +13,9 @@ const BillingRow = ({item, variablePrice}) => {
     if (paymentMethodsCount > 0) {
       if (currentUser.subscription) await dispatch(updatePlan({price: item.id}))
       else await dispatch(createPlan({prices: [item.id, variablePrice.id]}))
+
+      const token = localStorage.getItem('cw-api-token');
+      await dispatch(userProfile(token))
     } else {
       toast.error("Add payment method first.")
     }
@@ -35,7 +38,7 @@ const BillingRow = ({item, variablePrice}) => {
             btnText='Select'
             fullWidth='w-fit ml-auto'
             btnClasses={`border px-4 py-2 border-gray-300 text-gray-700 font-semibold ${disable ? "opacity-40 cursor-not-allowed" : "hover:bg-gray-100"}`}
-            onClick={()=>handleChangePlan(item)}
+            onClick={() => handleChangePlan(item)}
           />
         </div>
       </td>

@@ -4,7 +4,7 @@ import {selectCurrentPlan} from "../../../redux/user/userSlice";
 import DropDown from "../../../components/inputs/DropDown";
 import {Bars3Icon} from "@heroicons/react/20/solid";
 
-const PaymentRow = ({item, setRemoveMethodId, totalLength}) => {
+const PaymentRow = ({item, totalLength}) => {
   const currentPlan = useSelector(selectCurrentPlan);
   const dispatch = useDispatch()
   const handlePaymentMethodRemoval = async () => {
@@ -36,21 +36,6 @@ const PaymentRow = ({item, setRemoveMethodId, totalLength}) => {
         {`${item.card.exp_month} / ${item.card.exp_year}`}
       </td>
       {(totalLength > 1) && (currentPlan !== item.id) && <DropDown data={data} Icon={Bars3Icon}/>}
-      {/*{(totalLength > 1) && (currentPlan !== item.id) && <div className="py-4 px-6 flex align-middle justify-end gap-2">*/}
-      {/*  <button*/}
-      {/*    className="py-2 px-3 bg-red-500 rounded-md text-sm text-white hover:bg-red-600"*/}
-      {/*    onClick={handlePaymentMethodRemoval}*/}
-      {/*  >*/}
-      {/*    Remove*/}
-      {/*  </button>*/}
-      {/*  <button*/}
-      {/*    onClick={handleMakePaymentMethodDefault}*/}
-      {/*    disabled={disabled}*/}
-      {/*    className={`py-2 px-3 border-solid border-2 rounded-md text-sm sm ${disabled ? "cursor-not-allowed opacity-40" : "cursor-pointer hover:bg-blue-500 hover:border-blue-500 hover:text-white"}`}*/}
-      {/*  >*/}
-      {/*    Make Default*/}
-      {/*  </button>*/}
-      {/*</div>}*/}
     </tr>
   )
 }

@@ -24,14 +24,14 @@ const Dashboard = () => {
   const [openModal, setOpenModal] = useState(false);
   const [usage, setUsage] = useState([
     {
-      id: 1, title: 'Usage', value: '50', icon: '/database.svg'
+      id: 1, title: 'Usage', value: '00', icon: '/database.svg'
     }, {
-      id: 2, title: 'Templates', value: '50', icon: '/wallet.svg'
+      id: 2, title: 'Templates', value: '00', icon: '/wallet.svg'
     }, {
-      id: 3, title: 'Signed', value: '50', icon: '/pulse.svg'
+      id: 3, title: 'Signed', value: '00', icon: '/pulse.svg'
     },
     {
-      id: 4, title: 'Customers', value: '50', icon: '/user.png'
+      id: 4, title: 'Customers', value: '00', icon: '/user.png'
     }
   ])
 

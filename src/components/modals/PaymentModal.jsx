@@ -3,7 +3,7 @@ import {Dialog, Transition} from '@headlessui/react'
 import {CreditCardIcon} from "@heroicons/react/24/outline";
 import {CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
 import {useDispatch} from "react-redux";
-import {updatePaymentMethods} from "../../redux/user/userThunk";
+import {updatePaymentMethods, userProfile} from "../../redux/user/userThunk";
 import toast from 'react-hot-toast';
 
 export default function PaymentModal({open, setOpen}) {
@@ -23,8 +23,9 @@ export default function PaymentModal({open, setOpen}) {
     if (error) {
       console.log(error);
     } else {
+      const token = localStorage.getItem("cw-access-token");
       await dispatch(updatePaymentMethods({paymentMethodId: paymentMethod.id}))
-      // await dispatch(userProfile())
+      await dispatch(userProfile(token));
       toast.success('Payment method added successfully');
     }
   };

@@ -135,7 +135,7 @@ const DataTable = ({
                 </tr>
                 </thead>
                 <tbody
-                  className="divide-y divide-gray-300 sm:divide-transparent h-28 bg-white">
+                  className="divide-y divide-gray-300 sm:divide-transparent bg-white">
                 {items.length > 0 ? items.map((item, index) =>  (
                   <TableRow key={(item._id || item.id) + index} functionCall={selectRows} item={item} {...otherProps}
                             index={index}
