@@ -7,12 +7,15 @@ import {postRequest} from "../../redux/cwAPI";
 import toast from "react-hot-toast";
 import Spinner from "../../components/Spinner";
 import {staticData} from "../../utils/builder";
-
 const TemplateGallery = () => {
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
 
   function handleSubmit(name) {
+    if (name === 'cancel') {
+      setModal(false);
+      return
+    }
     setLoading(true)
     const body = {
       name,
@@ -22,7 +25,10 @@ const TemplateGallery = () => {
     postRequest(`/waivers`, body)
       .then(r => window.location.pathname = `/templates/${r.data._id}/builder`)
       .catch(e => toast.error(e.response.data.message))
-      .finally(() => setLoading(false))
+      .finally(() => {
+        setModal(false)
+        setLoading(false)
+      })
   }
 
   return (

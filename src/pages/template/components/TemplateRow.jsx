@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {capitalize} from "../../../utils/generalFunctions";
+import {capitalize, limitChars} from "../../../utils/generalFunctions";
 import {DocumentDuplicateIcon, EyeIcon, PencilSquareIcon, TrashIcon, UsersIcon} from "@heroicons/react/24/outline";
 import CheckboxInput from "../../../components/inputs/CheckboxInput";
 import toast from 'react-hot-toast';
@@ -16,7 +16,7 @@ const TemplateRow = ({item, functionCall, index, deleteRow, customOpenModal}) =>
                          onChange={() => functionCall(index)}/>
         </div>
       </td>
-      <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.name}</td>
+      <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{limitChars(item.name, 30)}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.total_submissions}</td>
       <td className='py-4 px-3 text-sm text-gray-900 whitespace-nowrap'>
         <span

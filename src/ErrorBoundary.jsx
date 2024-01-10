@@ -28,9 +28,7 @@ class ErrorBoundary extends React.Component {
             <Button btnText='Back to Home Page' btnClasses='bg-btnBg' fullWidth='w-fit' onClick={() => {
               this.setState({hasError: false})
               window.location.href = '/dashboard'
-            }
-            }
-                    extraClasses={`rounded border-2 border-wwlOrange px-1 py-0.5 sm:px-4 sm:py-2 sm:rounded-lg hover:bg-wwlOrange hover:text-wwlWhite transition-colors duration-300 w-40`}/>
+            }}/>
           </div>
         </div>
       );

@@ -40,7 +40,7 @@ const Kiosk = () => {
 
   async function getData() {
     try {
-      const {data} = await getRequest('/waivers?status=published')
+      const {data} = await getRequest('/waivers?statuses=published&statuses=published')
       setKioskData(addCheck(data))
       const resp = await getRequest(`/kiosk`)
       setKiosk(resp.data)

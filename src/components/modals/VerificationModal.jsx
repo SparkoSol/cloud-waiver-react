@@ -1,13 +1,41 @@
-import {Fragment, useRef} from 'react'
+import {Fragment, useEffect, useState} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import {postRequest} from "../../redux/cwAPI";
+import toast from "react-hot-toast";
+import localStorage from "redux-persist/es/storage";
+import {persistor} from "../../redux/store";
 
-export default function VerificationModal({open, setOpen}) {
+export default function VerificationModal({open, setOpen, currentUser = null}) {
   const navigate = useNavigate();
-  const cancelButtonRef = useRef(null)
+  const location = useLocation().pathname;
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      localStorage.removeItem('cw-access-token')
+    }
+  }, [open]);
+
+
+  function requestMail() {
+    setLoading(true)
+    if (currentUser) {
+      postRequest('/persons/resend-verification-email', {
+        email: currentUser.username, id: currentUser._id, name: currentUser.first_name
+      }).then((r) => {
+        persistor.purge()
+        toast.success(r.data.message)
+        setOpen(false)
+        navigate('/')
+      })
+        .finally(()=>setLoading(false))
+    }
+  }
+
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => {
+      <Dialog as="div" className="relative z-10" onClose={() => {
         setOpen(false);
         localStorage.clear();
       }
@@ -37,7 +65,7 @@ export default function VerificationModal({open, setOpen}) {
             >
               <Dialog.Panel
                 className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm">
-                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <div className="bg-white px-4 py-4 sm:p-6 sm:pb-4">
                   <div className="">
                     <div className="mt-3 text-center sm:mt-0 sm:text-left">
                       <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
@@ -49,19 +77,15 @@ export default function VerificationModal({open, setOpen}) {
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                {location === '/' && <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
-                    ref={cancelButtonRef}
+                    disabled={loading}
                     type="button"
-                    className="text-white text-sm align-items-center align-middle rounded-md bg-textDark px-4 py-2 font-semibold w-full mb-2 sm:mb-0"
-                    onClick={() => {
-                      localStorage.clear();
-                      setOpen(false)
-                      navigate('/')
-                    }}>
-                    OK
+                    className={`text-white text-sm align-items-center align-middle rounded-md ${loading ? 'bg-gray-500' : 'bg-textDark'} px-4 py-2 font-semibold w-full mb-2 sm:mb-0`}
+                    onClick={requestMail}>
+                    {loading ? 'Sending...' : 'Resend Mail'}
                   </button>
-                </div>
+                </div>}
               </Dialog.Panel>
             </Transition.Child>
           </div>

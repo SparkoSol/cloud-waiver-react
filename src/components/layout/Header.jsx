@@ -91,7 +91,6 @@ const Header = ({setOpen}) => {
         <Button btnClasses='w-8 h-8 flex justify-center items-center rounded-full bg-btnBg p-0' BtnIcon={Bars3Icon}
                 fullWidth='w-fit hidden lg:block' onClick={() => setOpen(prev => !prev)}
                 iconClasses='w-4 h-4 text-white'/>
-        <h1 className='text-xl font-semibold'>Overview</h1>
       </div>
       <div className='flex items-center gap-8 px-4 py-2.5 hidden lg:flex'>
         <DropDown data={data} Icon={Cog6ToothIcon}/>

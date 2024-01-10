@@ -7,13 +7,6 @@ export const login = createAsyncThunk('user/login', async (payload, thunkAPI) =>
     localStorage.setItem('cw-access-token', tokens?.access_token);
     localStorage.setItem('cw-refresh-token', tokens?.refresh_token);
     const {data: user} = await getRequest('/auth/profile');
-    if (!user.verified) {
-      await postRequest('/persons/resend-verification-email', {
-        email: user.username, id: user._id, name: user.first_name
-      });
-      return 'The Verification Email sent to your email, kindly check your inbox and verify';
-    }
-    localStorage.setItem('cw-verified', 'true');
     return user
   } catch (e) {
     thunkAPI.dispatch(login.rejected(e.response.data.message));

@@ -25,7 +25,8 @@ function Template() {
     title: 'New Template',
     description: '',
     label: 'Please enter your template name',
-    index: null
+    index: null,
+    error: null
   })
   const [selectedCount, setSelectedCount] = useState(0);
 
@@ -38,6 +39,22 @@ function Template() {
   }, [switchState]);
 
   const handleSubmit = (name, type) => {
+    if (name === 'cancel') {
+      setDuplicate({
+        btnText: 'Submit',
+        title: 'New Template',
+        description: '',
+        label: 'Please enter your template name',
+        index: null,
+        error: null
+      })
+      setOpenModal(false)
+      return;
+    }
+    if (name.trim() === '') {
+      setDuplicate(prevState => ({...prevState, error: 'Name is required'}))
+      return;
+    }
     setLoading(true);
     setOpenModal(false)
     let body;
@@ -61,12 +78,11 @@ function Template() {
     }
     if (type === 'Duplicate Template') body = {...allTemplates[duplicate.index], name}
     else body = {name}
-
-        postRequest(`/waivers`, body)
-            .then(r => navigate(`/templates/${r.data._id}/builder`))
-            .catch(e => toast.error(e.response.data.message))
-            .finally(() => setLoading(false))
-    }
+    postRequest(`/waivers`, body)
+      .then(r => navigate(`/templates/${r.data._id}/builder`))
+      .catch(e => toast.error(e.response.data.message))
+      .finally(() => setLoading(false))
+  }
 
   function customOpenModal(bool, index) {
     setOpenModal(true);

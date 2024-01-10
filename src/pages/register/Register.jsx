@@ -88,6 +88,7 @@ const RegisterForm = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if(passwordRef.current.value !== confirmPasswordRef.current.value) return toast.error('Passwords do not match')
     setLoading(true)
     const body = {
       username: emailRef.current.value,

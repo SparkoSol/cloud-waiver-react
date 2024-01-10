@@ -15,7 +15,6 @@ const Account = () => {
   const currentUser = useSelector(selectCurrentUser);
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
-  const emailRef = useRef(null);
   const streetRef = useRef(null);
   const cityRef = useRef(null);
   const stateRef = useRef(null);
@@ -45,7 +44,6 @@ const Account = () => {
       value: currentUser.username,
       type: 'email',
       placeholder: 'john@gmail.com',
-      ref: emailRef,
       class: "w-full sm:w-1/2 md:w-9/12"
     },
     {
@@ -106,7 +104,6 @@ const Account = () => {
     const body = {
       first_name: firstNameRef.current.value,
       last_name: lastNameRef.current.value,
-      username: emailRef.current.value,
       profile_picture: currentUser.profile_picture,
       address: {
         country,
@@ -143,6 +140,7 @@ const Account = () => {
                   type={item.type}
                   placeholder={item.placeholder}
                   label={item.label}
+                  disabled={!item.ref}
                   inputRef={item.ref}
                   value={item.value}
                 />

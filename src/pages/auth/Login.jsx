@@ -35,25 +35,32 @@ const LoginForm = () => {
       username: email.current?.value,
       password: password.current?.value,
     }
-    const data = await dispatch(login(body))
-    if (typeof data.payload === 'string') {
-      setOpen(true)
-    }
-    setLoading(false);
+    await dispatch(login(body))
+    setLoading(false)
   }
 
-    useEffect(() => {
-        const token = localStorage.getItem('cw-access-token');
-        if (currentUser && token) {
-            if (currentUser.workspaces.length === 1) {
-                localStorage.clear();
-                window.location.href = `https://${currentUser.workspaces[0].domain}.cloudwaiver.com/dashboard?token=${token}`
-            } else {
-                navigate('/domain/select')
-            }
-        }
-        // eslint-disable-next-line
-    }, [currentUser]);
+  useEffect(() => {
+    const token = localStorage.getItem('cw-access-token');
+
+    if (currentUser && !currentUser.verified) {
+      setOpen(true);
+      return;
+    }
+
+    if (currentUser?.verified && token) {
+      const { workspaces } = currentUser;
+
+      if (workspaces.length === 1) {
+        localStorage.clear();
+        window.location.href = `http://${workspaces[0].domain}.localhost:3333/dashboard?token=${token}`;
+      } else {
+        navigate('/domain/select');
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser]);
+
 
 
   return (
@@ -80,7 +87,7 @@ const LoginForm = () => {
           </div>
           {loading && <Spinner/>}
         </FormLayout>
-        <VerificationModal open={open} setOpen={setOpen}/>
+        <VerificationModal open={open} setOpen={setOpen} currentUser={currentUser}/>
         <SideBarAdd/>
       </div>
     </section>

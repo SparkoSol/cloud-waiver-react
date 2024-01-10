@@ -18,12 +18,12 @@ const SplashScreen = () => {
 
   return (
     <section className='w-full'>
-      <div className="mx-auto pt-4 pb-8 max-w-xl px-6 lg:px-0">
-        <div className="p-6 mt-4 bg-white rounded-md">
+      <div className="mx-auto p-4 max-w-xl lg:px-0">
+        <div className="bg-white rounded-md">
           <div className="flex mb-4 justify-center">
             <div className="mt-2">
               <img src={response?.logo}
-                   width="200px" alt=''/>
+                   width="400px" alt=''/>
             </div>
           </div>
           <div className="font-bold text-lg text-center">{response?.title}</div>

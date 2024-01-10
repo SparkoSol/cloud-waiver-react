@@ -41,11 +41,11 @@ const FormBuilder = () => {
       dispatch(resetStatus())
       setTimeout(() => {
         let textAreaArr = document.querySelectorAll('.textarea-selector');
-        hideList();
+        hideList('none');
         document.querySelector('.form-wrap')?.addEventListener('click', function (e) {
           if (e.target.closest('.input-control')?.getAttribute('data-type') === 'primaryAdultParticipant') {
-            hideList();
-          }else if(e.target.parentNode.parentNode.classList[0] === 'primaryAdultParticipant-field'){
+            hideList('none');
+          } else if (e.target.parentNode.parentNode.classList[0] === 'primaryAdultParticipant-field') {
             document.querySelector('li[data-type="primaryAdultParticipant"]').style.display = 'block';
           }
         })
@@ -77,7 +77,8 @@ const FormBuilder = () => {
     patchRequest(`/waivers/${id}`, {form_data: jsonData})
       .then(() => toast.success('Saved Successfully'))
       .catch(e => toast.error(e.response.data.message))
-      .finally(() => {
+      .finally(() =>{
+        setOpenModal(false)
         dispatch(getSingleWaiver(id));
         setLoading(false)
       });
@@ -106,13 +107,19 @@ const FormBuilder = () => {
     <Modal open={openModal}
            setOpen={setOpenModal}
            btnText='Confirm'
-           functionCall={() => {
+           functionCall={(name) => {
+             if (name === 'cancel') {
+               setOpenModal(false);
+               return
+             }
+             hideList('block')
              FormBuilder.actions?.clearFields();
              for (let i = 0; i < staticForm.length; i++) {
                FormBuilder.actions.addField(staticForm[i])
              }
+             setOpenModal(false)
            }}
-           description='This cannot be undone!'
+           description='Do you want to proceed with this action? This cannot be undone.'
            title='Are you sure?'/>
     {loading && <Spinner/>}
   </div>)

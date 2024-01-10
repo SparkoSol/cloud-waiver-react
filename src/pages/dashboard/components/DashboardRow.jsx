@@ -25,7 +25,7 @@ const DashboardRow = ({item, functionCall, index, deleteRow}) => {
             <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.customer?.first_name}</td>
             <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.customer?.last_name}</td>
           <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{limitChars(item.reference_no, 6)}</td>
-            <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.waiver.name}</td>
+            <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{limitChars(item.waiver.name, 30)}</td>
             <td className='py-4 px-3 text-sm text-gray-900 whitespace-nowrap'>
         <span
             className={`${statusColors[item.status]} text-xs font-semibold px-2.5 py-0.5 rounded`}>{capitalize(item.status)}</span>

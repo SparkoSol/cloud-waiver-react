@@ -47,7 +47,6 @@ const FormRender = () => {
   useEffect(() => {
     setLoading(true);
     dispatch(getPublicWaiver(id))
-      .then(() => navigator.clipboard.writeText(''))
       .finally(() => setLoading(false))
     // eslint-disable-next-line
   }, []);
@@ -55,12 +54,9 @@ const FormRender = () => {
 
   useEffect(() => {
     if (switchState !== 'idle') {
-      setLoading(true)
-      events();
-      setLoading(false)
+      events()
     }
   }, [switchState]);
-
   const saveData = async () => {
     const mainForm = document.querySelector('.rendered-form');
     let allInputs = mainForm.querySelectorAll('input[required]');

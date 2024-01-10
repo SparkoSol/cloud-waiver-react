@@ -2,7 +2,7 @@ import Input from "../../../components/inputs/Input";
 import Button from "../../../components/Button";
 import Submissions from "./Submissions";
 import {useEffect, useRef, useState} from "react";
-import {postRequest} from "../../../redux/cwAPI";
+import {getDynamicTenantId, postRequest} from "../../../redux/cwAPI";
 import toast from 'react-hot-toast'
 import Spinner from "../../../components/Spinner";
 import {useSelector} from "react-redux";
@@ -12,7 +12,7 @@ import {selectSingleWaiver} from "../../../redux/waivers/waiverSlice";
 import {CheckIcon} from "@heroicons/react/24/outline";
 
 const Overview = () => {
-    const {domain, company_name} = useSelector(selectCurrentUser);
+    const {company_name} = useSelector(selectCurrentUser);
     const currentWaiver = useSelector(selectSingleWaiver);
     const {id} = useParams();
     const [data, setData] = useState([
@@ -41,7 +41,7 @@ const Overview = () => {
             return;
         }
         if (setShowMessage) {
-            navigator.clipboard.writeText(`${domain}.cloudwaiver.com/template/${currentWaiver._id}/public`)
+            navigator.clipboard.writeText(`${getDynamicTenantId()}.cloudwaiver.com/template/${currentWaiver._id}/public`)
                 .then(() => {
                     setShowMessage(true);
                     setTimeout(() => {
@@ -61,7 +61,7 @@ const Overview = () => {
         const body = {
             email: inputRef.current.value,
             company: company_name,
-            link: `${domain}.cloudwaiver.com/template/${currentWaiver._id}/public`,
+            link: `https://${getDynamicTenantId()}.cloudwaiver.com/template/${currentWaiver._id}/public`,
             waiverId: id
         }
         if (inputRef.current.value) {
@@ -72,6 +72,7 @@ const Overview = () => {
                         newData[1].number += 1;
                         return newData;
                     });
+                    inputRef.current.value = ''
                     toast.success("Invitation Successful!")
                 })
                 .catch(e => toast.error(e.response.data.message))
@@ -105,7 +106,7 @@ const Overview = () => {
                         {currentWaiver?._id &&
                             <Input placeholder='eg. Waiver 101' label='Share your waiver with the following link'
                                    extraClasses='font-medium text-gray-500 lg:w-72' inputClasses='pl-3'
-                                   value={`${domain}.cloudwaiver.com/template/${currentWaiver._id}/public`}/>}
+                                   value={`${getDynamicTenantId()}.cloudwaiver.com/template/${currentWaiver._id}/public`}/>}
                         <div>
                             {showMessage && <CheckIcon className='w-5 h-5 mx-auto'/>}
                             <Button btnText='Copy' onClick={copyToClipboard}

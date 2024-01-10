@@ -35,36 +35,43 @@ const Dashboard = () => {
     }
   ])
 
-    function handleSubmit(name) {
-        setLoading(true);
-        setOpenModal(false)
-        postRequest(`/waivers`, {name})
-            .then(r => navigate(`/templates/${r.data._id}/builder`))
-            .catch(e => toast.error(e.response.data.message))
-            .finally(() => setLoading(false))
+  function handleSubmit(name) {
+    if(name==='cancel'){
+      setOpenModal(false)
+      return
     }
+    setLoading(true);
+    setOpenModal(false)
+    postRequest(`/waivers`, {name})
+      .then(r => navigate(`/templates/${r.data._id}/builder`))
+      .catch(e => toast.error(e.response.data.message))
+      .finally(() => {
+        setOpenModal(false)
+        setLoading(false)
+      })
+  }
 
-    useEffect(() => {
-        if (currentUser && !currentMember) {
-            dispatch(getMembers(currentUser._id))
-          dispatch(getAllTeams())
-        }
-        // eslint-disable-next-line
-    }, [currentUser]);
+  useEffect(() => {
+    if (currentUser && !currentMember) {
+      dispatch(getMembers(currentUser._id))
+    }
+    dispatch(getAllTeams())
+    // eslint-disable-next-line
+  }, [currentUser]);
 
-    useEffect(() => {
-        setLoading(true)
-        getRequest('/dashboard')
-            .then(r => setUsage([
-                {id: 1, title: 'Usage', value: r.data.usage, icon: '/database.svg'},
-                {id: 2, title: 'Templates', value: r.data.templates, icon: '/wallet.svg'},
-                {id: 3, title: 'Signed', value: r.data.signed, icon: '/pulse.svg'},
-                {id: 4, title: 'Customers', value: r.data.customers, icon: '/user.png'}
-            ]))
-            .catch(e => toast.error(e.response.data.message))
-            .finally(() => setLoading(false));
+  useEffect(() => {
+    setLoading(true)
+    getRequest('/dashboard')
+      .then(r => setUsage([
+        {id: 1, title: 'Usage', value: r.data.usage, icon: '/database.svg'},
+        {id: 2, title: 'Templates', value: r.data.templates, icon: '/wallet.svg'},
+        {id: 3, title: 'Signed', value: r.data.signed, icon: '/pulse.svg'},
+        {id: 4, title: 'Customers', value: r.data.customers, icon: '/user.png'}
+      ]))
+      .catch(e => toast.error(e.response.data.message))
+      .finally(() => setLoading(false));
 
-    }, []);
+  }, []);
 
 
   return (
