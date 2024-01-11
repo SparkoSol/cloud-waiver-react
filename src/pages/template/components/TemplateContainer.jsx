@@ -59,7 +59,7 @@ const TemplateContainer = ({children}) => {
           <button className='outline-none' onClick={e => setEditMode(true)}>
             <PencilIcon className='w-5 h-5'/>
           </button>
-          <Modal setOpen={setEditMode} open={editMode} editMode={true} title='Edit Template'
+          <Modal open={editMode} editMode={true} title='Edit Template'
                  functionCall={handleEdit} value={waiver?.name}/>
         </div>
         <span

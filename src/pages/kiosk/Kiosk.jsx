@@ -26,7 +26,7 @@ const Kiosk = () => {
   }, []);
 
   useEffect(() => {
-    if (!isEmptyObject(kiosk)) {
+    if (!isEmptyObject(kiosk) && !kiosk?.temp) {
       let markedRows = kioskData?.map(item => {
         if (kiosk.waivers.includes(item._id)) {
           item.checked = true;
@@ -76,7 +76,8 @@ const Kiosk = () => {
       waivers: checkedTemplates
     }
     patchRequest(`/kiosk`, body)
-      .then(r => {
+      .then(() => {
+        getData()
         toast.success('Saved Successfully.');
       })
       .catch(e => toast.error(e.response.data.message))
@@ -86,18 +87,18 @@ const Kiosk = () => {
   return (
     <section>
       {loading && <Spinner/>}
-      <div className='flex gap-3 items-end'>
+      <div className='flex gap-3 items-end flex-wrap'>
         <Heading title='Kiosk' titleClasses='text-xl font-semibold'
                  subtitle='Manage your kiosk setting.' subTitleClasses='text-sm text-gray-900'/>
-        {!isEmptyObject(kiosk) && <Link to={`/kiosk-preview/${kiosk._id}`} target='_blank'
+        {kiosk.title && <Link to={`/kiosk-preview/${kiosk._id}`} target='_blank'
                                         className='rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>
           Preview Splash Page
         </Link>}
       </div>
-      <form onSubmit={handleSubmit} className='mt-8 space-y-6 w-3/5'>
-        <Input inputRef={titleRef} inputClasses='pl-2.5' label='Kiosk Title' placeholder='Kiosk Title'
+      <form onSubmit={handleSubmit} className='mt-8 space-y-6 w-full sm:w-3/5'>
+        <Input inputRef={titleRef} inputClasses='px-4' label='Kiosk Title' placeholder='Kiosk Title'
                defaultValue={kiosk.title}/>
-        <Input inputRef={descriptionRef} inputClasses='pl-2.5' label='Kiosk Description'
+        <Input inputRef={descriptionRef} inputClasses='px-4' label='Kiosk Description'
                defaultValue={kiosk.description}
                placeholder='Kiosk Description'/>
         <FileInput label='Kiosk Logo' fileInputRef={fileInputRef} image={kiosk.logo}/>
@@ -106,8 +107,6 @@ const Kiosk = () => {
                    setState={setKioskData}
                    setSelectAll={setSelectAll} selectAll={selectAll}/>
         <div className='flex items-center gap-2 justify-end'>
-          <Button btnText='Cancel' type='button' btnClasses='border border-gray-400 py-2 text-gray-900'
-                  fullWidth='w-fit'/>
           <Button btnText='Save Changes' btnClasses='bg-btnBg border border-btnBg py-2' fullWidth='w-fit'/>
         </div>
       </form>

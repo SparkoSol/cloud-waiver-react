@@ -10,7 +10,8 @@ import CheckboxInput from "../../components/inputs/CheckboxInput.jsx";
 import SideBarAdd from "./components/SideBarAdd.jsx";
 import Spinner from "../../components/Spinner.jsx";
 import VerificationModal from "../../components/modals/VerificationModal.jsx";
-import {selectCurrentUser} from "../../redux/user/userSlice.js";
+import {resetUser, selectCurrentUser} from "../../redux/user/userSlice.js";
+import {persistor} from "../../redux/store";
 
 const LoginForm = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -48,10 +49,11 @@ const LoginForm = () => {
     }
 
     if (currentUser?.verified && token) {
-      const { workspaces } = currentUser;
-
+      const {workspaces} = currentUser;
       if (workspaces.length === 1) {
-        localStorage.clear();
+        dispatch(resetUser())
+        persistor.purge();
+        localStorage.removeItem('cw-access-token')
         window.location.href = `https://${workspaces[0].domain}.cloudwaiver.com/dashboard?token=${token}`;
       } else {
         navigate('/domain/select');
@@ -60,7 +62,6 @@ const LoginForm = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
-
 
 
   return (

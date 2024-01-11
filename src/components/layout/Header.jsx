@@ -7,6 +7,7 @@ import {selectCurrentUser} from "../../redux/user/userSlice";
 import {useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
 import ConfirmationModal from "../modals/ConfirmationModal";
+import {persistor} from "../../redux/store";
 
 const Header = ({setOpen}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,7 +74,8 @@ const Header = ({setOpen}) => {
 
 
   function handleClick() {
-    localStorage.clear();
+    persistor.purge();
+    localStorage.removeItem('cw-access-token');
     window.location.href = 'https://cloudwaiver.com';
   }
 

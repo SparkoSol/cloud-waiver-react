@@ -97,7 +97,7 @@ const Dashboard = () => {
         </div>
         {permissions.includes(`waiver_submissions`) && <SubmissionTable title={'Recent waiver'}/>}
       </div>
-      <Modal open={openModal} setOpen={setOpenModal} functionCall={handleSubmit}/>
+      <Modal open={openModal} functionCall={handleSubmit}/>
       {loading && <Spinner/>}
     </div>
   );

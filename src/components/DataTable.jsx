@@ -12,7 +12,6 @@ const DataTable = ({
                      TableRow,
                      colspan = 1,
                      bordered = false,
-                     pageSize: PageSize = 10,
                      paginationDetails,
                      setSearchParam,
                      selectAll,
@@ -38,6 +37,8 @@ const DataTable = ({
   }, [clear])
 
   function selectRows(str) {
+    //if no rows, do nothing on click
+    if (items.length === 0) return setSelectAll(prev=>!prev);
     if (typeof str === "boolean") {
       if (!items[0].status) {
         let temp = items.map(item => ({...item, checked: str}));
@@ -136,7 +137,7 @@ const DataTable = ({
                 </thead>
                 <tbody
                   className="divide-y divide-gray-300 sm:divide-transparent bg-white">
-                {items.length > 0 ? items.map((item, index) =>  (
+                {items.length > 0 ? items.map((item, index) => (
                   <TableRow key={(item._id || item.id) + index} functionCall={selectRows} item={item} {...otherProps}
                             index={index}
                   />)) : <tr>
@@ -150,14 +151,6 @@ const DataTable = ({
           </div>
         </div>
       </div>
-      {/*<Pagination*/}
-      {/*  currentPage={Number(paginationDetails.currentPage)}*/}
-      {/*  totalCount={paginationDetails.totalCount}*/}
-      {/*  pageSize={PageSize}*/}
-      {/*  onPageChange={(page) => {*/}
-      {/*    setSearchParam({page});*/}
-      {/*  }}*/}
-      {/*/>*/}
     </>)
   )
 }

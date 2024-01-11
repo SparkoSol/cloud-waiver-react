@@ -124,20 +124,21 @@ function Template() {
     <div>
       <h1 className='text-xl font-semibold mb-5'>Templates</h1>
       <div>
-        <div className='flex justify-between pb-6'>
+        <div className='flex justify-between pb-6 items-center gap-4 flex-wrap grow'>
           <span className='text-sm font-semibold text-gray-600'>List of all templates you've created.</span>
-          <div className='flex gap-2 items-center'>
+          <div className='flex gap-2 items-center flex-wrap'>
             {selectedCount > 0 && <>
               <span className='text-gray-500'>Selected : {selectedCount}</span>
-              <Button btnText='Archive' onClick={handleDelete} btnClasses='bg-red-500' fullWidth='w-fit'/></>}
+              <Button btnText='Archive' onClick={handleDelete} btnClasses='bg-red-500 w-full' fullWidth='grow'/></>}
 
             {permissions.includes("template_creation") && <Button BtnIcon={ClipboardIcon}
                                                                   btnText='Create waivers'
+                                                                  fullWidth='grow'
                                                                   onClick={() => {
                                                                     setOpenModal(true);
                                                                     setDuplicate(prev => ({...prev, index: null}));
                                                                   }}
-                                                                  btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
+                                                                  btnClasses='bg-btnBg border-btnBg px-5 py-2.5 w-full'
                                                                   iconClasses='w-4 h-4 text-white inline-block ml-2'/>}
           </div>
         </div>
@@ -152,7 +153,7 @@ function Template() {
             </div>}
         </div>
       </div>
-      <Modal open={openModal} setOpen={setOpenModal} functionCall={handleSubmit} {...duplicate}/>
+      <Modal open={openModal} functionCall={handleSubmit} {...duplicate}/>
       {loading && <Spinner/>}
     </div>
   )

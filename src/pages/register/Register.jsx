@@ -102,6 +102,12 @@ const RegisterForm = () => {
       dispatch(registerUser(body)).unwrap()
         .then(r => {
           setOpen(!!r);
+          emailRef.current.value = '';
+          passwordRef.current.value = '';
+          firstNameRef.current.value = '';
+          lastNameRef.current.value = '';
+          companyNameRef.current.value = '';
+          setDomainName('')
           setLoading(false)
         })
         .catch(e => {

@@ -54,7 +54,7 @@ const Billing = () => {
         </div>
 
         <div className='p-5 bg-white shadow-sm rounded-lg'>
-          <div className='flex justify-between items-center'>
+          <div className='flex justify-between items-center flex-wrap gap-3'>
             <Heading title='Payment Method' subtitle='Followings are the payment methods available to choose'
                      titleClasses='font-semibold text-xl' subTitleClasses='text-sm'/>
             <Button btnText='Add Credit Card' onClick={() => setOpen(true)} btnClasses='bg-btnBg py-2.5'/>

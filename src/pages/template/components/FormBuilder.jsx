@@ -45,7 +45,7 @@ const FormBuilder = () => {
         document.querySelector('.form-wrap')?.addEventListener('click', function (e) {
           if (e.target.closest('.input-control')?.getAttribute('data-type') === 'primaryAdultParticipant') {
             hideList('none');
-          } else if (e.target.parentNode.parentNode.classList[0] === 'primaryAdultParticipant-field') {
+          } else if (e.target.parentNode.parentNode?.classList[0] === 'primaryAdultParticipant-field') {
             document.querySelector('li[data-type="primaryAdultParticipant"]').style.display = 'block';
           }
         })

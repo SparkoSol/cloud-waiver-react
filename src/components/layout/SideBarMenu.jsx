@@ -1,12 +1,11 @@
 import {Link, useLocation} from "react-router-dom";
-import Input from "../inputs/Input.jsx";
-import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import {Transition} from "@headlessui/react";
 import {useDispatch, useSelector} from "react-redux";
 import {resetUser, selectCurrentUser} from "../../redux/user/userSlice.js";
 import {allPermissions, selectAllTeams, userPermissions} from "../../redux/team/teamSlice";
 import {useEffect} from "react";
+import {persistor} from "../../redux/store";
 
 const SideBarMenu = ({
                        data,
@@ -67,9 +66,6 @@ const SideBarMenu = ({
           {`${currentUser?.first_name} ${currentUser?.last_name}`}
         </div>
       </Link>}
-      <div className='block lg:hidden'>
-        <Input extraClasses='pt-4' BtnIcon={MagnifyingGlassIcon} placeholder='Search'/>
-      </div>
       <ul>
         {permissions.length > 0 && data.map((item, index) => {
           if (permissions.includes(item.permission)) {
@@ -118,7 +114,8 @@ const SideBarMenu = ({
               ) : (
                 <Link to={item.url}
                       onClick={item.url === "#" ? () => {
-                          localStorage.clear();
+                          persistor.purge();
+                          localStorage.removeItem('cw-access-token');
                           dispatch(resetUser());
                           window.location.href = 'https://cloudwaiver.com';
                         } :

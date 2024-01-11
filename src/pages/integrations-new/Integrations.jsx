@@ -30,7 +30,7 @@ const Integrations = () => {
     <div className="bg-white rounded-md p-6 w-full font-mulish">
       <Heading title='Integrations' subTitleClasses='text-sm text-btnBg'
                titleClasses='text-xl font-semibold'/>
-      <div className="grid grid-cols-2 gap-4 mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
         {data.map((item) => {
           return (
             <SocialServiceCard key={item.id} item={item} state={integrationStatus[item.id]}/>

@@ -8,6 +8,8 @@ import {useRef} from "react";
 import {LockClosedIcon} from "@heroicons/react/24/outline";
 import {resetPassword} from "../../redux/user/userThunk.js";
 import SideBarAdd from "../auth/components/SideBarAdd.jsx";
+import {resetUser} from "../../redux/user/userSlice";
+import {persistor} from "../../redux/store";
 
 const ResetPassword = () => {
   const {id} = useParams();
@@ -29,6 +31,8 @@ const ResetPassword = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    dispatch(resetUser());
+    persistor.purge();
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       toast.error('Passwords do not match!');
     }

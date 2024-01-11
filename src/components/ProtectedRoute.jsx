@@ -7,7 +7,7 @@ import ErrorBoundary from "../ErrorBoundary";
 
 const ProtectedRoute = ({children}) => {
   const [openReplyMenuIndex, setOpenReplyMenuIndex] = useState(-1);
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const [hover, setHover] = useState(false);
   const [width] = useWindowSize();
 

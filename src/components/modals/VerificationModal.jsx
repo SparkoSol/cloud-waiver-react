@@ -37,7 +37,8 @@ export default function VerificationModal({open, setOpen, currentUser = null}) {
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => {
         setOpen(false);
-        localStorage.clear();
+        localStorage.removeItem('cw-access-token')
+        persistor.purge();
       }
       }>
         <Transition.Child
@@ -65,9 +66,9 @@ export default function VerificationModal({open, setOpen, currentUser = null}) {
             >
               <Dialog.Panel
                 className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm">
-                <div className="bg-white px-4 py-4 sm:p-6 sm:pb-4">
+                <div className="bg-white p-6">
                   <div className="">
-                    <div className="mt-3 text-center sm:mt-0 sm:text-left">
+                    <div className="text-center sm:mt-0 sm:text-left">
                       <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
                         Email Verification
                       </Dialog.Title>

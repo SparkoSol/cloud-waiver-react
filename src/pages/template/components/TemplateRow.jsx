@@ -24,23 +24,31 @@ const TemplateRow = ({item, functionCall, index, deleteRow, customOpenModal}) =>
       </td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>
         <div className="flex items-center justify-center gap-3">
-          {item.status === 'draft' ?
-            <button onClick={e => toast.error('Template not published!')}><EyeIcon className='w-5 h-5 text-gray-600'/>
-            </button> :
-            <Link target='_blank' to={`/template/${item._id}/public`}>
-              <EyeIcon className='w-5 h-5 text-gray-600'/>
-            </Link>}
+          <abbr title='View Template' className='pt-1'>
+            {item.status === 'draft' ?
+              <button onClick={e => toast.error('Template not published!')}><EyeIcon className='w-5 h-5 text-gray-600'/>
+              </button> :
+              <Link target='_blank' to={`/template/${item._id}/public`}>
+                <EyeIcon className='w-5 h-5 text-gray-600'/>
+              </Link>}
+          </abbr>
           <Link to={`/customers?template=${item._id}`}>
-            <UsersIcon className='w-5 h-5 text-gray-600'/>
+            <abbr title='Template Customers'>
+              <UsersIcon className='w-5 h-5 text-gray-600'/>
+            </abbr>
           </Link>
           {permissions.includes("template_editing") && <Link target='_blank' to={`/templates/${item._id}/builder`}>
-            <PencilSquareIcon className='w-5 h-5 text-gray-600'/>
+            <abbr title='Edit Template'>
+              <PencilSquareIcon className='w-5 h-5 text-gray-600'/>
+            </abbr>
           </Link>}
           {permissions.includes("template_creation") && <button onClick={e => customOpenModal(true, index)}>
-            <DocumentDuplicateIcon className='w-5 h-5 text-gray-600'/>
+            <abbr title='Duplicate Template'><DocumentDuplicateIcon className='w-5 h-5 text-gray-600'/></abbr>
           </button>}
           <button onClick={e => deleteRow(item._id, index)}>
-            <TrashIcon className='w-5 h-5 text-gray-600'/>
+            <abbr title='Delete Template'>
+              <TrashIcon className='w-5 h-5 text-gray-600'/>
+            </abbr>
           </button>
         </div>
       </td>

@@ -34,8 +34,8 @@ const FileInput = ({label, fileInputRef, image}) => {
   return (
     <div>
       {label && <span className='block text-sm mb-1.5 font-bold text-gray-500 text-start'>{label}</span>}
-      <div className='flex items-center gap-6'>
-        <div className='border border-dashed border-2 border-gray-300 rounded-lg p-5 text-sm flex flex-col gap-2 w-1/2'>
+      <div className='flex items-center gap-6 flex-wrap'>
+        <div className='border border-dashed border-2 border-gray-300 rounded-lg p-5 text-sm flex flex-col gap-2 w-52'>
           <PhotoIcon className='w-12 h-12 mx-auto text-gray-500'/>
           <label htmlFor='file-inp' className='flex flex-col items-center'>
             <span className='text-blue-600 hover:text-blue-400 cursor-pointer'>Upload a file</span>
@@ -44,7 +44,7 @@ const FileInput = ({label, fileInputRef, image}) => {
             <span className='text-gray-500'>or drag and drop</span>
           </label>
         </div>
-        <div className='border border-gray-300 w-28 h-28' ref={imagePreviewRef}>
+        <div className='border border-gray-300 w-28 grow sm:grow-0 h-28' ref={imagePreviewRef}>
         </div>
       </div>
     </div>

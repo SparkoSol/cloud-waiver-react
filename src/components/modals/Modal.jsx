@@ -3,7 +3,7 @@ import {Dialog, Transition} from '@headlessui/react'
 import Input from "../inputs/Input.jsx";
 
 export default function Modal({
-                                open, setOpen, functionCall,
+                                open, functionCall,
                                 btnText = 'Submit',
                                 title = 'New Template',
                                 description,
@@ -15,7 +15,7 @@ export default function Modal({
   const inputRef = useRef();
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
+      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => functionCall('cancel')}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -52,7 +52,7 @@ export default function Modal({
                         {description}
                       </Dialog.Description>}
                       {!description && <div className="mt-8">
-                        <Input placeholder='eg. Waiver 101' inputRef={inputRef} label={label}
+                        <Input placeholder='.......' inputRef={inputRef} label={label}
                                defaultValue={value}
                                extraClasses='font-medium text-gray-500'
                                inputClasses='pl-3 rounded-md'/>

@@ -10,12 +10,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {createTeam, getSingleTeam, updateTeam} from "../../redux/team/teamThunk.js";
 import {currentTeamStatus, selectCurrentTeam} from "../../redux/team/teamSlice.js";
 import Spinner from "../../components/Spinner.jsx";
+import Modal from "../../components/modals/Modal";
 
 const ManagementTeam = () => {
   const selectedTeam = useSelector(selectCurrentTeam);
   const status = useSelector(currentTeamStatus)
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const {id} = useParams();
   const dispatch = useDispatch();
   const inputRef = useRef();
@@ -41,13 +43,11 @@ const ManagementTeam = () => {
     {id: 8, label: 'Waiver Submissions', ref: waiverSubmissionsRef, value: 'waiver_submissions'},
     {id: 9, label: 'Webhooks Management', ref: webhooksManagementRef, value: 'webhooks_management'}
   ];
-
   useEffect(() => {
-    if (id) {
-      dispatch(getSingleTeam(id))
-    }
+    if (id) dispatch(getSingleTeam(id))
+    else setOpen(true)
     // eslint-disable-next-line
-  }, []);
+  }, [id]);
 
   function handleUpdate(e) {
     e.preventDefault();
@@ -61,69 +61,79 @@ const ManagementTeam = () => {
       }
     }
     setLoading(true)
-    if (id) {
-      dispatch(updateTeam({teamId: id, body})).unwrap()
-        .then(() => {
-          navigate('/management')
-        }).catch(e => setLoading(false)).finally(() => setLoading(false));
-    } else {
-      dispatch(createTeam(body)).unwrap()
-        .then(() => {
-          navigate('/management')
-        })
-        .catch(e => setLoading(false)).finally(() => setLoading(false));
-    }
+    dispatch(updateTeam({teamId: id, body})).unwrap()
+      .then(() => {
+        navigate('/management')
+      }).catch(e => setLoading(false)).finally(() => setLoading(false));
+  }
+
+  function handleCreateTeam(name, value) {
+    setLoading(true)
+    dispatch(createTeam({
+      name,
+      permissions: []
+    })).unwrap()
+      .then((r) => {
+        setOpen(false);
+        inputRef.current.value = r.name;
+        navigate(`/management/team/${r._id}`);
+      })
+      .catch(e => setLoading(false)).finally(() => setLoading(false))
+      .finally(() => setLoading(false));
   }
 
   return (
-    <section className='space-y-6 xs:px-6'>
-      <h1 className='text-2xl font-bold leading-tight text-gray-900'>Admins</h1>
-      <div className='flex justify-between items-start gap-4 flex-col md:flex-row'>
-        <Heading title='Team Information' subtitle='Please provide details about this team'
-                 titleClasses='text-xl font-semibold'
-                 subTitleClasses='text-sm text-gray-600'/>
-        <div className='w-full md:w-8/12 bg-white rounded-md p-6 shadow-sm'>
-          <Input inputRef={inputRef} label='Team Name' value={selectedTeam?.name} placeholder='Admin'
-                 inputClasses='pl-4'
-                 extraClasses='w-full'/>
-        </div>
-      </div>
-
-      <div className='flex justify-between items-start gap-4 flex-col md:flex-row'>
-        <Heading title='Team Permissions' subtitle='Choose what your team may access'
-                 titleClasses='text-xl font-semibold'
-                 subTitleClasses='text-sm text-gray-600'/>
-        <form onSubmit={handleUpdate} className='w-full md:w-8/12 bg-white rounded-md p-6 shadow-sm'>
-          <h1 className='text-base font-bold text-gray-500 mb-2'>Permissions</h1>
-          <div className='space-y-4 border-b py-6'>
-            {(selectedTeam && status === 'fulfilled') && menuItems.map(item => {
-              return <CheckboxInput key={item.id} inputRef={item.ref} label={item.label}
-                                    defaultChecked={selectedTeam?.permissions.includes(item.value)}
-                                    extraClasses='text-sm text-gray-700'/>
-            })}
-            {!selectedTeam && menuItems.map(item => {
-              return <CheckboxInput key={item.id} inputRef={item.ref} label={item.label}
-                                    extraClasses='text-sm text-gray-700'/>
-            })}
+    <>
+      <section className='space-y-6 xs:px-6'>
+        <h1 className='text-2xl font-bold leading-tight text-gray-900'>Admins</h1>
+        <div className='flex justify-between items-start gap-4 flex-col md:flex-row'>
+          <Heading title='Team Information' subtitle='Please provide details about this team'
+                   titleClasses='text-xl font-semibold'
+                   subTitleClasses='text-sm text-gray-600'/>
+          <div className='w-full md:w-8/12 bg-white rounded-md p-6 shadow-sm'>
+            <Input inputRef={inputRef} label='Team Name' value={selectedTeam?.name} placeholder='Admin'
+                   inputClasses='pl-4'
+                   extraClasses='w-full'/>
           </div>
-          <Button btnText='Update Permissions' fullWidth='w-fit pt-6 ml-auto'
-                  btnClasses='bg-bgDark border-textDark px-6 py-2.5'/>
-        </form>
-      </div>
-
-      <div className='flex justify-between items-start gap-4 flex-col md:flex-row'>
-        <Heading title='Team Users' subtitle='Add users to your team'
-                 titleClasses='text-xl font-semibold'
-                 subTitleClasses='text-sm text-gray-600'/>
-        <div className='w-full md:w-8/12 bg-white space-y-6 rounded-md p-6 shadow-sm'>
-          <Link to={`/management/team/${id}/user/create`}
-                className='bg-bgDark border-textDark px-6 py-2.5 w-fit block ml-auto text-white rounded-full text-sm font-semibold'>Add
-            User</Link>
-          <DataTable TableRow={TeamRow} items={selectedTeam?.members || []} headers={['Name', 'Email']} colspan={0}/>
         </div>
-      </div>
+
+        <div className='flex justify-between items-start gap-4 flex-col md:flex-row'>
+          <Heading title='Team Permissions' subtitle='Choose what your team may access'
+                   titleClasses='text-xl font-semibold'
+                   subTitleClasses='text-sm text-gray-600'/>
+          <form onSubmit={handleUpdate} className='w-full md:w-8/12 bg-white rounded-md p-6 shadow-sm'>
+            <h1 className='text-base font-bold text-gray-500 mb-2'>Permissions</h1>
+            <div className='space-y-4 border-b py-6'>
+              {(selectedTeam && status === 'fulfilled') && menuItems.map(item => {
+                return <CheckboxInput key={item.id} inputRef={item.ref} label={item.label}
+                                      defaultChecked={selectedTeam?.permissions.includes(item.value)}
+                                      extraClasses='text-sm text-gray-700'/>
+              })}
+              {!selectedTeam && menuItems.map(item => {
+                return <CheckboxInput key={item.id} inputRef={item.ref} label={item.label}
+                                      extraClasses='text-sm text-gray-700'/>
+              })}
+            </div>
+            <Button btnText='Update Permissions' fullWidth='w-fit pt-6 ml-auto'
+                    btnClasses='bg-bgDark border-textDark px-6 py-2.5'/>
+          </form>
+        </div>
+
+        <div className='flex justify-between items-start gap-4 flex-col md:flex-row'>
+          <Heading title='Team Users' subtitle='Add users to your team'
+                   titleClasses='text-xl font-semibold'
+                   subTitleClasses='text-sm text-gray-600'/>
+          <div className='w-full md:w-8/12 bg-white space-y-6 rounded-md p-6 shadow-sm'>
+            <Link to={`/management/team/${id}/user/create`}
+                  className='bg-bgDark border-textDark px-6 py-2.5 w-fit block ml-auto text-white rounded-full text-sm font-semibold'>Add
+              User</Link>
+            <DataTable TableRow={TeamRow} items={selectedTeam?.members || []} headers={['Name', 'Email']} colspan={0}/>
+          </div>
+        </div>
+        <Modal open={open} title='Create Team' btnText='Create' functionCall={handleCreateTeam} label='Team name'/>
+      </section>
       {loading && <Spinner/>}
-    </section>
+    </>
   )
 }
 

@@ -21,7 +21,7 @@ const PaymentRow = ({item, totalLength}) => {
 
   return (
     <tr>
-      <td className="py-4 px-6 text-base text-black flex gap-1">
+      <td className="py-4 px-6 text-base text-black flex gap-1 whitespace-nowrap">
         {item.card.brand}
         {(currentPlan === item.id) && (
           <span className="text-sky-500">
@@ -29,10 +29,10 @@ const PaymentRow = ({item, totalLength}) => {
                     </span>
         )}
       </td>
-      <td className="py-4 px-6 text-base">
+      <td className="py-4 px-6 text-base whitespace-nowrap">
         {item.card.last4}
       </td>
-      <td className="py-4 px-6 text-sm">
+      <td className="py-4 px-6 text-sm whitespace-nowrap">
         {`${item.card.exp_month} / ${item.card.exp_year}`}
       </td>
       {(totalLength > 1) && (currentPlan !== item.id) && <DropDown data={data} Icon={Bars3Icon}/>}

@@ -43,7 +43,7 @@ const SocialServiceCard = ({state, item, width, showConfig = false}) => {
 
   return (
     <div
-      className={`gap-4 bg-gray-50 border border-gray-300 rounded-xl flex items-center justify-between p-6 ${width}`}>
+      className={`gap-4 bg-gray-50 border border-gray-300 rounded-xl flex max-w-xl items-center justify-between p-6 gap-3 flex-wrap`}>
       <div className={'flex items-center gap-4'}>
         <div className={'h-10 w-10'}>
           <img
@@ -70,7 +70,9 @@ const SocialServiceCard = ({state, item, width, showConfig = false}) => {
           }
         </div>
       </div>
-      <ToggleButton enabled={state} setEnabled={handleToggle}/>
+      <div className='grow flex justify-end'>
+        <ToggleButton enabled={state} setEnabled={handleToggle}/>
+      </div>
       {loading && <Spinner/>}
     </div>
   )

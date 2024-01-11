@@ -9,6 +9,7 @@ import {updateProfile} from "../../redux/user/userThunk.js";
 import {selectCurrentUser} from "../../redux/user/userSlice.js";
 import toast from "react-hot-toast";
 import ProfileImageUpload from "./profileImageUpload/ProfileImageUpload";
+import Spinner from "../../components/Spinner";
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const Account = () => {
   const cityRef = useRef(null);
   const stateRef = useRef(null);
   const postalCodeRef = useRef(null)
-
+  const [loading, setLoading] = useState(false);
   const [country, setCountry] = useState('Please Select');
   const data = [
     {
@@ -101,6 +102,7 @@ const Account = () => {
       toast.error('Please select a country.')
       return
     }
+    setLoading(true);
     const body = {
       first_name: firstNameRef.current.value,
       last_name: lastNameRef.current.value,
@@ -113,7 +115,7 @@ const Account = () => {
         zip: postalCodeRef.current.value
       }
     };
-    dispatch(updateProfile({body, _id: currentUser._id}));
+    dispatch(updateProfile({body, _id: currentUser._id})).then(() => setLoading(false));
   }
 
   return (
@@ -152,6 +154,7 @@ const Account = () => {
           <Button btnText='Save' btnClasses='bg-btnBg px-6 py-2'/>
         </div>
       </form>
+      {loading && <Spinner/>}
     </>
   )
 }

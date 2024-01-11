@@ -283,13 +283,15 @@ function App() {
   const isTemplatePath = pathname.includes('template');
   const isPdfPath = pathname.includes('pdf');
   const isKioskPath = pathname.includes('kiosk-preview');
+  const isResetPath = pathname.includes('reset-password')
   const isResetPasswordPath = pathname.includes('reset-password');
 
   useEffect(() => {
+    //this executes on subdomain load
     if (code) localStorage.setItem("cw-access-token", code);
     const token = localStorage.getItem("cw-access-token");
     if (token || isTemplatePath || isPdfPath || isResetPasswordPath || isKioskPath) {
-      if (isEmptyObject(currentUser) && !isTemplatePath && !isPdfPath && !isKioskPath) {
+      if (isEmptyObject(currentUser) && !isTemplatePath && !isPdfPath && !isKioskPath && !isResetPath) {
         dispatch(userProfile(token));
       }
       const redirectTo = (window.location.pathname === "/" || window.location.pathname === "/dashboard")

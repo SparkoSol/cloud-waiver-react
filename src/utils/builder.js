@@ -822,11 +822,11 @@ export function events() {
           const tableCell = document.getElementById(`initials-${idx}`);
           tableCell.innerHTML += `<img src="${r}" style="height: 100%;" alt='' />`;
         }
-      })
+      }).catch((e)=>alert(`${e}\nClick on the clipboard icon to allow read permission`))
     } else if (e.target.tagName === 'IMG') {
       let idx = e.target.parentNode.classList[0]?.split('-')[1];
       document.querySelectorAll(`.js-signature.initial-signature-pad`)[idx].innerHTML =
-        `<img src="${e.target.src}" style="width: 620px; height: 200px;" alt='' />`
+        `<img src="${e.target.src}" style="width: 100%; height: 200px;" alt='' />`
       document.querySelectorAll(`.modal`)[idx].classList.remove('hidden')
     }
     //handle cancel button click

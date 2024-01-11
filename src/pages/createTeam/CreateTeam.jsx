@@ -47,7 +47,6 @@ const CreateTeam = () => {
       type: 'password'
     },
   ];
-
   async function handleSubmit(e) {
     e.preventDefault();
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
@@ -71,9 +70,9 @@ const CreateTeam = () => {
   // function
 
   return (
-    <section className='p-6'>
+    <section className=''>
       <h1 className='text-2xl font-bold leading-tight text-gray-900'>Create user for Admins</h1>
-      <form className='space-y-4 mt-8 w-1/2' onSubmit={handleSubmit}>
+      <form className='space-y-4 mt-8 w-full sm:w-1/2' onSubmit={handleSubmit}>
         {data.map(item => {
           return (
             <Input key={item.id} type={item.type} inputRef={item.ref} placeholder={item.label} inputClasses='pl-4'/>
