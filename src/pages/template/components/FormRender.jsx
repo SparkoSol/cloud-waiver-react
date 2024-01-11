@@ -289,7 +289,7 @@ const FormRender = () => {
       .finally(() => setLoading(false));
   }
 
-  return (<div className='max-w-5xl mx-auto my-6 common'>
+  return (<div className='max-w-5xl mx-auto my-6 common p-4'>
     <p className='text-sm my-6'>Reference No : <span
       ref={refNo}>{`${getDynamicTenantId().toUpperCase()}.${today()}.${Math.floor(Math.random() * 1000000)}`}</span>
     </p>

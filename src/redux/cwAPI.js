@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const baseUrl = 'https://api.cloudwaiver.com'
 // const baseUrl = 'http://192.168.1.36:3000'
+// const baseUrl = 'https://dcf6-182-186-107-204.ngrok-free.app'
 const cwAPI = axios
 
 // Add a request interceptor
