@@ -2,19 +2,17 @@ import React, {useState} from 'react';
 import SelectInput from "../../../components/inputs/SelectInput";
 import {useDispatch} from "react-redux";
 import {updateFolder} from "../../../redux/waivers/waiverSlice";
+import {useLocation} from "react-router-dom";
 
 const SocialServiceRow = ({item, folders, index}) => {
   const dispatch = useDispatch();
+  const location = useLocation().pathname;
   const [selectedFolder, setSelectedFolder] = useState(item.folder_name || null)
 
-  // useEffect(() => {
-  //   if (item.folder_name) setSelectedFolder(item.folder_name);
-  //   else setSelectedFolder(null)
-  // }, [item.folder_name]);
-
   function handleChange(folder) {
-    setSelectedFolder(folder)
-    dispatch(updateFolder({index, folder}))
+    setSelectedFolder(folder.name)
+    let pathName = folder.path_lower || (location === '/settings/configure/GOOGLE_DRIVE' ? folder.id : null)
+    dispatch(updateFolder({index, folder:folder.name, path:pathName}))
   }
 
   return (

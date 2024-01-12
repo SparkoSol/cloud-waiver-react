@@ -93,10 +93,10 @@ const DataTable = ({
 
   return (
     (<>
-      <div className={`flex flex-col overflow-x-auto relative sm:rounded-lg py-2 font-mulish`}>
+      <div className={`flex flex-col overflow-x-auto sm:rounded-lg py-2`}>
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
-            <div className="overflow-hidden">
+            <div className="">
               <table
                 className={`w-full text-sm text-left text-gray-500 ${colspan !== 1 ? 'border border-gray-300' : ''}`}>
                 <thead

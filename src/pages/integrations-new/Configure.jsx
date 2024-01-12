@@ -30,7 +30,7 @@ const Configure = () => {
     setLoading(true)
     const folders = allWaivers.reduce((acc, item) => {
       if (item.hasOwnProperty('folder_name')) {
-        acc.push({folder_name: item.folder_name, waiver_id: item._id});
+        acc.push({folder_name: item.folder_name, waiver_id: item._id, path:item.path});
       }
       return acc;
     }, []);
@@ -44,14 +44,14 @@ const Configure = () => {
     setLoading(true);
     try {
       const data = await dispatch(getAllWaiver()).unwrap()
-      const foldersResponse = await getRequest(`/integration/${item.id}/folders`);
-      setFolders(foldersResponse.data.map(item => item.name));
+      const {data:foldersResponse} = await getRequest(`/integration/${item.id}/folders`);
+      setFolders(foldersResponse);
       const integrationResponse = await getRequest(`/integration`);
       const dropBox = integrationResponse.data.find(item => item.integration_type === id).waiver_folders;
       for (let index = 0; index < data.length; index++) {
         const item = data[index];
         const matchingDropboxItem = dropBox.find(dropboxItem => dropboxItem.waiver_id === item._id);
-        if (matchingDropboxItem) dispatch(updateFolder({index, folder: matchingDropboxItem.folder_name}));
+        if (matchingDropboxItem) dispatch(updateFolder({index, folder: matchingDropboxItem.folder_name, path:matchingDropboxItem.path}));
       }
     } catch (error) {
       toast.error(error.response.data.message);

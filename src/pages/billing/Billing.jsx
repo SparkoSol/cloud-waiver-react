@@ -60,7 +60,7 @@ const Billing = () => {
                      titleClasses='font-semibold text-xl' subTitleClasses='text-sm'/>
             <Button btnText='Add Credit Card' onClick={() => setOpen(true)} btnClasses='bg-btnBg py-2.5'/>
           </div>
-          <div className='mt-6'>
+          <div className='mt-6 relative'>
             <DataTable
               headers={['Brand', 'Last 4', 'Expiration']}
               TableRow={PaymentRow} items={paymentMethodsOptions}

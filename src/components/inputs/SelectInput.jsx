@@ -4,7 +4,7 @@ import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {Fragment} from "react";
 
 const SelectInput = ({options, state, setState, extraClasses, label}) => {
-  const truncatedState = state?.length > 9 ? `${state.substring(0, 9)}...` : state;
+  const truncatedState = state?.length > 15 ? `${state.substring(0, 9)}...` : state;
   const displayText = truncatedState ? truncatedState : '--Choose--';
 
   return (
@@ -48,7 +48,7 @@ const SelectInput = ({options, state, setState, extraClasses, label}) => {
                           selected ? 'font-medium' : 'font-normal'
                         }`}
                       >
-                        {opt}
+                        {opt.name || opt}
                       </span>
                     </>
                   )}

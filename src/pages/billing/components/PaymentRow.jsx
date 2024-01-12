@@ -35,7 +35,9 @@ const PaymentRow = ({item, totalLength}) => {
       <td className="py-4 px-6 text-sm whitespace-nowrap">
         {`${item.card.exp_month} / ${item.card.exp_year}`}
       </td>
-      {(totalLength > 1) && (currentPlan !== item.id) && <DropDown data={data} Icon={Bars3Icon}/>}
+      <td>
+        {(totalLength > 1) && (currentPlan !== item.id) && <DropDown data={data} Icon={Bars3Icon} center={true}/>}
+      </td>
     </tr>
   )
 }

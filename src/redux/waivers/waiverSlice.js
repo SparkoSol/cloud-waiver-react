@@ -21,11 +21,9 @@ const waiverSlice = createSlice({
       state.status = 'idle';
     },
     updateFolder(state, {payload}) {
-      const {index, folder} = payload;
-      if (!state.allWaivers[index].hasOwnProperty('folder_name')) {
-        state.allWaivers[index].folder_name = {};
-      }
-      state.allWaivers[index].folder_name = folder
+      const {index, folder, path} = payload;
+      state.allWaivers[index].folder_name = folder || null;
+      state.allWaivers[index].path = path || null;
     },
     resetCurrentWaiver(state) {
       state.currentWaiver = null;

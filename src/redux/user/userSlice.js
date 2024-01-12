@@ -58,7 +58,6 @@ const userSlice = createSlice({
         state.status = 'pending';
       })
       .addCase(userProfile.fulfilled, (state, {payload}) => {
-        console.log(payload)
         state.status = 'fulfilled';
         state.currentUser = payload;
       })
