@@ -31,7 +31,7 @@ const Input = ({
                 <input ref={inputRef}
                        defaultValue={value}
                        className={twMerge(`block w-full w-full p-2.5 rounded-md border border-gray-300 bg-gray-200
-               focus:border-gray-300 rounded-full focus-visible:outline-none sm:text-sm text-gray-600 ${type === 'password' && 'pr-8'}
+               focus:border-gray-300 rounded-full focus-visible:outline-none text-sm text-gray-600 ${type === 'password' && 'pr-8'}
                ${inputClasses ? inputClasses : 'pl-11'}`)}
                        id={placeholder} type={showPassword ? 'text' : type} name={label?.toLowerCase()}
                        required="required"

@@ -38,8 +38,9 @@ const FormBuilder = () => {
         controlOrder: ['primaryAdultParticipant', 'editable', 'additionalParticipants', 'additionalMinors', 'signature', 'address', 'richTextEditor', 'filesUpload', 'electronicSignatureConsent', 'capturePhoto']
       }))
       dispatch(resetStatus())
-      let textAreaArr = document.querySelectorAll('.textarea-selector');
-      makeTemplate(waiver, textAreaArr);
+      let textAreaArr = document.querySelector('iframe[title="Rich Text Area"]');
+      let hasTable = document.querySelector('iframe');
+      makeTemplate(waiver, textAreaArr, hasTable);
     }
     // eslint-disable-next-line
   }, [waiver, status]);

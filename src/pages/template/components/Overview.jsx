@@ -104,7 +104,7 @@ const Overview = () => {
                 <div className="bg-white p-4 py-7 rounded-md space-y-6">
                     <div className='flex gap-3 items-end'>
                         {currentWaiver?._id &&
-                            <Input placeholder='eg. Waiver 101' label='Share your waiver with the following link'
+                            <Input placeholder='eg. Waiver 101' label='Share your waiver with the following link' disabled={true}
                                    extraClasses='font-medium text-gray-500 lg:w-72' inputClasses='pl-3'
                                    value={`${getDynamicTenantId()}.cloudwaiver.com/template/${currentWaiver._id}/public`}/>}
                         <div>

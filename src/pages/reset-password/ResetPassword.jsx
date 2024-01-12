@@ -35,6 +35,7 @@ const ResetPassword = () => {
     persistor.purge();
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       toast.error('Passwords do not match!');
+      return
     }
     const body = {
       hash: id,

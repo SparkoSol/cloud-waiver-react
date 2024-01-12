@@ -1,7 +1,7 @@
 import DataTable from "../../components/DataTable.jsx";
 import Heading from "../../components/Heading.jsx";
 import BillingRow from "./components/BillingRow.jsx";
-import {getPackages} from "../../utils/generalFunctions.js";
+import secondsToDate, {capitalize, getPackages, timeToDate} from "../../utils/generalFunctions.js";
 import InvoiceRow from "./components/InvoiceRow.jsx";
 import PaymentRow from "./components/PaymentRow.jsx";
 import Button from "../../components/Button.jsx";
@@ -10,7 +10,7 @@ import PaymentModal from "../../components/modals/PaymentModal.jsx";
 import {Elements} from "@stripe/react-stripe-js";
 import {loadStripe} from '@stripe/stripe-js';
 import {useDispatch, useSelector} from "react-redux";
-import {selectInvoicesData, selectPaymentMethods} from "../../redux/user/userSlice";
+import {selectCurrentUser, selectInvoicesData, selectPaymentMethods} from "../../redux/user/userSlice";
 import Spinner from "../../components/Spinner";
 import {getAllInvoices, getAllMethods} from "../../redux/user/userThunk";
 
@@ -22,8 +22,10 @@ const Billing = () => {
   const [open, setOpen] = useState(false);
   const [prices, setPrices] = useState([]);
   const [variablePrice, setVariablePrice] = useState({});
+  const [currentStatus, setCurrentStatus] = useState('');
   const loadingSlice = useSelector(state => state.user.status) === 'pending';
   const currentPlan = useSelector(state => state.user.currentUser?.currentPlan);
+  const currentUser = useSelector(selectCurrentUser);
 
   useEffect(() => {
     async function fetchData() {
@@ -35,14 +37,29 @@ const Billing = () => {
     fetchData().then(()=>{})
     // eslint-disable-next-line
   }, [])
+
+  useEffect(() => {
+    if(currentUser.subscription){
+      const {lookup_key} = currentUser.subscription.items.find(item=>item.lookup_key !== 'variable_price');
+      setCurrentStatus(lookup_key)
+    }
+  }, [currentUser]);
+
+
   return (
     <>
       {loadingSlice && <Spinner/>}
       <section className='space-y-6'>
         <div className='p-5 bg-white shadow-sm rounded-lg'>
-          <Heading title='Plans' subtitle={currentPlan ? `You are on the ${currentPlan} plan.` : `Select your plan.`}
-                   titleClasses='font-semibold text-xl'
-                   subTitleClasses='text-sm'/>
+          <div className='flex gap-3 justify-between'>
+            <Heading title='Plans' subtitle={currentPlan ? `You are on the ${currentPlan} plan.` : `Select your plan.`}
+                     titleClasses='font-semibold text-xl'
+                     subTitleClasses='text-sm'/>
+            {currentUser.subscription && !loadingSlice && <ul className='w-fit bg-red-100 p-4 rounded-lg'>
+              <li><strong className='w-24'>Status : </strong>{capitalize(currentStatus)}</li>
+              <li><strong className='w-24'>Trail Ends : </strong>{secondsToDate(currentUser.subscription?.trial_end)}</li>
+            </ul>}
+          </div>
           <div className='mt-6'>
             <DataTable
               headers={['Plans']}

@@ -28,18 +28,18 @@ const CustomerSubmissionRow = ({item, functionCall, index, deleteRow}) => {
           className={`${statusColors[item.status]} text-xs font-semibold px-2.5 py-0.5 rounded`}>{capitalize(item.status)}</span>
       </td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center justify-center gap-6">
           <Link target='_black' to={`/submission/${item._id}/view`}>
             <EyeIcon className='w-5 h-5 text-iconGray'/>
           </Link>
           {item.status === "submitted" && <>
-            <button onClick={e => deleteRow(item._id, "approved")}>
+            <button onClick={() => deleteRow(item._id, "approved")}>
               <img
                 src='/tick.svg'
                 alt='Loading...'
               />
             </button>
-            <button onClick={e => deleteRow(item._id, "declined")}>
+            <button onClick={() => deleteRow(item._id, "declined")}>
               <img
                 src='/cross.svg'
                 alt='Loading...'

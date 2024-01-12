@@ -22,6 +22,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
   const [openModal, setOpenModal] = useState(false);
+  const [error, setError] = useState(null);
   const [usage, setUsage] = useState([
     {
       id: 1, title: 'Usage', value: '00', icon: '/database.svg'
@@ -38,13 +39,18 @@ const Dashboard = () => {
   function handleSubmit(name) {
     if(name==='cancel'){
       setOpenModal(false)
+      setError(null)
       return
+    }
+    if(name.trim === ''){
+      setError('Name is required.')
+      return;
     }
     setLoading(true);
     setOpenModal(false)
     postRequest(`/waivers`, {name})
       .then(r => navigate(`/templates/${r.data._id}/builder`))
-      .catch(e => toast.error(e.response.data.message))
+      .catch(e => setError(e.response.data.message))
       .finally(() => {
         setOpenModal(false)
         setLoading(false)
@@ -97,7 +103,7 @@ const Dashboard = () => {
         </div>
         {permissions.includes(`waiver_submissions`) && <SubmissionTable title={'Recent waiver'}/>}
       </div>
-      <Modal open={openModal} functionCall={handleSubmit}/>
+      <Modal open={openModal} functionCall={handleSubmit} error={error}/>
       {loading && <Spinner/>}
     </div>
   );

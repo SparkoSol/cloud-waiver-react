@@ -68,6 +68,11 @@ const ManagementTeam = () => {
   }
 
   function handleCreateTeam(name, value) {
+    if(name === 'cancel'){
+      setOpen(false)
+      navigate(-1)
+      return
+    }
     setLoading(true)
     dispatch(createTeam({
       name,

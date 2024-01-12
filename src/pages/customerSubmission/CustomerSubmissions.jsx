@@ -34,11 +34,12 @@ const CustomerSubmissions = ({currentTab = ''}) => {
       .finally(() => setLoading(false));
   }, [customerId, switchState]);
 
-  const updateSubmissionStatus = async (id, status) => {
+  const updateSubmissionStatus = (id, status) => {
     setLoading(true)
     patchRequest(`/submissions/${id}`, {status})
-      .finally(() => setLoading(false))
-    setSwitchState(prev => !prev)
+      .then(()=>setSwitchState(prev => !prev))
+      .catch(e=>toast.error(e.response.data.message))
+      .finally(()=>setLoading(false))
   }
 
   useEffect(() => {
@@ -52,13 +53,13 @@ const CustomerSubmissions = ({currentTab = ''}) => {
 
   return (
     <section>
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center justify-between mb-4'>
         <div className='flex gap-3 flex-wrap grow'>
           <Input placeholder='Search' BtnIcon={MagnifyingGlassIcon} onChange={e => setSearch(e.target.value)}
                  extraClasses='w-fit inline-block grow sm:grow-0' inputClasses='rounded-md pl-11'/>
-          <SelectInput extraClasses='w-1/6 grow sm:grow-0'
+          <SelectInput extraClasses='w-1/2 sm:w-1/6 grow sm:grow-0'
                        options={['Submitted', 'Approved', 'Declined', 'Pending', 'Status']} setState={setStatus}
-                       state={status}/>p
+                       state={status}/>
         </div>
         {selectedCount > 0 && <div className='flex items-center gap-3'>
           <span className='text-gray-500'>Selected : {selectedCount}</span>

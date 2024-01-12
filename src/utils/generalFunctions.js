@@ -389,33 +389,56 @@ export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
   }, 500);
 }
 
-export function makeTemplate(waiver, textAreaArr,recursionCount = 0) {
-  // Check if the recursion count exceeds 5
+export function makeTemplate(waiver, textAreaElements, hasTable, recursionCount = 0) {
   if (recursionCount > 10) {
     console.warn("Recursion limit reached. Returning nothing.");
     return;
   }
-  if (!isEmptyObject(waiver) && textAreaArr.length > 0) {
+
+  const formWrap = document.querySelector('.form-wrap');
+
+  if (!isEmptyObject(waiver) && formWrap) {
     hideList('none');
-    document.querySelector('.form-wrap')?.addEventListener('click', function (e) {
-      if (e.target.closest('.input-control')?.getAttribute('data-type') === 'primaryAdultParticipant') {
-        hideList('none');
-      } else if (e.target.parentNode.parentNode?.classList[0] === 'primaryAdultParticipant-field') {
-        hideList('block')
+
+    formWrap.addEventListener('click', function (e) {
+      const targetDataAttr = e.target.closest('.input-control')?.getAttribute('data-type');
+      const parentClassList = e.target.parentNode.parentNode?.classList;
+
+      if (targetDataAttr === 'primaryAdultParticipant' || (parentClassList && parentClassList[0] === 'primaryAdultParticipant-field')) {
+        hideList(targetDataAttr === 'primaryAdultParticipant' ? 'none' : 'block');
       }
-    })
-    if (textAreaArr.length > 0) {
+    });
+
+    if (hasTable && textAreaElements.length > 0) {
       waiver?.form_data
         .filter(item => item.type === 'richTextEditor')
         .forEach((filteredItem, index) => {
-          $(`#${textAreaArr[index].id}`).html(filteredItem.userData);
+          textAreaElements[index].innerHTML = filteredItem.userData;
         });
     }
+
+    if (hasTable) {
+      makeTemplate(waiver, document.querySelectorAll('.textarea-selector'), hasTable, recursionCount + 1);
+    }
+
     return;
   }
 
   setTimeout(function () {
-    let textAreaArr = document.querySelectorAll('.textarea-selector');
-    makeTemplate(waiver, textAreaArr,recursionCount + 1);
+    const newTextAreas = document.querySelectorAll('.textarea-selector');
+    const newHasTable = document.querySelector('iframe[title="Rich Text Area"]');
+    makeTemplate(waiver, newTextAreas, newHasTable, recursionCount + 1);
   }, 500);
+}
+
+
+export default function secondsToDate(timestamp) {
+  const date = new Date(timestamp * 1000);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+  return `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day} ${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
