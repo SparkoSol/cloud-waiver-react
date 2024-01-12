@@ -32,7 +32,8 @@ const Billing = () => {
       await dispatch(getAllMethods())
     }
 
-    fetchData()
+    fetchData().then(()=>{})
+    // eslint-disable-next-line
   }, [])
   return (
     <>

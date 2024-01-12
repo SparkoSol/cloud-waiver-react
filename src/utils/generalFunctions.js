@@ -12,6 +12,8 @@ import {AdjustmentsVerticalIcon} from "@heroicons/react/20/solid";
 import toast from "react-hot-toast";
 import Control from "formBuilder/src/js/control";
 import {getRequest, patchRequest} from "../redux/cwAPI";
+import {hideList} from "./builder";
+import $ from "jquery";
 
 export function generateMonths(number) {
   const months = ['Month'];
@@ -363,7 +365,7 @@ export function convertToObjects(items) {
 
 export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
   // Check if the recursion count exceeds 5
-  if (recursionCount > 5) {
+  if (recursionCount > 10) {
     console.warn("Recursion limit reached. Returning nothing.");
     return;
   }
@@ -387,3 +389,33 @@ export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
   }, 500);
 }
 
+export function makeTemplate(waiver, textAreaArr,recursionCount = 0) {
+  // Check if the recursion count exceeds 5
+  if (recursionCount > 10) {
+    console.warn("Recursion limit reached. Returning nothing.");
+    return;
+  }
+  if (!isEmptyObject(waiver) && textAreaArr.length > 0) {
+    hideList('none');
+    document.querySelector('.form-wrap')?.addEventListener('click', function (e) {
+      if (e.target.closest('.input-control')?.getAttribute('data-type') === 'primaryAdultParticipant') {
+        hideList('none');
+      } else if (e.target.parentNode.parentNode?.classList[0] === 'primaryAdultParticipant-field') {
+        hideList('block')
+      }
+    })
+    if (textAreaArr.length > 0) {
+      waiver?.form_data
+        .filter(item => item.type === 'richTextEditor')
+        .forEach((filteredItem, index) => {
+          $(`#${textAreaArr[index].id}`).html(filteredItem.userData);
+        });
+    }
+    return;
+  }
+
+  setTimeout(function () {
+    let textAreaArr = document.querySelectorAll('.textarea-selector');
+    makeTemplate(waiver, textAreaArr,recursionCount + 1);
+  }, 500);
+}

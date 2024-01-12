@@ -23,6 +23,7 @@ const Configure = () => {
 
   useEffect(() => {
     updateWaiverFolders().finally(() => setLoading(false))
+    // eslint-disable-next-line
   }, [item, dispatch]);
 
   const handleSubmit = async (id) => {

@@ -1,6 +1,6 @@
 import $ from "jquery";
 import React, {createRef, useEffect, useState} from "react";
-import {capitalize, staticForm} from "../../../utils/generalFunctions";
+import {capitalize, makeTemplate, staticForm} from "../../../utils/generalFunctions";
 import Button from "../../../components/Button";
 import {TrashIcon} from "@heroicons/react/24/outline";
 import {patchRequest} from "../../../redux/cwAPI";
@@ -29,7 +29,6 @@ const FormBuilder = () => {
   const [FormBuilder, setFormBuilder] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const {id} = useParams();
-
   useEffect(() => {
     if (!FormBuilder?.formData && waiver && status === 'fulfilled') {
       setFormBuilder($(fb.current).formBuilder({
@@ -39,27 +38,12 @@ const FormBuilder = () => {
         controlOrder: ['primaryAdultParticipant', 'editable', 'additionalParticipants', 'additionalMinors', 'signature', 'address', 'richTextEditor', 'filesUpload', 'electronicSignatureConsent', 'capturePhoto']
       }))
       dispatch(resetStatus())
-      setTimeout(() => {
-        let textAreaArr = document.querySelectorAll('.textarea-selector');
-        hideList('none');
-        document.querySelector('.form-wrap')?.addEventListener('click', function (e) {
-          if (e.target.closest('.input-control')?.getAttribute('data-type') === 'primaryAdultParticipant') {
-            hideList('none');
-          } else if (e.target.parentNode.parentNode?.classList[0] === 'primaryAdultParticipant-field') {
-            document.querySelector('li[data-type="primaryAdultParticipant"]').style.display = 'block';
-          }
-        })
-        if (textAreaArr.length > 0) {
-          waiver?.form_data
-            .filter(item => item.type === 'richTextEditor')
-            .forEach((filteredItem, index) => {
-              $(`#${textAreaArr[index].id}`).html(filteredItem.userData);
-            });
-        }
-      }, 300);
+      let textAreaArr = document.querySelectorAll('.textarea-selector');
+      makeTemplate(waiver, textAreaArr);
     }
     // eslint-disable-next-line
   }, [waiver, status]);
+
 
   function saveData(e, status) {
     setLoading(true);
@@ -77,13 +61,14 @@ const FormBuilder = () => {
     patchRequest(`/waivers/${id}`, {form_data: jsonData})
       .then(() => toast.success('Saved Successfully'))
       .catch(e => toast.error(e.response.data.message))
-      .finally(() =>{
+      .finally(() => {
         setOpenModal(false)
         dispatch(getSingleWaiver(id));
-        setLoading(false)
+        !status && setLoading(false)
       });
     if (status) {
       patchRequest(`/waivers/${id}`, {status: 'published'})
+        .finally(() => setLoading(false))
     }
   }
 
