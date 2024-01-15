@@ -11,7 +11,7 @@ const SocialServiceRow = ({item, folders, index}) => {
 
   function handleChange(folder) {
     setSelectedFolder(folder.name)
-    let pathName = folder.path_lower || (location === '/settings/configure/GOOGLE_DRIVE' ? folder.id : null)
+    let pathName = folder.path_display || (location === '/settings/configure/GOOGLE_DRIVE' ? folder.id : null)
     dispatch(updateFolder({index, folder:folder.name, path:pathName}))
   }
 

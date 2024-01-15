@@ -42,7 +42,7 @@ const Dashboard = () => {
       setError(null)
       return
     }
-    if(name.trim === ''){
+    if(name.trim() === ''){
       setError('Name is required.')
       return;
     }
