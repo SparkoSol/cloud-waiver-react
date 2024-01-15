@@ -3,7 +3,7 @@ import {Fragment} from 'react'
 import Button from "../Button";
 import {useNavigate} from "react-router-dom";
 
-export default function ConfirmationModal({isOpen, setIsOpen, title, desc}) {
+export default function ConfirmationModal({isOpen, setIsOpen, title, desc, btnText='Go Pro'}) {
   const navigate = useNavigate();
 
   function closeModal() {
@@ -52,7 +52,7 @@ export default function ConfirmationModal({isOpen, setIsOpen, title, desc}) {
                 </div>
 
                 <div className="mt-4">
-                  <Button btnText='Go Pro' fullWidth='w-full' onClick={closeModal}
+                  <Button btnText={btnText} fullWidth='w-full' onClick={closeModal}
                           btnClasses='bg-btnBg ml-auto whitespace-nowrap border-textDark py-2'/>
                 </div>
               </Dialog.Panel>

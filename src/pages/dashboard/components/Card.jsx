@@ -6,7 +6,7 @@ const Card = ({item}) => {
         <div className='px-4'>
           <img src={item.icon} className='w-14' alt='loading...'/>
         </div>
-        <div className='px-4'>
+        <div className='px-4 w-[118px] text-start'>
           <h1 className='text-lg'>{item.title}</h1>
           <h1 className='text-2xl'>{item.value}</h1>
         </div>

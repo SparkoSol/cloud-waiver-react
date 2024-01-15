@@ -51,7 +51,7 @@ function Template() {
       setOpenModal(false)
       return;
     }
-    if (name.trim() === '') {
+    if (name?.trim() === '') {
       setDuplicate(prevState => ({...prevState, error: 'Name is required'}))
       return;
     }
@@ -129,11 +129,12 @@ function Template() {
           <div className='flex gap-2 items-center flex-wrap'>
             {selectedCount > 0 && <>
               <span className='text-gray-500'>Selected : {selectedCount}</span>
-              <Button btnText='Archive' onClick={handleDelete} btnClasses='bg-red-500 w-full' fullWidth='grow'/></>}
+              <Button btnText='Archive' type='button' onClick={handleDelete} btnClasses='bg-red-500 w-full' fullWidth='grow'/></>}
 
             {permissions.includes("template_creation") && <Button BtnIcon={ClipboardIcon}
                                                                   btnText='Create waivers'
                                                                   fullWidth='grow'
+                                                                  type='button'
                                                                   onClick={() => {
                                                                     setOpenModal(true);
                                                                     setDuplicate(prev => ({...prev, index: null}));

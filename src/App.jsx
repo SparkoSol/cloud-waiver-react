@@ -82,12 +82,6 @@ const router = createBrowserRouter([
       <ResetPassword/>
     )
   },
-  // {
-  //     path: '/verify-mail/:hashId/:id',
-  //     element: (
-  //         <VerifyMail/>
-  //     )
-  // },
   {
     path: '/verify-account/:hashId/:id',
     element: (

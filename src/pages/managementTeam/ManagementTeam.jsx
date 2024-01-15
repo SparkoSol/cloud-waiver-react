@@ -7,7 +7,7 @@ import DataTable from "../../components/DataTable.jsx";
 import TeamRow from "./components/TeamRow.jsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {createTeam, getSingleTeam, updateTeam} from "../../redux/team/teamThunk.js";
+import {createTeam, getSingleTeam, removeMember, updateTeam} from "../../redux/team/teamThunk.js";
 import {currentTeamStatus, selectCurrentTeam} from "../../redux/team/teamSlice.js";
 import Spinner from "../../components/Spinner.jsx";
 import Modal from "../../components/modals/Modal";
@@ -18,6 +18,7 @@ const ManagementTeam = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState({teamId: '', memberId: '', index: 0, isOpen: false});
   const {id} = useParams();
   const dispatch = useDispatch();
   const inputRef = useRef();
@@ -62,13 +63,13 @@ const ManagementTeam = () => {
     }
     setLoading(true)
     dispatch(updateTeam({teamId: id, body})).unwrap()
-      .then(() => {
-        navigate('/management')
-      }).catch(e => setLoading(false)).finally(() => setLoading(false));
+      .then(() => navigate('/management'))
+      .catch(e => setLoading(false))
+      .finally(() => setLoading(false));
   }
 
   function handleCreateTeam(name, value) {
-    if(name === 'cancel'){
+    if (name === 'cancel') {
       setOpen(false)
       navigate(-1)
       return
@@ -85,6 +86,19 @@ const ManagementTeam = () => {
       })
       .catch(e => setLoading(false)).finally(() => setLoading(false))
       .finally(() => setLoading(false));
+  }
+
+  function handleDelete(name){
+    if(name === 'cancel'){
+      setConfirmOpen(prev => ({ ...prev, isOpen: false }));
+      return
+    }
+    setLoading(true);
+    dispatch(removeMember(confirmOpen))
+      .finally(()=>{
+        setLoading(false);
+        setConfirmOpen({teamId: '', memberId: '', index: 0, isOpen: false})
+      })
   }
 
   return (
@@ -132,10 +146,16 @@ const ManagementTeam = () => {
             <Link to={`/management/team/${id}/user/create`}
                   className='bg-bgDark border-textDark px-6 py-2.5 w-fit block ml-auto text-white rounded-full text-sm font-semibold'>Add
               User</Link>
-            <DataTable TableRow={TeamRow} items={selectedTeam?.members || []} headers={['Name', 'Email']} colspan={0}/>
+            <DataTable TableRow={TeamRow} items={selectedTeam?.members || []} headers={['Name', 'Email']} colspan={0}
+                       setOpen={setConfirmOpen}/>
           </div>
         </div>
         <Modal open={open} title='Create Team' btnText='Create' functionCall={handleCreateTeam} label='Team name'/>
+        <Modal title='Are you sure you want to delete this item?'
+               description='This action cannot be undone. Deleting the item will remove it permanently from your records.'
+               open={confirmOpen.isOpen}
+               btnText='Confirm' functionCall={handleDelete}
+        />
       </section>
       {loading && <Spinner/>}
     </>
