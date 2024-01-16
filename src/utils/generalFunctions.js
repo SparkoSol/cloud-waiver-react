@@ -365,7 +365,7 @@ export function convertToObjects(items) {
 
 export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
   // Check if the recursion count exceeds 5
-  if (recursionCount > 10) {
+  if (recursionCount > 20) {
     console.warn("Recursion limit reached. Returning nothing.");
     return;
   }
@@ -390,7 +390,7 @@ export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
 }
 
 export function makeTemplate(waiver, textAreaElements, hasTable, recursionCount = 0) {
-  if (recursionCount > 10) {
+  if (recursionCount > 20) {
     console.warn("Recursion limit reached. Returning nothing.");
     return;
   }

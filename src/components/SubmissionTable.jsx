@@ -143,8 +143,8 @@ const SubmissionTable = ({title}) => {
       </div>
       <div className='flex gap-2 mb-4 flex-wrap'>
         <Input placeholder='Search' inputRef={searchRef} BtnIcon={MagnifyingGlassIcon}
-               inputClasses='rounded-md pl-11'
-               extraClasses='w-fit inline-block'
+               inputClasses='rounded-md pl-11 grow sm:grow-0'
+               extraClasses='w-fit inline-block grow sm:grow-0'
                onChange={(e) => {
                  setSearch(e.target.value)
                }}
@@ -159,7 +159,7 @@ const SubmissionTable = ({title}) => {
         <Button
           btnText='Reset'
           onClick={resetStates}
-          btnClasses='bg-btnBg border-btnBg px-4 py-1.5 ml-4'/>
+          btnClasses='bg-btnBg border-btnBg px-4 py-1.5 sm:ml-4'/>
       </div>
       <div>
         {filteredWaivers.length > 0 ?

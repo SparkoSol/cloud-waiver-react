@@ -819,7 +819,7 @@ export function events() {
     let idx = e.target.classList[0]?.split('-')[1]
     //open the sign modal
     if (e.target.classList[0]?.includes('init')) {
-      navigator.clipboard.readText().then(r => {
+      navigator.clipboard?.readText().then(r => {
         if (!r.includes('data:image/png')) {
           document.querySelectorAll(`.modal`)[idx].classList.remove('hidden')
         } else {

@@ -71,7 +71,7 @@ const CreateTeam = () => {
 
   return (
     <section className=''>
-      <h1 className='text-2xl font-bold leading-tight text-gray-900'>Create user for Admins</h1>
+      <h1 className='text-2xl font-bold leading-tight text-gray-900'>Add User to the team</h1>
       <form className='space-y-4 mt-8 w-full sm:w-1/2' onSubmit={handleSubmit}>
         {data.map(item => {
           return (

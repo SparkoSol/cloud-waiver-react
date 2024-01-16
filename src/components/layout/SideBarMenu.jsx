@@ -114,9 +114,9 @@ const SideBarMenu = ({
               ) : (
                 <Link to={item.url}
                       onClick={item.url === "#" ? () => {
+                          dispatch(resetUser());
                           persistor.purge();
                           localStorage.removeItem('cw-access-token');
-                          dispatch(resetUser());
                           window.location.href = 'https://cloudwaiver.com';
                         } :
                         () => {

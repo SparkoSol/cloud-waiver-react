@@ -11,11 +11,16 @@ import {staticData} from "../../utils/builder";
 const TemplateGallery = () => {
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
+  const [error, setError] = useState(false);
 
   function handleSubmit(name) {
     if (name === 'cancel') {
       setModal(false);
       return
+    }
+    if(name.trim() === ''){
+      setError('Name is required.')
+      return;
     }
     setLoading(true)
     const body = {
@@ -41,16 +46,16 @@ const TemplateGallery = () => {
           <div className="min-w-0 flex-1">
             <p className="text-lg font-medium text-gray-900">FWC Attestation Form</p>
           </div>
-          <div className="flex mt-4 gap-4">
+          <div className="flex mt-4 gap-4 flex-wrap">
             <Link target="_blank" to="/admin/preview"
-                  className="transition ease-in text-sm py-2.5 gap-2 block w-fit border border-gray-300 bg-inputColor px-4 rounded-md">
+                  className="transition ease-in grow sm:grow-0 text-sm py-2.5 gap-2 block sm:w-fit border text-center border-gray-300 bg-inputColor px-4 rounded-md">
               Preview
             </Link>
-            <Button btnText='Use Template' onClick={e => setModal(true)} fullWidth='w-fit'
-                    btnClasses='bg-btnBg px-4 rounded-md'/>
+            <Button btnText='Use Template' onClick={e => setModal(true)} fullWidth='sm:w-fit grow sm:grow-0'
+                    btnClasses='bg-btnBg px-4 rounded-md grow sm:grow-0'/>
           </div>
         </div>
-        <Modal open={modal} functionCall={handleSubmit} value='FWC Attested Form'/>
+        <Modal open={modal} functionCall={handleSubmit} value='FWC Attested Form' error={error}/>
       </section>
       {loading && <Spinner/>}
     </>

@@ -63,7 +63,7 @@ const TemplateContainer = ({children}) => {
                  functionCall={handleEdit} value={waiver?.name}/>
         </div>
         <span
-          className="text-sm italic">{`${getDynamicTenantId()}.cloudwaiver.com/template/${waiver?._id}/public`}
+          className="text-sm italic break-all">{`${getDynamicTenantId()}.cloudwaiver.com/template/${waiver?._id}/public`}
           {waiver?.status === 'published' && (copyState ? (
             <CheckIcon className='w-5 h-5 ml-2 inline mb-2' />
           ) : (

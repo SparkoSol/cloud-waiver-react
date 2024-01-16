@@ -1,7 +1,7 @@
 import DataTable from "../../components/DataTable.jsx";
 import Heading from "../../components/Heading.jsx";
 import BillingRow from "./components/BillingRow.jsx";
-import secondsToDate, {capitalize, getPackages, timeToDate} from "../../utils/generalFunctions.js";
+import secondsToDate, {capitalize, formatDate, getPackages, timeToDate} from "../../utils/generalFunctions.js";
 import InvoiceRow from "./components/InvoiceRow.jsx";
 import PaymentRow from "./components/PaymentRow.jsx";
 import Button from "../../components/Button.jsx";
@@ -51,13 +51,14 @@ const Billing = () => {
       {loadingSlice && <Spinner/>}
       <section className='space-y-6'>
         <div className='p-5 bg-white shadow-sm rounded-lg'>
-          <div className='flex gap-3 justify-between'>
+          <div className='flex gap-3 justify-between flex-wrap'>
             <Heading title='Plans' subtitle={currentPlan ? `You are on the ${currentPlan} plan.` : `Select your plan.`}
                      titleClasses='font-semibold text-xl'
                      subTitleClasses='text-sm'/>
-            {currentUser.subscription && !loadingSlice && <ul className='w-fit bg-red-100 p-4 rounded-lg'>
-              <li><strong className='w-24'>Status : </strong>{capitalize(currentStatus)}</li>
-              <li><strong className='w-24'>Trail Ends : </strong>{secondsToDate(currentUser.subscription?.trial_end)}</li>
+            {currentUser && !loadingSlice && <ul className='w-fit bg-red-100 p-4 rounded-lg grow sm:grow-0'>
+              <li><strong className='w-24'>Status : </strong>{capitalize(currentStatus || 'Trail')}</li>
+              <li><strong className='w-24'>Trail Ends :
+              </strong> {currentUser.subscription?.trial_end ? secondsToDate(currentUser.subscription?.trial_end) : formatDate(currentUser.trial_until)}</li>
             </ul>}
           </div>
           <div className='mt-6'>

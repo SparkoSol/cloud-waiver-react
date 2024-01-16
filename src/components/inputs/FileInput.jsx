@@ -12,7 +12,7 @@ const FileInput = ({label, fileInputRef, image}) => {
       reader.onload = function (e) {
         const img = new Image();
         img.src = e.target.result;
-        img.className = 'w-full h-full object-cover';
+        img.className = 'w-full h-full';
         imagePreviewRef.current.innerHTML = '';
         imagePreviewRef.current.appendChild(img);
       };
@@ -25,7 +25,7 @@ const FileInput = ({label, fileInputRef, image}) => {
     if (image) {
       const img = new Image();
       img.src = image;
-      img.className = 'w-full h-full object-cover';
+      img.className = 'w-full h-full';
       imagePreviewRef.current.innerHTML = '';
       imagePreviewRef.current.appendChild(img);
     }

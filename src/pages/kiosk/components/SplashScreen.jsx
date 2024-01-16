@@ -23,15 +23,15 @@ const SplashScreen = () => {
           <div className="flex mb-4 justify-center">
             <div className="mt-2">
               <img src={response?.logo}
-                   width="400px" alt=''/>
+                   width="360px" alt=''/>
             </div>
           </div>
           <div className="font-bold text-lg text-center">{response?.title}</div>
-          <p>{response?.description}</p>
+          <p className='text-center'>{response?.description}</p>
         </div>
 
         <div className="flex justify-center flex-col text-center">
-          {response?.waivers.map((item, index) => {
+          {response?.waivers.length > 0 && response?.waivers.map((item, index) => {
             return (
               <Link to={`/template/${item._id}/public`} key={index}
                     className="block my-4 text-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white

@@ -255,10 +255,12 @@ const router = createBrowserRouter([
       }, {
         path: 'team/:id',
         element: <ManagementTeam/>
-      }, {
+      },
+      {
         path: 'team/:id/user/create',
         element: <CreateTeam/>
-      }, {
+      },
+      {
         path: 'team/create',
         element: <ManagementTeam/>
       }

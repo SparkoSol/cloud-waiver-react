@@ -74,19 +74,19 @@ const FormBuilder = () => {
   }
 
   return (<div className='common'>
-    <div className='flex pb-5 justify-between items-center'>
-      <Button btnText='Discard' btnClasses='text-red-500 bg-red-100 px-6' fullWidth='w-fit'
+    <div className='flex justify-between pb-5 items-center flex-wrap gap-5'>
+      <Button btnText='Discard' btnClasses='text-red-500 bg-red-100 px-6 grow sm:grow-0' fullWidth='w-fit grow sm:grow-0'
               onClick={() => setOpenModal(true)}
               BtnIcon={TrashIcon} iconClasses='text-red-500'/>
-      <div className='flex gap-3 items-center'>
+      <div className='flex gap-3 items-center flex-wrap'>
         <span
-          className="text-yellow-800 text-sm font-semibold px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">{capitalize(waiver?.status)}</span>
+          className="text-yellow-800 text-sm font-semibold px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900 grow sm:grow-0">{capitalize(waiver?.status)}</span>
         {waiver?.status !== 'draft' && <Link to={`/template/${id}/public`} target='_blank'
-                                             className='bg-btnBg w-fit py-2.5 px-8 text-sm text-white font-semibold rounded-full'>Preview</Link>}
+                                             className='bg-btnBg w-fit py-2.5 px-8 text-sm text-white font-semibold rounded-full grow sm:grow-0'>Preview</Link>}
         {waiver?.status === 'draft' ? <>
-            <Button btnText='Publish' btnClasses='bg-btnBg' fullWidth='w-fit' onClick={e => saveData(e, 'publish')}/>
-            <Button btnText='Save' btnClasses='bg-btnBg' fullWidth='w-fit' onClick={saveData}/></> :
-          <Button btnText='Save/Publish' btnClasses='bg-btnBg' fullWidth='w-fit' onClick={saveData}/>}
+            <Button btnText='Publish' btnClasses='bg-btnBg grow sm:grow-0' fullWidth='w-fit grow sm:grow-0' onClick={e => saveData(e, 'publish')}/>
+            <Button btnText='Save' btnClasses='bg-btnBg grow sm:grow-0' fullWidth='w-fit grow sm:grow-0' onClick={saveData}/></> :
+          <Button btnText='Save/Publish' btnClasses='bg-btnBg grow sm:grow-0' fullWidth='w-fit grow sm:grow-0' onClick={saveData}/>}
       </div>
     </div>
     <div ref={fb}/>

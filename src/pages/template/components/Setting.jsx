@@ -92,7 +92,7 @@ const Setting = () => {
                        titleClasses='text-lg leading-6 text-gray-900 font-medium'
                        subTitleClasses='text-sm text-gray-500'/>
             </div>
-            <div className='mt-4 md:mt-0 px-6'>
+            <div className='mt-4 md:mt-0 sm:px-6'>
               {item.id === 4 ?
                 <Input placeholder='eg. john@doe.com, smith@sam.com' label='Email Addresses'
                        extraClasses='font-medium text-gray-500' inputClasses='pl-3'

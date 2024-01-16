@@ -101,7 +101,7 @@ const Overview = () => {
                 </div>
             </div>
             <div className="w-full lg:w-2/5">
-                <div className="bg-white p-4 py-7 rounded-md space-y-6">
+                <div className="bg-white sm:p-4 py-7 rounded-md space-y-6">
                     <div className='flex gap-3 items-end'>
                         {currentWaiver?._id &&
                             <Input placeholder='eg. Waiver 101' label='Share your waiver with the following link' disabled={true}
