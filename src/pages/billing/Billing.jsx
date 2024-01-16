@@ -1,7 +1,7 @@
 import DataTable from "../../components/DataTable.jsx";
 import Heading from "../../components/Heading.jsx";
 import BillingRow from "./components/BillingRow.jsx";
-import secondsToDate, {capitalize, formatDate, getPackages, timeToDate} from "../../utils/generalFunctions.js";
+import secondsToDate, {capitalize, formatDate, getPackages} from "../../utils/generalFunctions.js";
 import InvoiceRow from "./components/InvoiceRow.jsx";
 import PaymentRow from "./components/PaymentRow.jsx";
 import Button from "../../components/Button.jsx";

@@ -5,13 +5,14 @@ import CheckboxInput from "../../components/inputs/CheckboxInput.jsx";
 import Button from "../../components/Button.jsx";
 import DataTable from "../../components/DataTable.jsx";
 import TeamRow from "./components/TeamRow.jsx";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getSingleTeam, removeMember, updateTeam} from "../../redux/team/teamThunk.js";
 import {currentTeamStatus, selectCurrentTeam} from "../../redux/team/teamSlice.js";
 import Spinner from "../../components/Spinner.jsx";
 import Modal from "../../components/modals/Modal";
 import toast from 'react-hot-toast'
+
 const ManagementTeam = () => {
   const selectedTeam = useSelector(selectCurrentTeam);
   const status = useSelector(currentTeamStatus)

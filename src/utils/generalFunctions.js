@@ -13,7 +13,6 @@ import toast from "react-hot-toast";
 import Control from "formBuilder/src/js/control";
 import {getRequest, patchRequest} from "../redux/cwAPI";
 import {hideList} from "./builder";
-import $ from "jquery";
 
 export function generateMonths(number) {
   const months = ['Month'];
