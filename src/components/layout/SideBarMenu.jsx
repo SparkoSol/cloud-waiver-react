@@ -117,7 +117,7 @@ const SideBarMenu = ({
                           dispatch(resetUser());
                           persistor.purge();
                           localStorage.removeItem('cw-access-token');
-                          window.location.href = 'https://cloudwaiver.com';
+                          window.location.href = 'https://app.cloudwaiver.com';
                         } :
                         () => {
                           if (width < 1024) {

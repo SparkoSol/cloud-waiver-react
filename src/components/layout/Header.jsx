@@ -76,7 +76,7 @@ const Header = ({setOpen}) => {
   function handleClick() {
     persistor.purge();
     localStorage.removeItem('cw-access-token');
-    window.location.href = 'https://cloudwaiver.com';
+    window.location.href = 'https://app.cloudwaiver.com';
   }
 
   const data = [
