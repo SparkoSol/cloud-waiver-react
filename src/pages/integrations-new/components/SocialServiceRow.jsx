@@ -20,7 +20,7 @@ const SocialServiceRow = ({item, folders, index}) => {
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.name}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>
         <SelectInput extraClasses='min-w-[140px]' options={folders} setState={handleChange}
-                     state={selectedFolder}/>
+                     state={selectedFolder} isRelative={false}/>
       </td>
     </tr>
   );

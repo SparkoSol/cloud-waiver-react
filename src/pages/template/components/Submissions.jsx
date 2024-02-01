@@ -68,7 +68,7 @@ const Submissions = ({currentTab = ''}) => {
                 <div className='grow flex items-center gap-3'>
                     <Input placeholder='Search' onChange={e => setSearch(e.target.value)} BtnIcon={MagnifyingGlassIcon}
                            extraClasses='w-fit inline-block grow sm:grow-0' inputClasses='rounded-md pl-11'/>
-                    <SelectInput extraClasses='w-1/6 grow sm:grow-0'
+                    <SelectInput extraClasses='w-1/6 grow sm:grow-0' isRelative={false}
                                  options={['Submitted', 'Approved', 'Declined', 'Pending', 'Status']}
                                  setState={setStatus}
                                  state={status}/>

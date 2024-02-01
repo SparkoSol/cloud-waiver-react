@@ -63,14 +63,12 @@ const Header = ({setOpen}) => {
           break;
         default:
           setDescription({
-            title: '',
-            desc: ''
+            title: 'Trial Subscription',
+            desc: 'You are currently in the trial period of your subscription.'
           });
           break;
       }
-      const today = new Date().toISOString();
-      const hasTrialDate = currentUser?.trial_until < today;
-      if (isTrialExpired && currentUser.subscription?.status !== 'active' && !hasTrialDate && !allowedLocations.includes(location)) setIsOpen(true);
+      if (isTrialExpired && currentUser.subscription?.status !== 'active' && !allowedLocations.includes(location)) setIsOpen(true);
     }
   }, [currentUser, location]);
 

@@ -3,14 +3,14 @@ import {Listbox, Transition} from "@headlessui/react";
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {Fragment} from "react";
 
-const SelectInput = ({options, state, setState, extraClasses, label}) => {
+const SelectInput = ({options, state, setState, extraClasses, label, isRelative = true}) => {
   const truncatedState = state?.length > 15 ? `${state.substring(0, 9)}...` : state;
   const displayText = truncatedState ? truncatedState : '--Choose--';
 
   return (
     <div className={`${extraClasses}`}>
       <Listbox value={state} onChange={setState}>
-        <div className="relative">
+        <div className={isRelative ? 'relative' : ''}>
           {label &&
             <label className='block text-sm font-medium text-gray-500 mb-2 text-start'>{label}</label>}
           <Listbox.Button
@@ -30,7 +30,7 @@ const SelectInput = ({options, state, setState, extraClasses, label}) => {
             leaveTo="opacity-0"
           >
             <Listbox.Options
-              className="absolute z-[5] mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
+              className="absolute z-[5] mt-1 max-h-60 min-w-[140px] overflow-auto rounded-md bg-gray-50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
               {options.map((opt, index) => {
                 return <Listbox.Option
                   key={index}
