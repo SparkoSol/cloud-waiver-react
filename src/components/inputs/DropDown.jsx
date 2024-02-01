@@ -3,7 +3,7 @@ import {Fragment} from 'react'
 
 export default function DropDown({data, Icon = null}) {
   return (
-    <Menu as="td">
+    <Menu as="div">
       <Menu.Button className="relative inline-block text-left mt-1 text-iconGray">
         <Icon
           className="w-5 h-5 hover:text-blue-400"

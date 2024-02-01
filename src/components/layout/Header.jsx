@@ -12,7 +12,7 @@ import {persistor} from "../../redux/store";
 const Header = ({setOpen}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [description, setDescription] = useState({
-    title:'', desc:''
+    title: '', desc: ''
   })
   const currentUser = useSelector(selectCurrentUser);
   const location = useLocation().pathname;
@@ -68,7 +68,9 @@ const Header = ({setOpen}) => {
           });
           break;
       }
-      if (isTrialExpired && currentUser.subscription.status !== 'active' && !allowedLocations.includes(location)) setIsOpen(true);
+      const today = new Date().toISOString();
+      const hasTrialDate = currentUser?.trial_until < today;
+      if (isTrialExpired && currentUser.subscription?.status !== 'active' && !hasTrialDate && !allowedLocations.includes(location)) setIsOpen(true);
     }
   }, [currentUser, location]);
 

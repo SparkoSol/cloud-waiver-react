@@ -50,7 +50,8 @@ const SideBarMenu = ({
           : width > 1024
             ? 'w-20 p-3'
             : 'w-0'
-      } bg-bgDark h-screen transition-all duration-500 font-mulish fixed top-0 left-0 overflow-y-scroll scrollbar-thin z-20`}>
+      } bg-bgDark h-screen transition-all duration-500 font-mulish fixed top-0 left-0 overflow-y-scroll overflow-x-hidden scrollbar-thin
+       scrollbar-thumb-transparent scrollbar-track-transparent z-20`}>
       <div className="w-full border-b border-btnBg py-4">
         <Link className={`transition-all duration-500 ${open || hover ? 'w-28' : 'w-8'}`} to={'/dashboard'}>
           <img className='w-full max-w-[112px] mx-auto' alt='Loading..' src='/images/logo.png'/>
