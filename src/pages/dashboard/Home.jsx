@@ -37,12 +37,12 @@ const Dashboard = () => {
   ])
 
   function handleSubmit(name) {
-    if(name==='cancel'){
+    if (name === 'cancel') {
       setOpenModal(false)
       setError(null)
       return
     }
-    if(name.trim() === ''){
+    if (name.trim() === '') {
       setError('Name is required.')
       return;
     }
@@ -58,7 +58,7 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    if (currentUser && !currentMember) {
+    if (currentUser) {
       dispatch(getMembers(currentUser._id))
     }
     dispatch(getAllTeams())

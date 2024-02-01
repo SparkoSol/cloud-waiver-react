@@ -77,7 +77,6 @@ const LoginForm = () => {
             extraClasses='mb-6'
           />))}
           <div className='flex justify-between mb-4 flex-wrap gap-3'>
-            <CheckboxInput label='Remember me' inputRef={remember} extraClasses='text-sm'/>
             <Link className='text-sm font-medium text-blue-600' to='/forgot-password'>Forgot password?</Link>
           </div>
           <Button btnText='Login' fullWidth='w-9/12 mx-auto block my-4'

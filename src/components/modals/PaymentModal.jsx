@@ -1,4 +1,4 @@
-import {Fragment, useRef} from 'react'
+import {Fragment, useRef, useState} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
 import {CreditCardIcon} from "@heroicons/react/24/outline";
 import {CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
@@ -7,6 +7,7 @@ import {updatePaymentMethods, userProfile} from "../../redux/user/userThunk";
 import toast from 'react-hot-toast';
 
 export default function PaymentModal({open, setOpen}) {
+  const [error, setError] = useState(null)
   const cancelButtonRef = useRef(null)
   const dispatch = useDispatch();
   const stripe = useStripe();
@@ -21,18 +22,23 @@ export default function PaymentModal({open, setOpen}) {
     });
 
     if (error) {
-      console.log(error);
+      setError(error.message)
     } else {
       const token = localStorage.getItem("cw-access-token");
       await dispatch(updatePaymentMethods({paymentMethodId: paymentMethod.id}))
       await dispatch(userProfile(token));
+      setOpen(false)
+      setError(null)
       toast.success('Payment method added successfully');
     }
   };
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
+      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => {
+        setError(null)
+        setOpen(false)
+      }}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -70,8 +76,9 @@ export default function PaymentModal({open, setOpen}) {
                           Payment methods are not stored with us. Instead, they are saved in tokenize form to help
                           protect your card information.
                         </p>
-                        <p className='text-red-400 mt-4 text-xs'>
+                        <p className='text-green-400 mt-4 text-xs'>
                           Note: Provided zip/postal code must match the billing address of the card.
+                          {error && <span className='block text-red-400 mt-3'>{error}</span>}
                         </p>
                       </div>
                     </div>
@@ -86,7 +93,6 @@ export default function PaymentModal({open, setOpen}) {
                       type="submit"
                       className="text-white text-sm align-items-center align-middle rounded-md bg-bgDark px-4 py-2 font-semibold w-full mb-2 sm:mb-0"
                       onClick={(e) => {
-                        setOpen(false)
                         handleSubmit(e)
                       }}
                     >
@@ -95,7 +101,10 @@ export default function PaymentModal({open, setOpen}) {
                     <button
                       type="button"
                       className="text-sm align-items-center align-middle rounded-md bg-transparent font-semibold px-4 py-2 text-gray-500 border border-gray-300 mr-3 w-full"
-                      onClick={() => setOpen(false)}
+                      onClick={() => {
+                        setError(null)
+                        setOpen(false)
+                      }}
                       ref={cancelButtonRef}
                     >
                       Cancel
