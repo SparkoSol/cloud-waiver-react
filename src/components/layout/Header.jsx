@@ -40,7 +40,7 @@ const Header = ({setOpen}) => {
         case 'trialing':
           setDescription({
             title: 'Trial Subscription',
-            desc: 'You are currently in the trial period of your subscription.'
+            desc: 'Your trial period has expired, kindly subscribe to continue using Cloud Waiver'
           });
           break;
         case 'past_due':
@@ -64,7 +64,7 @@ const Header = ({setOpen}) => {
         default:
           setDescription({
             title: 'Trial Subscription',
-            desc: 'You are currently in the trial period of your subscription.'
+            desc: 'Your trial period has expired, kindly subscribe to continue using Cloud Waiver'
           });
           break;
       }

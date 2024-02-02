@@ -6,7 +6,6 @@ import {login} from "../../redux/user/userThunk.js";
 import FormLayout from "../../components/Form.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useRef, useState} from "react";
-import CheckboxInput from "../../components/inputs/CheckboxInput.jsx";
 import SideBarAdd from "./components/SideBarAdd.jsx";
 import Spinner from "../../components/Spinner.jsx";
 import VerificationModal from "../../components/modals/VerificationModal.jsx";
@@ -21,7 +20,6 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const email = useRef();
   const password = useRef();
-  const remember = useRef(null);
 
   const inputData = [{
     id: 1, placeHolder: 'Your Email', label: '', type: 'email', btnIcon: EnvelopeIcon, ref: email

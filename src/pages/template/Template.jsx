@@ -1,7 +1,7 @@
 import Button from "../../components/Button";
 import DataTable from "../../components/DataTable";
 import {ClipboardIcon, FolderIcon} from "@heroicons/react/24/outline";
-import {useEffect, useState} from "react";
+import React, {useMemo, useState} from "react";
 import Spinner from "../../components/Spinner";
 import Modal from "../../components/modals/Modal";
 import {getRequest, patchRequest, postRequest} from "../../redux/cwAPI";
@@ -11,6 +11,9 @@ import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {allPermissions} from "../../redux/team/teamSlice";
+import SelectInput from "../../components/inputs/SelectInput";
+
+const options = ['draft', 'active', 'archived', 'default'];
 
 function Template() {
   const permissions = useSelector(allPermissions);
@@ -19,7 +22,6 @@ function Template() {
   const [loading, setLoading] = useState(false);
   const [allTemplates, setAllTemplates] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
-  const [switchState, setSwitchState] = useState(false);
   const [duplicate, setDuplicate] = useState({
     btnText: 'Submit',
     title: 'New Template',
@@ -29,15 +31,17 @@ function Template() {
     error: null
   })
   const [selectedCount, setSelectedCount] = useState(0);
+  const [templateStatus, setTemplateStatus] = useState('default')
 
-  useEffect(() => {
+  useMemo(() => {
     setLoading(true);
-    getRequest('/waivers?statuses=draft&statuses=published')
-      .then(r => setAllTemplates(addCheck(r.data, 't')))
+    let temp = templateStatus === 'active' ? 'published&statuses=published' : (templateStatus === 'default' ? `published&statuses=draft` : `${templateStatus}&statuses=${templateStatus}`)
+    getRequest(`/waivers?statuses=${temp}`)
+      .then(r => setAllTemplates(addCheck(r.data)))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false));
-  }, [switchState]);
-
+    setSelectedCount(0)
+  }, [templateStatus])
   const handleSubmit = (name, type) => {
     if (name === 'cancel') {
       setDuplicate({
@@ -70,7 +74,6 @@ function Template() {
         waiver_ids: removedIds,
         status: 'archived'
       }).then(e => {
-        setSwitchState(prev => !prev);
         setSelectedCount(0)
       })
         .finally(() => setLoading(false))
@@ -122,24 +125,27 @@ function Template() {
 
   return (
     <div>
-      <h1 className='text-xl font-semibold mb-5'>Templates</h1>
+      <h1 className='text-xl font-semibold'>Templates</h1>
       <div>
         <div className='flex justify-between pb-6 items-center gap-4 flex-wrap grow'>
           <span className='text-sm font-semibold text-gray-600'>List of all templates you've created.</span>
-          <div className='flex gap-2 items-center flex-wrap'>
-            {selectedCount > 0 && <>
-              <span className='text-gray-500'>Selected : {selectedCount}</span>
-              <Button btnText='Archive' type='button' onClick={handleDelete} btnClasses='bg-red-500 w-full' fullWidth='grow'/></>}
-
+          <div
+            className='flex gap-2 items-center justify-center md:justify-end flex-wrap md:flex-nowrap mx-auto sm:mx-0'>
+            <SelectInput extraClasses='w-36' options={options}
+                         state={templateStatus}
+                         setState={setTemplateStatus}/>
+            {selectedCount > 0 && templateStatus !== 'archived' && <>
+              <Button btnText={`Archive (${selectedCount})`} type='button' onClick={handleDelete}
+                      btnClasses='bg-red-500 px-5'
+              /></>}
             {permissions.includes("template_creation") && <Button BtnIcon={ClipboardIcon}
                                                                   btnText='Create waivers'
-                                                                  fullWidth='grow'
                                                                   type='button'
                                                                   onClick={() => {
                                                                     setOpenModal(true);
                                                                     setDuplicate(prev => ({...prev, index: null}));
                                                                   }}
-                                                                  btnClasses='bg-btnBg border-btnBg px-5 py-2.5 w-full'
+                                                                  btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
                                                                   iconClasses='w-4 h-4 text-white inline-block ml-2'/>}
           </div>
         </div>

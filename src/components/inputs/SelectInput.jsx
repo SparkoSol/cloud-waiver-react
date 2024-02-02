@@ -14,7 +14,7 @@ const SelectInput = ({options, state, setState, extraClasses, label, isRelative 
           {label &&
             <label className='block text-sm font-medium text-gray-500 mb-2 text-start'>{label}</label>}
           <Listbox.Button
-            className="relative block w-full p-2.5 rounded-md border border-gray-300 bg-gray-200 focus:border-gray-300 focus-visible:outline-none text-sm text-gray-500 text-start">
+            className="relative block w-full p-2.5 capitalize rounded-md border border-gray-300 bg-gray-200 focus:border-gray-300 focus-visible:outline-none text-sm text-gray-500 text-start">
             <span className="truncate">{displayText}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronDownIcon
@@ -35,7 +35,7 @@ const SelectInput = ({options, state, setState, extraClasses, label, isRelative 
                 return <Listbox.Option
                   key={index}
                   className={({active}) =>
-                    `relative select-none py-2 cursor-pointer px-4 overflow-ellipsis ${
+                    `relative select-none capitalize py-2 cursor-pointer px-4 overflow-ellipsis ${
                       active ? 'bg-gray-200 text-gray-900' : 'text-gray-900'
                     }`
                   }

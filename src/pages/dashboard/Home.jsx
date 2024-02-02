@@ -16,7 +16,6 @@ import {getAllTeams} from "../../redux/team/teamThunk";
 
 const Dashboard = () => {
   const currentUser = useSelector(selectCurrentUser);
-  const currentMember = useSelector(selectMember);
   const permissions = useSelector(allPermissions);
   const dispatch = useDispatch();
   const navigate = useNavigate();

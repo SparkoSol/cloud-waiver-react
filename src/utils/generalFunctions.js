@@ -64,7 +64,7 @@ export function isEmptyObject(obj) {
 export const capitalize = (string) => {
   if (string) return string.charAt(0).toUpperCase() + string.slice(1);
 }
-export const addCheck = (arr, filter) => {
+export const addCheck = (arr) => {
   return arr.map(item => {
     return {...item, checked: false}
   });
