@@ -5,7 +5,7 @@ import {ClipboardIcon} from "@heroicons/react/24/solid";
 import Modal from "../../components/modals/Modal.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/Spinner.jsx";
-import {selectCurrentUser, selectMember} from "../../redux/user/userSlice.js";
+import {selectCurrentUser} from "../../redux/user/userSlice.js";
 import {getMembers} from "../../redux/user/userThunk.js";
 import {useNavigate} from "react-router-dom";
 import {getRequest, postRequest} from "../../redux/cwAPI";
@@ -57,10 +57,8 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    if (currentUser) {
-      dispatch(getMembers(currentUser._id))
-    }
-    dispatch(getAllTeams())
+    getUserTeams().then(() => {
+    })
     // eslint-disable-next-line
   }, [currentUser]);
 
@@ -78,6 +76,12 @@ const Dashboard = () => {
 
   }, []);
 
+  async function getUserTeams() {
+    if (currentUser) {
+      await dispatch(getMembers(currentUser._id))
+      await dispatch(getAllTeams())
+    }
+  }
 
   return (
     <div>
@@ -100,7 +104,7 @@ const Dashboard = () => {
                                                                 btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
                                                                 iconClasses='w-4 h-4 text-white inline-block ml-2'/>}
         </div>
-        {permissions.includes(`waiver_submissions`) && <SubmissionTable title={'Recent waiver'}/>}
+        {permissions.includes(`waiver_submissions`) && <SubmissionTable title='Recent waiver'/>}
       </div>
       <Modal open={openModal} functionCall={handleSubmit} error={error}/>
       {loading && <Spinner/>}

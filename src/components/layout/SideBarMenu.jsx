@@ -22,6 +22,7 @@ const SideBarMenu = ({
   const currentUser = useSelector(selectCurrentUser);
   const allTeams = useSelector(selectAllTeams);
   const permissions = useSelector(allPermissions);
+
   useEffect(() => {
     if (allTeams && currentUser) {
       let temp = allTeams.find(item => item.members.includes(currentUser._id));
