@@ -7,11 +7,11 @@ import toast from "react-hot-toast";
 const BillingRow = ({item, variablePrice}) => {
   const paymentMethodsCount = useSelector(state => selectPaymentMethods(state))?.length
   const currentUser = useSelector(selectCurrentUser);
-  const disable = currentUser.subscription?.items.some(row => row.price_id === item.id);
+  const disable = currentUser?.subscription?.items.some(row => row.price_id === item.id);
   const dispatch = useDispatch();
   const handleChangePlan = async (item) => {
     if (paymentMethodsCount > 0) {
-      if (currentUser.subscription) await dispatch(updatePlan({price: item.id}))
+      if (currentUser?.subscription) await dispatch(updatePlan({price: item.id}))
       else await dispatch(createPlan({prices: [item.id, variablePrice.id]}))
 
       const token = localStorage.getItem('cw-api-token');

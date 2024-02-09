@@ -19,6 +19,7 @@ const Billing = () => {
   const dispatch = useDispatch();
   const paymentMethodsOptions = useSelector(selectPaymentMethods) || [];
   const invoiceData = useSelector(selectInvoicesData) || [];
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [prices, setPrices] = useState([]);
   const [variablePrice, setVariablePrice] = useState({});
@@ -29,18 +30,21 @@ const Billing = () => {
 
   useEffect(() => {
     async function fetchData() {
+      setLoading(true)
       await getPackages(setPrices, setVariablePrice);
       await dispatch(getAllInvoices())
       await dispatch(getAllMethods())
+      setLoading(false)
     }
 
-    fetchData().then(()=>{})
+    fetchData().then(() => {
+    })
     // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
-    if(currentUser.subscription){
-      const {lookup_key} = currentUser.subscription.items.find(item=>item.lookup_key !== 'variable_price');
+    if (currentUser?.subscription) {
+      const {lookup_key} = currentUser.subscription.items.find(item => item.lookup_key !== 'variable_price');
       setCurrentStatus(lookup_key)
     }
   }, [currentUser]);
@@ -48,7 +52,7 @@ const Billing = () => {
 
   return (
     <>
-      {loadingSlice && <Spinner/>}
+      {(loadingSlice || loading) && <Spinner/>}
       <section className='space-y-6'>
         <div className='p-5 bg-white shadow-sm rounded-lg'>
           <div className='flex gap-3 justify-between flex-wrap'>
@@ -58,7 +62,8 @@ const Billing = () => {
             {currentUser && !loadingSlice && <ul className='w-fit bg-red-100 p-4 rounded-lg grow sm:grow-0'>
               <li><strong className='w-24'>Status : </strong>{capitalize(currentStatus || 'Trial')}</li>
               <li><strong className='w-24'>Trail Ends :
-              </strong> {currentUser.subscription?.trial_end ? secondsToDate(currentUser.subscription?.trial_end) : formatDate(currentUser.trial_until)}</li>
+              </strong> {currentUser.subscription?.trial_end ? secondsToDate(currentUser.subscription?.trial_end) : formatDate(currentUser.trial_until)}
+              </li>
             </ul>}
           </div>
           <div className='mt-6'>

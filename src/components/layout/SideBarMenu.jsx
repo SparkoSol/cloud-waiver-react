@@ -59,7 +59,9 @@ const SideBarMenu = ({
         </Link>
       </div>
 
-      {(open || hover) && <Link className="text-sm text-iconGray font-semibold" to="/settings/account">
+      {(open || hover) && <Link className="text-sm text-iconGray font-semibold" to="/settings/account" onClick={() => {
+        if (width < 1024) setOpen(false);
+      }}>
         <div className="flex gap-2 items-center py-4 w-60 px-2 border-b border-btnBg">
           <div className="w-8 h-8 rounded-full border border-1 border-iconGray bg-white overflow-hidden">
             <img src={currentUser?.profile_picture || "/images/avatar.png"} className='w-full h-full object-cover'
@@ -116,6 +118,7 @@ const SideBarMenu = ({
               ) : (
                 <Link to={item.url}
                       onClick={item.url === "#" ? () => {
+                          setOpen(false)
                           dispatch(resetUser());
                           persistor.purge();
                           localStorage.removeItem('cw-access-token');
