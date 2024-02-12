@@ -17,7 +17,7 @@ const SubmissionTable = ({title}) => {
   const [template, setTemplate] = useState('Template');
   const [month, setMonth] = useState('Month');
   const [year, setYear] = useState('Year');
-  const [status, setStatus] = useState('Status');
+  const [status, setStatus] = useState('All');
   const [templateMenu, setTemplateMenu] = useState(
     {
       options: ['Template'], state: template, setState: setTemplate
@@ -25,7 +25,7 @@ const SubmissionTable = ({title}) => {
 
   const selectData = [
     {
-      options: ['Submitted', 'Approved', 'Declined', 'Status'], state: status, setState: setStatus
+      options: ['Submitted', 'Approved', 'Declined', 'All'], state: status, setState: setStatus
     },
     {
       options: generateMonths(12), state: month, setState: setMonth
@@ -78,7 +78,7 @@ const SubmissionTable = ({title}) => {
   }, [status, template, search, month, year])
 
   const resetStates = () => {
-    setStatus('Status')
+    setStatus('All')
     setMonth('Month')
     setYear('Year')
     setTemplate('Template')

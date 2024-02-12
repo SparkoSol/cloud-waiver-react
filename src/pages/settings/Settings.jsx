@@ -84,7 +84,7 @@ const Account = () => {
       label: 'Zip / Postal Code',
       value: currentUser.address?.zip || '',
       type: 'text',
-      placeholder: 'Baden-Württemberg',
+      placeholder: '000000',
       class: "w-full sm:w-1/2 md:w-1/3",
       ref: postalCodeRef
     }]

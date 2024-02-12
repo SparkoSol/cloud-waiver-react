@@ -18,7 +18,7 @@ const Header = ({setOpen}) => {
   const location = useLocation().pathname;
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && currentUser.role) {
       // incomplete, incomplete_expired, trialing, active, past_due, canceled, or unpaid.
       const trialEnd = currentUser.trial_until;
       const currentDate = new Date().toISOString();

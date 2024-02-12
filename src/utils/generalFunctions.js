@@ -401,7 +401,7 @@ export function makeTemplate(waiver, textAreaElements, hasTable, recursionCount 
 
     formWrap.addEventListener('click', function (e) {
       const targetDataAttr = e.target.closest('.input-control')?.getAttribute('data-type');
-      const parentClassList = e.target.parentNode.parentNode?.classList;
+      const parentClassList = e.target.parentNode?.parentNode?.classList;
 
       if (targetDataAttr === 'primaryAdultParticipant' || (parentClassList && parentClassList[0] === 'primaryAdultParticipant-field')) {
         hideList(targetDataAttr === 'primaryAdultParticipant' ? 'none' : 'block');

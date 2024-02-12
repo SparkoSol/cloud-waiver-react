@@ -3,7 +3,7 @@ import Input from "../../../components/inputs/Input";
 import Heading from "../../../components/Heading";
 import Button from "../../../components/Button";
 import ToggleButton from "../../../components/inputs/ToggleButton";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {patchRequest} from "../../../redux/cwAPI";
 import {useDispatch, useSelector} from "react-redux";
 import toast from 'react-hot-toast';
@@ -12,15 +12,18 @@ import Spinner from "../../../components/Spinner";
 import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
 
 const Setting = () => {
+  const {id} = useParams();
+  const dispatch = useDispatch();
+
+  const waiver = useSelector(selectSingleWaiver)
+
+  const navigate = useNavigate();
+
   const [notificationCustomer, setNotificationCustomer] = useState(false);
   const [notificationAdmin, setNotificationAdmin] = useState(false);
   const [approve, setApprove] = useState(false);
   const [loading, setLoading] = useState(false);
   const emailRef = useRef()
-  const {id} = useParams();
-  const dispatch = useDispatch();
-
-  const waiver = useSelector(selectSingleWaiver)
 
   let data = [{
     id: 1,
@@ -82,7 +85,7 @@ const Setting = () => {
   }
 
   return (
-    <form className='bg-white shadow rounded-lg p-5'>
+    <form className='bg-white shadow rounded-lg p-5' onSubmit={submitHandler}>
       <ul className='flex flex-col gap-5'>
         {data.map(item => {
           return (<li key={item.id}
@@ -103,8 +106,9 @@ const Setting = () => {
         })}
       </ul>
       <div className='flex justify-end gap-3 mt-6'>
-        <Button btnText='Cancel' btnClasses='bg-gray-200 px-6 py-2 text-gray-900'/>
-        <Button btnText='Save' btnClasses='bg-btnBg px-6 py-2' onClick={submitHandler}/>
+        <Button btnText='Cancel' btnClasses='bg-gray-200 px-6 py-2 text-gray-900' type='button'
+                onClick={() => navigate(-1)}/>
+        <Button btnText='Save' btnClasses='bg-btnBg px-6 py-2'/>
       </div>
       {loading && <Spinner/>}
     </form>
