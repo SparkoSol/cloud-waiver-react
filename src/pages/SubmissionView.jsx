@@ -158,6 +158,10 @@ const SubmissionView = () => {
             const mail = document.querySelector(`input[name='defaultMail']`);
             mail.value = submissionData.data[i].userData;
             break;
+          case `${staticClass}dateOfBirth`:
+            const dob = document.querySelector(`input[name='dateOfBirth']`);
+            dob.value = submissionData.data[i].userData;
+            break;
           default:
             // Handle other cases
             break;

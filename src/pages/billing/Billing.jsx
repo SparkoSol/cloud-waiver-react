@@ -43,9 +43,9 @@ const Billing = () => {
   }, [])
 
   useEffect(() => {
-    if (currentUser?.subscription) {
-      const {lookup_key} = currentUser.subscription.items.find(item => item.lookup_key !== 'variable_price');
-      setCurrentStatus(lookup_key)
+    if (currentUser?.subscription && (new Date() > new Date(currentUser.trial_until))) {
+      // const {lookup_key} = currentUser.subscription.items.find(item => item.lookup_key !== 'variable_price');
+      setCurrentStatus(currentUser?.subscription.status)
     }
   }, [currentUser]);
 
@@ -62,7 +62,7 @@ const Billing = () => {
             {currentUser && !loadingSlice && <ul className='w-fit bg-red-100 p-4 rounded-lg grow sm:grow-0'>
               <li><strong className='w-24'>Status : </strong>{capitalize(currentStatus || 'Trial')}</li>
               <li><strong className='w-24'>Trail Ends :
-              </strong> {currentUser.subscription?.trial_end ? secondsToDate(currentUser.subscription?.trial_end) : formatDate(currentUser.trial_until)}
+              </strong> {currentUser.subscription?.trial_end && new Date() > new Date(currentUser.trial_until) ? secondsToDate(currentUser.subscription?.trial_end) : formatDate(currentUser.trial_until)}
               </li>
             </ul>}
           </div>

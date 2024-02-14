@@ -154,7 +154,10 @@ export let additionMinorForm = `
           <div class="mt-3">
             <h2 class="text-sm">Date of Birth</h2>
             <div class="flex items-center space-x-2">
-              <input type="date" value="" name="date_of_birth" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
+              <input type="date" value="" onclick="(function(input) {
+    const today = new Date().toISOString().split('T')[0];
+    input.setAttribute('max', today);
+  })(this)"  name="date_of_birth" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
             </div>
           </div>
           <div class="mt-3">
@@ -247,7 +250,6 @@ export const sideBarOptions = [
     icon: ArrowRightOnRectangleIcon, permission: 'sign_out'
   }
 ];
-export const countries = ["Pakistan", "Germany", "United States", "United Kingdom", "France", "Australia", "Canada", "Japan"];
 export const staticForm = [
   {
     type: 'emailInput',

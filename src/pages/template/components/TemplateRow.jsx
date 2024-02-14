@@ -1,6 +1,13 @@
 import {Link} from "react-router-dom";
 import {capitalize, limitChars} from "../../../utils/generalFunctions";
-import {DocumentDuplicateIcon, EyeIcon, PencilSquareIcon, TrashIcon, UsersIcon} from "@heroicons/react/24/outline";
+import {
+  ArrowPathIcon,
+  DocumentDuplicateIcon,
+  EyeIcon,
+  PencilSquareIcon,
+  TrashIcon,
+  UsersIcon
+} from "@heroicons/react/24/outline";
 import CheckboxInput from "../../../components/inputs/CheckboxInput";
 import toast from 'react-hot-toast';
 import {useSelector} from "react-redux";
@@ -37,19 +44,24 @@ const TemplateRow = ({item, functionCall, index, deleteRow, customOpenModal}) =>
               <UsersIcon className='w-5 h-5 text-gray-600'/>
             </abbr>
           </Link>
-          {permissions.includes("template_editing") && <Link target='_blank' to={`/templates/${item._id}/builder`}>
+          {permissions.includes("template_editing") &&
+            <span className='cursor-pointer' onClick={e => window.location.assign(`/templates/${item._id}/builder`)}>
             <abbr title='Edit Template'>
               <PencilSquareIcon className='w-5 h-5 text-gray-600'/>
             </abbr>
-          </Link>}
+          </span>}
           {permissions.includes("template_creation") && <button onClick={e => customOpenModal(true, index)}>
             <abbr title='Duplicate Template'><DocumentDuplicateIcon className='w-5 h-5 text-gray-600'/></abbr>
           </button>}
-          <button onClick={e => deleteRow(item._id, index)}>
-            <abbr title='Delete Template'>
-              <TrashIcon className='w-5 h-5 text-gray-600'/>
-            </abbr>
-          </button>
+
+          {item.status === 'archived' ?
+            <button onClick={e => deleteRow(item._id, index, 'draft')}><abbr title='Un-archive Template'>
+              <ArrowPathIcon className='w-5 h-5 text-gray-600'/>
+            </abbr></button> :
+            <button onClick={e => deleteRow(item._id, index, 'archived')}>
+              <abbr title='Delete Template'>
+                <TrashIcon className='w-5 h-5 text-gray-600'/>
+              </abbr></button>}
         </div>
       </td>
     </tr>

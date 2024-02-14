@@ -5,17 +5,19 @@ import CheckboxInput from "../../components/inputs/CheckboxInput.jsx";
 import Button from "../../components/Button.jsx";
 import DataTable from "../../components/DataTable.jsx";
 import TeamRow from "./components/TeamRow.jsx";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getSingleTeam, removeMember, updateTeam} from "../../redux/team/teamThunk.js";
 import {currentTeamStatus, selectCurrentTeam} from "../../redux/team/teamSlice.js";
 import Spinner from "../../components/Spinner.jsx";
 import Modal from "../../components/modals/Modal";
 import toast from 'react-hot-toast'
+import {ArrowLeftIcon} from "@heroicons/react/24/outline";
 
 const ManagementTeam = () => {
   const selectedTeam = useSelector(selectCurrentTeam);
   const status = useSelector(currentTeamStatus)
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState({teamId: '', memberId: '', index: 0, isOpen: false});
   const {id} = useParams();
@@ -87,6 +89,8 @@ const ManagementTeam = () => {
   return (
     <>
       <section className='space-y-6 xs:px-6'>
+        <Button btnText='Go Back' onClick={e => navigate(-1)} BtnIcon={ArrowLeftIcon} iconClasses='w-4 h-4 text-gray-600'
+                btnClasses='border border-bgDark text-black-900 px-5' fullWidth='justify-start mb-4'/>
         <h1 className='text-2xl font-bold leading-tight text-gray-900'>Admins</h1>
         <div className='flex justify-between items-start gap-4 flex-col md:flex-row'>
           <Heading title='Team Information' subtitle='Please provide details about this team'

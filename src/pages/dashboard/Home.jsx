@@ -78,8 +78,10 @@ const Dashboard = () => {
 
   async function getUserTeams() {
     if (currentUser) {
+      setLoading(true)
       await dispatch(getMembers(currentUser._id))
       await dispatch(getAllTeams())
+      setLoading(false)
     }
   }
 

@@ -39,7 +39,7 @@ const SelectInput = ({options, state, setState, extraClasses, label, isRelative 
                       active ? 'bg-gray-200 text-gray-900' : 'text-gray-900'
                     }`
                   }
-                  value={opt}
+                  value={opt.country || opt}
                 >
                   {({selected}) => (
                     <>
@@ -48,7 +48,7 @@ const SelectInput = ({options, state, setState, extraClasses, label, isRelative 
                           selected ? 'font-medium' : 'font-normal'
                         }`}
                       >
-                        {opt.name || opt}
+                        {opt.country || opt.name || opt}
                       </span>
                     </>
                   )}

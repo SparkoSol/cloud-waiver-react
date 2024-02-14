@@ -13,7 +13,7 @@ import {useSelector} from "react-redux";
 import {allPermissions} from "../../redux/team/teamSlice";
 import SelectInput from "../../components/inputs/SelectInput";
 
-const options = ['draft', 'active', 'archived', 'default'];
+const options = ['all', 'draft', 'active', 'archived'];
 
 function Template() {
   const permissions = useSelector(allPermissions);
@@ -31,11 +31,11 @@ function Template() {
     error: null
   })
   const [selectedCount, setSelectedCount] = useState(0);
-  const [templateStatus, setTemplateStatus] = useState('default')
+  const [templateStatus, setTemplateStatus] = useState('all')
 
   useMemo(() => {
     setLoading(true);
-    let temp = templateStatus === 'active' ? 'published&statuses=published' : (templateStatus === 'default' ? `published&statuses=draft` : `${templateStatus}&statuses=${templateStatus}`)
+    let temp = templateStatus === 'active' ? 'published&statuses=published' : (templateStatus === 'all' ? `published&statuses=draft` : `${templateStatus}&statuses=${templateStatus}`)
     getRequest(`/waivers?statuses=${temp}`)
       .then(r => setAllTemplates(addCheck(r.data)))
       .catch(e => toast.error(e.response.data.message))
@@ -98,21 +98,22 @@ function Template() {
     })
   }
 
-  function deleteRow(id, idx) {
+  function deleteRow(id, idx, status) {
     setLoading(true)
-    const newData = [
+    let newData = [
       ...allTemplates.slice(0, idx),
       ...allTemplates.slice(idx + 1),
     ];
 
     patchRequest('/waivers/update-multiple', {
       waiver_ids: [id],
-      status: 'archived'
+      status: status
     }).then(e => {
       setAllTemplates(newData)
     })
       .finally(() => setLoading(false))
   }
+
 
   function handleDelete() {
     setDuplicate({

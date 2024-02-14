@@ -1,6 +1,6 @@
 import Button from "../../../components/Button.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {createPlan, updatePlan, userProfile} from "../../../redux/user/userThunk";
+import {createPlan, getAllInvoices, updatePlan, userProfile} from "../../../redux/user/userThunk";
 import {selectCurrentUser, selectPaymentMethods} from "../../../redux/user/userSlice";
 import toast from "react-hot-toast";
 
@@ -13,6 +13,9 @@ const BillingRow = ({item, variablePrice}) => {
     if (paymentMethodsCount > 0) {
       if (currentUser?.subscription) await dispatch(updatePlan({price: item.id}))
       else await dispatch(createPlan({prices: [item.id, variablePrice.id]}))
+
+      //fetch invoices
+      dispatch(getAllInvoices())
 
       const token = localStorage.getItem('cw-api-token');
       await dispatch(userProfile(token))

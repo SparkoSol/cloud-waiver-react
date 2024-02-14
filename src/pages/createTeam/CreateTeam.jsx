@@ -6,6 +6,7 @@ import {addMember} from "../../redux/team/teamThunk.js";
 import {useNavigate, useParams} from "react-router-dom";
 import toast from "react-hot-toast";
 import Spinner from "../../components/Spinner.jsx";
+import {ArrowLeftIcon} from "@heroicons/react/24/outline";
 
 const CreateTeam = () => {
   const dispatch = useDispatch();
@@ -70,7 +71,9 @@ const CreateTeam = () => {
   // function
 
   return (
-    <section className=''>
+    <section>
+      <Button btnText='Go Back' onClick={e => navigate(-1)} BtnIcon={ArrowLeftIcon} iconClasses='w-4 h-4 text-gray-600'
+              btnClasses='border border-bgDark text-black-900 px-5' fullWidth='justify-start mb-4'/>
       <h1 className='text-2xl font-bold leading-tight text-gray-900'>Add User to the team</h1>
       <form className='space-y-4 mt-8 w-full sm:w-1/2' onSubmit={handleSubmit}>
         {data.map(item => {
