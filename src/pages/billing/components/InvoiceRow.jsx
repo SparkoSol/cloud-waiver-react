@@ -2,13 +2,13 @@ import Button from "../../../components/Button.jsx";
 import {timeToDate} from "../../../utils/generalFunctions";
 
 const InvoiceRow = ({item}) => {
-  const handleDownloadInvoice = async () => {
+  const handleDownloadInvoice = () => {
     window.location.href = item.invoice_pdf
   }
   return (
     <tr>
       <td className='relative py-4 pl-4 sm:pl-6 pr-3 text-sm whitespace-nowrap'>
-        {item.id}
+        {item.number}
       </td>
       <td className='relative py-4 pl-4 sm:pl-6 pr-3 text-sm whitespace-nowrap'>
         {timeToDate(item.period_start, item.period_end)}

@@ -1,7 +1,6 @@
 import {useEffect, useRef, useState} from "react";
-import {countries, isEmptyObject} from "../../utils/generalFunctions.js";
+import {isEmptyObject} from "../../utils/generalFunctions.js";
 import Heading from "../../components/Heading.jsx";
-import SelectInput from "../../components/inputs/SelectInput.jsx";
 import Input from "../../components/inputs/Input.jsx";
 import Button from "../../components/Button.jsx";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,6 +9,8 @@ import {selectCurrentUser} from "../../redux/user/userSlice.js";
 import toast from "react-hot-toast";
 import ProfileImageUpload from "./profileImageUpload/ProfileImageUpload";
 import Spinner from "../../components/Spinner";
+import axios from "axios";
+import SelectInput from "../../components/inputs/SelectInput";
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Account = () => {
   const postalCodeRef = useRef(null)
   const [loading, setLoading] = useState(false);
   const [country, setCountry] = useState('Please Select');
+  const [countryList, setCountryList] = useState([]);
   const data = [
     {
       id: 1,
@@ -50,7 +52,7 @@ const Account = () => {
     {
       id: 4,
       label: 'Country',
-      options: countries,
+      options: countryList,
       state: country,
       setState: setCountry,
       class: 'w-full sm:w-1/2 md:w-1/2'
@@ -83,17 +85,26 @@ const Account = () => {
       id: 8,
       label: 'Zip / Postal Code',
       value: currentUser.address?.zip || '',
-      type: 'text',
-      placeholder: 'Baden-Württemberg',
+      type: 'number',
+      placeholder: '000000',
       class: "w-full sm:w-1/2 md:w-1/3",
       ref: postalCodeRef
     }]
 
+  console.log(countryList)
   useEffect(() => {
     if (!isEmptyObject(currentUser) && currentUser.address?.country) {
       setCountry(currentUser.address.country)
     }
   }, [currentUser]);
+
+  useEffect(() => {
+    setLoading(true)
+    axios.get(`https://countriesnow.space/api/v0.1/countries/`)
+      .then(r => setCountryList(r.data.data))
+      .catch(e => toast.error(e.response.data.message))
+      .finally(() => setLoading(false))
+  }, []);
 
 
   function handleSubmit(e) {

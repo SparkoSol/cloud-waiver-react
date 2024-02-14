@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {getRequest, patchRequest} from "../../redux/cwAPI";
 import {addCheck, filterWaivers, updateAllSubmission} from "../../utils/generalFunctions";
@@ -8,7 +8,7 @@ import Input from "../../components/inputs/Input";
 import DataTable from "../../components/DataTable";
 import {FolderIcon} from "@heroicons/react/20/solid";
 import Spinner from "../../components/Spinner";
-import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
+import {ArrowLeftIcon, MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import CustomerSubmissionRow from "./components/CustomerSubmissionRow";
 import Button from "../../components/Button";
 
@@ -21,6 +21,7 @@ const CustomerSubmissions = ({currentTab = ''}) => {
   const [search, setSearch] = useState('');
   const [switchState, setSwitchState] = useState(false)
   const [selectedCount, setSelectedCount] = useState(0);
+  const navigate = useNavigate();
   // eslint-disable-next-line no-unused-vars
   const {customerId} = useParams();
   useEffect(() => {
@@ -37,9 +38,9 @@ const CustomerSubmissions = ({currentTab = ''}) => {
   const updateSubmissionStatus = (id, status) => {
     setLoading(true)
     patchRequest(`/submissions/${id}`, {status})
-      .then(()=>setSwitchState(prev => !prev))
-      .catch(e=>toast.error(e.response.data.message))
-      .finally(()=>setLoading(false))
+      .then(() => setSwitchState(prev => !prev))
+      .catch(e => toast.error(e.response.data.message))
+      .finally(() => setLoading(false))
   }
 
   useEffect(() => {
@@ -53,6 +54,8 @@ const CustomerSubmissions = ({currentTab = ''}) => {
 
   return (
     <section>
+      <Button btnText='Go Back' onClick={e => navigate(-1)} BtnIcon={ArrowLeftIcon} iconClasses='w-4 h-4 text-gray-600'
+              btnClasses='border border-bgDark text-black-900 px-5' fullWidth='justify-start mb-4'/>
       <div className='flex items-center justify-between mb-4'>
         <div className='flex gap-3 flex-wrap grow'>
           <Input placeholder='Search' BtnIcon={MagnifyingGlassIcon} onChange={e => setSearch(e.target.value)}
@@ -72,7 +75,7 @@ const CustomerSubmissions = ({currentTab = ''}) => {
       {
         allWaivers.length > 0 ?
           <DataTable
-            headers={['Reference No','Signed Date', 'Template Name', 'Status']}
+            headers={['Reference No', 'Signed Date', 'Template Name', 'Status']}
             setSelectedCount={setSelectedCount}
             TableRow={CustomerSubmissionRow} items={filteredWaivers} setSelectAll={setSelectAll}
             selectAll={selectAll} deleteRow={updateSubmissionStatus}

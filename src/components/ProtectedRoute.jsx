@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Header from "./layout/Header.jsx";
 import SideBarMenu from "./layout/SideBarMenu.jsx";
 import {sideBarOptions} from "../utils/generalFunctions.js";
@@ -15,6 +15,13 @@ const ProtectedRoute = ({children}) => {
     if (openReplyMenuIndex === index) setOpenReplyMenuIndex(-1)
     else setOpenReplyMenuIndex(index);
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("cw-access-token");
+    if (!token) {
+      window.location.replace('https://app.cloudwaiver.com')
+    }
+  }, []);
 
   return (
     <div className='bg-gray-100 min-h-screen font-mulish'>

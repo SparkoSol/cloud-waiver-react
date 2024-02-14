@@ -84,7 +84,8 @@ const FormRender = () => {
       electronicSignatureConsentCount: 0,
       richTextEditorCount: 0,
       timeCount: 0,
-      fileUpload: 0
+      fileUpload: 0,
+      dateOfBirthCount:0
     }
     for (let item of htmlArr) {
       let label = '';
@@ -263,6 +264,18 @@ const FormRender = () => {
           }
           item.userData = mail
           hasEmail['email'] = mail
+          break
+        case 'dateOfBirth':
+          // formbuilder-dateOfBirth
+          const dob = document.querySelectorAll(`input[name='dateOfBirth']`)[tracker.dateOfBirthCount];
+          const isRequired = dob.parentNode.firstChild.lastChild?.classList;
+          if (!dob.value && isRequired) {
+            setLoading(false)
+            toast.error("Date of birth is required!");
+            return;
+          }
+          item.userData = dob.value || ''
+          tracker.dateOfBirthCount ++
           break
         case 'text':
           if (item.name === 'livery-f-name') {

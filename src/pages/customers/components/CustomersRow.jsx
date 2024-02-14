@@ -12,7 +12,6 @@ const CustomersRow = ({item, functionCall, index}) => {
             onChange={() => functionCall(index)}/>
         </div>
       </td>
-      {/*<td className='py-4 px-6 font-semibold text-sm text-gray-900 whitespace-nowrap'>{limitChars(item._id, 6)}</td>*/}
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.first_name}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.last_name}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.customer?.email || item.email}</td>
@@ -21,10 +20,14 @@ const CustomersRow = ({item, functionCall, index}) => {
         <div className="flex items-center space-x-6">
           <div className="flex items-center space-x-6">
             <Link to={`/customers/${item._id}`}>
-              <EyeIcon className='w-5 h-5 text-iconGray'/>
+              <abbr title='View Customer'>
+                <EyeIcon className='w-5 h-5 text-iconGray'/>
+              </abbr>
             </Link>
             <Link to={`/customers/${item._id}/edit`}>
-              <PencilSquareIcon className='w-5 h-5 text-iconGray'/>
+              <abbr title='Edit Customer'>
+                <PencilSquareIcon className='w-5 h-5 text-iconGray'/>
+              </abbr>
             </Link>
           </div>
         </div>

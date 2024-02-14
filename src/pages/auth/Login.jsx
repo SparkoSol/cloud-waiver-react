@@ -52,7 +52,7 @@ const LoginForm = () => {
         dispatch(resetUser())
         persistor.purge();
         localStorage.removeItem('cw-access-token')
-        window.location.href = `https://${workspaces[0].domain}.cloudwaiver.com/dashboard?token=${token}`;
+        window.location.href = `http://${workspaces[0].domain}.localhost:3333/dashboard?token=${token}`;
       } else {
         navigate('/domain/select');
       }
