@@ -37,18 +37,6 @@ const Header = ({setOpen}) => {
             desc: 'Your incomplete subscription has expired. Please start a new subscription.'
           });
           break;
-        case 'trialing':
-          setDescription({
-            title: 'Trial Subscription',
-            desc: 'Your trial period has expired, kindly subscribe to continue using Cloud Waiver'
-          });
-          break;
-        case 'past_due':
-          setDescription({
-            title: 'Past Due Subscription',
-            desc: 'Your subscription is past due. Please update your payment information.'
-          });
-          break;
         case 'canceled':
           setDescription({
             title: 'Canceled Subscription',
@@ -68,7 +56,12 @@ const Header = ({setOpen}) => {
           });
           break;
       }
-      if (isTrialExpired && currentUser.subscription?.status !== 'active' && !allowedLocations.includes(location)) setIsOpen(true);
+      const allowedStates = ['active', 'trialing', 'past_due']
+      if (currentUser.subscription) {
+        if (!allowedStates.includes(currentUser.subscription?.status) && !allowedLocations.includes(location)) setIsOpen(true);
+      } else {
+        if (isTrialExpired && !allowedLocations.includes(location)) setIsOpen(true);
+      }
     }
   }, [currentUser, location]);
 

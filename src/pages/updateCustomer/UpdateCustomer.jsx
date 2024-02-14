@@ -7,6 +7,7 @@ import {isValidBody} from "../../utils/generalFunctions.js";
 import Spinner from "../../components/Spinner.jsx";
 import toast from "react-hot-toast";
 import {getRequest, patchRequest} from "../../redux/cwAPI";
+import {ArrowLeftIcon} from "@heroicons/react/24/outline";
 
 const options = [
   {name: 'first_name', label: 'First Name'},
@@ -58,6 +59,8 @@ const UpdateCustomer = () => {
 
   return (
     <div className='md:p-5'>
+      <Button btnText='Go Back' onClick={e => navigate(-1)} BtnIcon={ArrowLeftIcon} iconClasses='w-4 h-4 text-gray-600'
+              btnClasses='border border-bgDark text-black-900 px-5' fullWidth='justify-start mb-4'/>
       <Heading title='Update Customer -' titleClasses='text-xl leading-tight text-gray-800 mb-4'/>
       <div className='md:p-5'>
         <div className='bg-white shadow rounded-lg p-5'>
