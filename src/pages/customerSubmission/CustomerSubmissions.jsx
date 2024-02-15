@@ -13,7 +13,7 @@ import CustomerSubmissionRow from "./components/CustomerSubmissionRow";
 import Button from "../../components/Button";
 
 const CustomerSubmissions = ({currentTab = ''}) => {
-  const [status, setStatus] = useState('Status');
+  const [status, setStatus] = useState('All');
   const [allWaivers, setAllWaivers] = useState([]);
   const [filteredWaivers, setFilteredWaivers] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -61,7 +61,7 @@ const CustomerSubmissions = ({currentTab = ''}) => {
           <Input placeholder='Search' BtnIcon={MagnifyingGlassIcon} onChange={e => setSearch(e.target.value)}
                  extraClasses='w-fit inline-block grow sm:grow-0' inputClasses='rounded-md pl-11'/>
           <SelectInput extraClasses='w-1/2 sm:w-1/6 grow sm:grow-0'
-                       options={['Submitted', 'Approved', 'Declined', 'Pending', 'Status']} setState={setStatus}
+                       options={['Submitted', 'Approved', 'Declined', 'Pending', 'All']} setState={setStatus}
                        state={status}/>
         </div>
         {selectedCount > 0 && <div className='flex items-center gap-3'>

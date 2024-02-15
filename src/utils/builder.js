@@ -5,96 +5,109 @@ import {additionMinorForm} from "./generalFunctions";
 
 export let staticData = [
   {
-    "type": "emailInput",
-    "required": true,
-    "label": "Email",
-    "name": "emailInput-1701924765044-0"
+    type: "emailInput",
+    required: true,
+    label: "Email",
+    name: "emailInput-1701924765044-0",
   },
   {
-    "type": "richTextEditor",
-    "required": false,
-    "label": "Rich Text Editor",
-    "name": "richTextEditor-1701924768697-0",
-    "userData": "<div id='source'>\n<div style=\"text-align: center;\"><img src=\"https://owp-prod-comm.s3.amazonaws.com/images/ccfd8364-eb62-41ca-b6e1-de2aaea45138.png\" width=\"93\" height=\"109\"></div>\n<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>Florida Fish and Wildlife Conservation Commission</strong></h3>\n<p style=\"text-align: center;\"><strong>Livery Pre-Rental and Pre-Ride Instruction</strong></p>\n<p style=\"text-align: center;\"><strong>Checklist and Attestation</strong></p>\n<p style=\"text-align: left;\">&nbsp;</p>\n<form name=\"fwc-form\">\n<table style=\"border-collapse: collapse; width: 100.077%; height: 1116.84px; border-spacing: 5px; border: 1px solid #000000;\" border=\"1\"><colgroup><col style=\"width: 8.41291%;\"><col style=\"width: 8.73038%;\"><col style=\"width: 83.0179%;\"></colgroup>\n<tbody>\n<tr style=\"height: 19.5938px;\">\n<td style=\"text-align: center; height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">Renter</td>\n<td style=\"text-align: center; height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">Instructor</td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>&nbsp;</strong></td>\n</tr>\n<tr style=\"height: 78.375px;\">\n<td class=\"sign\" style=\"text-align: center; height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-1\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Operator Responsibility:</strong><br>Operator is responsible for the safe and proper operation of the vessel; Avoid careless, reckless and&nbsp;negligent operation of vessels; Effects of alcohol, controlled substances and stressors</td>\n</tr>\n<tr style=\"height: 97.9688px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding-top: 5px; padding-right: 5px; padding-bottom: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-2\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Navigation Rules:</strong> <br>Maintain a proper lookout; Keep a safe distance from other vessels and objects; Operate at a safe speed&nbsp;for the conditions; location and environment; Operate in a defensive manner; Requirements to give way&nbsp;to other vessels and vessel right of way</td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-7\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Aids to navigation; buoys and other waterways markers</strong></td>\n</tr>\n<tr style=\"height: 78.375px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-3\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Special Waterway Hazards:<br></strong>Operate at slow speed minimum wake when within 300 feet or emergency vessels with activated&nbsp;emergency lights or within 300 feet of construction vessels displaying an orange flag</td>\n</tr>\n<tr style=\"height: 39.1875px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-4\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Awareness of changes to weather or water conditions and proper responses to </strong><strong>those changes</strong></td>\n</tr>\n<tr style=\"height: 39.1875px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-5\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Requirements for operating a vessel while a person is waterskiing or participating </strong><strong>in similar activities identified in s. 327.37, F.S., if applicable.</strong></td>\n</tr>\n<tr style=\"height: 39.1875px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-6\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Propulsion, steering and stopping characteristics of vessels:</strong><br>Discuss in general and as to the specific vessel being leased or rented</td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-7\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Location and content of manufacturer warning labels</strong></td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-8\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Location of and proper use of safety equipment</strong></td>\n</tr>\n<tr style=\"height: 39.1875px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-9\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Boarding, falling off, capsizing, taking on water, re-boarding and emergency </strong><strong>procedures for dealing with these situations</strong></td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-10\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Problems seeing other vessels and being seen by them</strong></td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-11\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>The dangers of wake or surf jumping and other reckless operations.</strong></td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-11\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Boating safety identification cards, age and engine requirements</strong></td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-12\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Photographic identification</strong></td>\n</tr>\n<tr style=\"height: 58.7812px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-13\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 58.7812px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Boating Accidents:</strong><br>Causes and prevention of accidents; Legal requirements: remain on-scene, render assistance, report&nbsp;incident to authorities</td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding-top: 5px; padding-right: 5px; padding-bottom: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-14\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Florida divers-down warning device requirements</strong></td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-14\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Noise, nuisances and other environmental concerns</strong></td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-15\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Manatee awareness (if applicable to location)</strong></td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-16\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Ecosystem awareness based on local issues</strong></td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-17\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Specific operational characteristics of the vessel being leased or rented</strong></td>\n</tr>\n<tr style=\"height: 58.7812px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-18\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 58.7812px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Local characteristics of the waterway where the leased or rented vessel is&nbsp;intended to be operated, to include:<br></strong>Navigational hazards; Boating restricted areas; Water depths</td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">&nbsp;</td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">&nbsp;</td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Personal watercraft</strong></td>\n</tr>\n<tr style=\"height: 78.375px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding-top: 5px; padding-right: 5px; padding-bottom: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-3\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Specific personal watercraft (PWC) safety requirements:<br></strong>Required to wear PFD; Required use of kill switch lanyard; Location of sound producing device and fire&nbsp;extinguisher; Minimum age to legally operate; Lawful hours of operation</td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">&nbsp;</td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">&nbsp;</td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Paddlecraft</strong></td>\n</tr>\n<tr style=\"height: 39.1875px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-3\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">Requirements for operating paddlecraft within the marked channel of the intracoastal waterway</td>\n</tr>\n<tr style=\"height: 19.5938px;\">\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">&nbsp;</td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">&nbsp;</td>\n<td style=\"height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Off-Site or extended period use</strong></td>\n</tr>\n<tr style=\"height: 78.375px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-3\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Instruction on care and maintenance of the leased or rented vessel:<br></strong>Fueling and ventilation; Trailering and transporting; Float plans; how and when to complete a float plan;&nbsp;Specific local hazards, e.g.: bodies of water, weather, dams, cold water, commercial vessel traffic</td>\n</tr>\n<tr style=\"height: 58.7812px;\">\n<td class=\"sign\" style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\">[owp_initial]</td>\n<td style=\"text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><input style=\"transform: scale(1.25); text-align: center;\" checked=\"checked\" name=\"agree-instructor-line-3\" type=\"checkbox\" value=\"agreed\"></td>\n<td style=\"height: 58.7812px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;\"><strong>Conducted an on-the-water demonstration and check ride to verify the<br>prospective operator&rsquo;s ability to safely operate the vessel to be leased or rented</strong></td>\n</tr>\n</tbody>\n</table>\n</form>\n<p>&nbsp;</p>\n</div>"
+    type: "richTextEditor",
+    required: false,
+    label: "Rich Text Editor",
+    name: "richTextEditor-1701924768697-0",
+    userData:
+      '<div id=\'source\'>\n<div style="text-align: center;"><img src="https://owp-prod-comm.s3.amazonaws.com/images/ccfd8364-eb62-41ca-b6e1-de2aaea45138.png" width="93" height="109"></div>\n<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>Florida Fish and Wildlife Conservation Commission</strong></h3>\n<p style="text-align: center;"><strong>Livery Pre-Rental and Pre-Ride Instruction</strong></p>\n<p style="text-align: center;"><strong>Checklist and Attestation</strong></p>\n<p style="text-align: left;">&nbsp;</p>\n<form name="fwc-form">\n<table style="border-collapse: collapse; width: 100.077%; height: 1116.84px; border-spacing: 5px; border: 1px solid #000000;" border="1"><colgroup><col style="width: 8.41291%;"><col style="width: 8.73038%;"><col style="width: 83.0179%;"></colgroup>\n<tbody>\n<tr style="height: 19.5938px;">\n<td style="text-align: center; height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">Renter</td>\n<td style="text-align: center; height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">Instructor</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>&nbsp;</strong></td>\n</tr>\n<tr style="height: 78.375px;">\n<td class="sign" style="text-align: center; height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-1" type="checkbox" value="agreed"></td>\n<td style="height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Operator Responsibility:</strong><br>Operator is responsible for the safe and proper operation of the vessel; Avoid careless, reckless and&nbsp;negligent operation of vessels; Effects of alcohol, controlled substances and stressors</td>\n</tr>\n<tr style="height: 97.9688px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding-top: 5px; padding-right: 5px; padding-bottom: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-2" type="checkbox" value="agreed"></td>\n<td style="height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Navigation Rules:</strong> <br>Maintain a proper lookout; Keep a safe distance from other vessels and objects; Operate at a safe speed&nbsp;for the conditions; location and environment; Operate in a defensive manner; Requirements to give way&nbsp;to other vessels and vessel right of way</td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-7" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Aids to navigation; buoys and other waterways markers</strong></td>\n</tr>\n<tr style="height: 78.375px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-3" type="checkbox" value="agreed"></td>\n<td style="height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Special Waterway Hazards:<br></strong>Operate at slow speed minimum wake when within 300 feet or emergency vessels with activated&nbsp;emergency lights or within 300 feet of construction vessels displaying an orange flag</td>\n</tr>\n<tr style="height: 39.1875px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-4" type="checkbox" value="agreed"></td>\n<td style="height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Awareness of changes to weather or water conditions and proper responses to </strong><strong>those changes</strong></td>\n</tr>\n<tr style="height: 39.1875px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-5" type="checkbox" value="agreed"></td>\n<td style="height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Requirements for operating a vessel while a person is waterskiing or participating </strong><strong>in similar activities identified in s. 327.37, F.S., if applicable.</strong></td>\n</tr>\n<tr style="height: 39.1875px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-6" type="checkbox" value="agreed"></td>\n<td style="height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Propulsion, steering and stopping characteristics of vessels:</strong><br>Discuss in general and as to the specific vessel being leased or rented</td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-7" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Location and content of manufacturer warning labels</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-8" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Location of and proper use of safety equipment</strong></td>\n</tr>\n<tr style="height: 39.1875px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-9" type="checkbox" value="agreed"></td>\n<td style="height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Boarding, falling off, capsizing, taking on water, re-boarding and emergency </strong><strong>procedures for dealing with these situations</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-10" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Problems seeing other vessels and being seen by them</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-11" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>The dangers of wake or surf jumping and other reckless operations.</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-11" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Boating safety identification cards, age and engine requirements</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-12" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Photographic identification</strong></td>\n</tr>\n<tr style="height: 58.7812px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-13" type="checkbox" value="agreed"></td>\n<td style="height: 58.7812px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Boating Accidents:</strong><br>Causes and prevention of accidents; Legal requirements: remain on-scene, render assistance, report&nbsp;incident to authorities</td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding-top: 5px; padding-right: 5px; padding-bottom: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-14" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Florida divers-down warning device requirements</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-14" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Noise, nuisances and other environmental concerns</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-15" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Manatee awareness (if applicable to location)</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-16" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Ecosystem awareness based on local issues</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-17" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Specific operational characteristics of the vessel being leased or rented</strong></td>\n</tr>\n<tr style="height: 58.7812px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-18" type="checkbox" value="agreed"></td>\n<td style="height: 58.7812px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Local characteristics of the waterway where the leased or rented vessel is&nbsp;intended to be operated, to include:<br></strong>Navigational hazards; Boating restricted areas; Water depths</td>\n</tr>\n<tr style="height: 19.5938px;">\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">&nbsp;</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">&nbsp;</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Personal watercraft</strong></td>\n</tr>\n<tr style="height: 78.375px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding-top: 5px; padding-right: 5px; padding-bottom: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-3" type="checkbox" value="agreed"></td>\n<td style="height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Specific personal watercraft (PWC) safety requirements:<br></strong>Required to wear PFD; Required use of kill switch lanyard; Location of sound producing device and fire&nbsp;extinguisher; Minimum age to legally operate; Lawful hours of operation</td>\n</tr>\n<tr style="height: 19.5938px;">\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">&nbsp;</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">&nbsp;</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Paddlecraft</strong></td>\n</tr>\n<tr style="height: 39.1875px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-3" type="checkbox" value="agreed"></td>\n<td style="height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">Requirements for operating paddlecraft within the marked channel of the intracoastal waterway</td>\n</tr>\n<tr style="height: 19.5938px;">\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">&nbsp;</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">&nbsp;</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Off-Site or extended period use</strong></td>\n</tr>\n<tr style="height: 78.375px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-3" type="checkbox" value="agreed"></td>\n<td style="height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Instruction on care and maintenance of the leased or rented vessel:<br></strong>Fueling and ventilation; Trailering and transporting; Float plans; how and when to complete a float plan;&nbsp;Specific local hazards, e.g.: bodies of water, weather, dams, cold water, commercial vessel traffic</td>\n</tr>\n<tr style="height: 58.7812px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-3" type="checkbox" value="agreed"></td>\n<td style="height: 58.7812px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Conducted an on-the-water demonstration and check ride to verify the<br>prospective operator&rsquo;s ability to safely operate the vessel to be leased or rented</strong></td>\n</tr>\n</tbody>\n</table>\n</form>\n<p>&nbsp;</p>\n</div>',
+    description:
+      '<div id=\'source\'>\n<div style="text-align: center;"><img src="https://owp-prod-comm.s3.amazonaws.com/images/ccfd8364-eb62-41ca-b6e1-de2aaea45138.png" width="93" height="109"></div>\n<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>Florida Fish and Wildlife Conservation Commission</strong></h3>\n<p style="text-align: center;"><strong>Livery Pre-Rental and Pre-Ride Instruction</strong></p>\n<p style="text-align: center;"><strong>Checklist and Attestation</strong></p>\n<p style="text-align: left;">&nbsp;</p>\n<form name="fwc-form">\n<table style="border-collapse: collapse; width: 100.077%; height: 1116.84px; border-spacing: 5px; border: 1px solid #000000;" border="1"><colgroup><col style="width: 8.41291%;"><col style="width: 8.73038%;"><col style="width: 83.0179%;"></colgroup>\n<tbody>\n<tr style="height: 19.5938px;">\n<td style="text-align: center; height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">Renter</td>\n<td style="text-align: center; height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">Instructor</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>&nbsp;</strong></td>\n</tr>\n<tr style="height: 78.375px;">\n<td class="sign" style="text-align: center; height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-1" type="checkbox" value="agreed"></td>\n<td style="height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Operator Responsibility:</strong><br>Operator is responsible for the safe and proper operation of the vessel; Avoid careless, reckless and&nbsp;negligent operation of vessels; Effects of alcohol, controlled substances and stressors</td>\n</tr>\n<tr style="height: 97.9688px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding-top: 5px; padding-right: 5px; padding-bottom: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-2" type="checkbox" value="agreed"></td>\n<td style="height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Navigation Rules:</strong> <br>Maintain a proper lookout; Keep a safe distance from other vessels and objects; Operate at a safe speed&nbsp;for the conditions; location and environment; Operate in a defensive manner; Requirements to give way&nbsp;to other vessels and vessel right of way</td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-7" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Aids to navigation; buoys and other waterways markers</strong></td>\n</tr>\n<tr style="height: 78.375px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-3" type="checkbox" value="agreed"></td>\n<td style="height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Special Waterway Hazards:<br></strong>Operate at slow speed minimum wake when within 300 feet or emergency vessels with activated&nbsp;emergency lights or within 300 feet of construction vessels displaying an orange flag</td>\n</tr>\n<tr style="height: 39.1875px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-4" type="checkbox" value="agreed"></td>\n<td style="height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Awareness of changes to weather or water conditions and proper responses to </strong><strong>those changes</strong></td>\n</tr>\n<tr style="height: 39.1875px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-5" type="checkbox" value="agreed"></td>\n<td style="height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Requirements for operating a vessel while a person is waterskiing or participating </strong><strong>in similar activities identified in s. 327.37, F.S., if applicable.</strong></td>\n</tr>\n<tr style="height: 39.1875px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-6" type="checkbox" value="agreed"></td>\n<td style="height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Propulsion, steering and stopping characteristics of vessels:</strong><br>Discuss in general and as to the specific vessel being leased or rented</td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-7" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Location and content of manufacturer warning labels</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-8" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Location of and proper use of safety equipment</strong></td>\n</tr>\n<tr style="height: 39.1875px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-9" type="checkbox" value="agreed"></td>\n<td style="height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Boarding, falling off, capsizing, taking on water, re-boarding and emergency </strong><strong>procedures for dealing with these situations</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-10" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Problems seeing other vessels and being seen by them</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-11" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>The dangers of wake or surf jumping and other reckless operations.</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-11" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Boating safety identification cards, age and engine requirements</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-12" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Photographic identification</strong></td>\n</tr>\n<tr style="height: 58.7812px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-13" type="checkbox" value="agreed"></td>\n<td style="height: 58.7812px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Boating Accidents:</strong><br>Causes and prevention of accidents; Legal requirements: remain on-scene, render assistance, report&nbsp;incident to authorities</td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding-top: 5px; padding-right: 5px; padding-bottom: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-14" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Florida divers-down warning device requirements</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-14" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Noise, nuisances and other environmental concerns</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-15" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Manatee awareness (if applicable to location)</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-16" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Ecosystem awareness based on local issues</strong></td>\n</tr>\n<tr style="height: 19.5938px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-17" type="checkbox" value="agreed"></td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Specific operational characteristics of the vessel being leased or rented</strong></td>\n</tr>\n<tr style="height: 58.7812px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-18" type="checkbox" value="agreed"></td>\n<td style="height: 58.7812px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Local characteristics of the waterway where the leased or rented vessel is&nbsp;intended to be operated, to include:<br></strong>Navigational hazards; Boating restricted areas; Water depths</td>\n</tr>\n<tr style="height: 19.5938px;">\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">&nbsp;</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">&nbsp;</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Personal watercraft</strong></td>\n</tr>\n<tr style="height: 78.375px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding-top: 5px; padding-right: 5px; padding-bottom: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-3" type="checkbox" value="agreed"></td>\n<td style="height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Specific personal watercraft (PWC) safety requirements:<br></strong>Required to wear PFD; Required use of kill switch lanyard; Location of sound producing device and fire&nbsp;extinguisher; Minimum age to legally operate; Lawful hours of operation</td>\n</tr>\n<tr style="height: 19.5938px;">\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">&nbsp;</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">&nbsp;</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Paddlecraft</strong></td>\n</tr>\n<tr style="height: 39.1875px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-3" type="checkbox" value="agreed"></td>\n<td style="height: 39.1875px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">Requirements for operating paddlecraft within the marked channel of the intracoastal waterway</td>\n</tr>\n<tr style="height: 19.5938px;">\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">&nbsp;</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">&nbsp;</td>\n<td style="height: 19.5938px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Off-Site or extended period use</strong></td>\n</tr>\n<tr style="height: 78.375px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-3" type="checkbox" value="agreed"></td>\n<td style="height: 78.375px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Instruction on care and maintenance of the leased or rented vessel:<br></strong>Fueling and ventilation; Trailering and transporting; Float plans; how and when to complete a float plan;&nbsp;Specific local hazards, e.g.: bodies of water, weather, dams, cold water, commercial vessel traffic</td>\n</tr>\n<tr style="height: 58.7812px;">\n<td class="sign" style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;">[owp_initial]</td>\n<td style="text-align: center; height: 97.9688px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><input style="transform: scale(1.25); text-align: center;" checked="checked" name="agree-instructor-line-3" type="checkbox" value="agreed"></td>\n<td style="height: 58.7812px; border-width: 1px; border-color: rgb(0, 0, 0); padding: 5px;"><strong>Conducted an on-the-water demonstration and check ride to verify the<br>prospective operator&rsquo;s ability to safely operate the vessel to be leased or rented</strong></td>\n</tr>\n</tbody>\n</table>\n</form>\n<p>&nbsp;</p>\n</div>',
   },
   {
-    "type": "header",
-    "subtype": "h2",
-    "label": "<h4 id=\"control-5041586\" style=\"--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(63,131,248,.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; font-size: medium; font-weight: 700; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;;\">Name of Livery Instructor and Signature</h4>"
+    type: "header",
+    subtype: "h2",
+    label:
+      '<h4 id="control-5041586" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(63,131,248,.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; font-size: medium; font-weight: 700; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;;">Name of Livery Instructor and Signature</h4>',
   },
   {
-    "type": "text",
-    "required": true,
-    "label": "First Name",
-    "placeholder": "First Name",
-    "className": "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
-    "name": "livery-f-name",
-    "subtype": "text"
+    type: "text",
+    required: true,
+    label: "First Name",
+    placeholder: "First Name",
+    className:
+      "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
+    name: "livery-f-name",
+    subtype: "text",
   },
   {
-    "type": "text",
-    "required": true,
-    "label": "Last Name",
-    "placeholder": "Last Name",
-    "className": "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
-    "name": "livery-l-name",
-    "subtype": "text"
+    type: "text",
+    required: true,
+    label: "Last Name",
+    placeholder: "Last Name",
+    className:
+      "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
+    name: "livery-l-name",
+    subtype: "text",
   },
   {
-    "type": "date",
-    "required": true,
-    "label": "Date of Birth",
-    "placeholder": "dd/mm/yyyy",
-    "className": "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
-    "name": "date-1701925858215-0"
+    type: "date",
+    required: true,
+    label: "Date of Birth",
+    placeholder: "dd/mm/yyyy",
+    className:
+      "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
+    name: "date-1701925858215-0",
   },
   {
-    "type": "signature",
-    "required": true,
-    "label": "<span style=\"font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: medium;\">I hereby acknowledge I have provided the required pre-rental and pre-ride instruction as specifically acknowledged above</span>",
-    "name": "signature-1701926018041-0"
+    type: "signature",
+    required: true,
+    label:
+      '<span style="font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: medium;">I hereby acknowledge I have provided the required pre-rental and pre-ride instruction as specifically acknowledged above</span>',
+    name: "signature-1701926018041-0",
   },
   {
-    "type": "header",
-    "subtype": "h2",
-    "label": "<h4 id=\"control-1439674\" style=\"--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(63,131,248,.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; font-size: medium; font-weight: 700; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;;\">Renter Name and Signature</h4>"
+    type: "header",
+    subtype: "h2",
+    label:
+      '<h4 id="control-1439674" style="--tw-border-spacing-x: 0; --tw-border-spacing-y: 0; --tw-translate-x: 0; --tw-translate-y: 0; --tw-rotate: 0; --tw-skew-x: 0; --tw-skew-y: 0; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgba(63,131,248,.5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; font-size: medium; font-weight: 700; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;;">Renter Name and Signature</h4>',
   },
   {
-    "type": "text",
-    "required": true,
-    "label": "First Name",
-    "placeholder": "First Name",
-    "className": "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
-    "name": "text-1701926052647-0",
-    "subtype": "text"
+    type: "text",
+    required: true,
+    label: "First Name",
+    placeholder: "First Name",
+    className:
+      "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
+    name: "text-1701926052647-0",
+    subtype: "text",
   },
   {
-    "type": "text",
-    "required": true,
-    "label": "Last Name",
-    "placeholder": "Last Name",
-    "className": "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
-    "name": "text-1701926052650-0",
-    "subtype": "text"
+    type: "text",
+    required: true,
+    label: "Last Name",
+    placeholder: "Last Name",
+    className:
+      "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
+    name: "text-1701926052650-0",
+    subtype: "text",
   },
   {
-    "type": "date",
-    "required": true,
-    "label": "Date",
-    "placeholder": "dd/mm/yyyy",
-    "className": "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
-    "name": "date-1701926052662-0"
+    type: "date",
+    required: true,
+    label: "Date",
+    placeholder: "dd/mm/yyyy",
+    className:
+      "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
+    name: "date-1701926052662-0",
   },
   {
-    "type": "signature",
-    "required": true,
-    "label": "<span style=\"font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: medium;\">I hereby acknowledge I have received the required pre-rental and pre-ride instruction as specifically acknowledged above, and I understand the rules and information provided in this orientation.</span>",
-    "name": "signature-1701926052666-0"
-  }
-]
+    type: "signature",
+    required: true,
+    label:
+      '<span style="font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: medium;">I hereby acknowledge I have received the required pre-rental and pre-ride instruction as specifically acknowledged above, and I understand the rules and information provided in this orientation.</span>',
+    name: "signature-1701926052666-0",
+  },
+];
 
 export function htmlModal(index) {
-  return (`<div
+  return `<div
       id="initials-${index}" class="init-${index} cursor-pointer relative border border-solid border-gray-500 w-28 h-16 rounded-2xl mx-auto">
       <small class="text-xs absolute bg-white bottom-[90%] px-1 right-[18%]"> Initial Sign </small>
     </div><div id="init-${index}-modal" data-modal-backdrop="static" tabindex="-1" class="modal h-screen bg-black bg-opacity-50 fixed hidden top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full justify-center items-center flex" aria-modal="true" role="dialog">
@@ -128,32 +141,54 @@ export function htmlModal(index) {
                         </div>
                     </div>
                 </div>
-            </div>`)
+            </div>`;
 }
 
 export function additionParticipantForm(data, email = null) {
   return `<form class="space-y-2" id="myForm">
-          ${(data.f_name || data.showFirstName) ? `<div class="mt-3">
+          ${
+            data.f_name || data.showFirstName
+              ? `<div class="mt-3">
             <label for="f_name" class='text-sm text-gray-900 whitespace-nowrap'>First name</label>
             <input type="text" name="f_name"  value="" placeholder="First name" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
-          </div>` : ''}
-          ${(data.m_name || data.showMiddleName) ? `<div class="mt-3">
+          </div>`
+              : ""
+          }
+          ${
+            data.m_name || data.showMiddleName
+              ? `<div class="mt-3">
             <label for="m_name" class='text-sm text-gray-900 whitespace-nowrap'>Middle name</label>
             <input type="text" name="m_name"  value="" placeholder="Last name" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
-          </div>` : ''}
-          ${(data.l_name || data.showLastName) ? `<div class="mt-3">
+          </div>`
+              : ""
+          }
+          ${
+            data.l_name || data.showLastName
+              ? `<div class="mt-3">
             <label for="l_name" class='text-sm text-gray-900 whitespace-nowrap'>Last name</label>
             <input type="text" name="l_name"  value="" placeholder="Last name" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
-          </div>` : ''}
-          ${(data.phone || data.showPhone) ? `<div class="mt-3">
+          </div>`
+              : ""
+          }
+          ${
+            data.phone || data.showPhone
+              ? `<div class="mt-3">
             <label class='text-sm text-gray-900 whitespace-nowrap' for="phone">Phone</label>
             <input type="text" name="phone"  value="" placeholder="Phone" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
-          </div>` : ''}
-          ${((data.email || data.showEmail) && !email) ? `<div class="mt-3">
+          </div>`
+              : ""
+          }
+          ${
+            (data.email || data.showEmail) && !email
+              ? `<div class="mt-3">
             <label class='text-sm text-gray-900 whitespace-nowrap' for="email">Email</label>
             <input type="email" name="email" value="" placeholder="Email" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
-          </div>` : ''}
-          ${(data.date_of_birth || data.showDateOfBirth) ? `<div class="mt-3">
+          </div>`
+              : ""
+          }
+          ${
+            data.date_of_birth || data.showDateOfBirth
+              ? `<div class="mt-3">
             <h2 class="text-sm">Date of Birth</h2>
             <div class="flex items-center space-x-2">
            <input 
@@ -168,8 +203,12 @@ export function additionParticipantForm(data, email = null) {
   class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md"
 />
             </div>
-          </div>` : ''}
-          ${(data.signature || data.showSignature) ? `<div class="relative min-h-[200px] sign-container">
+          </div>`
+              : ""
+          }
+          ${
+            data.signature || data.showSignature
+              ? `<div class="relative min-h-[200px] sign-container">
           <h3 class="text-sm text-gray-900 whitespace-nowrap">Signature</h3>
         <div class="adult">
         <div class="absolute inset-0 flex items-center justify-center cursor-pointer" onclick="this.classList.add('hidden')">
@@ -180,8 +219,10 @@ export function additionParticipantForm(data, email = null) {
         <div class="js-signature"></div>
         <button type="button" onclick="$(this.parentNode).find('.js-signature').jqSignature('clearCanvas');this.classList.add('hidden');$(this).parent().find('.absolute.inset-0').removeClass('hidden')" class="justify-center items-center ml-auto text-gray-500 !text-xs bg-btnBg text-white px-2 py-0.5 rounded-md hidden" id="reset">Reset</button>
         </div>
-</div>` : ''}
-        </form>`
+</div>`
+              : ""
+          }
+        </form>`;
 }
 
 const templates = {
@@ -189,25 +230,36 @@ const templates = {
     return {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
-        element.append(additionParticipantForm(fieldData, 'email'));
-        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px dashed #D1D5DB', lineWidth: 3});
-        element.on('jq.signature.changed', '.js-signature', function () {
-          $(this).parent().find('button#reset').removeClass('hidden')
+        element.append(additionParticipantForm(fieldData, "email"));
+        $(".js-signature").jqSignature({
+          autoFit: true,
+          height: 200,
+          border: "1px dashed #D1D5DB",
+          lineWidth: 3,
         });
-      }
+        element.on("jq.signature.changed", ".js-signature", function () {
+          $(this).parent().find("button#reset").removeClass("hidden");
+        });
+      },
     };
   },
   additionalParticipants: function (fieldData) {
     let newDiv = $('<div class="participant-div-1"></div>');
     return {
-      field: '<h2 class="text-xl font-semibold text-center py-4">How many additional adults?</h2>',
+      field:
+        '<h2 class="text-xl font-semibold text-center py-4">How many additional adults?</h2>',
       onRender: function () {
         commonPayload(additionParticipantForm(fieldData), newDiv, fieldData);
-        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px dashed #D1D5DB', lineWidth: 3});
-        newDiv.on('jq.signature.changed', '.js-signature', function () {
-          $(this).parent().find('button#reset').removeClass('hidden')
+        $(".js-signature").jqSignature({
+          autoFit: true,
+          height: 200,
+          border: "1px dashed #D1D5DB",
+          lineWidth: 3,
         });
-      }
+        newDiv.on("jq.signature.changed", ".js-signature", function () {
+          $(this).parent().find("button#reset").removeClass("hidden");
+        });
+      },
     };
   },
   additionalMinors: function (fieldData) {
@@ -216,7 +268,7 @@ const templates = {
       field: `<h2 class="text-xl font-semibold text-center py-4"> How many minors are you consenting for?</h2>`,
       onRender: function () {
         commonPayload(additionMinorForm, newDiv, fieldData);
-      }
+      },
     };
   },
   signature: function (fieldData) {
@@ -236,11 +288,16 @@ const templates = {
          class="justify-center items-center ml-auto text-gray-500 !text-xs bg-btnBg text-white px-2 py-0.5 rounded-md hidden">Reset</button>
         </div>
       `);
-        $('.js-signature').jqSignature({autoFit: true, height: 200, border: '1px dashed #D1D5DB', lineWidth: 3});
-        element.on('jq.signature.changed', '.js-signature', function () {
-          $(this).parent().find('button').removeClass('hidden')
+        $(".js-signature").jqSignature({
+          autoFit: true,
+          height: 200,
+          border: "1px dashed #D1D5DB",
+          lineWidth: 3,
         });
-      }
+        element.on("jq.signature.changed", ".js-signature", function () {
+          $(this).parent().find("button").removeClass("hidden");
+        });
+      },
     };
   },
   address: function (fieldData) {
@@ -279,27 +336,43 @@ const templates = {
     </div>
   </form>
 `);
-      }
+      },
     };
   },
   richTextEditor: function (fieldData) {
     return {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
-        element.append(`<textarea id=${fieldData.name} class="textarea-selector"></textarea>`);
-        tinymce.init({
-          selector: `#${fieldData.name}`,
-          promotion: true,
-          plugins: window.location.pathname.includes('view') ? '' : 'code anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-          toolbar: window.location.pathname.includes('view') ? false : 'undo redo | styleselect fontselect fontsizeselect | bold italic underline strikethrough | link image media table | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | emoticons charmap | removeformat code',
-          statusbar: !window.location.pathname.includes('view'),
-          menubar: window.location.pathname.includes('view') ? false : 'file edit insert view format table tools help',
-          contextmenu: !window.location.pathname.includes('view'),
-          table_sizing_mode: 'fixed',
-          contentEditable: !window.location.pathname.includes('view'),
-          readonly: window.location.pathname.includes('view')
-        }).then(r => console.log(r)).catch(e => console.log(e));
-      }
+        element.append(
+          `<textarea id=${fieldData.name} class="textarea-selector"></textarea>`,
+        );
+
+        const elementId = `#${fieldData.name}`;
+        tinymce.remove(elementId);
+        tinymce
+          .init({
+            selector: elementId,
+            promotion: true,
+            plugins: window.location.pathname.includes("view")
+              ? ""
+              : "code anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount",
+            toolbar: window.location.pathname.includes("view")
+              ? false
+              : "undo redo | styleselect fontselect fontsizeselect | bold italic underline strikethrough | link image media table | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | emoticons charmap | removeformat code",
+            statusbar: !window.location.pathname.includes("view"),
+            menubar: window.location.pathname.includes("view")
+              ? false
+              : "file edit insert view format table tools help",
+            contextmenu: !window.location.pathname.includes("view"),
+            table_sizing_mode: "fixed",
+            contentEditable: !window.location.pathname.includes("view"),
+            readonly: window.location.pathname.includes("view"),
+          })
+          .then((r) =>
+            fieldData.description && tinymce.get(fieldData.name).setContent(fieldData.description),
+          )
+          .catch((e) => console.log(e));
+      },
     };
   },
   electronicSignatureConsent: function (fieldData) {
@@ -316,7 +389,7 @@ const templates = {
           </div>
         </div>
       `);
-      }
+      },
     };
   },
   capturePhoto: function (fieldData) {
@@ -325,70 +398,95 @@ const templates = {
         let element = $(`.field-${fieldData.name}`);
 
         function openCamera() {
-          let takePhotoButton = document.getElementById('takePhoto');
-          let imagePreviewDiv = document.getElementById('imagePreview');
-          navigator.mediaDevices.getUserMedia({video: true})
+          let takePhotoButton = document.getElementById("takePhoto");
+          let imagePreviewDiv = document.getElementById("imagePreview");
+          navigator.mediaDevices
+            .getUserMedia({ video: true })
             .then(function (stream) {
-              let video = document.getElementById('video');
-              video.classList.remove('hidden')
-              takePhotoButton.style.display = 'inline-block';
+              let video = document.getElementById("video");
+              video.classList.remove("hidden");
+              takePhotoButton.style.display = "inline-block";
               video.srcObject = stream;
               video.play();
 
               function takePicture() {
-                imagePreviewDiv.innerHTML = '';
-                const canvas = document.createElement('canvas');
+                imagePreviewDiv.innerHTML = "";
+                const canvas = document.createElement("canvas");
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
-                const ctx = canvas.getContext('2d');
+                const ctx = canvas.getContext("2d");
                 ctx.drawImage(video, 0, 0);
-                const imageData = canvas.toDataURL('image/png');
-                const image = document.createElement('img');
+                const imageData = canvas.toDataURL("image/png");
+                const image = document.createElement("img");
                 image.id = "preview-image";
                 image.src = imageData;
                 imagePreviewDiv.appendChild(image);
                 const tracks = stream.getTracks();
                 tracks.forEach((track) => track.stop());
                 video.srcObject = null;
-                video.classList.add('hidden')
-                takePhotoButton.style.display = 'none';
+                video.classList.add("hidden");
+                takePhotoButton.style.display = "none";
               }
 
-              takePhotoButton.addEventListener('click', takePicture);
+              takePhotoButton.addEventListener("click", takePicture);
             })
             .catch(function (error) {
-              console.log(error)
-              toast.error('Failed to get access to the camera')
+              console.log(error);
+              toast.error("Failed to get access to the camera");
             });
         }
 
         element.append(`
         <div class="p-2 capture-photo">
-          <h2 class="my-2 text-lg font-semibold text-gray-900">${fieldData.instructionHeader}</h2>
+          <h2 class="my-2 text-lg font-semibold text-gray-900">${
+            fieldData.instructionHeader
+          }</h2>
           <ul class="max-w space-y-1 text-gray-700 list-disc list-inside">
-            ${fieldData.instructionLine1.length > 0 ? `<li>${fieldData.instructionLine1}</li>` : ''}
-            ${fieldData.instructionLine2.length > 0 ? `<li>${fieldData.instructionLine2}</li>` : ''}
-            ${fieldData.instructionLine3.length > 0 ? `<li>${fieldData.instructionLine3}</li>` : ''}
-            ${fieldData.instructionLine4?.length > 0 ? `<li>${fieldData.instructionLine4}</li>` : ''}
+            ${
+              fieldData.instructionLine1.length > 0
+                ? `<li>${fieldData.instructionLine1}</li>`
+                : ""
+            }
+            ${
+              fieldData.instructionLine2.length > 0
+                ? `<li>${fieldData.instructionLine2}</li>`
+                : ""
+            }
+            ${
+              fieldData.instructionLine3.length > 0
+                ? `<li>${fieldData.instructionLine3}</li>`
+                : ""
+            }
+            ${
+              fieldData.instructionLine4?.length > 0
+                ? `<li>${fieldData.instructionLine4}</li>`
+                : ""
+            }
           </ul>
           <div>
-            <button id="captureButton" type="button" class="mt-5 px-3 py-2 cursor-pointer text-sm font-medium text-center text-white bg-[#66615b] rounded-lg ">${fieldData.buttonText}</button>
+            <button id="captureButton" type="button" class="mt-5 px-3 py-2 cursor-pointer text-sm font-medium text-center text-white bg-[#66615b] rounded-lg ">${
+              fieldData.buttonText
+            }</button>
           </div>
            <video class="my-3 w-full hidden" id="video"></video>
            <button id="takePhoto" style="display: none" type="button" class="px-3 py-2 text-white bg-btnBg rounded-md">Take Photo</button>
            <div id="imagePreview" class="my-3"></div>
         </div>
       `);
-        document.getElementById('captureButton').addEventListener('click', openCamera);
-      }
+        document
+          .getElementById("captureButton")
+          .addEventListener("click", openCamera);
+      },
     };
   },
   timeComponent: function (fieldData) {
     return {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
-        element.append('<input type="time" class="w-full p-2.5" name="time-field" id="time">');
-      }
+        element.append(
+          '<input type="time" class="w-full p-2.5" name="time-field" id="time">',
+        );
+      },
     };
   },
   filesUpload: function (fieldData) {
@@ -396,53 +494,67 @@ const templates = {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
         element.append(`
-        <h2 class="my-2 text-lg font-semibold text-gray-900">${fieldData.instructionHeader}</h2>
+        <h2 class="my-2 text-lg font-semibold text-gray-900">${
+          fieldData.instructionHeader
+        }</h2>
           <ul class="max-w space-y-1 text-gray-700 list-disc list-inside">
-            ${fieldData.instructionLine1.length > 0 ? `<li>${fieldData.instructionLine1}</li>` : ''}
-            ${fieldData.instructionLine2.length > 0 ? `<li>${fieldData.instructionLine2}</li>` : ''}
-            ${fieldData.instructionLine3.length > 0 ? `<li>${fieldData.instructionLine3}</li>` : ''}
-          </ul>`)
-        let inputFile = $('<input>', {
-          type: 'file',
+            ${
+              fieldData.instructionLine1.length > 0
+                ? `<li>${fieldData.instructionLine1}</li>`
+                : ""
+            }
+            ${
+              fieldData.instructionLine2.length > 0
+                ? `<li>${fieldData.instructionLine2}</li>`
+                : ""
+            }
+            ${
+              fieldData.instructionLine3.length > 0
+                ? `<li>${fieldData.instructionLine3}</li>`
+                : ""
+            }
+          </ul>`);
+        let inputFile = $("<input>", {
+          type: "file",
           multiple: true,
           accept: "image/png, image/jpeg",
           id: `fileInput-${fieldData.name}`,
-          class: 'file-inp',
-          style: 'display: none',
+          class: "file-inp",
+          style: "display: none",
           change: function () {
             displayUploadedFiles(fieldData.name);
-          }
+          },
         });
-        let openButton = $('<button>', {
+        let openButton = $("<button>", {
           text: fieldData.buttonText,
-          type: 'button',
-          class: 'px-3 py-2 text-white bg-btnBg block w-fit my-4 rounded-lg',
+          type: "button",
+          class: "px-3 py-2 text-white bg-btnBg block w-fit my-4 rounded-lg",
           click: function () {
             $(`#fileInput-${fieldData.name}`).click();
-          }
+          },
         });
-        let fileDisplayDiv = $('<div>', {
+        let fileDisplayDiv = $("<div>", {
           id: `uploadedFileDisplay-${fieldData.name}`,
-          class: 'child:w-20 child:h-20 flex gap-3'
+          class: "child:w-20 child:h-20 flex gap-3",
         });
-        element.on('dragover', function (e) {
+        element.on("dragover", function (e) {
           e.preventDefault();
-          element.addClass('drag-over');
+          element.addClass("drag-over");
         });
-        element.on('dragleave', function () {
-          element.removeClass('drag-over');
+        element.on("dragleave", function () {
+          element.removeClass("drag-over");
         });
-        element.on('drop', function (e) {
+        element.on("drop", function (e) {
           e.preventDefault();
-          element.removeClass('drag-over');
+          element.removeClass("drag-over");
           let files = e.originalEvent.dataTransfer.files;
           if (files.length > 0) {
-            $(`#fileInput-${fieldData.name}`).prop('files', files);
+            $(`#fileInput-${fieldData.name}`).prop("files", files);
             displayUploadedFiles(fieldData.name);
           }
         });
         element.append(inputFile, openButton, fileDisplayDiv);
-      }
+      },
     };
 
     function displayUploadedFiles(fieldName) {
@@ -452,15 +564,17 @@ const templates = {
       if (fileInput[0].files.length > 0) {
         for (let i = 0; i < fileInput[0].files.length; i++) {
           let file = fileInput[0].files[i];
-          if (file.type.startsWith('image/')) {
-            let imgElement = $('<img />', {
+          if (file.type.startsWith("image/")) {
+            let imgElement = $("<img />", {
               src: URL.createObjectURL(file),
-              id: 'image-preview',
-              alt: 'Uploaded Image'
+              id: "image-preview",
+              alt: "Uploaded Image",
             });
             displayDiv.append(imgElement);
           } else {
-            displayDiv.append(`<p>File ${i + 1}: ${file.name} is not an image.</p>`);
+            displayDiv.append(
+              `<p>File ${i + 1}: ${file.name} is not an image.</p>`,
+            );
           }
         }
       }
@@ -475,188 +589,200 @@ const templates = {
           <input placeholder='Email' name="defaultMail" type='email' class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md"/>
 </div>
       `);
-      }
+      },
     };
   },
   dateOfBirth: function (fieldData) {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split("T")[0];
     return {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
         element.append(`
            <input placeholder='mm/dd/yyyy' name="dateOfBirth" max="${today}" type='date' class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md"/>
       `);
-      }
+      },
     };
-  }
-}
-const inputSets = [{
-  label: 'Primary Adult Participant(editable)',
-  name: 'editable',
-  other: true,
-  icon: '✏️',
-  showHeader: true,
-  userData: [],
-  fields: [{
-    type: 'text',
-    label: 'First Name',
-    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
-    placeholder: 'First Name'
-  }, {
-    type: 'text',
-    label: 'Last Name',
-    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
-    placeholder: 'Last Name'
-  }, {
-    type: 'text',
-    label: 'Email',
-    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
-    subtype: 'email',
-    placeholder: 'Email'
-  }, {
-    type: 'text',
-    subtype: 'tel',
-    label: 'Phone',
-    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
-    placeholder: 'Phone'
   },
-    {
-      type: 'dateOfBirth',
-      label: 'Date of Birth',
-    },
-    {
-      type: 'signature', label: 'Signature'
-    }]
-}];
+};
+const inputSets = [
+  {
+    label: "Primary Adult Participant(editable)",
+    name: "editable",
+    other: true,
+    icon: "✏️",
+    showHeader: true,
+    userData: [],
+    fields: [
+      {
+        type: "text",
+        label: "First Name",
+        className:
+          "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
+        placeholder: "First Name",
+      },
+      {
+        type: "text",
+        label: "Last Name",
+        className:
+          "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
+        placeholder: "Last Name",
+      },
+      {
+        type: "text",
+        label: "Email",
+        className:
+          "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
+        subtype: "email",
+        placeholder: "Email",
+      },
+      {
+        type: "text",
+        subtype: "tel",
+        label: "Phone",
+        className:
+          "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
+        placeholder: "Phone",
+      },
+      {
+        type: "dateOfBirth",
+        label: "Date of Birth",
+      },
+      {
+        type: "signature",
+        label: "Signature",
+      },
+    ],
+  },
+];
 export let fields = [
   {
-    label: 'Additional Participants',
+    label: "Additional Participants",
     attrs: {
-      type: 'additionalParticipants',
+      type: "additionalParticipants",
     },
-    icon: '🤵',
+    icon: "🤵",
   },
   {
-    label: 'Additional Minors',
+    label: "Additional Minors",
     attrs: {
-      type: 'additionalMinors'
+      type: "additionalMinors",
     },
-    icon: '👨‍👦‍👦'
+    icon: "👨‍👦‍👦",
   },
   {
-    label: 'Signature',
+    label: "Signature",
     attrs: {
-      type: 'signature',
+      type: "signature",
     },
-    icon: '✍️',
+    icon: "✍️",
   },
   {
-    label: 'Address',
+    label: "Address",
     attrs: {
-      type: 'address'
+      type: "address",
     },
-    icon: '🏠'
+    icon: "🏠",
   },
   {
-    label: 'Primary Adult Participant',
+    label: "Primary Adult Participant",
     attrs: {
-      type: 'primaryAdultParticipant',
+      type: "primaryAdultParticipant",
     },
-    icon: '🤵'
+    icon: "🤵",
   },
   {
-    label: 'Rich Text Editor',
+    label: "Rich Text Editor",
     attrs: {
-      type: 'richTextEditor'
+      type: "richTextEditor",
     },
-    icon: '⌨️'
+    icon: "⌨️",
   },
   {
-    label: 'Electronic Consent Signature',
+    label: "Electronic Consent Signature",
     attrs: {
-      type: 'electronicSignatureConsent'
+      type: "electronicSignatureConsent",
     },
-    icon: '💾'
+    icon: "💾",
   },
   {
-    label: 'Capture Photo',
+    label: "Capture Photo",
     attrs: {
-      type: 'capturePhoto'
+      type: "capturePhoto",
     },
-    icon: '📷'
+    icon: "📷",
   },
   {
-    label: 'Time',
+    label: "Time",
     attrs: {
-      type: 'timeComponent'
+      type: "timeComponent",
     },
-    icon: '🕐'
+    icon: "🕐",
   },
   {
-    label: 'File Upload',
+    label: "File Upload",
     attrs: {
-      type: 'filesUpload'
+      type: "filesUpload",
     },
-    icon: ' 🔗'
-  }
+    icon: " 🔗",
+  },
 ];
 export let options = {
   fields,
   templates,
-  disableFields: ['autocomplete', 'button', 'paragraph', 'file', 'textarea'],
+  disableFields: ["autocomplete", "button", "paragraph", "file", "textarea"],
   disabledAttrs: [
-    'access',
-    'multiple',
-    'toggle',
-    'className',
-    'inline',
-    'other',
-    'rows',
-    'name',
+    "access",
+    "multiple",
+    "toggle",
+    "className",
+    "inline",
+    "other",
+    "rows",
+    "name",
   ],
   disabledFieldButtons: {
-    richTextEditor: ['copy', 'edit'],
-    emailInput: ['remove', 'copy']
+    richTextEditor: ["copy", "edit"],
+    emailInput: ["remove", "copy"],
   },
   stickyControls: true,
-  controlPosition: 'right',
+  controlPosition: "right",
   inputSets,
   typeUserAttrs: {
     primaryAdultParticipant: {
-      'showFirstName': {
-        label: 'Show First Name',
+      showFirstName: {
+        label: "Show First Name",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showMiddleName': {
-        label: 'Show Middle Name',
+      showMiddleName: {
+        label: "Show Middle Name",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showLastName': {
-        label: 'Show Last Name',
+      showLastName: {
+        label: "Show Last Name",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showEmail': {
-        label: 'Show Email',
+      showEmail: {
+        label: "Show Email",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showPhone': {
-        label: 'Show Phone',
+      showPhone: {
+        label: "Show Phone",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showDateOfBirth': {
-        label: 'Show Date Of Birth',
+      showDateOfBirth: {
+        label: "Show Date Of Birth",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showSignature': {
-        label: 'Show Signature',
+      showSignature: {
+        label: "Show Signature",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
       // 'show-scanner': {
       //   label: 'Show Scanner',
@@ -675,142 +801,151 @@ export let options = {
       // }
     },
     additionalParticipants: {
-      'showFirstName': {
-        label: 'Show First Name',
+      showFirstName: {
+        label: "Show First Name",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showMiddleName': {
-        label: 'Show Middle Name',
+      showMiddleName: {
+        label: "Show Middle Name",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showLastName': {
-        label: 'Show Last Name',
+      showLastName: {
+        label: "Show Last Name",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showEmail': {
-        label: 'Show Email',
+      showEmail: {
+        label: "Show Email",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showPhone': {
-        label: 'Show Phone',
+      showPhone: {
+        label: "Show Phone",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showDateOfBirth': {
-        label: 'Show Date Of Birth',
+      showDateOfBirth: {
+        label: "Show Date Of Birth",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showSignature': {
-        label: 'Show Signature',
+      showSignature: {
+        label: "Show Signature",
         value: true,
-        type: 'checkbox',
-      }
+        type: "checkbox",
+      },
     },
     additionalMinors: {
-      'showFirstName': {
-        label: 'Show First Name',
+      showFirstName: {
+        label: "Show First Name",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showLastName': {
-        label: 'Show Last Name',
+      showLastName: {
+        label: "Show Last Name",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showDateOfBirth': {
-        label: 'Show Date Of Birth',
+      showDateOfBirth: {
+        label: "Show Date Of Birth",
         value: true,
-        type: 'checkbox',
+        type: "checkbox",
       },
-      'showRelationship': {
-        label: 'Show Relationship',
+      showRelationship: {
+        label: "Show Relationship",
         value: true,
-        type: 'checkbox'
-      }
+        type: "checkbox",
+      },
     },
     electronicSignatureConsent: {
-      'content': {
-        label: 'Content',
-        type: 'textarea',
-        value: 'By checking here, you are consenting to the use of your electronic signature in lieu of an original signature on paper. You have the right to request that you sign a paper copy instead. By checking here, you are waiving that right. After consent, you may, upon written request to us, obtain a paper copy of an electronic record. No fee will be charged for such copy and no special hardware or software is required to view it. Your agreement to use an electronic signature with us for any documents will continue until such time as you notify us in writing that you no longer wish to use an electronic signature. There is no penalty for withdrawing your consent. You should always make sure that we have a current email address in order to contact you regarding any changes, if necessary.',
-      }
+      content: {
+        label: "Content",
+        type: "textarea",
+        value:
+          "By checking here, you are consenting to the use of your electronic signature in lieu of an original signature on paper. You have the right to request that you sign a paper copy instead. By checking here, you are waiving that right. After consent, you may, upon written request to us, obtain a paper copy of an electronic record. No fee will be charged for such copy and no special hardware or software is required to view it. Your agreement to use an electronic signature with us for any documents will continue until such time as you notify us in writing that you no longer wish to use an electronic signature. There is no penalty for withdrawing your consent. You should always make sure that we have a current email address in order to contact you regarding any changes, if necessary.",
+      },
     },
     capturePhoto: {
-      'instructionHeader': {
-        label: 'Instruction Header',
-        type: 'text',
-        value: 'Please follow the provided instructions to complete your Photo Capture'
+      instructionHeader: {
+        label: "Instruction Header",
+        type: "text",
+        value:
+          "Please follow the provided instructions to complete your Photo Capture",
       },
-      'instructionLine1': {
-        label: 'Instruction Line 1',
-        type: 'text',
-        value: 'Make sure your camera has a clear view of you.'
+      instructionLine1: {
+        label: "Instruction Line 1",
+        type: "text",
+        value: "Make sure your camera has a clear view of you.",
       },
-      'instructionLine2': {
-        label: 'Instruction Line 2',
-        type: 'text',
-        value: 'When you are ready, press the Take photo button while facing your camera.'
+      instructionLine2: {
+        label: "Instruction Line 2",
+        type: "text",
+        value:
+          "When you are ready, press the Take photo button while facing your camera.",
       },
-      'instructionLine3': {
-        label: 'Instruction Line 3',
-        type: 'text',
-        value: 'If you are not satisfied with the photo, press the Retake button to try again.'
+      instructionLine3: {
+        label: "Instruction Line 3",
+        type: "text",
+        value:
+          "If you are not satisfied with the photo, press the Retake button to try again.",
       },
-      'instructionLine4': {
-        label: 'Instruction Line 4',
-        type: 'text',
-        value: ''
+      instructionLine4: {
+        label: "Instruction Line 4",
+        type: "text",
+        value: "",
       },
-      'buttonText': {
-        label: 'Button Text',
-        type: 'text',
-        value: 'Capture Photo'
-      }
+      buttonText: {
+        label: "Button Text",
+        type: "text",
+        value: "Capture Photo",
+      },
     },
     filesUpload: {
-      'instructionHeader': {
-        label: 'Instruction Header',
-        type: 'text',
-        value: 'Please follow the provided instructions.'
+      instructionHeader: {
+        label: "Instruction Header",
+        type: "text",
+        value: "Please follow the provided instructions.",
       },
-      'instructionLine1': {
-        label: 'Instruction Line 1',
-        type: 'text',
-        value: 'Make sure your have a clear view of you.'
+      instructionLine1: {
+        label: "Instruction Line 1",
+        type: "text",
+        value: "Make sure your have a clear view of you.",
       },
-      'instructionLine2': {
-        label: 'Instruction Line 2',
-        type: 'text',
-        value: 'When you are ready, press the File Upload button.'
+      instructionLine2: {
+        label: "Instruction Line 2",
+        type: "text",
+        value: "When you are ready, press the File Upload button.",
       },
-      'instructionLine3': {
-        label: 'Instruction Line 3',
-        type: 'text',
-        value: 'If you are not satisfied with the photo, click the fileUpload button to try again.'
+      instructionLine3: {
+        label: "Instruction Line 3",
+        type: "text",
+        value:
+          "If you are not satisfied with the photo, click the fileUpload button to try again.",
       },
-      'buttonText': {
-        label: 'Button Text',
-        type: 'text',
-        value: 'Files Upload'
-      }
-    }
-  }
+      buttonText: {
+        label: "Button Text",
+        type: "text",
+        value: "Files Upload",
+      },
+    },
+  },
 };
 
 function commonPayload(form, newDiv, fieldData) {
   let element = $(`.field-${fieldData.name}`);
-  let buttonsHTML = '';
+  let buttonsHTML = "";
 
   function handleButtonClick(i) {
     return function () {
       newDiv.empty(); // Clear the contents of the newDiv
       for (let j = 1; j <= i + 1; j++) {
-        newDiv.append(`<div class="participant-${j} ${fieldData.type === 'additionalParticipants' ? 'participants' : 'minors'}">
+        newDiv.append(`<div class="participant-${j} ${
+          fieldData.type === "additionalParticipants"
+            ? "participants"
+            : "minors"
+        }">
             <button class="delete-button block w-full" data-index="${j}"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer text-red-500 w-6 h-6 ml-auto mr-2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
                     </svg></button>
@@ -818,15 +953,15 @@ function commonPayload(form, newDiv, fieldData) {
           </div>`);
       }
       element.append(newDiv);
-      $('.js-signature').jqSignature({
+      $(".js-signature").jqSignature({
         autoFit: true,
         lineWidth: 3,
         height: 200,
-        border: '1px dashed #D1D5DB',
+        border: "1px dashed #D1D5DB",
       });
-      element.find('.delete-button').each(function () {
-        $(this).on('click', function () {
-          const index = $(this).data('index');
+      element.find(".delete-button").each(function () {
+        $(this).on("click", function () {
+          const index = $(this).data("index");
           $(`.participant-${index}`).remove();
         });
       });
@@ -834,104 +969,137 @@ function commonPayload(form, newDiv, fieldData) {
   }
 
   for (let i = 0; i < 6; i++) {
-    buttonsHTML += `<button type="button" class="text-sm px-4 py-2 bg-gray-800 rounded-md font-semibold text-white hover:bg-gray-700 active:bg-gray-900 focus:outline-none disabled:opacity-25 transition ease-in-out duration-150 part-btn">${i + 1}</button>`;
+    buttonsHTML += `<button type="button" class="text-sm px-4 py-2 bg-gray-800 rounded-md font-semibold text-white hover:bg-gray-700 active:bg-gray-900 focus:outline-none disabled:opacity-25 transition ease-in-out duration-150 part-btn">${
+      i + 1
+    }</button>`;
   }
-  element.append(`<div class="flex items-center justify-center gap-2">${buttonsHTML}</div>`);
-  element.find('.part-btn').each(function (i) {
-    $(this).on('click', handleButtonClick(i));
+  element.append(
+    `<div class="flex items-center justify-center gap-2">${buttonsHTML}</div>`,
+  );
+  element.find(".part-btn").each(function (i) {
+    $(this).on("click", handleButtonClick(i));
   });
 }
 
-export const initSignCode = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAADICAYAAAB26ZNJAAAAAXNSR0IArs4c6QAAD6xJREFUeF7t2EEBAAAIAjHtX9oe3mzA8MWOI0CAAAECBAgQIECAAAECBN4L7PuEAhIgQIAAAQIECBAgQIAAAQJjAPAEBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQMAH6AAAECBAgQIECAAAECBAgEBAwAgZJFJECAAAECBAgQIECAAAECBgA/QIAAAQIECBAgQIAAAQIEAgIGgEDJIhIgQIAAAQIECBAgQIAAAQOAHyBAgAABAgQIECBAgAABAgEBA0CgZBEJECBAgAABAgQIECBAgIABwA8QIECAAAECBAgQIECAAIGAgAEgULKIBAgQIECAAAECBAgQIEDAAOAHCBAgQIAAAQIECBAgQIBAQMAAEChZRAIECBAgQIAAAQIECBAgYADwAwQIECBAgAABAgQIECBAICBgAAiULCIBAgQIECBAgAABAgQIEDAA+AECBAgQIECAAAECBAgQIBAQMAAEShaRAAECBAgQIECAAAECBAgYAPwAAQIECBAgQIAAAQIECBAICBgAAiWLSIAAAQIECBAgQIAAAQIEDAB+gAABAgQIECBAgAABAgQIBAQMAIGSRSRAgAABAgQIECBAgAABAgYAP0CAAAECBAgQIECAAAECBAICBoBAySISIECAAAECBAgQIECAAAEDgB8gQIAAAQIECBAgQIAAAQIBAQNAoGQRCRAgQIAAAQIECBAgQICAAcAPECBAgAABAgQIECBAgACBgIABIFCyiAQIECBAgAABAgQIECBAwADgBwgQIECAAAECBAgQIECAQEDAABAoWUQCBAgQIECAAAECBAgQIGAA8AMECBAgQIAAAQIECBAgQCAgYAAIlCwiAQIECBAgQIAAAQIECBAwAPgBAgQIECBAgAABAgQIECAQEDAABEoWkQABAgQIECBAgAABAgQIGAD8AAECBAgQIECAAAECBAgQCAgYAAIli0iAAAECBAgQIECAAAECBAwAfoAAAQIECBAgQIAAAQIECAQEDACBkkUkQIAAAQIECBAgQIAAAQIGAD9AgAABAgQIECBAgAABAgQCAgaAQMkiEiBAgAABAgQIECBAgAABA4AfIECAAAECBAgQIECAAAECAQEDQKBkEQkQIECAAAECBAgQIECAgAHADxAgQIAAAQIECBAgQIAAgYCAASBQsogECBAgQIAAAQIECBAgQMAA4AcIECBAgAABAgQIECBAgEBAwAAQKFlEAgQIECBAgAABAgQIECBgAPADBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQMAH6AAAECBAgQIECAAAECBAgEBAwAgZJFJECAAAECBAgQIECAAAECBgA/QIAAAQIECBAgQIAAAQIEAgIGgEDJIhIgQIAAAQIECBAgQIAAAQOAHyBAgAABAgQIECBAgAABAgEBA0CgZBEJECBAgAABAgQIECBAgIABwA8QIECAAAECBAgQIECAAIGAgAEgULKIBAgQIECAAAECBAgQIEDAAOAHCBAgQIAAAQIECBAgQIBAQMAAEChZRAIECBAgQIAAAQIECBAgYADwAwQIECBAgAABAgQIECBAICBgAAiULCIBAgQIECBAgAABAgQIEDAA+AECBAgQIECAAAECBAgQIBAQMAAEShaRAAECBAgQIECAAAECBAgYAPwAAQIECBAgQIAAAQIECBAICBgAAiWLSIAAAQIECBAgQIAAAQIEDAB+gAABAgQIECBAgAABAgQIBAQMAIGSRSRAgAABAgQIECBAgAABAgYAP0CAAAECBAgQIECAAAECBAICBoBAySISIECAAAECBAgQIECAAAEDgB8gQIAAAQIECBAgQIAAAQIBAQNAoGQRCRAgQIAAAQIECBAgQICAAcAPECBAgAABAgQIECBAgACBgIABIFCyiAQIECBAgAABAgQIECBAwADgBwgQIECAAAECBAgQIECAQEDAABAoWUQCBAgQIECAAAECBAgQIGAA8AMECBAgQIAAAQIECBAgQCAgYAAIlCwiAQIECBAgQIAAAQIECBAwAPgBAgQIECBAgAABAgQIECAQEDAABEoWkQABAgQIECBAgAABAgQIGAD8AAECBAgQIECAAAECBAgQCAgYAAIli0iAAAECBAgQIECAAAECBAwAfoAAAQIECBAgQIAAAQIECAQEDACBkkUkQIAAAQIECBAgQIAAAQIGAD9AgAABAgQIECBAgAABAgQCAgaAQMkiEiBAgAABAgQIECBAgAABA4AfIECAAAECBAgQIECAAAECAQEDQKBkEQkQIECAAAECBAgQIECAgAHADxAgQIAAAQIECBAgQIAAgYCAASBQsogECBAgQIAAAQIECBAgQMAA4AcIECBAgAABAgQIECBAgEBAwAAQKFlEAgQIECBAgAABAgQIECBgAPADBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQMAH6AAAECBAgQIECAAAECBAgEBAwAgZJFJECAAAECBAgQIECAAAECBgA/QIAAAQIECBAgQIAAAQIEAgIGgEDJIhIgQIAAAQIECBAgQIAAAQOAHyBAgAABAgQIECBAgAABAgEBA0CgZBEJECBAgAABAgQIECBAgIABwA8QIECAAAECBAgQIECAAIGAgAEgULKIBAgQIECAAAECBAgQIEDAAOAHCBAgQIAAAQIECBAgQIBAQMAAEChZRAIECBAgQIAAAQIECBAgYADwAwQIECBAgAABAgQIECBAICBgAAiULCIBAgQIECBAgAABAgQIEDAA+AECBAgQIECAAAECBAgQIBAQMAAEShaRAAECBAgQIECAAAECBAgYAPwAAQIECBAgQIAAAQIECBAICBgAAiWLSIAAAQIECBAgQIAAAQIEDAB+gAABAgQIECBAgAABAgQIBAQMAIGSRSRAgAABAgQIECBAgAABAgYAP0CAAAECBAgQIECAAAECBAICBoBAySISIECAAAECBAgQIECAAAEDgB8gQIAAAQIECBAgQIAAAQIBAQNAoGQRCRAgQIAAAQIECBAgQICAAcAPECBAgAABAgQIECBAgACBgIABIFCyiAQIECBAgAABAgQIECBAwADgBwgQIECAAAECBAgQIECAQEDAABAoWUQCBAgQIECAAAECBAgQIGAA8AMECBAgQIAAAQIECBAgQCAgYAAIlCwiAQIECBAgQIAAAQIECBAwAPgBAgQIECBAgAABAgQIECAQEDAABEoWkQABAgQIECBAgAABAgQIGAD8AAECBAgQIECAAAECBAgQCAgYAAIli0iAAAECBAgQIECAAAECBAwAfoAAAQIECBAgQIAAAQIECAQEDACBkkUkQIAAAQIECBAgQIAAAQIGAD9AgAABAgQIECBAgAABAgQCAgaAQMkiEiBAgAABAgQIECBAgAABA4AfIECAAAECBAgQIECAAAECAQEDQKBkEQkQIECAAAECBAgQIECAgAHADxAgQIAAAQIECBAgQIAAgYCAASBQsogECBAgQIAAAQIECBAgQMAA4AcIECBAgAABAgQIECBAgEBAwAAQKFlEAgQIECBAgAABAgQIECBgAPADBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQMAH6AAAECBAgQIECAAAECBAgEBAwAgZJFJECAAAECBAgQIECAAAECBgA/QIAAAQIECBAgQIAAAQIEAgIGgEDJIhIgQIAAAQIECBAgQIAAAQOAHyBAgAABAgQIECBAgAABAgEBA0CgZBEJECBAgAABAgQIECBAgIABwA8QIECAAAECBAgQIECAAIGAgAEgULKIBAgQIECAAAECBAgQIEDAAOAHCBAgQIAAAQIECBAgQIBAQMAAEChZRAIECBAgQIAAAQIECBAgYADwAwQIECBAgAABAgQIECBAICBgAAiULCIBAgQIECBAgAABAgQIEDAA+AECBAgQIECAAAECBAgQIBAQMAAEShaRAAECBAgQIECAAAECBAgYAPwAAQIECBAgQIAAAQIECBAICBgAAiWLSIAAAQIECBAgQIAAAQIEDAB+gAABAgQIECBAgAABAgQIBAQMAIGSRSRAgAABAgQIECBAgAABAgYAP0CAAAECBAgQIECAAAECBAICBoBAySISIECAAAECBAgQIECAAAEDgB8gQIAAAQIECBAgQIAAAQIBAQNAoGQRCRAgQIAAAQIECBAgQICAAcAPECBAgAABAgQIECBAgACBgIABIFCyiAQIECBAgAABAgQIECBAwADgBwgQIECAAAECBAgQIECAQEDAABAoWUQCBAgQIECAAAECBAgQIGAA8AMECBAgQIAAAQIECBAgQCAgYAAIlCwiAQIECBAgQIAAAQIECBAwAPgBAgQIECBAgAABAgQIECAQEDAABEoWkQABAgQIECBAgAABAgQIGAD8AAECBAgQIECAAAECBAgQCAgYAAIli0iAAAECBAgQIECAAAECBAwAfoAAAQIECBAgQIAAAQIECAQEDACBkkUkQIAAAQIECBAgQIAAAQIGAD9AgAABAgQIECBAgAABAgQCAgaAQMkiEiBAgAABAgQIECBAgAABA4AfIECAAAECBAgQIECAAAECAQEDQKBkEQkQIECAAAECBAgQIECAgAHADxAgQIAAAQIECBAgQIAAgYCAASBQsogECBAgQIAAAQIECBAgQMAA4AcIECBAgAABAgQIECBAgEBAwAAQKFlEAgQIECBAgAABAgQIECBgAPADBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQOWacAyQIYvuUAAAAASUVORK5CYII='
+export const initSignCode =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAADICAYAAAB26ZNJAAAAAXNSR0IArs4c6QAAD6xJREFUeF7t2EEBAAAIAjHtX9oe3mzA8MWOI0CAAAECBAgQIECAAAECBN4L7PuEAhIgQIAAAQIECBAgQIAAAQJjAPAEBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQMAH6AAAECBAgQIECAAAECBAgEBAwAgZJFJECAAAECBAgQIECAAAECBgA/QIAAAQIECBAgQIAAAQIEAgIGgEDJIhIgQIAAAQIECBAgQIAAAQOAHyBAgAABAgQIECBAgAABAgEBA0CgZBEJECBAgAABAgQIECBAgIABwA8QIECAAAECBAgQIECAAIGAgAEgULKIBAgQIECAAAECBAgQIEDAAOAHCBAgQIAAAQIECBAgQIBAQMAAEChZRAIECBAgQIAAAQIECBAgYADwAwQIECBAgAABAgQIECBAICBgAAiULCIBAgQIECBAgAABAgQIEDAA+AECBAgQIECAAAECBAgQIBAQMAAEShaRAAECBAgQIECAAAECBAgYAPwAAQIECBAgQIAAAQIECBAICBgAAiWLSIAAAQIECBAgQIAAAQIEDAB+gAABAgQIECBAgAABAgQIBAQMAIGSRSRAgAABAgQIECBAgAABAgYAP0CAAAECBAgQIECAAAECBAICBoBAySISIECAAAECBAgQIECAAAEDgB8gQIAAAQIECBAgQIAAAQIBAQNAoGQRCRAgQIAAAQIECBAgQICAAcAPECBAgAABAgQIECBAgACBgIABIFCyiAQIECBAgAABAgQIECBAwADgBwgQIECAAAECBAgQIECAQEDAABAoWUQCBAgQIECAAAECBAgQIGAA8AMECBAgQIAAAQIECBAgQCAgYAAIlCwiAQIECBAgQIAAAQIECBAwAPgBAgQIECBAgAABAgQIECAQEDAABEoWkQABAgQIECBAgAABAgQIGAD8AAECBAgQIECAAAECBAgQCAgYAAIli0iAAAECBAgQIECAAAECBAwAfoAAAQIECBAgQIAAAQIECAQEDACBkkUkQIAAAQIECBAgQIAAAQIGAD9AgAABAgQIECBAgAABAgQCAgaAQMkiEiBAgAABAgQIECBAgAABA4AfIECAAAECBAgQIECAAAECAQEDQKBkEQkQIECAAAECBAgQIECAgAHADxAgQIAAAQIECBAgQIAAgYCAASBQsogECBAgQIAAAQIECBAgQMAA4AcIECBAgAABAgQIECBAgEBAwAAQKFlEAgQIECBAgAABAgQIECBgAPADBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQMAH6AAAECBAgQIECAAAECBAgEBAwAgZJFJECAAAECBAgQIECAAAECBgA/QIAAAQIECBAgQIAAAQIEAgIGgEDJIhIgQIAAAQIECBAgQIAAAQOAHyBAgAABAgQIECBAgAABAgEBA0CgZBEJECBAgAABAgQIECBAgIABwA8QIECAAAECBAgQIECAAIGAgAEgULKIBAgQIECAAAECBAgQIEDAAOAHCBAgQIAAAQIECBAgQIBAQMAAEChZRAIECBAgQIAAAQIECBAgYADwAwQIECBAgAABAgQIECBAICBgAAiULCIBAgQIECBAgAABAgQIEDAA+AECBAgQIECAAAECBAgQIBAQMAAEShaRAAECBAgQIECAAAECBAgYAPwAAQIECBAgQIAAAQIECBAICBgAAiWLSIAAAQIECBAgQIAAAQIEDAB+gAABAgQIECBAgAABAgQIBAQMAIGSRSRAgAABAgQIECBAgAABAgYAP0CAAAECBAgQIECAAAECBAICBoBAySISIECAAAECBAgQIECAAAEDgB8gQIAAAQIECBAgQIAAAQIBAQNAoGQRCRAgQIAAAQIECBAgQICAAcAPECBAgAABAgQIECBAgACBgIABIFCyiAQIECBAgAABAgQIECBAwADgBwgQIECAAAECBAgQIECAQEDAABAoWUQCBAgQIECAAAECBAgQIGAA8AMECBAgQIAAAQIECBAgQCAgYAAIlCwiAQIECBAgQIAAAQIECBAwAPgBAgQIECBAgAABAgQIECAQEDAABEoWkQABAgQIECBAgAABAgQIGAD8AAECBAgQIECAAAECBAgQCAgYAAIli0iAAAECBAgQIECAAAECBAwAfoAAAQIECBAgQIAAAQIECAQEDACBkkUkQIAAAQIECBAgQIAAAQIGAD9AgAABAgQIECBAgAABAgQCAgaAQMkiEiBAgAABAgQIECBAgAABA4AfIECAAAECBAgQIECAAAECAQEDQKBkEQkQIECAAAECBAgQIECAgAHADxAgQIAAAQIECBAgQIAAgYCAASBQsogECBAgQIAAAQIECBAgQMAA4AcIECBAgAABAgQIECBAgEBAwAAQKFlEAgQIECBAgAABAgQIECBgAPADBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQMAH6AAAECBAgQIECAAAECBAgEBAwAgZJFJECAAAECBAgQIECAAAECBgA/QIAAAQIECBAgQIAAAQIEAgIGgEDJIhIgQIAAAQIECBAgQIAAAQOAHyBAgAABAgQIECBAgAABAgEBA0CgZBEJECBAgAABAgQIECBAgIABwA8QIECAAAECBAgQIECAAIGAgAEgULKIBAgQIECAAAECBAgQIEDAAOAHCBAgQIAAAQIECBAgQIBAQMAAEChZRAIECBAgQIAAAQIECBAgYADwAwQIECBAgAABAgQIECBAICBgAAiULCIBAgQIECBAgAABAgQIEDAA+AECBAgQIECAAAECBAgQIBAQMAAEShaRAAECBAgQIECAAAECBAgYAPwAAQIECBAgQIAAAQIECBAICBgAAiWLSIAAAQIECBAgQIAAAQIEDAB+gAABAgQIECBAgAABAgQIBAQMAIGSRSRAgAABAgQIECBAgAABAgYAP0CAAAECBAgQIECAAAECBAICBoBAySISIECAAAECBAgQIECAAAEDgB8gQIAAAQIECBAgQIAAAQIBAQNAoGQRCRAgQIAAAQIECBAgQICAAcAPECBAgAABAgQIECBAgACBgIABIFCyiAQIECBAgAABAgQIECBAwADgBwgQIECAAAECBAgQIECAQEDAABAoWUQCBAgQIECAAAECBAgQIGAA8AMECBAgQIAAAQIECBAgQCAgYAAIlCwiAQIECBAgQIAAAQIECBAwAPgBAgQIECBAgAABAgQIECAQEDAABEoWkQABAgQIECBAgAABAgQIGAD8AAECBAgQIECAAAECBAgQCAgYAAIli0iAAAECBAgQIECAAAECBAwAfoAAAQIECBAgQIAAAQIECAQEDACBkkUkQIAAAQIECBAgQIAAAQIGAD9AgAABAgQIECBAgAABAgQCAgaAQMkiEiBAgAABAgQIECBAgAABA4AfIECAAAECBAgQIECAAAECAQEDQKBkEQkQIECAAAECBAgQIECAgAHADxAgQIAAAQIECBAgQIAAgYCAASBQsogECBAgQIAAAQIECBAgQMAA4AcIECBAgAABAgQIECBAgEBAwAAQKFlEAgQIECBAgAABAgQIECBgAPADBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQMAH6AAAECBAgQIECAAAECBAgEBAwAgZJFJECAAAECBAgQIECAAAECBgA/QIAAAQIECBAgQIAAAQIEAgIGgEDJIhIgQIAAAQIECBAgQIAAAQOAHyBAgAABAgQIECBAgAABAgEBA0CgZBEJECBAgAABAgQIECBAgIABwA8QIECAAAECBAgQIECAAIGAgAEgULKIBAgQIECAAAECBAgQIEDAAOAHCBAgQIAAAQIECBAgQIBAQMAAEChZRAIECBAgQIAAAQIECBAgYADwAwQIECBAgAABAgQIECBAICBgAAiULCIBAgQIECBAgAABAgQIEDAA+AECBAgQIECAAAECBAgQIBAQMAAEShaRAAECBAgQIECAAAECBAgYAPwAAQIECBAgQIAAAQIECBAICBgAAiWLSIAAAQIECBAgQIAAAQIEDAB+gAABAgQIECBAgAABAgQIBAQMAIGSRSRAgAABAgQIECBAgAABAgYAP0CAAAECBAgQIECAAAECBAICBoBAySISIECAAAECBAgQIECAAAEDgB8gQIAAAQIECBAgQIAAAQIBAQNAoGQRCRAgQIAAAQIECBAgQICAAcAPECBAgAABAgQIECBAgACBgIABIFCyiAQIECBAgAABAgQIECBAwADgBwgQIECAAAECBAgQIECAQEDAABAoWUQCBAgQIECAAAECBAgQIGAA8AMECBAgQIAAAQIECBAgQCAgYAAIlCwiAQIECBAgQIAAAQIECBAwAPgBAgQIECBAgAABAgQIECAQEDAABEoWkQABAgQIECBAgAABAgQIGAD8AAECBAgQIECAAAECBAgQCAgYAAIli0iAAAECBAgQIECAAAECBAwAfoAAAQIECBAgQIAAAQIECAQEDACBkkUkQIAAAQIECBAgQIAAAQIGAD9AgAABAgQIECBAgAABAgQCAgaAQMkiEiBAgAABAgQIECBAgAABA4AfIECAAAECBAgQIECAAAECAQEDQKBkEQkQIECAAAECBAgQIECAgAHADxAgQIAAAQIECBAgQIAAgYCAASBQsogECBAgQIAAAQIECBAgQMAA4AcIECBAgAABAgQIECBAgEBAwAAQKFlEAgQIECBAgAABAgQIECBgAPADBAgQIECAAAECBAgQIEAgIGAACJQsIgECBAgQIECAAAECBAgQMAD4AQIECBAgQIAAAQIECBAgEBAwAARKFpEAAQIECBAgQIAAAQIECBgA/AABAgQIECBAgAABAgQIEAgIGAACJYtIgAABAgQIECBAgAABAgQOWacAyQIYvuUAAAAASUVORK5CYII=";
 
-const modalInitialCode = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAV4AAAEsCAYAAACLwdvQAAAAAXNSR0IArs4c6QAACXpJREFUeF7t1MEJAAAIAzG7/9Juca+4QCHI7RwBAgQIpAJL14wRIECAwAmvJyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQIPNUfAS20yRm1AAAAAElFTkSuQmCC'
+const modalInitialCode =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAV4AAAEsCAYAAACLwdvQAAAAAXNSR0IArs4c6QAACXpJREFUeF7t1MEJAAAIAzG7/9Juca+4QCHI7RwBAgQIpAJL14wRIECAwAmvJyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQICK8fIECAQCwgvDG4OQIECAivHyBAgEAsILwxuDkCBAgIrx8gQIBALCC8Mbg5AgQIPNUfAS20yRm1AAAAAElFTkSuQmCC";
 
 export function events() {
   const body = document.querySelector(`table`);
-  body.addEventListener('click', function (e) {
-    let idx = e.target.classList[0]?.split('-')[1]
+  body.addEventListener("click", function (e) {
+    let idx = e.target.classList[0]?.split("-")[1];
     //open the sign modal
-    if (e.target.classList[0]?.includes('init')) {
-      navigator.clipboard?.readText().then(r => {
-        if (!r.includes('data:image/png')) {
-          document.querySelectorAll(`.modal`)[idx].classList.remove('hidden')
-        } else {
-          const tableCell = document.getElementById(`initials-${idx}`);
-          tableCell.innerHTML += `<img src="${r}" style="height: 100%; width:100%" alt='' />`;
-        }
-      }).catch((e) => alert(`${e}\nClick on the clipboard icon to allow read permission`))
+    if (e.target.classList[0]?.includes("init")) {
+      navigator.clipboard
+        ?.readText()
+        .then((r) => {
+          if (!r.includes("data:image/png")) {
+            document.querySelectorAll(`.modal`)[idx].classList.remove("hidden");
+          } else {
+            const tableCell = document.getElementById(`initials-${idx}`);
+            tableCell.innerHTML += `<img src="${r}" style="height: 100%; width:100%" alt='' />`;
+          }
+        })
+        .catch((e) =>
+          alert(`${e}\nClick on the clipboard icon to allow read permission`),
+        );
     }
     // if clicked on image
-    else if (e.target.tagName === 'IMG' && e.target.parentNode.classList[0].includes('init')) {
-      let idx = e.target.parentNode.classList[0]?.split('-')[1];
-      document.querySelectorAll(`.js-signature.initial-signature-pad`)[idx].innerHTML =
-        `<img src="${e.target.src}" style="width: 350px; height: 300px;" alt='' />`
-      document.querySelectorAll(`.modal`)[idx].classList.remove('hidden')
+    else if (
+      e.target.tagName === "IMG" &&
+      e.target.parentNode.classList[0].includes("init")
+    ) {
+      let idx = e.target.parentNode.classList[0]?.split("-")[1];
+      document.querySelectorAll(`.js-signature.initial-signature-pad`)[
+        idx
+      ].innerHTML = `<img src="${e.target.src}" style="width: 350px; height: 300px;" alt='' />`;
+      document.querySelectorAll(`.modal`)[idx].classList.remove("hidden");
     }
     //handle cancel button click
-    else if (e.target.classList[0]?.includes('cac')) {
-      const cancelBtn = document.getElementById(`${e.target.classList[0]}-cancel`);
-      cancelBtn.addEventListener('click', function (e) {
-        let signNode = document.querySelectorAll('.js-signature.initial-signature-pad')[idx];
-        $(signNode).jqSignature('clearCanvas');
-        document.querySelectorAll(`.modal`)[idx].classList.add('hidden')
-      })
+    else if (e.target.classList[0]?.includes("cac")) {
+      const cancelBtn = document.getElementById(
+        `${e.target.classList[0]}-cancel`,
+      );
+      cancelBtn.addEventListener("click", function (e) {
+        let signNode = document.querySelectorAll(
+          ".js-signature.initial-signature-pad",
+        )[idx];
+        $(signNode).jqSignature("clearCanvas");
+        document.querySelectorAll(`.modal`)[idx].classList.add("hidden");
+      });
       cancelBtn.click();
     }
     //handle done button
-    else if (e.target.classList[0]?.includes('done')) {
+    else if (e.target.classList[0]?.includes("done")) {
       const doneBtn = document.getElementById(`${e.target.classList[0]}-done`);
-      doneBtn.addEventListener('click', function (e) {
-        let signNode = document.querySelectorAll('.js-signature.initial-signature-pad')[idx];
-        let sign = $(signNode).jqSignature('getDataURL');
-        console.log(sign === initSignCode, sign, modalInitialCode)
+      doneBtn.addEventListener("click", function (e) {
+        let signNode = document.querySelectorAll(
+          ".js-signature.initial-signature-pad",
+        )[idx];
+        let sign = $(signNode).jqSignature("getDataURL");
+        console.log(sign === initSignCode, sign, modalInitialCode);
         if (sign === modalInitialCode) {
-          document.querySelectorAll(`.modal`)[idx].classList.add('hidden')
-          return
+          document.querySelectorAll(`.modal`)[idx].classList.add("hidden");
+          return;
         }
         navigator.clipboard.writeText(sign);
-        const tableCell = document.getElementById(`initials-${idx}`)
+        const tableCell = document.getElementById(`initials-${idx}`);
         let children = tableCell.children;
         if (children.length > 1) {
-          children[1].src = sign
-        } else tableCell.innerHTML += `<img src="${sign}" style="height: 100%; width:100%" alt='' />`;
-        document.querySelectorAll(`.modal`)[idx].classList.add('hidden')
-      })
+          children[1].src = sign;
+        } else
+          tableCell.innerHTML += `<img src="${sign}" style="height: 100%; width:100%" alt='' />`;
+        document.querySelectorAll(`.modal`)[idx].classList.add("hidden");
+      });
       doneBtn.click();
     }
     //clear button
-    else if (e.target.classList[0]?.includes('clear')) {
+    else if (e.target.classList[0]?.includes("clear")) {
       const clearBtn = document.querySelector(`.${e.target.classList[0]}`);
-      clearBtn.addEventListener('click', function (e) {
-        let signNode = document.querySelectorAll('.js-signature.initial-signature-pad')[idx];
-        if (signNode.firstChild.tagName === 'IMG') {
-          let tempDiv = document.createElement('div');
-          tempDiv.classList.add('js-signature', 'initial-signature-pad');
+      clearBtn.addEventListener("click", function (e) {
+        let signNode = document.querySelectorAll(
+          ".js-signature.initial-signature-pad",
+        )[idx];
+        if (signNode.firstChild.tagName === "IMG") {
+          let tempDiv = document.createElement("div");
+          tempDiv.classList.add("js-signature", "initial-signature-pad");
           signNode.parentNode.replaceChild(tempDiv, signNode);
-          $(tempDiv).jqSignature({width: 350, height: 300, lineWidth: 3});
+          $(tempDiv).jqSignature({ width: 350, height: 300, lineWidth: 3 });
         }
-        $(signNode).jqSignature('clearCanvas');
-      })
+        $(signNode).jqSignature("clearCanvas");
+      });
       clearBtn.click();
     }
     // if checkbox is checked
-    else if (e.target.type === 'checkbox' && e.target.checked) {
+    else if (e.target.type === "checkbox" && e.target.checked) {
       e.target.setAttribute("checked", "checked");
     }
     // if checkbox is not checked
-    else if (e.target.type === 'checkbox' && !e.target.checked) {
+    else if (e.target.type === "checkbox" && !e.target.checked) {
       e.target.removeAttribute("checked");
     }
-  })
+  });
 
-  const signCell = document.querySelectorAll('.sign');
+  const signCell = document.querySelectorAll(".sign");
   for (let i = 0; i < signCell.length; i++) {
     signCell[i].innerHTML = htmlModal(i);
   }
-  $('.js-signature.initial-signature-pad').jqSignature({width: 350, height: 300, lineWidth: 3});
+  $(".js-signature.initial-signature-pad").jqSignature({
+    width: 350,
+    height: 300,
+    lineWidth: 3,
+  });
 }
 
 export function hideList(type) {
-  let existingForms = document.querySelectorAll('.primaryAdultParticipant-field');
-  if (existingForms.length > 0) document.querySelector('li[data-type="primaryAdultParticipant"]').style.display = type;
+  let existingForms = document.querySelectorAll(
+    ".primaryAdultParticipant-field",
+  );
+  if (existingForms.length > 0)
+    document.querySelector(
+      'li[data-type="primaryAdultParticipant"]',
+    ).style.display = type;
 }

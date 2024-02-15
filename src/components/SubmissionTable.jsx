@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Input from "./inputs/Input";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import SelectInput from "./inputs/SelectInput";
@@ -39,7 +39,7 @@ const SubmissionTable = ({title}) => {
   const [selectAll, setSelectAll] = useState(false);
   const [filteredWaivers, setFilteredWaivers] = useState([]);
   const [search, setSearch] = useState('');
-  const searchRef = useRef();
+  // const searchRef = useRef();
 
 
   const [selectedCount, setSelectedCount] = useState(0);
@@ -65,13 +65,14 @@ const SubmissionTable = ({title}) => {
     // eslint-disable-next-line
   }, [refetch]);
 
+
   useEffect(() => {
     const data = filterWaivers(allWaivers, {
       status,
       month,
       year,
       template,
-      search: searchRef.current?.value.toLowerCase()
+      search: search.toLowerCase()
     })
     setFilteredWaivers(addCheck(data))
     // eslint-disable-next-line
@@ -83,7 +84,7 @@ const SubmissionTable = ({title}) => {
     setYear('Year')
     setTemplate('Template')
     setSearch('')
-    searchRef.current.value = ''
+    // searchRef.current.value = ''
   }
 
 
@@ -142,7 +143,7 @@ const SubmissionTable = ({title}) => {
         </div>
       </div>
       <div className='flex gap-2 mb-4 flex-wrap'>
-        <Input placeholder='Search' inputRef={searchRef} BtnIcon={MagnifyingGlassIcon}
+        <Input placeholder='Search' BtnIcon={MagnifyingGlassIcon}
                inputClasses='rounded-md pl-11 grow sm:grow-0'
                extraClasses='w-fit inline-block grow sm:grow-0'
                onChange={(e) => {

@@ -36,12 +36,17 @@ function Template() {
   useMemo(() => {
     setLoading(true);
     let temp = templateStatus === 'active' ? 'published&statuses=published' : (templateStatus === 'all' ? `published&statuses=draft` : `${templateStatus}&statuses=${templateStatus}`)
-    getRequest(`/waivers?statuses=${temp}`)
+    getRequest(`/waivers?statuses=${temp}&timestamp=${new Date().getTime()}`)
       .then(r => setAllTemplates(addCheck(r.data)))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false));
     setSelectedCount(0)
   }, [templateStatus])
+
+  // useEffect(() => {
+  //   navigate(-1)
+  // }, []);
+
   const handleSubmit = (name, type) => {
     if (name === 'cancel') {
       setDuplicate({
@@ -65,9 +70,13 @@ function Template() {
     setLoading(true)
     if (type === 'Confirmation') {
       let removedIds = [];
+      setAllTemplates([]);
       allTemplates.forEach(item => {
         if (item.checked) {
           removedIds.push(item._id);
+        }
+        else{
+          setAllTemplates(prev => [...prev, item])
         }
       });
       patchRequest('/waivers/update-multiple', {
@@ -143,8 +152,15 @@ function Template() {
                                                                   btnText='Create waivers'
                                                                   type='button'
                                                                   onClick={() => {
+                                                                    setDuplicate({
+                                                                      btnText: 'Submit',
+                                                                      title: 'New Template',
+                                                                      description: '',
+                                                                      label: 'Please enter your template name',
+                                                                      index: null,
+                                                                      error: null
+                                                                    });
                                                                     setOpenModal(true);
-                                                                    setDuplicate(prev => ({...prev, index: null}));
                                                                   }}
                                                                   btnClasses='bg-btnBg border-btnBg px-5 py-2.5'
                                                                   iconClasses='w-4 h-4 text-white inline-block ml-2'/>}
@@ -154,6 +170,7 @@ function Template() {
           {allTemplates.length > 0 ?
             <DataTable selectAll={selectAll} setSelectAll={setSelectAll}
                        headers={['Name', 'Total Waivers', 'Status']} TableRow={TemplateRow} items={allTemplates}
+                       colspan={templateStatus === 'archived' ? 0 : 1}
                        setState={setAllTemplates} setSelectedCount={setSelectedCount}
                        deleteRow={deleteRow} customOpenModal={customOpenModal}/> : <div className='text-center mt-4'>
               <FolderIcon className='w-40 h-40 text-gray-400 mx-auto'/>
