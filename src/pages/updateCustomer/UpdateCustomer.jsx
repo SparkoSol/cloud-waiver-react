@@ -61,7 +61,7 @@ const UpdateCustomer = () => {
     <div className='md:p-5'>
       <Button btnText='Go Back' onClick={e => navigate(-1)} BtnIcon={ArrowLeftIcon} iconClasses='w-4 h-4 text-gray-600'
               btnClasses='border border-bgDark text-black-900 px-5' fullWidth='justify-start mb-4'/>
-      <Heading title='Update Customer -' titleClasses='text-xl leading-tight text-gray-800 mb-4'/>
+      <Heading title='Update Customer' titleClasses='text-xl leading-tight text-gray-800 mb-4'/>
       <div className='md:p-5'>
         <div className='bg-white shadow rounded-lg p-5'>
           <div className='flex gap-3 flex-wrap md:flex-nowrap'>

@@ -20,8 +20,8 @@ const Header = ({setOpen}) => {
   useEffect(() => {
     if (currentUser && currentUser.role) {
       // incomplete, incomplete_expired, trialing, active, past_due, canceled, or unpaid.
-      const trialEnd = currentUser.trial_until;
-      const currentDate = new Date().toISOString();
+      const trialEnd = new Date(currentUser.trial_until);
+      const currentDate = new Date(); // current date
       const isTrialExpired = trialEnd < currentDate;
       const allowedLocations = ['/billing', '/settings', '/settings/password'];
       switch (currentUser.subscription?.status) {
@@ -88,7 +88,9 @@ const Header = ({setOpen}) => {
                 iconClasses='w-4 h-4 text-white'/>
       </div>
       <div className='flex items-center gap-8 px-4 py-2.5 hidden lg:flex'>
-        <DropDown data={data} Icon={Cog6ToothIcon}/>
+        <abbr title='Settings'>
+          <DropDown data={data} Icon={Cog6ToothIcon}/>
+        </abbr>
         <ConfirmationModal isOpen={isOpen} setIsOpen={setIsOpen} {...description}/>
       </div>
       <Button btnClasses='p-0' BtnIcon={Bars3Icon}
