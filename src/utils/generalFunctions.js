@@ -6,16 +6,16 @@ import {
   DocumentTextIcon,
   Squares2X2Icon,
   UserIcon,
-  UsersIcon
+  UsersIcon,
 } from "@heroicons/react/24/outline";
-import {AdjustmentsVerticalIcon} from "@heroicons/react/20/solid";
+import { AdjustmentsVerticalIcon } from "@heroicons/react/20/solid";
 import toast from "react-hot-toast";
 import Control from "formBuilder/src/js/control";
-import {getRequest, patchRequest} from "../redux/cwAPI";
-import {hideList} from "./builder";
+import { getRequest, patchRequest } from "../redux/cwAPI";
+import { hideList } from "./builder";
 
 export function generateMonths(number) {
-  const months = ['Month'];
+  const months = ["Month"];
   for (let i = 1; i <= number; i++) {
     months.push(i);
   }
@@ -29,7 +29,7 @@ export function generateYears(startingYear) {
   for (let year = startingYear; year <= currentYear; year++) {
     years.push(year);
   }
-  years.push('Year');
+  years.push("Year");
   return years.reverse();
 }
 
@@ -37,15 +37,15 @@ export function isValidBody(body) {
   const invalidFields = [];
 
   for (const key in body) {
-    if (body.hasOwnProperty(key) && typeof body[key] === 'string') {
-      if (body[key].trim() === '') {
+    if (body.hasOwnProperty(key) && typeof body[key] === "string") {
+      if (body[key].trim() === "") {
         invalidFields.push(key);
       }
     }
   }
 
   if (invalidFields.length > 0) {
-    toast.error(`Invalid input at ${invalidFields[0]}`)
+    toast.error(`Invalid input at ${invalidFields[0]}`);
     return false;
   }
 
@@ -63,28 +63,28 @@ export function isEmptyObject(obj) {
 
 export const capitalize = (string) => {
   if (string) return string.charAt(0).toUpperCase() + string.slice(1);
-}
+};
 export const addCheck = (arr) => {
-  return arr.map(item => {
-    return {...item, checked: false}
+  return arr.map((item) => {
+    return { ...item, checked: false };
   });
-}
+};
 
 export function limitChars(str, number) {
-  if (number < str?.length) return str.slice(0, number) + '...';
-  return str
+  if (number < str?.length) return str.slice(0, number) + "...";
+  return str;
 }
 
 export function today() {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
-  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
-  const day = currentDate.getDate().toString().padStart(2, '0');
-  return `${year}${month}${day}`
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-based
+  const day = currentDate.getDate().toString().padStart(2, "0");
+  return `${year}${month}${day}`;
 }
 
 export function dataURLtoFile(dataurl, filename) {
-  let arr = dataurl.split(','),
+  let arr = dataurl.split(","),
     mime = arr[0].match(/:(.*?);/)[1],
     bstr = atob(arr[arr.length - 1]),
     n = bstr.length,
@@ -92,7 +92,7 @@ export function dataURLtoFile(dataurl, filename) {
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n);
   }
-  return new File([u8arr], filename, {type: mime});
+  return new File([u8arr], filename, { type: mime });
 }
 
 //custom component logics
@@ -104,40 +104,38 @@ class SignatureControls extends Control {
 
   static get definition() {
     return {
-      subtype: 'signature',
-      id: '1',
+      subtype: "signature",
+      id: "1",
       isPreview: true,
-      title: 'Signature',
-      type: 'signature',
+      title: "Signature",
+      type: "signature",
       access: false,
       required: false,
-      label: 'Signature',
+      label: "Signature",
       i18n: {
-        'fr-FR': 'Mon Type',
-        'default': 'My Type'
+        "fr-FR": "Mon Type",
+        default: "My Type",
       },
     };
   }
 
-  configure() {
-  }
+  configure() {}
 
   // Method to build and return a DOM element representing the control
   build() {
-    const controlElement = document.createElement('div');
-    controlElement.className = 'custom-control';
+    const controlElement = document.createElement("div");
+    controlElement.className = "custom-control";
 
     return {
       field: controlElement,
-      layout: 'noLabel',
+      layout: "noLabel",
     };
   }
 
-  onRender(event) {
-  }
+  onRender(event) {}
 }
 
-Control.register('signature', SignatureControls);
+Control.register("signature", SignatureControls);
 
 //some forms are reusable
 
@@ -166,116 +164,134 @@ export let additionMinorForm = `
               <input type="text" value="" name="relationship" placeholder="Relationship" class="block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md" />
             </div>
           </div>
-        </form>`
+        </form>`;
 
 //static headers
-export const DashBoardHeaders = ['ID', 'Signed Date', 'First Name', 'Last Name', 'Reference No', 'Template Name', 'Status'];
+export const DashBoardHeaders = [
+  "ID",
+  "Signed Date",
+  "First Name",
+  "Last Name",
+  "Reference No",
+  "Template Name",
+  "Status",
+];
 export const sideBarOptions = [
   {
     id: 1,
-    title: 'Dashboard',
+    title: "Dashboard",
     icon: Squares2X2Icon,
-    url: '/dashboard',
-    permission: 'dashboard'
+    url: "/dashboard",
+    permission: "dashboard",
   },
   {
     id: 2,
-    title: 'Waiver Templates',
+    title: "Waiver Templates",
     icon: DocumentTextIcon,
-    url: '/templates', permission: 'waiver_templates'
+    url: "/templates",
+    permission: "waiver_templates",
   },
   {
     id: 5,
-    title: 'Signed Waivers',
-    url: '/signed',
-    icon: ClipboardDocumentIcon, permission: 'waiver_submissions'
+    title: "Signed Waivers",
+    url: "/signed",
+    icon: ClipboardDocumentIcon,
+    permission: "waiver_submissions",
   },
   {
     id: 6,
-    title: 'Template Gallery',
-    url: '/gallery',
-    icon: UsersIcon, permission: 'template_gallery',
+    title: "Template Gallery",
+    url: "/gallery",
+    icon: UsersIcon,
+    permission: "template_gallery",
   },
   {
     id: 9,
-    title: 'Customers',
-    url: '/customers',
-    icon: UserIcon, permission: 'customers'
+    title: "Customers",
+    url: "/customers",
+    icon: UserIcon,
+    permission: "customers",
   },
   {
     id: 10,
-    title: 'Kiosk Settings',
-    url: '/kiosk',
-    icon: ComputerDesktopIcon, permission: 'kiosk_settings'
+    title: "Kiosk Settings",
+    url: "/kiosk",
+    icon: ComputerDesktopIcon,
+    permission: "kiosk_settings",
   },
   {
     id: 16,
-    title: 'Staff Management',
-    url: '/management',
-    icon: UsersIcon, permission: 'team_management'
+    title: "Staff Management",
+    url: "/management",
+    icon: UsersIcon,
+    permission: "team_management",
   },
   {
     id: 11,
-    title: 'Settings',
-    url: '/settings',
-    icon: Cog6ToothIcon, permission: 'settings',
+    title: "Settings",
+    url: "/settings",
+    icon: Cog6ToothIcon,
+    permission: "settings",
     subList: [
       {
         id: 13,
-        title: 'Account',
-        url: '/settings/account'
+        title: "Account",
+        url: "/settings/account",
       },
       {
         id: 14,
-        title: 'Password',
-        url: '/settings/password'
+        title: "Password",
+        url: "/settings/password",
       },
       {
         id: 15,
-        title: 'Integrations',
-        url: '/settings/integrations'
-      }
-    ]
+        title: "Integrations",
+        url: "/settings/integrations",
+      },
+    ],
   },
   {
     id: 12,
-    title: 'Billing',
-    url: '/billing',
-    icon: AdjustmentsVerticalIcon, permission: 'billing'
+    title: "Billing",
+    url: "/billing",
+    icon: AdjustmentsVerticalIcon,
+    permission: "billing",
   },
   {
     id: 17,
-    title: 'Sign Out',
-    url: '#',
-    icon: ArrowRightOnRectangleIcon, permission: 'sign_out'
-  }
+    title: "Sign Out",
+    url: "#",
+    icon: ArrowRightOnRectangleIcon,
+    permission: "sign_out",
+  },
 ];
 export const staticForm = [
   {
-    type: 'emailInput',
-    label: 'Email',
-    className: 'block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md',
+    type: "emailInput",
+    label: "Email",
+    className:
+      "block w-full p-2.5 border border-gray-300 text-gray-900 rounded-md",
     required: true,
   },
   {
-    label: 'Electronic Signature Consent',
-    type: 'electronicSignatureConsent',
+    label: "Electronic Signature Consent",
+    type: "electronicSignatureConsent",
     required: true,
-  }
-]
+  },
+];
 export const tabsData = [
-  {name: 'Overview', id: 1, url: 'overview'},
-  {name: 'Submissions', id: 2, url: 'submissions'},
-  {name: 'Builder', id: 3, url: 'builder'},
-  {name: 'Integrations', id: 4, url: 'integration'},
-  {name: 'Settings', id: 4, url: 'setting'},
-]
+  { name: "Overview", id: 1, url: "overview" },
+  { name: "Submissions", id: 2, url: "submissions" },
+  { name: "Builder", id: 3, url: "builder" },
+  { name: "Integrations", id: 4, url: "integration" },
+  { name: "Settings", id: 4, url: "setting" },
+];
 
 export const formatDate = (date) => {
   const originalDate = new Date(date);
-  const options = {year: 'numeric', month: 'short', day: '2-digit'};
-  return originalDate.toLocaleDateString('en-US', options)
-}
+  const options = { year: "numeric", month: "short", day: "2-digit" };
+  return originalDate.toLocaleDateString("en-US", options);
+};
 
 export const filterWaivers = (waivers, filters) => {
   const {
@@ -286,39 +302,58 @@ export const filterWaivers = (waivers, filters) => {
     template = null,
   } = filters;
 
-  return waivers.filter(item => {
-    const hasMatchingStatus = status === 'Status' || item.status === status.toLowerCase();
-    const hasMatchingSearch = !search || (
+  return waivers.filter((item) => {
+    const hasMatchingStatus =
+      status === "Status" || item.status === status.toLowerCase();
+    const hasMatchingSearch =
+      !search ||
       item.reference_no?.toLowerCase().includes(search) ||
-      (item?.customer?.first_name && item.customer.first_name.toLowerCase().includes(search)) ||
-      (item?.customer?.last_name && item.customer.last_name.toLowerCase().includes(search)) ||
-      item.waiver.name.toLowerCase().includes(search)
-    );
+      (item?.customer?.first_name &&
+        item.customer.first_name.toLowerCase().includes(search)) ||
+      (item?.customer?.last_name &&
+        item.customer.last_name.toLowerCase().includes(search)) ||
+      item.waiver.name.toLowerCase().includes(search);
     let hasMatchingTemplate;
     let hasMatchingMonth;
     let hasMatchingYear;
     if (month) {
-      hasMatchingTemplate = template === 'Template' || item.waiver.name === template;
-      hasMatchingMonth = month === 'Month' || new Date(item.updatedAt).getMonth() + 1 === month;
-      hasMatchingYear = year === 'Year' || new Date(item.updatedAt).getFullYear() === year;
+      hasMatchingTemplate =
+        template === "Template" || item.waiver.name === template;
+      hasMatchingMonth =
+        month === "Month" || new Date(item.updatedAt).getMonth() + 1 === month;
+      hasMatchingYear =
+        year === "Year" || new Date(item.updatedAt).getFullYear() === year;
 
-      return hasMatchingStatus && hasMatchingTemplate && hasMatchingSearch && hasMatchingMonth && hasMatchingYear;
+      return (
+        hasMatchingStatus &&
+        hasMatchingTemplate &&
+        hasMatchingSearch &&
+        hasMatchingMonth &&
+        hasMatchingYear
+      );
     }
-    return hasMatchingStatus && hasMatchingSearch
+    return hasMatchingStatus && hasMatchingSearch;
   });
 };
 
 export function searchWaiver(search, customers) {
-  return customers.filter(item => {
-    return !search || (
+  return customers.filter((item) => {
+    return (
+      !search ||
       (item?.first_name && item.first_name.toLowerCase().includes(search)) ||
       (item?.last_name && item.last_name.toLowerCase().includes(search)) ||
       item.email.toLowerCase().includes(search)
     );
-  })
+  });
 }
 
-export function updateAllSubmission(status, setSwitchState, setSelectedCount, setLoading, filteredWaivers) {
+export function updateAllSubmission(
+  status,
+  setSwitchState,
+  setSelectedCount,
+  setLoading,
+  filteredWaivers,
+) {
   const arr = filteredWaivers.reduce((result, item) => {
     if (item.checked) {
       result.push(item._id);
@@ -327,22 +362,24 @@ export function updateAllSubmission(status, setSwitchState, setSelectedCount, se
   }, []);
   let body = {
     status: status,
-    submission_ids: arr
-  }
+    submission_ids: arr,
+  };
   patchRequest(`/submissions/update-multiple`, body)
-    .then(() => setSwitchState(prev => !prev))
-    .catch(e => toast(e.response.data.message))
+    .then(() => setSwitchState((prev) => !prev))
+    .catch((e) => toast(e.response.data.message))
     .finally(() => {
-      setSelectedCount(0)
-      setLoading(false)
-    })
+      setSelectedCount(0);
+      setLoading(false);
+    });
 }
 
 export async function getPackages(setPrices, setVariablePrice) {
   const response = await getRequest(`/payments/prices`);
   const temp = response.data.data.pop();
   setVariablePrice(temp);
-  response.data.data.sort((a, b) => a.metadata.waiver_limit - b.metadata.waiver_limit);
+  response.data.data.sort(
+    (a, b) => a.metadata.waiver_limit - b.metadata.waiver_limit,
+  );
   setPrices(response.data.data);
 }
 
@@ -351,17 +388,17 @@ export function timeToDate(startSeconds, endSeconds) {
   const endDate = new Date(endSeconds * 1000);
 
   // Format the date strings (adjust the format as needed)
-  const startDateString = startDate.toISOString().split('T')[0];
-  const endDateString = endDate.toISOString().split('T')[0];
+  const startDateString = startDate.toISOString().split("T")[0];
+  const endDateString = endDate.toISOString().split("T")[0];
 
   return `${startDateString} - ${endDateString}`;
 }
 
 export function convertToObjects(items) {
   if (!items) {
-    return []
+    return [];
   }
-  return items.map((myId) => ({price_id: myId}));
+  return items.map((myId) => ({ price_id: myId }));
 }
 
 export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
@@ -370,16 +407,21 @@ export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
     console.warn("Recursion limit reached. Returning nothing.");
     return;
   }
-  if (state && state.contentWindow && state.contentWindow?.document.readyState === 'complete') {
-    const iframeBody = state.contentWindow?.document.querySelector("body > div");
-    const body = document.querySelector('.tox.tox-tinymce');
+  if (
+    state &&
+    state.contentWindow &&
+    state.contentWindow?.document.readyState === "complete"
+  ) {
+    const iframeBody =
+      state.contentWindow?.document.querySelector("body > div");
+    const body = document.querySelector(".tox.tox-tinymce");
     if (!iframeBody || !body) {
       recursiveFunction(null, setSwitchState, recursionCount + 1);
       return;
     }
     body.innerHTML = iframeBody.innerHTML;
-    body.removeAttribute('style');
-    body.removeAttribute('class');
+    body.removeAttribute("style");
+    body.removeAttribute("class");
     setSwitchState(true);
     return state;
   }
@@ -390,48 +432,56 @@ export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
   }, 500);
 }
 
-export function makeTemplate(waiver, textAreaElements, hasTable, recursionCount = 0) {
-  if (recursionCount > 30) {
-    console.warn("Recursion limit reached. Returning nothing.");
-    return;
-  }
-
-  const formWrap = document.querySelector('.form-wrap');
-
-  if (!isEmptyObject(waiver) && formWrap) {
-    hideList('none');
-
-    formWrap.addEventListener('click', function (e) {
-      const targetDataAttr = e.target.closest('.input-control')?.getAttribute('data-type');
-      const parentClassList = e.target.parentNode?.parentNode?.classList;
-
-      if (targetDataAttr === 'primaryAdultParticipant' || (parentClassList && parentClassList[0] === 'primaryAdultParticipant-field')) {
-        hideList(targetDataAttr === 'primaryAdultParticipant' ? 'none' : 'block');
-      }
-    });
-
-    if (hasTable && textAreaElements.length > 0) {
-      waiver?.form_data
-        .filter(item => item.type === 'richTextEditor')
-        .forEach((filteredItem, index) => {
-          textAreaElements[index].innerHTML = filteredItem.userData;
-        });
-    }
-
-    if (hasTable) {
-      makeTemplate(waiver, document.querySelectorAll('.textarea-selector'), hasTable, recursionCount + 1);
-    }
-
-    return;
-  }
-
-  setTimeout(function () {
-    const newTextAreas = document.querySelectorAll('.textarea-selector');
-    const newHasTable = document.querySelector('iframe[title="Rich Text Area"]');
-    makeTemplate(waiver, newTextAreas, newHasTable, recursionCount + 1);
-  }, 500);
+export function makeTemplate(waiver) {
+  // console.log(waiver);
+  // let iframe = document.querySelector('iframe[title="Rich Text Area"]');
+  // if (!iframe) {
+  //   setTimeout(() => {
+  //     makeTemplate(waiver);
+  //   }, 500);
+  // } else {
+  //   const richEditor = iframe.contentWindow.document.querySelector("body");
+  // }
+  // if (recursionCount > 30) {
+  //   console.warn("Recursion limit reached. Returning nothing.");
+  //   return;
+  // }
+  //
+  // const formWrap = document.querySelector('.form-wrap');
+  //
+  // if (!isEmptyObject(waiver) && formWrap) {
+  //   hideList('none');
+  //
+  //   formWrap.addEventListener('click', function (e) {
+  //     const targetDataAttr = e.target.closest('.input-control')?.getAttribute('data-type');
+  //     const parentClassList = e.target.parentNode?.parentNode?.classList;
+  //
+  //     if (targetDataAttr === 'primaryAdultParticipant' || (parentClassList && parentClassList[0] === 'primaryAdultParticipant-field')) {
+  //       hideList(targetDataAttr === 'primaryAdultParticipant' ? 'none' : 'block');
+  //     }
+  //   });
+  //
+  //   if (hasTable && textAreaElements.length > 0) {
+  //     waiver?.form_data
+  //       .filter(item => item.type === 'richTextEditor')
+  //       .forEach((filteredItem, index) => {
+  //         textAreaElements[index].innerHTML = filteredItem.userData;
+  //       });
+  //   }
+  //
+  //   if (hasTable) {
+  //     makeTemplate(waiver, document.querySelectorAll('.textarea-selector'), hasTable, recursionCount + 1);
+  //   }
+  //
+  //   return;
+  // }
+  //
+  // setTimeout(function () {
+  //   const newTextAreas = document.querySelectorAll('.textarea-selector');
+  //   const newHasTable = document.querySelector('iframe[title="Rich Text Area"]');
+  //   makeTemplate(waiver, newTextAreas, newHasTable, recursionCount + 1);
+  // }, 500);
 }
-
 
 export default function secondsToDate(timestamp) {
   const date = new Date(timestamp * 1000);
@@ -441,5 +491,9 @@ export default function secondsToDate(timestamp) {
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
-  return `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day} ${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  return `${year}-${month < 10 ? "0" : ""}${month}-${
+    day < 10 ? "0" : ""
+  }${day} ${hours < 10 ? "0" : ""}${hours}:${
+    minutes < 10 ? "0" : ""
+  }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 }
