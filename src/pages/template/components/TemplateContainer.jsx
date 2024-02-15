@@ -50,7 +50,8 @@ const TemplateContainer = ({children}) => {
       .catch(e => e.response.data.message)
       .finally(() => {
         setLoading(false);
-        setEditMode(false)
+        setEditMode(false);
+        navigate(-1);
       })
   }
 

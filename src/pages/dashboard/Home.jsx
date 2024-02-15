@@ -9,7 +9,6 @@ import {selectCurrentUser} from "../../redux/user/userSlice.js";
 import {getMembers} from "../../redux/user/userThunk.js";
 import {useNavigate} from "react-router-dom";
 import {getRequest, postRequest} from "../../redux/cwAPI";
-import toast from "react-hot-toast";
 import SubmissionTable from "../../components/SubmissionTable";
 import {allPermissions} from "../../redux/team/teamSlice";
 import {getAllTeams} from "../../redux/team/teamThunk";
@@ -62,23 +61,16 @@ const Dashboard = () => {
     // eslint-disable-next-line
   }, [currentUser]);
 
-  useEffect(() => {
-    setLoading(true)
-    getRequest('/dashboard')
-      .then(r => setUsage([
-        {id: 1, title: 'Usage', value: r.data.usage, icon: '/database.svg'},
-        {id: 2, title: 'Templates', value: r.data.templates, icon: '/wallet.svg'},
-        {id: 3, title: 'Signed', value: r.data.signed, icon: '/pulse.svg'},
-        {id: 4, title: 'Customers', value: r.data.customers, icon: '/user.png'}
-      ]))
-      .catch(e => toast.error(e.response.data.message))
-      .finally(() => setLoading(false));
-
-  }, []);
-
   async function getUserTeams() {
     if (currentUser) {
       setLoading(true)
+      const {data} = await getRequest('/dashboard')
+      setUsage([
+        {id: 1, title: 'Usage', value: data.usage, icon: '/database.svg'},
+        {id: 2, title: 'Templates', value: data.templates, icon: '/wallet.svg'},
+        {id: 3, title: 'Signed', value: data.signed, icon: '/pulse.svg'},
+        {id: 4, title: 'Customers', value: data.customers, icon: '/user.png'}
+      ])
       await dispatch(getMembers(currentUser._id))
       await dispatch(getAllTeams())
       setLoading(false)

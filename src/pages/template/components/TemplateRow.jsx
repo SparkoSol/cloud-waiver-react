@@ -44,12 +44,13 @@ const TemplateRow = ({item, functionCall, index, deleteRow, customOpenModal}) =>
               <UsersIcon className='w-5 h-5 text-gray-600'/>
             </abbr>
           </Link>
+          {/*window.location.assign(`/templates/${item._id}/builder`)*/}
           {permissions.includes("template_editing") &&
-            <span className='cursor-pointer' onClick={e => window.location.assign(`/templates/${item._id}/builder`)}>
+            <Link to={`/templates/${item._id}/builder`} reloadDocument className='cursor-pointer' >
             <abbr title='Edit Template'>
               <PencilSquareIcon className='w-5 h-5 text-gray-600'/>
             </abbr>
-          </span>}
+          </Link>}
           {permissions.includes("template_creation") && <button onClick={e => customOpenModal(true, index)}>
             <abbr title='Duplicate Template'><DocumentDuplicateIcon className='w-5 h-5 text-gray-600'/></abbr>
           </button>}
