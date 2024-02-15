@@ -46,7 +46,7 @@ const TemplateRow = ({item, functionCall, index, deleteRow, customOpenModal}) =>
           </Link>
           {/*window.location.assign(`/templates/${item._id}/builder`)*/}
           {permissions.includes("template_editing") &&
-            <Link to={`/templates/${item._id}/builder`} reloadDocument className='cursor-pointer' >
+            <Link to={`/templates/${item._id}/builder`} className='cursor-pointer' >
             <abbr title='Edit Template'>
               <PencilSquareIcon className='w-5 h-5 text-gray-600'/>
             </abbr>

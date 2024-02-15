@@ -391,7 +391,7 @@ export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
 }
 
 export function makeTemplate(waiver, textAreaElements, hasTable, recursionCount = 0) {
-  if (recursionCount > 20) {
+  if (recursionCount > 30) {
     console.warn("Recursion limit reached. Returning nothing.");
     return;
   }

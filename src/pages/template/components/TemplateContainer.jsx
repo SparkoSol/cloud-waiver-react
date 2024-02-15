@@ -51,23 +51,13 @@ const TemplateContainer = ({children}) => {
       .finally(() => {
         setLoading(false);
         setEditMode(false);
-        navigate(-1);
       })
-  }
-
-  function handleNavigate(){
-    if(id){
-      navigate(`/templates`)
-    }
-    else{
-      navigate(-1)
-    }
   }
 
   return (
     <main>
       {loading && <Spinner/>}
-      <Button btnText='Go Back' onClick={handleNavigate} BtnIcon={ArrowLeftIcon} iconClasses='w-4 h-4 text-gray-600'
+      <Button btnText='Go Back' onClick={() => navigate(-1)} BtnIcon={ArrowLeftIcon} iconClasses='w-4 h-4 text-gray-600'
               btnClasses='border border-bgDark text-black-900 px-5' fullWidth='justify-start mb-4'/>
       <div className='px-2 py-3'>
         <div className="flex items-center space-x-4">

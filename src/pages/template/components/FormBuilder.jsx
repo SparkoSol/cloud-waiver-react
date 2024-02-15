@@ -20,6 +20,7 @@ window.$ = $;
 require("jquery-ui-sortable");
 require("formBuilder");
 require("jq-signature");
+
 const FormBuilder = () => {
   const dispatch = useDispatch();
   const waiver = useSelector(selectSingleWaiver);
@@ -37,6 +38,8 @@ const FormBuilder = () => {
         ...options,
         controlOrder: ['primaryAdultParticipant', 'editable', 'additionalParticipants', 'additionalMinors', 'signature', 'address', 'richTextEditor', 'filesUpload', 'electronicSignatureConsent', 'capturePhoto']
       }))
+
+      //for template Gallery
       dispatch(resetStatus())
       let textAreaArr = document.querySelector('iframe[title="Rich Text Area"]');
       let hasTable = document.querySelector('iframe');
@@ -54,7 +57,7 @@ const FormBuilder = () => {
       const richEditor = tinymce.get(textAreaArr.id);
       jsonData.map((item, index) => {
         if (item.type === 'richTextEditor') {
-          jsonData[index]['userData'] = richEditor.getContent();
+          jsonData[index]['userData'] = <p>Start Typing here...</p>;
         }
         return item;
       });
@@ -75,7 +78,8 @@ const FormBuilder = () => {
 
   return (<div className='common'>
     <div className='flex justify-between pb-5 items-center flex-wrap gap-5'>
-      <Button btnText='Discard' btnClasses='text-red-500 bg-red-100 px-6 grow sm:grow-0' fullWidth='w-fit grow sm:grow-0'
+      <Button btnText='Discard' btnClasses='text-red-500 bg-red-100 px-6 grow sm:grow-0'
+              fullWidth='w-fit grow sm:grow-0'
               onClick={() => setOpenModal(true)}
               BtnIcon={TrashIcon} iconClasses='text-red-500'/>
       <div className='flex gap-3 items-center flex-wrap'>
@@ -84,9 +88,12 @@ const FormBuilder = () => {
         {waiver?.status !== 'draft' && <Link to={`/template/${id}/public`} target='_blank'
                                              className='bg-btnBg w-fit py-2.5 px-8 text-sm text-white font-semibold rounded-full grow sm:grow-0'>Preview</Link>}
         {waiver?.status === 'draft' ? <>
-            <Button btnText='Publish' btnClasses='bg-btnBg grow sm:grow-0' fullWidth='w-fit grow sm:grow-0' onClick={e => saveData(e, 'publish')}/>
-            <Button btnText='Save' btnClasses='bg-btnBg grow sm:grow-0' fullWidth='w-fit grow sm:grow-0' onClick={saveData}/></> :
-          <Button btnText='Save/Publish' btnClasses='bg-btnBg grow sm:grow-0' fullWidth='w-fit grow sm:grow-0' onClick={saveData}/>}
+            <Button btnText='Publish' btnClasses='bg-btnBg grow sm:grow-0' fullWidth='w-fit grow sm:grow-0'
+                    onClick={e => saveData(e, 'publish')}/>
+            <Button btnText='Save' btnClasses='bg-btnBg grow sm:grow-0' fullWidth='w-fit grow sm:grow-0'
+                    onClick={saveData}/></> :
+          <Button btnText='Save/Publish' btnClasses='bg-btnBg grow sm:grow-0' fullWidth='w-fit grow sm:grow-0'
+                  onClick={saveData}/>}
       </div>
     </div>
     <div ref={fb}/>

@@ -36,12 +36,17 @@ function Template() {
   useMemo(() => {
     setLoading(true);
     let temp = templateStatus === 'active' ? 'published&statuses=published' : (templateStatus === 'all' ? `published&statuses=draft` : `${templateStatus}&statuses=${templateStatus}`)
-    getRequest(`/waivers?statuses=${temp}`)
+    getRequest(`/waivers?statuses=${temp}&timestamp=${new Date().getTime()}`)
       .then(r => setAllTemplates(addCheck(r.data)))
       .catch(e => toast.error(e.response.data.message))
       .finally(() => setLoading(false));
     setSelectedCount(0)
   }, [templateStatus])
+
+  // useEffect(() => {
+  //   navigate(-1)
+  // }, []);
+
   const handleSubmit = (name, type) => {
     if (name === 'cancel') {
       setDuplicate({
