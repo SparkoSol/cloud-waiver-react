@@ -8,11 +8,10 @@ import {
   UserIcon,
   UsersIcon,
 } from "@heroicons/react/24/outline";
-import { AdjustmentsVerticalIcon } from "@heroicons/react/20/solid";
+import {AdjustmentsVerticalIcon} from "@heroicons/react/20/solid";
 import toast from "react-hot-toast";
 import Control from "formBuilder/src/js/control";
-import { getRequest, patchRequest } from "../redux/cwAPI";
-import { hideList } from "./builder";
+import {getRequest, patchRequest} from "../redux/cwAPI";
 
 export function generateMonths(number) {
   const months = ["Month"];
@@ -66,7 +65,7 @@ export const capitalize = (string) => {
 };
 export const addCheck = (arr) => {
   return arr.map((item) => {
-    return { ...item, checked: false };
+    return {...item, checked: false};
   });
 };
 
@@ -92,7 +91,7 @@ export function dataURLtoFile(dataurl, filename) {
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n);
   }
-  return new File([u8arr], filename, { type: mime });
+  return new File([u8arr], filename, {type: mime});
 }
 
 //custom component logics
@@ -119,7 +118,8 @@ class SignatureControls extends Control {
     };
   }
 
-  configure() {}
+  configure() {
+  }
 
   // Method to build and return a DOM element representing the control
   build() {
@@ -132,7 +132,8 @@ class SignatureControls extends Control {
     };
   }
 
-  onRender(event) {}
+  onRender(event) {
+  }
 }
 
 Control.register("signature", SignatureControls);
@@ -280,16 +281,16 @@ export const staticForm = [
   },
 ];
 export const tabsData = [
-  { name: "Overview", id: 1, url: "overview" },
-  { name: "Submissions", id: 2, url: "submissions" },
-  { name: "Builder", id: 3, url: "builder" },
-  { name: "Integrations", id: 4, url: "integration" },
-  { name: "Settings", id: 4, url: "setting" },
+  {name: "Overview", id: 1, url: "overview"},
+  {name: "Submissions", id: 2, url: "submissions"},
+  {name: "Builder", id: 3, url: "builder"},
+  {name: "Integrations", id: 4, url: "integration"},
+  {name: "Settings", id: 4, url: "setting"},
 ];
 
 export const formatDate = (date) => {
   const originalDate = new Date(date);
-  const options = { year: "numeric", month: "short", day: "2-digit" };
+  const options = {year: "numeric", month: "short", day: "2-digit"};
   return originalDate.toLocaleDateString("en-US", options);
 };
 
@@ -301,10 +302,9 @@ export const filterWaivers = (waivers, filters) => {
     year = null,
     template = null,
   } = filters;
-
-  return waivers.filter((item) => {
+  const temp = waivers.filter((item) => {
     const hasMatchingStatus =
-      status === "Status" || item.status === status.toLowerCase();
+      status === "All" || item.status === status.toLowerCase();
     const hasMatchingSearch =
       !search ||
       item.reference_no?.toLowerCase().includes(search) ||
@@ -334,6 +334,7 @@ export const filterWaivers = (waivers, filters) => {
     }
     return hasMatchingStatus && hasMatchingSearch;
   });
+  return temp
 };
 
 export function searchWaiver(search, customers) {
@@ -398,7 +399,7 @@ export function convertToObjects(items) {
   if (!items) {
     return [];
   }
-  return items.map((myId) => ({ price_id: myId }));
+  return items.map((myId) => ({price_id: myId}));
 }
 
 export function recursiveFunction(state, setSwitchState, recursionCount = 0) {

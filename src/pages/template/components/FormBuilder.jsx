@@ -1,26 +1,17 @@
 import $ from "jquery";
-import React, { createRef, useEffect, useState } from "react";
-import {
-  capitalize,
-  makeTemplate,
-  staticForm,
-} from "../../../utils/generalFunctions";
+import React, {createRef, useEffect, useState} from "react";
+import {capitalize, staticForm,} from "../../../utils/generalFunctions";
 import Button from "../../../components/Button";
-import { TrashIcon } from "@heroicons/react/24/outline";
-import { patchRequest } from "../../../redux/cwAPI";
-import { Link, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  resetStatus,
-  selectSingleWaiver,
-  selectWaiverStatus,
-} from "../../../redux/waivers/waiverSlice";
+import {TrashIcon} from "@heroicons/react/24/outline";
+import {patchRequest} from "../../../redux/cwAPI";
+import {Link, useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {resetStatus, selectSingleWaiver, selectWaiverStatus,} from "../../../redux/waivers/waiverSlice";
 import Spinner from "../../../components/Spinner";
 import toast from "react-hot-toast";
 import Modal from "../../../components/modals/Modal";
-import { getSingleWaiver } from "../../../redux/waivers/waiverThunk";
-import tinymce from "tinymce";
-import { hideList, options } from "../../../utils/builder";
+import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
+import {hideList, options} from "../../../utils/builder";
 
 window.jQuery = $;
 window.$ = $;
@@ -37,9 +28,10 @@ const FormBuilder = () => {
   const [loading, setLoading] = useState(false);
   const [FormBuilder, setFormBuilder] = useState(null);
   const [openModal, setOpenModal] = useState(false);
-  const { id } = useParams();
+  const {id} = useParams();
   useEffect(() => {
     if (!FormBuilder?.formData && waiver && status === "fulfilled") {
+      console.log('called')
       setFormBuilder(
         $(fb.current).formBuilder({
           disabledActionButtons: ["data", "clear", "save"],
@@ -72,7 +64,7 @@ const FormBuilder = () => {
     let jsonData = JSON.parse(FormBuilder.formData);
     let textAreaArr = document.querySelectorAll(".textarea-selector")[0];
     if (textAreaArr && jsonData) {
-      const richEditor = tinymce.get(textAreaArr.id);
+      // const richEditor = tinymce.get(textAreaArr.id);
       jsonData.map((item, index) => {
         if (item.type === "richTextEditor") {
           jsonData[index]["userData"] = <p>Start Typing here...</p>;
@@ -80,16 +72,16 @@ const FormBuilder = () => {
         return item;
       });
     }
-    patchRequest(`/waivers/${id}`, { form_data: jsonData })
+    patchRequest(`/waivers/${id}`, {form_data: jsonData})
       .then(() => toast.success("Saved Successfully"))
       .catch((e) => toast.error(e.response.data.message))
       .finally(() => {
         setOpenModal(false);
-        dispatch(getSingleWaiver(id));
+        dispatch(getSingleWaiver(id)).finally(() => dispatch(resetStatus()));
         !status && setLoading(false);
       });
     if (status) {
-      patchRequest(`/waivers/${id}`, { status: "published" }).finally(() =>
+      patchRequest(`/waivers/${id}`, {status: "published"}).finally(() =>
         setLoading(false),
       );
     }
@@ -107,7 +99,8 @@ const FormBuilder = () => {
           iconClasses="text-red-500"
         />
         <div className="flex gap-3 items-center flex-wrap">
-          <span className="text-yellow-800 text-sm font-semibold px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900 grow sm:grow-0">
+          <span
+            className="text-yellow-800 text-sm font-semibold px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900 grow sm:grow-0">
             {capitalize(waiver?.status)}
           </span>
           {waiver?.status !== "draft" && (
@@ -144,7 +137,7 @@ const FormBuilder = () => {
           )}
         </div>
       </div>
-      <div ref={fb} />
+      <div ref={fb}/>
       <Modal
         open={openModal}
         setOpen={setOpenModal}
@@ -164,7 +157,7 @@ const FormBuilder = () => {
         description="Do you want to proceed with this action? This cannot be undone."
         title="Are you sure?"
       />
-      {loading && <Spinner />}
+      {loading && <Spinner/>}
     </div>
   );
 };

@@ -1,16 +1,16 @@
 import Button from "../../components/Button.jsx";
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Input from "../../components/inputs/Input.jsx";
-import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
-import { login } from "../../redux/user/userThunk.js";
+import {EnvelopeIcon, LockClosedIcon} from "@heroicons/react/24/outline";
+import {login} from "../../redux/user/userThunk.js";
 import FormLayout from "../../components/Form.jsx";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useRef, useState} from "react";
 import SideBarAdd from "./components/SideBarAdd.jsx";
 import Spinner from "../../components/Spinner.jsx";
 import VerificationModal from "../../components/modals/VerificationModal.jsx";
-import { resetUser, selectCurrentUser } from "../../redux/user/userSlice.js";
-import { persistor } from "../../redux/store";
+import {resetUser, selectCurrentUser} from "../../redux/user/userSlice.js";
+import {persistor} from "../../redux/store";
 
 const LoginForm = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -65,8 +65,8 @@ const LoginForm = () => {
         dispatch(resetUser());
         persistor.purge();
         localStorage.removeItem("cw-access-token");
-        // window.location.href = `https://${workspaces[0].domain}.cloudwaiver.com/dashboard?token=${token}`;
-        window.location.href = `http://${workspaces[0].domain}.localhost:3333/dashboard?token=${token}`;
+        window.location.href = `https://${workspaces[0].domain}.cloudwaiver.com/dashboard?token=${token}`;
+        // window.location.href = `http://${workspaces[0].domain}.localhost:3333/dashboard?token=${token}`;
       } else {
         navigate("/domain/select");
       }

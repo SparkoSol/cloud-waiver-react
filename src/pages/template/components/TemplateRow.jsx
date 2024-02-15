@@ -17,12 +17,12 @@ const TemplateRow = ({item, functionCall, index, deleteRow, customOpenModal}) =>
   const permissions = useSelector(allPermissions);
   return (
     <tr>
-      <td className='p-4 font-semibold text-sm text-gray-900 whitespace-nowrap'>
+      {item.status !== 'archived' && <td className='p-4 font-semibold text-sm text-gray-900 whitespace-nowrap'>
         <div className="flex items-center max-w-fit">
           <CheckboxInput label='selectAll' extraClasses='hidden' checked={item.checked}
                          onChange={() => functionCall(index)}/>
         </div>
-      </td>
+      </td>}
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{limitChars(item.name, 30)}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.total_submissions}</td>
       <td className='py-4 px-3 text-sm text-gray-900 whitespace-nowrap'>
@@ -46,11 +46,11 @@ const TemplateRow = ({item, functionCall, index, deleteRow, customOpenModal}) =>
           </Link>
           {/*window.location.assign(`/templates/${item._id}/builder`)*/}
           {permissions.includes("template_editing") &&
-            <Link to={`/templates/${item._id}/builder`} className='cursor-pointer' >
-            <abbr title='Edit Template'>
-              <PencilSquareIcon className='w-5 h-5 text-gray-600'/>
-            </abbr>
-          </Link>}
+            <Link to={`/templates/${item._id}/builder`} className='cursor-pointer'>
+              <abbr title='Edit Template'>
+                <PencilSquareIcon className='w-5 h-5 text-gray-600'/>
+              </abbr>
+            </Link>}
           {permissions.includes("template_creation") && <button onClick={e => customOpenModal(true, index)}>
             <abbr title='Duplicate Template'><DocumentDuplicateIcon className='w-5 h-5 text-gray-600'/></abbr>
           </button>}

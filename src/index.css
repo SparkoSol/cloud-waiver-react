@@ -56,13 +56,19 @@ li[type="address"] .field-label {
 .additionalMinors-field :is(.label-wrap, .description-wrap, .placeholder-wrap, .value-wrap),
 .capturePhoto-field :is(.description-wrap, .placeholder-wrap, .value-wrap),
 .filesUpload-field :is(.description-wrap, .placeholder-wrap, .value-wrap),
-.max-w-4xl.mx-auto.my-6.common label.formbuilder-richTextEditor-label{
+.max-w-4xl.mx-auto.my-6.common label.formbuilder-richTextEditor-label {
   display: none !important;
 }
 
 .form-wrap.form-builder .frmb .form-elements .false-label:first-child, .form-wrap.form-builder .frmb .form-elements label:first-child {
   white-space: pre-wrap !important;
 }
-.sign{
+
+.sign {
   overflow: hidden;
+}
+
+
+.tooltip-element {
+  display: none !important;
 }

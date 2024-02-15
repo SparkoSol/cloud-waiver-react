@@ -1,7 +1,7 @@
 import $ from "jquery";
 import tinymce from "tinymce";
 import toast from "react-hot-toast";
-import { additionMinorForm } from "./generalFunctions";
+import {additionMinorForm} from "./generalFunctions";
 
 export let staticData = [
   {
@@ -340,7 +340,6 @@ const templates = {
     };
   },
   richTextEditor: function (fieldData) {
-    console.log(fieldData);
     return {
       onRender: function () {
         let element = $(`.field-${fieldData.name}`);
@@ -370,7 +369,7 @@ const templates = {
             readonly: window.location.pathname.includes("view"),
           })
           .then((r) =>
-            tinymce.get(fieldData.name).setContent(fieldData.description),
+            fieldData.description && tinymce.get(fieldData.name).setContent(fieldData.description),
           )
           .catch((e) => console.log(e));
       },
