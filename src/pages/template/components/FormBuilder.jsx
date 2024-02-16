@@ -1,6 +1,6 @@
 import $ from "jquery";
 import React, {createRef, useEffect, useState} from "react";
-import {capitalize, staticForm,} from "../../../utils/generalFunctions";
+import {capitalize, makeTemplate, staticForm,} from "../../../utils/generalFunctions";
 import Button from "../../../components/Button";
 import {TrashIcon} from "@heroicons/react/24/outline";
 import {patchRequest} from "../../../redux/cwAPI";
@@ -31,7 +31,6 @@ const FormBuilder = () => {
   const {id} = useParams();
   useEffect(() => {
     if (!FormBuilder?.formData && waiver && status === "fulfilled") {
-      console.log('called')
       setFormBuilder(
         $(fb.current).formBuilder({
           disabledActionButtons: ["data", "clear", "save"],
@@ -53,6 +52,8 @@ const FormBuilder = () => {
         }),
       );
 
+      //to conditionally hide and show additional Participants
+      makeTemplate(waiver);
       //for template Gallery
       dispatch(resetStatus());
     }

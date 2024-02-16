@@ -43,7 +43,7 @@ const FileInput = ({label, fileInputRef, image}) => {
     if (image) {
       const img = new Image();
       img.src = image;
-      img.className = 'w-full h-full';
+      img.className = 'w-full h-full object-contain';
       imagePreviewRef.current.innerHTML = '';
       imagePreviewRef.current.appendChild(img);
     }

@@ -4,10 +4,13 @@ import {getRequest} from "../../../redux/cwAPI";
 import {useEffect, useState} from "react";
 import toast from 'react-hot-toast';
 import Spinner from "../../../components/Spinner";
+import {useParams} from "react-router-dom";
 
 const SuccessState = () => {
   const [companyName, setCompanyName] = useState('');
   const [loading, setLoading] = useState(false);
+  const {id} = useParams();
+
   useEffect(() => {
     setLoading(true);
     getRequest('/persons/company-details')
@@ -36,7 +39,7 @@ const SuccessState = () => {
           </p>
           <div className="mt-10 text-center">
             <Button btnText='Submit another waiver' btnClasses='bg-green-400' fullWidth='w-fit mx-auto'
-                    onClick={e => window.history.go(-1)}/>
+                    onClick={e => window.location.replace(`/template/${id}/public`)}/>
           </div>
         </div>
       </div>

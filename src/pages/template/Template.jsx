@@ -43,11 +43,7 @@ function Template() {
     setSelectedCount(0)
   }, [templateStatus])
 
-  // useEffect(() => {
-  //   navigate(-1)
-  // }, []);
-
-  const handleSubmit = (name, type) => {
+  const handleSubmit = async (name, type) => {
     if (name === 'cancel') {
       setDuplicate({
         btnText: 'Submit',
@@ -74,8 +70,7 @@ function Template() {
       allTemplates.forEach(item => {
         if (item.checked) {
           removedIds.push(item._id);
-        }
-        else{
+        } else {
           setAllTemplates(prev => [...prev, item])
         }
       });
@@ -88,8 +83,11 @@ function Template() {
         .finally(() => setLoading(false))
       return
     }
-    if (type === 'Duplicate Template') body = {...allTemplates[duplicate.index], name}
-    else body = {name}
+    if (type === 'Duplicate Template') {
+      const templateId = allTemplates[duplicate.index]._id;
+      const {data} = await getRequest(`/waivers/${templateId}`)
+      body = {...data, name}
+    } else body = {name}
     postRequest(`/waivers`, body)
       .then(r => navigate(`/templates/${r.data._id}/builder`))
       .catch(e => toast.error(e.response.data.message))

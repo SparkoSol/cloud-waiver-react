@@ -92,7 +92,7 @@ const SubmissionView = () => {
             break;
           case `${staticClass}additionalMinors`:
             let divElement = document.querySelectorAll(`.${staticClass}additionalMinors`)[tracker.additionalMinorsCount];
-            divElement.innerHTML = '';
+            divElement.innerHTML = `<label>Additional Minors</label>`;
             for (let j = 0; j < submissionData.data[i].userData.length; j++) {
               const tempContainer = document.createElement('div');
               tempContainer.innerHTML = additionMinorForm;
@@ -107,7 +107,7 @@ const SubmissionView = () => {
             break;
           case `${staticClass}additionalParticipants`:
             let div = document.querySelectorAll(`.${staticClass}additionalParticipants`)[tracker.additionalParticipantsCount];
-            div.innerHTML = '';
+            div.innerHTML = `<label>Additional Participants</label>`;
             for (let j = 0; j < submissionData.data[i].userData.length; j++) {
               const tempDiv = document.createElement('div');
               tempDiv.innerHTML = additionParticipantForm(submissionData.data[i].userData[j]);

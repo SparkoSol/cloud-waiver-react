@@ -55,6 +55,7 @@ const Customer = () => {
                inputClasses='rounded-md pl-11'
                extraClasses='w-fit inline-block mb-6'/>
         <DataTable TableRow={CustomersRow}
+                   colspan={0}
                    items={filteredCustomers}
                    setSelectAll={setSelectAll}
                    selectAll={selectAll}

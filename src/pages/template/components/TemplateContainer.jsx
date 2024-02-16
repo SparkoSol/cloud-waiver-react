@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {ArrowLeftIcon, CheckIcon, ClipboardIcon, PencilIcon} from "@heroicons/react/24/outline";
 import Tabs from "../../../components/Tabs";
 import {limitChars, tabsData} from "../../../utils/generalFunctions";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Spinner from "../../../components/Spinner";
 import {useDispatch, useSelector} from "react-redux";
 import {getSingleWaiver} from "../../../redux/waivers/waiverThunk";
@@ -19,15 +19,15 @@ const TemplateContainer = ({children}) => {
   const [copyState, setCopyState] = useState(false);
   const [loading, setLoading] = useState(false);
   const {id} = useParams();
+  const location = useLocation().pathname;
 
   const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
-    dispatch(getSingleWaiver(id))
-      .finally(() => setLoading(false))
+    dispatch(getSingleWaiver(id)).finally(() => setLoading(false))
     // eslint-disable-next-line
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     setTimeout(() => {

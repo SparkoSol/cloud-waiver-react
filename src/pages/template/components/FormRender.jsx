@@ -9,7 +9,7 @@ import Button from "../../../components/Button";
 import Spinner from "../../../components/Spinner";
 import {getDynamicTenantId, postRequest} from "../../../redux/cwAPI";
 import toast from 'react-hot-toast'
-import {events, initSignCode, options} from "../../../utils/builder";
+import {events, options} from "../../../utils/builder";
 import tinymce from "tinymce";
 
 window.jQuery = $; //JQuery alias
@@ -37,7 +37,7 @@ const FormRender = () => {
       waiver?.form_data
         .filter(item => item.type === 'richTextEditor')
         .forEach((filteredItem, index) => {
-          $(`#${textAreaArr[index].id}`).html(filteredItem.userData);
+          $(`#${textAreaArr[index].id}`).html(filteredItem.description);
         });
       recursiveFunction(null, setSwitchState)
     }
@@ -64,13 +64,10 @@ const FormRender = () => {
     allInputs.forEach(input => {
       if (input.value.trim() === '') {
         hasEmptyField = true;
+        toast.error('Required fields cannot be empty');
         return; // This will exit the loop early if an empty field is found
       }
     });
-    if (hasEmptyField) {
-      toast.error('Required fields cannot be empty');
-      return;
-    }
     setLoading(true)
     const htmlArr = $(fb.current).formRender("userData");
     let hasEmail = {};
@@ -93,8 +90,9 @@ const FormRender = () => {
         case 'signature':
           let signNode = document.querySelectorAll('.main .js-signature')[tracker.signatureCount];
           //check if it is required
+          const isDirty = $(signNode.closest('.formbuilder-signature')).find('.js-signature').attr('data-dirty');
           label = signNode.closest('.formbuilder-signature').firstChild.lastChild?.classList;
-          if ($(signNode).jqSignature('getDataURL') === initSignCode && label) {
+          if (!isDirty && label) {
             toast.error('Signature is required.')
             setLoading(false)
             $(fb.current).find('input').prop('disabled', false);
@@ -114,8 +112,8 @@ const FormRender = () => {
           label = formElements.parentNode.firstChild.lastChild?.classList;
           const formData = {};
           for (const element of formElements) {
-            if (element.value.trim() === '' && label) {
-              toast.error(`${item.type === 'primaryAdultParticipant' ? 'Adult Participants' : 'Address'} cannot be empty`);
+            if (element.value.trim() === '' && label && element.type !== 'button') {
+              toast.error(`${item.type === 'primaryAdultParticipant' ? 'Adult Participants' : 'Address'} cannot be empty.`);
               setLoading(false);
               $(fb.current).find('input').prop('disabled', false);
               breakLoop = true
@@ -125,12 +123,12 @@ const FormRender = () => {
           }
           if (breakLoop) return
           item.userData = formData;
-          if (signatureComponent) {
+          if (signatureComponent && item.type === 'primaryAdultParticipant') {
             hasEmail['first_name'] = formData.f_name;
             hasEmail['last_name'] = formData.l_name;
             hasEmail['phone'] = formData.phone;
-            let signCode = signatureComponent.jqSignature('getDataURL');
-            if (signCode === initSignCode) {
+            const isDirty = formElements.querySelector('[data-dirty]');
+            if (!isDirty) {
               toast.error('Adult Participants cannot be empty');
               setLoading(false);
               $(fb.current).find('input').prop('disabled', false);
@@ -215,9 +213,9 @@ const FormRender = () => {
           let itemData = document.querySelector('div[role="application"] table');
           $(fb.current).find('input').prop('disabled', true);
           if (itemData) {
-            item.userData = document.querySelector('div[role="application"]').outerHTML;
+            item.description = document.querySelector('div[role="application"]').outerHTML;
           } else {
-            item.userData = richEditor.getContent();
+            item.description = richEditor.getContent();
           }
           tracker.richTextEditorCount += 1;
           break

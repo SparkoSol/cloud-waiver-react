@@ -10,19 +10,19 @@ const Tabs = ({tabs}) => {
         data-current-tab={tab.name}
         key={tab.name}
         to={`/templates/${id}/${tab.url}`}
-        onClick={tab.name === 'Builder' ? (e) => {
-          const values = window.location.href.split('/')
-          let url = ''
-          values.forEach((value, index) => {
-            if (index === values.length - 1) url += 'builder'
-            else if (index === 1) {
-              url += `/`
-            } else {
-              url += `${value}/`
-            }
-          })
-          window.location.assign(url)
-        } : null}
+        // onClick={tab.name === 'Builder' ? (e) => {
+        //   const values = window.location.href.split('/')
+        //   let url = ''
+        //   values.forEach((value, index) => {
+        //     if (index === values.length - 1) url += 'builder'
+        //     else if (index === 1) {
+        //       url += `/`
+        //     } else {
+        //       url += `${value}/`
+        //     }
+        //   })
+        //   window.location.assign(url)
+        // } : null}
         className={twMerge(`
            text-gray-500  inline-block flex items-center p-4 rounded-t-lg hover:text-gray-600 space-x-2 
            ${(pathname.includes(tab.url)) && 'border-b-4 border-bgDark hover:border-gray-500 text-gray-900 hover:text-gray-600'}`)}

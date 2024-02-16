@@ -12,6 +12,7 @@ import {AdjustmentsVerticalIcon} from "@heroicons/react/20/solid";
 import toast from "react-hot-toast";
 import Control from "formBuilder/src/js/control";
 import {getRequest, patchRequest} from "../redux/cwAPI";
+import {hideList} from "./builder";
 
 export function generateMonths(number) {
   const months = ["Month"];
@@ -433,7 +434,7 @@ export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
   }, 500);
 }
 
-export function makeTemplate(waiver) {
+export function makeTemplate(waiver, recursionCount = 0) {
   // console.log(waiver);
   // let iframe = document.querySelector('iframe[title="Rich Text Area"]');
   // if (!iframe) {
@@ -443,45 +444,41 @@ export function makeTemplate(waiver) {
   // } else {
   //   const richEditor = iframe.contentWindow.document.querySelector("body");
   // }
-  // if (recursionCount > 30) {
-  //   console.warn("Recursion limit reached. Returning nothing.");
-  //   return;
-  // }
+  if (recursionCount > 30) {
+    console.log("Recursion limit reached. Returning nothing.");
+    return;
+  }
   //
-  // const formWrap = document.querySelector('.form-wrap');
-  //
-  // if (!isEmptyObject(waiver) && formWrap) {
-  //   hideList('none');
-  //
-  //   formWrap.addEventListener('click', function (e) {
-  //     const targetDataAttr = e.target.closest('.input-control')?.getAttribute('data-type');
-  //     const parentClassList = e.target.parentNode?.parentNode?.classList;
-  //
-  //     if (targetDataAttr === 'primaryAdultParticipant' || (parentClassList && parentClassList[0] === 'primaryAdultParticipant-field')) {
-  //       hideList(targetDataAttr === 'primaryAdultParticipant' ? 'none' : 'block');
-  //     }
-  //   });
-  //
-  //   if (hasTable && textAreaElements.length > 0) {
-  //     waiver?.form_data
-  //       .filter(item => item.type === 'richTextEditor')
-  //       .forEach((filteredItem, index) => {
-  //         textAreaElements[index].innerHTML = filteredItem.userData;
-  //       });
-  //   }
-  //
-  //   if (hasTable) {
-  //     makeTemplate(waiver, document.querySelectorAll('.textarea-selector'), hasTable, recursionCount + 1);
-  //   }
-  //
-  //   return;
-  // }
-  //
-  // setTimeout(function () {
-  //   const newTextAreas = document.querySelectorAll('.textarea-selector');
-  //   const newHasTable = document.querySelector('iframe[title="Rich Text Area"]');
-  //   makeTemplate(waiver, newTextAreas, newHasTable, recursionCount + 1);
-  // }, 500);
+  const formWrap = document.querySelector('.form-wrap');
+  if (!isEmptyObject(waiver) && formWrap) {
+    hideList('none');
+
+    formWrap.addEventListener('click', function (e) {
+      const targetDataAttr = e.target.closest('.input-control')?.getAttribute('data-type');
+      const parentClassList = e.target.parentNode?.parentNode?.classList;
+
+      if (targetDataAttr === 'primaryAdultParticipant' || (parentClassList && parentClassList[0] === 'primaryAdultParticipant-field')) {
+        hideList(targetDataAttr === 'primaryAdultParticipant' ? 'none' : 'block');
+      }
+    });
+    //
+    //   if (hasTable && textAreaElements.length > 0) {
+    //     waiver?.form_data
+    //       .filter(item => item.type === 'richTextEditor')
+    //       .forEach((filteredItem, index) => {
+    //         textAreaElements[index].innerHTML = filteredItem.userData;
+    //       });
+    //   }
+    //
+    //   if (hasTable) {
+    //     makeTemplate(waiver, document.querySelectorAll('.textarea-selector'), hasTable, recursionCount + 1);
+    //   }
+    //
+    return;
+  }
+  setTimeout(function () {
+    makeTemplate(waiver, recursionCount + 1);
+  }, 500);
 }
 
 export default function secondsToDate(timestamp) {

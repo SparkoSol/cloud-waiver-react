@@ -1,4 +1,4 @@
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import Input from "../../components/inputs/Input.jsx";
 import Heading from "../../components/Heading.jsx";
 import Button from "../../components/Button.jsx";
@@ -6,12 +6,14 @@ import {updateProfile} from "../../redux/user/userThunk.js";
 import toast from "react-hot-toast";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentUser} from "../../redux/user/userSlice.js";
+import Spinner from "../../components/Spinner";
 
 const UpdatePassword = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const password = useRef();
   const confirmPassword = useRef();
+  const [loading, setLoading] = useState(false);
 
   const data = [
     {
@@ -38,10 +40,11 @@ const UpdatePassword = () => {
       toast.error("Passwords don't match")
       return
     }
+    setLoading(true);
     const body = {
       password: password.current.value,
     };
-    dispatch(updateProfile({body, _id: currentUser._id}));
+    dispatch(updateProfile({body, _id: currentUser._id})).finally(() => setLoading(false));
   }
 
   return (
@@ -68,6 +71,7 @@ const UpdatePassword = () => {
           <Button btnText='Save' btnClasses='bg-btnBg px-6 py-2'/>
         </div>
       </form>
+      {loading && <Spinner/>}
     </>
   )
 }
