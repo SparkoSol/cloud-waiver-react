@@ -60,10 +60,10 @@ const FormRender = () => {
   const saveData = async () => {
     const mainForm = document.querySelector('.rendered-form');
     let allInputs = mainForm.querySelectorAll('input[required]');
-    let hasEmptyField = false;
+    // let hasEmptyField = false;
     allInputs.forEach(input => {
       if (input.value.trim() === '') {
-        hasEmptyField = true;
+        // hasEmptyField = true;
         toast.error('Required fields cannot be empty');
         return; // This will exit the loop early if an empty field is found
       }

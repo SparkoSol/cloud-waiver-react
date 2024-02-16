@@ -68,8 +68,6 @@ const CreateTeam = () => {
     }
   }
 
-  // function
-
   return (
     <section>
       <Button btnText='Go Back' onClick={e => navigate(-1)} BtnIcon={ArrowLeftIcon} iconClasses='w-4 h-4 text-gray-600'

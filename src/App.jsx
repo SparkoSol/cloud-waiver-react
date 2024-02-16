@@ -40,15 +40,8 @@ import CustomerSubmissions from "./pages/customerSubmission/CustomerSubmissions"
 import Configure from "./pages/integrations-new/Configure";
 import TemplateGallery from "./pages/templateGallery/TemplateGallery";
 import Preview from "./pages/preview/Preview";
-import AdminDashboard from "./pages/adminDashboard/AdminDashboard";
 
 const router = createBrowserRouter([
-  // Admin Routes
-  {
-    path: '/admin-dashboard', element: (<ProtectedRoute>
-      <AdminDashboard/>
-    </ProtectedRoute>),
-  },
   //client Routes
   {
     path: '/', element: (<Login/>),
