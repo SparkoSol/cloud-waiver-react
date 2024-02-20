@@ -64,21 +64,22 @@ const Submissions = ({currentTab = ''}) => {
                     <QRModal setOpen={setOpen} open={open}/>
                 </div>
             </div>}
-            <div className='flex'>
+            <div className='flex flex-wrap gap-4 justify-center'>
                 <div className='grow flex items-center gap-3'>
                     <Input placeholder='Search' onChange={e => setSearch(e.target.value)} BtnIcon={MagnifyingGlassIcon}
                            extraClasses='w-fit inline-block grow sm:grow-0' inputClasses='rounded-md pl-11'/>
-                    <SelectInput extraClasses='w-1/2 sm:w-1/6 grow sm:grow-0' isRelative={false}
+                    <SelectInput extraClasses='w-32 grow sm:grow-0' isRelative={false}
                                  options={['All','Submitted', 'Approved', 'Declined', 'Pending']}
                                  setState={setStatus}
                                  state={status}/>
                 </div>
                 <div className='flex gap-3 items-center'>
                     {selectedCount > 0 && <>
-                        <span className='text-gray-500'>Selected : {selectedCount}</span>
-                        <Button btnText='Approve' btnClasses='bg-green-700' fullWidth='w-fit'
+                        <Button btnText={`Approve (${selectedCount})`}
+                                btnClasses='bg-green-700 text-xs whitespace-nowrap px-2.5 py-1.5 sm:text-sm px-4 py-2' fullWidth='w-fit'
                                 onClick={() => updateAllSubmission('approved', setSwitchState, setSelectedCount, setLoading, filteredWaivers)}/>
-                        <Button btnText='Decline' btnClasses='bg-red-500' fullWidth='w-fit'
+                        <Button btnText={`Decline (${selectedCount})`}
+                                btnClasses='bg-red-500 text-xs whitespace-nowrap px-2.5 py-1.5 sm:text-sm px-4 py-2' fullWidth='w-fit'
                                 onClick={() => updateAllSubmission('declined', setSwitchState, setSelectedCount, setLoading, filteredWaivers)}/>
                     </>}
                 </div>

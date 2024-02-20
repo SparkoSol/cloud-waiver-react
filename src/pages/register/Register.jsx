@@ -121,7 +121,7 @@ const RegisterForm = () => {
   }
 
   return (
-    <section className='flex justify-center items-center w-full min-h-screen bg-gray-200 shadow-md py-6'>
+    <section className='flex justify-center items-center w-full min-h-screen bg-gray-200 shadow-md'>
       <div className='flex w-11/12 sm:w-8/12 border rounded-3xl bg-white'>
         <FormLayout handleSubmit={handleSubmit}
                     title='Welcome to Cloud Waiver'
@@ -150,7 +150,7 @@ const RegisterForm = () => {
             </div>
           </div>
           <div className='flex mb-2 ml-2 block text-xs text-gray-500 font-normal'>
-            <CheckboxInput label='I accept the ' link='terms and conditions' url='/' extraClasses='text-xs'
+            <CheckboxInput label='I accept the ' link='terms and conditions' url='https://cloudwaiver.com/privacy-policy' extraClasses='text-xs'
                            required={true}/>
           </div>
           <Button btnText='Get Started' fullWidth='w-9/12 mx-auto my-4'

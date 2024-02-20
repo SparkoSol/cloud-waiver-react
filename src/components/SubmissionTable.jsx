@@ -130,8 +130,8 @@ const SubmissionTable = ({title}) => {
 
   return (
     <>
-      <div className='flex justify-between'>
-        <h1 className='text-xl font-semibold my-5'>{title}</h1>
+      <div className='flex justify-between gap-3 flex-wrap my-5'>
+        <h1 className='text-xl font-semibold'>{title}</h1>
         <div className='flex items-center gap-1'>
           {selectedCount > 0 && <>
             <Button btnText={`Approve (${selectedCount})`}

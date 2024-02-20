@@ -1,4 +1,3 @@
-import {Link} from "react-router-dom";
 import {twMerge} from "tailwind-merge";
 
 const CheckboxInput = ({
@@ -22,7 +21,7 @@ const CheckboxInput = ({
       />
       {label && <label className={twMerge(`block text-gray-500 font-normal cursor-pointer ${extraClasses}`)}
                        htmlFor={label.toLowerCase()}>{label}
-        {link && <Link className='font-bold text-blue-600' to={url}> terms and conditions</Link>}
+        {link && <a className='font-bold text-blue-600' href={url}> terms and conditions</a>}
       </label>}
     </div>
   )

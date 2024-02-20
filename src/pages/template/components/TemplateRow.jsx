@@ -27,7 +27,8 @@ const TemplateRow = ({item, functionCall, index, deleteRow, customOpenModal}) =>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.total_submissions}</td>
       <td className='py-4 px-3 text-sm text-gray-900 whitespace-nowrap'>
         <span
-          className='bg-yellow-100 text-yellow-800 text-xs font-bold px-2.5 py-0.5 rounded '>{capitalize(item.status)}</span>
+          className={`text-xs font-bold px-2.5 py-0.5 rounded
+           ${item.status === 'draft' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}`}>{capitalize(item.status)}</span>
       </td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>
         <div className="flex items-center justify-center gap-3">
