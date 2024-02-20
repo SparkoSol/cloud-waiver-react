@@ -23,14 +23,14 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
   const [usage, setUsage] = useState([
     {
-      id: 1, title: 'Usage', value: '00', icon: '/database.svg'
+      id: 1, title: 'Usage', value: '0', icon: '/database.svg'
     }, {
-      id: 2, title: 'Templates', value: '00', icon: '/wallet.svg'
+      id: 2, title: 'Templates', value: '0', icon: '/wallet.svg'
     }, {
-      id: 3, title: 'Signed', value: '00', icon: '/pulse.svg'
+      id: 3, title: 'Signed', value: '0', icon: '/pulse.svg'
     },
     {
-      id: 4, title: 'Customers', value: '00', icon: '/user.png'
+      id: 4, title: 'Customers', value: '0', icon: '/user.png'
     }
   ])
 
@@ -66,7 +66,12 @@ const Dashboard = () => {
       setLoading(true)
       const {data} = await getRequest('/dashboard')
       setUsage([
-        {id: 1, title: 'Usage', value: `${data.usage} / ${data.usageLimit}`, icon: '/database.svg'},
+        {
+          id: 1,
+          title: 'Usage',
+          value: `${data.usage} ${currentUser?.subscription ? `/ ${data.usageLimit}` : ''}`,
+          icon: '/database.svg'
+        },
         {id: 2, title: 'Templates', value: data.templates, icon: '/wallet.svg'},
         {id: 3, title: 'Signed', value: data.signed, icon: '/pulse.svg'},
         {id: 4, title: 'Customers', value: data.customers, icon: '/user.png'}
