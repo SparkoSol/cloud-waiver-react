@@ -28,7 +28,7 @@ const ForgotPassword = () => {
   }
 
   return (
-    <section className='flex justify-center items-center w-full min-h-screen bg-gray-200 py-6'>
+    <section className='flex justify-center items-center w-full min-h-screen bg-gray-200'>
       <div className='flex w-11/12 sm:w-8/12 border rounded-3xl bg-white shadow-md'>
         <FormLayout handleSubmit={handleSubmit}
                     title='Reset password'

@@ -435,15 +435,6 @@ export function recursiveFunction(state, setSwitchState, recursionCount = 0) {
 }
 
 export function makeTemplate(waiver, recursionCount = 0) {
-  // console.log(waiver);
-  // let iframe = document.querySelector('iframe[title="Rich Text Area"]');
-  // if (!iframe) {
-  //   setTimeout(() => {
-  //     makeTemplate(waiver);
-  //   }, 500);
-  // } else {
-  //   const richEditor = iframe.contentWindow.document.querySelector("body");
-  // }
   if (recursionCount > 30) {
     console.log("Recursion limit reached. Returning nothing.");
     return;
@@ -483,15 +474,6 @@ export function makeTemplate(waiver, recursionCount = 0) {
 
 export default function secondsToDate(timestamp) {
   const date = new Date(timestamp * 1000);
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
-  return `${year}-${month < 10 ? "0" : ""}${month}-${
-    day < 10 ? "0" : ""
-  }${day} ${hours < 10 ? "0" : ""}${hours}:${
-    minutes < 10 ? "0" : ""
-  }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  const options = { year: "numeric", month: "short", day: "2-digit" };
+  return date.toLocaleDateString("en-US", options);
 }

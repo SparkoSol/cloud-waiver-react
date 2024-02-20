@@ -52,7 +52,7 @@ const Management = () => {
   }
   return (
     <>
-      <section className='p-6 space-y-6'>
+      <section className='sm:p-6 space-y-6'>
         <div className='flex justify-between items-center gap-3 flex-wrap'>
           <Heading title='Team'
                    subtitle='A list of all the users in your account including their name, title, email and role.'

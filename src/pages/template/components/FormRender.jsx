@@ -82,9 +82,11 @@ const FormRender = () => {
       richTextEditorCount: 0,
       timeCount: 0,
       fileUpload: 0,
-      dateOfBirthCount:0
+      dateOfBirthCount: 0
     }
+    console.log(htmlArr)
     for (let item of htmlArr) {
+      console.log('item', item)
       let label = '';
       switch (item.type) {
         case 'signature':
@@ -131,7 +133,6 @@ const FormRender = () => {
             if (!isDirty) {
               toast.error('Adult Participants cannot be empty');
               setLoading(false);
-              $(fb.current).find('input').prop('disabled', false);
               return
             }
             item.userData = {
@@ -273,7 +274,7 @@ const FormRender = () => {
             return;
           }
           item.userData = dob.value || ''
-          tracker.dateOfBirthCount ++
+          tracker.dateOfBirthCount++
           break
         case 'text':
           if (item.name === 'livery-f-name') {
@@ -296,7 +297,10 @@ const FormRender = () => {
       navigate(`/template/${id}/submission`);
       localStorage.setItem('ref', r.data.reference_no)
     })
-      .catch(e => toast.error(e.response.data.message))
+      .catch(e => {
+        toast.error(e.response.data.message);
+        window.location.reload();
+      })
       .finally(() => setLoading(false));
   }
 

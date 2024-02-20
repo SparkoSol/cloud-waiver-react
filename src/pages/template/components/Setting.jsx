@@ -80,6 +80,7 @@ const Setting = () => {
         new_waiver_notification: emailRef.current.value.split(',')
       }
     }
+    if (emailRef.current.value.length === 0) delete body.setting.new_waiver_notification;
     await patchRequest(`/waivers/${id}`, body).then(r => toast.success('Updated Successfully'))
       .catch(e => toast.error(e.response.data.message)).finally(() => setLoading(false))
   }
@@ -97,7 +98,7 @@ const Setting = () => {
             </div>
             <div className='mt-4 md:mt-0 sm:px-6'>
               {item.id === 4 ?
-                <Input placeholder='eg. john@doe.com, smith@sam.com' label='Email Addresses'
+                <Input placeholder='eg. john@doe.com, smith@sam.com' label='Email Addresses' required={false}
                        extraClasses='font-medium text-gray-500' inputClasses='pl-3'
                        inputRef={emailRef}/>
                 : <ToggleButton enabled={item.state} setEnabled={item.setState}/>}

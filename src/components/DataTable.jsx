@@ -128,7 +128,7 @@ const DataTable = ({
                     scope="col"
                     className={`py-3 text-center px-4 ${bordered ? 'border border-gray-300' : ''} whitespace-nowrap`}
                   >
-                    <div className='font-semibold text-sm'>
+                    <div className='text-sm'>
                       Actions
                     </div>
                   </th>}

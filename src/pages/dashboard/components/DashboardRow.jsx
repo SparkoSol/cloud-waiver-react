@@ -19,7 +19,6 @@ const DashboardRow = ({item, functionCall, index, deleteRow}) => {
                          onChange={() => functionCall(index)} disabled={item.status !== "submitted"}/>
         </div>
       </td>
-      {/*<td className='py-4 px-6 font-semibold text-sm text-gray-900 whitespace-nowrap'>{limitChars(item._id, 6)}</td>*/}
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{index + 1}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{formatDate(item.updatedAt)}</td>
       <td className='py-4 px-6 text-sm text-gray-900 whitespace-nowrap'>{item.customer?.first_name}</td>

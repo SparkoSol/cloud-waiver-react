@@ -49,7 +49,6 @@ const Billing = () => {
     }
   }, [currentUser]);
 
-
   return (
     <>
       {(loadingSlice || loading) && <Spinner/>}
@@ -61,8 +60,14 @@ const Billing = () => {
                      subTitleClasses='text-sm'/>
             {currentUser && !loadingSlice && <ul className='w-fit bg-red-100 p-4 rounded-lg grow sm:grow-0'>
               <li><strong className='w-24'>Status : </strong>{capitalize(currentStatus || 'Trial')}</li>
-              <li><strong className='w-24'>Trail Ends :
-              </strong> {currentUser.subscription?.trial_end ? secondsToDate(currentUser.subscription?.trial_end) : formatDate(currentUser.trial_until)}
+              <li>
+                {
+                  currentUser.subscription ? (
+                    currentUser.subscription.status !== 'trialing' ?
+                      <strong className='w-24'>Period Ends : <span className='font-normal'>{secondsToDate(currentUser.subscription?.current_period_end)}</span> </strong>
+                      : <strong className='w-24'>Trail Ends : <span className='font-normal'>{secondsToDate(currentUser.subscription?.trial_end)}</span></strong>
+                  ) : <strong className='w-24'>Trail Ends <span className='font-normal'>{formatDate(currentUser.trial_until)}</span></strong>
+                }
               </li>
             </ul>}
           </div>

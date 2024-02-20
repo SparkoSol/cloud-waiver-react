@@ -5,7 +5,7 @@ import React, {useEffect, useState} from "react";
 import Input from "../../../components/inputs/Input";
 import DataTable from "../../../components/DataTable";
 import SelectInput from "../../../components/inputs/SelectInput";
-import {addCheck, filterWaivers, updateAllSubmission} from "../../../utils/generalFunctions";
+import {addCheck, DashBoardHeaders, filterWaivers, updateAllSubmission} from "../../../utils/generalFunctions";
 import DashboardRow from "../../dashboard/components/DashboardRow";
 import QRModal from "../../../components/modals/QRModal";
 import {getRequest, patchRequest} from "../../../redux/cwAPI";
@@ -15,7 +15,7 @@ import {useParams} from "react-router-dom";
 
 const Submissions = ({currentTab = ''}) => {
     const [open, setOpen] = useState(false);
-    const [status, setStatus] = useState('Status');
+    const [status, setStatus] = useState('All');
     const [allWaivers, setAllWaivers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [filteredWaivers, setFilteredWaivers] = useState([]);
@@ -68,8 +68,8 @@ const Submissions = ({currentTab = ''}) => {
                 <div className='grow flex items-center gap-3'>
                     <Input placeholder='Search' onChange={e => setSearch(e.target.value)} BtnIcon={MagnifyingGlassIcon}
                            extraClasses='w-fit inline-block grow sm:grow-0' inputClasses='rounded-md pl-11'/>
-                    <SelectInput extraClasses='w-1/6 grow sm:grow-0' isRelative={false}
-                                 options={['Submitted', 'Approved', 'Declined', 'Pending', 'Status']}
+                    <SelectInput extraClasses='w-1/2 sm:w-1/6 grow sm:grow-0' isRelative={false}
+                                 options={['All','Submitted', 'Approved', 'Declined', 'Pending']}
                                  setState={setStatus}
                                  state={status}/>
                 </div>
@@ -86,7 +86,7 @@ const Submissions = ({currentTab = ''}) => {
             {
                 allWaivers.length > 0 ?
                     <DataTable
-                        headers={['Reference No', 'Signed Date', 'First Name', 'Last Name', 'Template Name', 'Status']}
+                        headers={DashBoardHeaders}
                         TableRow={DashboardRow} items={filteredWaivers} setSelectAll={setSelectAll}
                         selectAll={selectAll} deleteRow={updateSubmissionStatus} setSelectedCount={setSelectedCount}
                         setState={setFilteredWaivers}/> :

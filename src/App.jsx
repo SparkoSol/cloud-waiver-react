@@ -157,18 +157,21 @@ function App() {
   const currentUser = useSelector(selectCurrentUser);
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("token");
+  const isAdmin = urlParams.get("isAdmin")
   const isTemplatePath = pathname.includes('template');
   const isPdfPath = pathname.includes('pdf');
   const isKioskPath = pathname.includes('kiosk-preview');
   const isResetPath = pathname.includes('reset-password')
+  const isRegisterPath = pathname.includes('register')
   const isResetPasswordPath = pathname.includes('reset-password');
 
   useEffect(() => {
     //this executes on subdomain load
     if (code) localStorage.setItem("cw-access-token", code);
+    if (isAdmin) localStorage.setItem("isAdmin", isAdmin);
     const token = localStorage.getItem("cw-access-token");
-    if (token || isTemplatePath || isPdfPath || isResetPasswordPath || isKioskPath) {
-      if (isEmptyObject(currentUser) && !isTemplatePath && !isPdfPath && !isKioskPath && !isResetPath) {
+    if (token || isTemplatePath || isPdfPath || isResetPasswordPath || isKioskPath || isRegisterPath) {
+      if (isEmptyObject(currentUser) && !isTemplatePath && !isPdfPath && !isKioskPath && !isResetPath && !isRegisterPath) {
         dispatch(userProfile(token));
       }
       const redirectTo = (window.location.pathname === "/" || window.location.pathname === "/dashboard") ? "/dashboard" : window.location.pathname + window.location.search;

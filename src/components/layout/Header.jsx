@@ -8,6 +8,7 @@ import {useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
 import ConfirmationModal from "../modals/ConfirmationModal";
 import {persistor} from "../../redux/store";
+import localStorage from "redux-persist/es/storage";
 
 const Header = ({setOpen}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +19,8 @@ const Header = ({setOpen}) => {
   const location = useLocation().pathname;
 
   useEffect(() => {
-    if (currentUser && currentUser.role) {
+    const isAdmin = localStorage.getItem('isAdmin');
+    if (currentUser && !isAdmin) {
       // incomplete, incomplete_expired, trialing, active, past_due, canceled, or unpaid.
       const trialEnd = new Date(currentUser.trial_until);
       const currentDate = new Date(); // current date

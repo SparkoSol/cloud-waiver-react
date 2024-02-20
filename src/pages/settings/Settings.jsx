@@ -47,7 +47,7 @@ const Account = () => {
       value: currentUser.username,
       type: 'email',
       placeholder: 'john@gmail.com',
-      class: "w-full sm:w-1/2 md:w-9/12"
+      class: "w-full sm:w-1/2 md:w-1/2"
     },
     {
       id: 4,

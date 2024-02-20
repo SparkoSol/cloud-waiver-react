@@ -60,7 +60,7 @@ const SubmissionTable = ({title}) => {
       })
       .catch(e => {
         setLoading(false);
-        toast.error(e.response.data.message)
+        toast.error(e.response?.data.message || 'Something went wrong!')
       })
     // eslint-disable-next-line
   }, [refetch]);
@@ -132,12 +132,13 @@ const SubmissionTable = ({title}) => {
     <>
       <div className='flex justify-between'>
         <h1 className='text-xl font-semibold my-5'>{title}</h1>
-        <div className='flex items-center gap-2'>
+        <div className='flex items-center gap-1'>
           {selectedCount > 0 && <>
-            <span className='text-gray-500'>Selected : {selectedCount}</span>
-            <Button btnText='Approve' btnClasses='bg-green-700' fullWidth='w-fit'
+            <Button btnText={`Approve (${selectedCount})`}
+                    btnClasses='bg-green-700 text-xs whitespace-nowrap px-2.5 py-1.5 sm:text-sm px-4 py-2' fullWidth='w-fit'
                     onClick={() => updateStatus('approved')}/>
-            <Button btnText='Decline' btnClasses='bg-red-500' fullWidth='w-fit'
+            <Button btnText={`Decline (${selectedCount})`}
+                    btnClasses='bg-red-500 text-xs whitespace-nowrap px-2.5 py-1.5 sm:text-sm px-4 py-2' fullWidth='w-fit'
                     onClick={() => updateStatus('declined')}/>
           </>}
         </div>

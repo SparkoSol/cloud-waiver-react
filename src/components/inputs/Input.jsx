@@ -23,15 +23,15 @@ const Input = ({
         <div className={twMerge(`w-full ${extraClasses}`)}>
             {label && <label className='block text-sm mb-1.5 font-semibold text-gray-500 text-start'
                              htmlFor={label.toLowerCase()}>{label}</label>}
-            <div className="relative shadow-sm">
+            <div className="relative">
                 {BtnIcon && <BtnIcon
                     className="pointer-events-none absolute inset-y-0 left-3 mt-px flex items-center text-btnBg w-5 h-5 transform translate-y-1/2"/>}
                 {type === 'password' && <EyeIcon onClick={togglePasswordVisibility}
                                                  className="absolute top-1/2 right-3 cursor-pointer mt-px flex items-center text-btnBg w-4 h-4 transform translate-y-[-50%]"/>}
                 <input ref={inputRef}
                        defaultValue={value}
-                       className={twMerge(`block w-full w-full p-2.5 rounded-md border border-gray-300 bg-gray-200
-               focus:border-gray-300 rounded-full focus-visible:outline-none text-sm text-gray-600 ${type === 'password' && 'pr-8'}
+                       className={twMerge(`block w-full p-2.5 rounded-md border border-gray-300
+               focus:border-gray-300 focus-visible:outline-none text-sm text-gray-600 ${type === 'password' && 'pr-8'}
                ${inputClasses ? inputClasses : 'pl-11'}`)}
                        id={placeholder} type={showPassword ? 'text' : type} name={label?.toLowerCase()}
                        required="required"

@@ -113,7 +113,7 @@ export function htmlModal(index) {
                     <!-- Modal content -->
                     <div class="relative bg-white rounded-lg shadow">
                         <!-- Modal header -->
-                        <div class="flex items-start justify-between p-4 border-b rounded-t ">
+                        <div class="flex items-start justify-between p-4 rounded-t ">
                             <h3 class="text-xl font-semibold text-gray-900 ">
                                 Sign your initial
                             </h3>
@@ -123,7 +123,7 @@ export function htmlModal(index) {
                             <div class="js-signature initial-signature-pad"></div>
                         </div>
                         <!-- Modal footer -->
-                        <div class="flex justify-between items-center p-6 space-x-2 border-t border-gray-200 rounded-b ">
+                        <div class="flex justify-between items-center p-6 space-x-2  border-gray-200 rounded-b ">
                             <div class="space-x-2">
                                 <button id="done-${index}-done" type="button" class="done-${index} text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
                                     Done

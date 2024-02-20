@@ -66,7 +66,7 @@ const Dashboard = () => {
       setLoading(true)
       const {data} = await getRequest('/dashboard')
       setUsage([
-        {id: 1, title: 'Usage', value: data.usage, icon: '/database.svg'},
+        {id: 1, title: 'Usage', value: `${data.usage} / ${data.usageLimit}`, icon: '/database.svg'},
         {id: 2, title: 'Templates', value: data.templates, icon: '/wallet.svg'},
         {id: 3, title: 'Signed', value: data.signed, icon: '/pulse.svg'},
         {id: 4, title: 'Customers', value: data.customers, icon: '/user.png'}

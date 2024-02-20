@@ -1,4 +1,5 @@
-import { useLayoutEffect, useState } from "react";
+import {useEffect, useLayoutEffect, useState} from "react";
+
 function debounce(func, delay) {
   let timeoutId;
   return function (...args) {
@@ -17,6 +18,7 @@ export function useWindowSize(debounceDelay = 250) {
     function updateSize() {
       setSize([window.innerWidth, window.innerHeight]);
     }
+
     const debouncedUpdateSize = debounce(updateSize, debounceDelay);
     window.addEventListener("resize", debouncedUpdateSize);
     updateSize();
@@ -25,4 +27,21 @@ export function useWindowSize(debounceDelay = 250) {
     };
   }, [debounceDelay]);
   return size;
+}
+
+export function useOnClickOutside(ref, handler) {
+  useEffect(() => {
+    const listener = (event) => {
+      if (!ref.current || ref.current.contains(event.target)) {
+        return;
+      }
+      handler();
+    };
+    document.addEventListener('mousedown', listener);
+    document.addEventListener('touchstart', listener);
+    return () => {
+      document.removeEventListener('mousedown', listener);
+      document.removeEventListener('touchstart', listener);
+    };
+  }, [ref, handler]);
 }
