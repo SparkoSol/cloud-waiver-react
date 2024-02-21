@@ -5,7 +5,6 @@ export const login = createAsyncThunk('user/login', async (payload, thunkAPI) =>
   try {
     const {data: tokens} = await postRequest('/auth/sign-in', payload)
     localStorage.setItem('cw-access-token', tokens?.access_token);
-    localStorage.setItem('cw-refresh-token', tokens?.refresh_token);
     const {data: user} = await getRequest('/auth/profile');
     return user
   } catch (e) {
