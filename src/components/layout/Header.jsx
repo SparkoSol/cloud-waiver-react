@@ -1,14 +1,13 @@
 import Button from "../Button.jsx";
-import { Bars3Icon } from "@heroicons/react/20/solid";
+import {Bars3Icon} from "@heroicons/react/20/solid";
 import DropDown from "../inputs/DropDown.jsx";
-import { Cog6ToothIcon } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
-import { selectCurrentUser } from "../../redux/user/userSlice";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import {Cog6ToothIcon} from "@heroicons/react/24/outline";
+import {useEffect, useState} from "react";
+import {selectCurrentUser} from "../../redux/user/userSlice";
+import {useSelector} from "react-redux";
+import {useLocation} from "react-router-dom";
 import ConfirmationModal from "../modals/ConfirmationModal";
-import { persistor } from "../../redux/store";
-import localStorage from "redux-persist/es/storage";
+import {persistor} from "../../redux/store";
 
 const Header = ({ setOpen }) => {
   const [isOpen, setIsOpen] = useState(false);
