@@ -77,7 +77,7 @@ const SideBarMenu = ({
               {item.subList ? (
                 <div>
                   <button onClick={() => handleReplyClick(index)}
-                          className={`flex items-center gap-4 py-2.5 pl-2 mt-2.5 w-full relative
+                          className={`flex items-center gap-4 py-1 md:py-2.5 pl-2 mt-1 md:mt-2.5 w-full relative
                                          ${pathname.includes(item.url) ? 'text-blue-400' : 'text-iconGray'}`}
                   >
                     <item.icon className='w-7 h-7'/>
@@ -106,7 +106,7 @@ const SideBarMenu = ({
                                 setOpen(false);
                               }
                             }}
-                                  className={`flex items-center gap-6 p-2.5 ${pathname.includes(subItem.title.toLowerCase()) ? 'text-blue-400' : 'text-iconGray'}`}>
+                                  className={`flex items-center gap-6 px-2.5 py-1 md:py-2.5 ${pathname.includes(subItem.title.toLowerCase()) ? 'text-blue-400' : 'text-iconGray'}`}>
                               <span className="w-7 text-center">{subItem.title[0]}</span>
                               {subItem.title}
                             </Link>
@@ -130,7 +130,7 @@ const SideBarMenu = ({
                           }
                         }
                       }
-                      className={`flex items-center gap-4 py-2.5 pl-2 mt-2.5 ${pathname.includes(item.url) ? 'text-blue-400' : 'text-iconGray'}`}>
+                      className={`flex items-center gap-4 py-1 mt-1 md:py-2.5 md:mt-2.5 pl-2 ${pathname.includes(item.url) ? 'text-blue-400' : 'text-iconGray'}`}>
                   <item.icon className='w-7 h-7'/>
                   <p
                     className={`${open || hover ? 'opacity-100' : 'opacity-0'} transition-all duration-500 whitespace-nowrap`}>{item.title}</p>
