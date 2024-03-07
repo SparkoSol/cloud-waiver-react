@@ -1,7 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {
   createPlan,
-  updatePlan,
   detachPaymentMethod,
   getAllInvoices,
   getAllMethods,
@@ -9,6 +8,7 @@ import {
   login,
   setDefaultMethod,
   updatePaymentMethods,
+  updatePlan,
   updateProfile,
   updateProfilePicture,
   userProfile
@@ -226,7 +226,7 @@ export const selectCurrentUser = (state) => state.user.currentUser;
 export const selectMember = (state) => state.user.members;
 export const selectPaymentMethods = (state) => state.user.methods;
 export const selectInvoicesData = (state) => state.user.invoices;
-export const selectCurrentPlan = state => state.user.currentUser.customer?.invoice_settings.default_payment_method;
+export const selectCurrentPlan = state => state.user.currentUser?.customer?.invoice_settings.default_payment_method;
 
 
 export const {updateUserProfile, resetUser} = userSlice.actions;

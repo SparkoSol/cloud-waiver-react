@@ -4,6 +4,7 @@ import CustomersRow from "./components/CustomersRow.jsx";
 import Input from "../../components/inputs/Input.jsx";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import {useEffect, useState} from "react";
+import CsvDownloader from 'react-csv-downloader';
 import Spinner from "../../components/Spinner.jsx";
 import {useSearchParams} from "react-router-dom";
 import {getRequest} from "../../redux/cwAPI";
@@ -51,9 +52,17 @@ const Customer = () => {
                title='Customer'
                titleClasses='font-semibold text-xl'/>
       <div className='mt-6'>
-        <Input placeholder='Search' onChange={e => setSearchText(e.target.value)} BtnIcon={MagnifyingGlassIcon}
-               inputClasses='rounded-md pl-11'
-               extraClasses='w-fit inline-block mb-6'/>
+        <div className='flex flex-wrap justify-between items-center'>
+          <Input placeholder='Search' onChange={e => setSearchText(e.target.value)} BtnIcon={MagnifyingGlassIcon}
+                 inputClasses='rounded-md pl-11'
+                 extraClasses='w-fit inline-block mb-6'/>
+          <CsvDownloader
+            filename="cloud_waiver_customers"
+            extension=".csv"
+            datas={customers}
+            className='bg-bgDark border-textDark lg:px-10 sm:px-6 sm:py-2.5 py-2.5 text-white rounded-full'
+            text="Export" />
+        </div>
         <DataTable TableRow={CustomersRow}
                    colspan={0}
                    items={filteredCustomers}
