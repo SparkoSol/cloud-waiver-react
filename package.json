@@ -19,7 +19,7 @@
     "jquery-ui-sortable": "^1.0.0",
     "mi18n": "^0.4.8",
     "react": "^18.2.0",
-    "react-csv-downloader": "^3.1.0",
+    "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-redux": "^8.1.3",
