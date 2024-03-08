@@ -52,13 +52,13 @@ const Customer = () => {
                title='Customer'
                titleClasses='font-semibold text-xl'/>
       <div className='mt-6'>
-        <div className='flex flex-wrap justify-between items-center'>
+        <div className='flex flex-wrap gap-4 justify-between items-center mb-6'>
           <Input placeholder='Search' onChange={e => setSearchText(e.target.value)} BtnIcon={MagnifyingGlassIcon}
                  inputClasses='rounded-md pl-11'
-                 extraClasses='w-fit inline-block mb-6'/>
+                 extraClasses='w-full sm:w-fit inline-block'/>
           <CSVLink data={customers}
                    filename="cloud_waiver_customers.csv"
-                   className="bg-bgDark border-textDark px-8 py-2 text-white rounded-full">Export</CSVLink>
+                   className="bg-bgDark border-textDark w-full sm:w-32 py-2 text-center text-white rounded-full">Export</CSVLink>
         </div>
         <DataTable TableRow={CustomersRow}
                    colspan={0}
