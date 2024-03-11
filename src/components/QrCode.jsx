@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import QRCode from 'qrcode';
+import Button from "./Button";
 
 const QRCodeComponent = () => {
   const [qrCodeUrl, setQRCodeUrl] = useState('');
@@ -47,9 +48,9 @@ const QRCodeComponent = () => {
   };
 
   return (
-      <div>
-        <h1>QR Code</h1>
-        <button onClick={generateQRCode}>Generate QR Code</button>
+      <div className='py-2 w-fit mr-auto space-y-2'>
+        <Button btnText='Generate QR Code' onClick={generateQRCode}
+                btnClasses='bg-gray-200 px-5 py-2.5 text-gray-900'/>
         {qrCodeUrl && <img src={qrCodeUrl} alt="QR Code" />}
       </div>
   );

@@ -113,13 +113,6 @@ const FormBuilder = () => {
             className="text-yellow-800 text-sm font-semibold px-2.5 py-0.5 rounded text-center dark:bg-yellow-200 dark:text-yellow-900 grow sm:grow-0">
             {capitalize(waiver?.status)}
           </span>
-          {/*<Link*/}
-          {/*  to={`/template/${id}/public`}*/}
-          {/*  target="_blank"*/}
-          {/*  className="bg-btnBg w-fit py-2.5 px-8 text-sm text-white font-semibold rounded-full grow sm:grow-0"*/}
-          {/*>*/}
-          {/*  Preview*/}
-          {/*</Link>*/}
           <Button btnText='Preview' onClick={() => handlePreview(waiver?.status)}
                   btnClasses='bg-gray-200 px-6 py-3 text-gray-900'/>
           {waiver?.status === "draft" ? (
