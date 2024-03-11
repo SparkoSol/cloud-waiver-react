@@ -11,7 +11,6 @@ import {selectSingleWaiver, updateWaiver} from "../../../redux/waivers/waiverSli
 import {getDynamicTenantId, patchRequest} from "../../../redux/cwAPI";
 import toast from 'react-hot-toast';
 import Button from "../../../components/Button";
-import QRCodeComponent from "../../../components/QrCode";
 
 const TemplateContainer = ({children}) => {
   const dispatch = useDispatch();
@@ -83,7 +82,7 @@ const TemplateContainer = ({children}) => {
             />
           ))}
         </span>
-        <QRCodeComponent />
+        {/*<QRCodeComponent />*/}
       </div>
       <Tabs tabs={tabsData}/>
       <div className='shadow rounded-md sm:overflow-hidden bg-white py-6 px-4 space-y-6 sm:p-6'>

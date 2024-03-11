@@ -10,6 +10,7 @@ const QRCodeComponent = () => {
     if (qrCodeUrl && originalUrl) {
       shareQRCode();
     }
+    // eslint-disable-next-line
   }, [qrCodeUrl, originalUrl]);
 
   const generateQRCode = async () => {
