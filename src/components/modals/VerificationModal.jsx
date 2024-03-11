@@ -73,7 +73,7 @@ export default function VerificationModal({open, setOpen, currentUser = null}) {
                         Email Verification
                       </Dialog.Title>
                       <Dialog.Description className='text-sm text-gray-500 mt-3'>
-                        Verification Email sent , Kindly check your Email's inbox
+                        Please check your email for verification.
                       </Dialog.Description>
                     </div>
                   </div>

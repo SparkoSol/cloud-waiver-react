@@ -41,7 +41,7 @@ const Overview = () => {
       return;
     }
     if (setShowMessage) {
-      navigator.clipboard.writeText(`${getDynamicTenantId()}.cloudwaiver.com/template/${currentWaiver._id}/public`)
+      navigator.clipboard.writeText(`https://${getDynamicTenantId()}.cloudwaiver.com/template/${currentWaiver._id}/public`)
         .then(() => {
           setShowMessage(true);
           setTimeout(() => {
@@ -106,7 +106,7 @@ const Overview = () => {
             {currentWaiver?._id &&
               <Input placeholder='eg. Waiver 101' label='Share your waiver with the following link' disabled={true}
                      extraClasses='font-medium text-gray-500 lg:w-72' inputClasses='pl-3'
-                     value={`${getDynamicTenantId()}.cloudwaiver.com/template/${currentWaiver._id}/public`}/>}
+                     value={`https://${getDynamicTenantId()}.cloudwaiver.com/template/${currentWaiver._id}/public`}/>}
             <div className='flex gap-2'>
               {showMessage ? <Button BtnIcon={CheckIcon} iconClasses='w-5 h-5 text-green-500'
                                      btnClasses='bg-gray-200 px-6 py-3 text-gray-900'/> :

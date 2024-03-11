@@ -10,7 +10,7 @@ const SideBarAdd = () => {
         <Heading title='Join Our Community'
                  titleClasses='text-white text-4xl font-bold mb-5'
                  subTitleClasses='text-gray-300 text-sm'
-                 subtitle='Sign up and lower your costs. Online waivers made easy, create your own or let us build it for you. Start today!'
+                 subtitle='Online waivers made easy. Create your own or let us build it for you. Start today!'
         />
       </div>
     </article>

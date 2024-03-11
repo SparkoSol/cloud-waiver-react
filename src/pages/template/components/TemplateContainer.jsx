@@ -69,14 +69,14 @@ const TemplateContainer = ({children}) => {
                  functionCall={handleEdit} value={waiver?.name}/>
         </div>
         <span
-          className="text-sm italic break-all">{`${getDynamicTenantId()}.cloudwaiver.com/template/${waiver?._id}/public`}
+          className="text-sm italic break-all">https://{`${getDynamicTenantId()}.cloudwaiver.com/template/${waiver?._id}/public`}
           {waiver?.status === 'published' && (copyState ? (
             <CheckIcon className='w-5 h-5 ml-2 inline mb-2'/>
           ) : (
             <ClipboardIcon
               className='w-5 h-5 ml-2 inline mb-2 cursor-pointer'
               onClick={() => {
-                navigator.clipboard.writeText(`${getDynamicTenantId()}.cloudwaiver.com/template/${waiver?._id}/public`)
+                navigator.clipboard.writeText(`https://${getDynamicTenantId()}.cloudwaiver.com/template/${waiver?._id}/public`)
                   .then(() => setCopyState(true));
               }}
             />

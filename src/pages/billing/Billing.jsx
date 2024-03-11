@@ -65,7 +65,7 @@ const Billing = () => {
                   currentUser.subscription ? (
                     currentUser.subscription.status !== 'trialing' ?
                       <strong className='w-24'>Period Ends : <span className='font-normal'>{secondsToDate(currentUser.subscription?.current_period_end)}</span> </strong>
-                      : <strong className='w-24'>Trail Ends : <span className='font-normal'>{secondsToDate(currentUser.subscription?.trial_end)}</span></strong>
+                      : <strong className='w-24'>Trial Ends : <span className='font-normal'>{secondsToDate(currentUser.subscription?.trial_end)}</span></strong>
                   ) : <strong className='w-24'>Trail Ends <span className='font-normal'>{formatDate(currentUser.trial_until)}</span></strong>
                 }
               </li>
