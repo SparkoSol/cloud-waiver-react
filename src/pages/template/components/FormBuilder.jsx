@@ -4,7 +4,7 @@ import {capitalize, makeTemplate, staticForm,} from "../../../utils/generalFunct
 import Button from "../../../components/Button";
 import {TrashIcon} from "@heroicons/react/24/outline";
 import {patchRequest} from "../../../redux/cwAPI";
-import {Link, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {resetStatus, selectSingleWaiver, selectWaiverStatus,} from "../../../redux/waivers/waiverSlice";
 import Spinner from "../../../components/Spinner";
@@ -22,6 +22,7 @@ require("jq-signature");
 
 const FormBuilder = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const waiver = useSelector(selectSingleWaiver);
   const status = useSelector(selectWaiverStatus);
   const fb = createRef();
@@ -88,6 +89,14 @@ const FormBuilder = () => {
     }
   }
 
+  function handlePreview(status) {
+    if (status && status !== 'draft') {
+      navigate(`/template/${id}/public`)
+    } else {
+      toast.error('Waiver not published!')
+    }
+  }
+
   return (
     <div className="common">
       <div className="flex justify-between pb-5 items-center flex-wrap gap-5">
@@ -104,15 +113,15 @@ const FormBuilder = () => {
             className="text-yellow-800 text-sm font-semibold px-2.5 py-0.5 rounded text-center dark:bg-yellow-200 dark:text-yellow-900 grow sm:grow-0">
             {capitalize(waiver?.status)}
           </span>
-          {waiver?.status !== "draft" && (
-            <Link
-              to={`/template/${id}/public`}
-              target="_blank"
-              className="bg-btnBg w-fit py-2.5 px-8 text-sm text-white font-semibold rounded-full grow sm:grow-0"
-            >
-              Preview
-            </Link>
-          )}
+          {/*<Link*/}
+          {/*  to={`/template/${id}/public`}*/}
+          {/*  target="_blank"*/}
+          {/*  className="bg-btnBg w-fit py-2.5 px-8 text-sm text-white font-semibold rounded-full grow sm:grow-0"*/}
+          {/*>*/}
+          {/*  Preview*/}
+          {/*</Link>*/}
+          <Button btnText='Preview' onClick={() => handlePreview(waiver?.status)}
+                  btnClasses='bg-gray-200 px-6 py-3 text-gray-900'/>
           {waiver?.status === "draft" ? (
             <>
               <Button
