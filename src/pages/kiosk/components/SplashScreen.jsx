@@ -1,6 +1,6 @@
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getRequest} from "../../../redux/cwAPI";
+import {getDynamicTenantId, getRequest} from "../../../redux/cwAPI";
 import Spinner from "../../../components/Spinner";
 
 const SplashScreen = () => {
@@ -33,7 +33,7 @@ const SplashScreen = () => {
         <div className="flex justify-center flex-col text-center">
           {response?.waivers.length > 0 && response?.waivers.map((item, index) => {
             return (
-              <Link to={`/template/${item._id}/public`} key={index}
+              <Link to={`https://${getDynamicTenantId()}.cloudwaiver.com/template/${item._id}/public`} key={index}
                     className="block my-4 text-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white
                      shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                 {item.name}
