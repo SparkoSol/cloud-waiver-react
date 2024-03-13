@@ -38,7 +38,7 @@ const QRCodeComponent = ({url}) => {
 
   return (
     <div className='py-2 w-fit space-y-2'>
-      <Button btnText='Generate QR Code' onClick={shareQRCode}
+      <Button btnText='Share QR Code' onClick={shareQRCode}
               btnClasses='bg-gray-200 px-5 py-2.5 text-gray-900'/>
       {qrCodeUrl && <img src={qrCodeUrl} alt="QR Code"/>}
     </div>
