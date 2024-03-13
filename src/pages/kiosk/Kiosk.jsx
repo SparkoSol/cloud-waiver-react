@@ -5,11 +5,12 @@ import FileInput from "../../components/inputs/FileInput.jsx";
 import DataTable from "../../components/DataTable.jsx";
 import KioskRow from "./components/KioskRow.jsx";
 import Button from "../../components/Button.jsx";
-import {getRequest, patchRequest, postRequest} from "../../redux/cwAPI";
+import {getDynamicTenantId, getRequest, patchRequest, postRequest} from "../../redux/cwAPI";
 import {toast} from "react-hot-toast";
 import Spinner from "../../components/Spinner";
 import {addCheck, isEmptyObject} from "../../utils/generalFunctions";
 import {Link} from "react-router-dom";
+import QrCode from "../../components/QrCode";
 
 const Kiosk = () => {
   const titleRef = useRef();
@@ -90,26 +91,33 @@ const Kiosk = () => {
       <div className='flex gap-3 items-end flex-wrap'>
         <Heading title='Kiosk' titleClasses='text-xl font-semibold'
                  subtitle='Manage your kiosk setting.' subTitleClasses='text-sm text-gray-900'/>
-        {kiosk.title && <Link to={`/kiosk-preview/${kiosk._id}`} target='_blank'
-                                        className='rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>
-          Preview Splash Page
-        </Link>}
+        {kiosk.title &&
+          <Link to={`https://${getDynamicTenantId()}.cloudwaiver.com/kiosk-preview/${kiosk._id}`} target='_blank'
+                className='rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>
+            Preview Splash Page
+          </Link>
+        }
       </div>
-      <form onSubmit={handleSubmit} className='mt-8 space-y-6 w-full sm:w-3/5'>
-        <Input inputRef={titleRef} inputClasses='px-4' label='Kiosk Title' placeholder='Kiosk Title'
-               defaultValue={kiosk.title}/>
-        <Input inputRef={descriptionRef} inputClasses='px-4' label='Kiosk Description'
-               defaultValue={kiosk.description}
-               placeholder='Kiosk Description'/>
-        <FileInput label='Kiosk Logo' fileInputRef={fileInputRef} image={kiosk.logo}/>
-        <DataTable TableRow={KioskRow} headers={['Id', 'Template Name']}
-                   items={kioskData}
-                   setState={setKioskData}
-                   setSelectAll={setSelectAll} selectAll={selectAll}/>
-        <div className='flex items-center gap-2 justify-end'>
-          <Button btnText='Save Changes' btnClasses='bg-btnBg border border-btnBg py-2' fullWidth='w-fit'/>
+      <div className='flex flex-col sm:flex-row justify-between'>
+        <form onSubmit={handleSubmit} className='mt-8 space-y-6 w-full sm:w-3/5 order-2 sm:order-none'>
+          <Input inputRef={titleRef} inputClasses='px-4' label='Kiosk Title' placeholder='Kiosk Title'
+                 defaultValue={kiosk.title}/>
+          <Input inputRef={descriptionRef} inputClasses='px-4' label='Kiosk Description'
+                 defaultValue={kiosk.description}
+                 placeholder='Kiosk Description'/>
+          <FileInput label='Kiosk Logo' fileInputRef={fileInputRef} image={kiosk.logo}/>
+          <DataTable TableRow={KioskRow} headers={['Id', 'Template Name']}
+                     items={kioskData}
+                     setState={setKioskData}
+                     setSelectAll={setSelectAll} selectAll={selectAll}/>
+          <div className='flex items-center gap-2 justify-end'>
+            <Button btnText='Save Changes' btnClasses='bg-btnBg border border-btnBg py-2' fullWidth='w-fit'/>
+          </div>
+        </form>
+        <div className='order-1 sm:order-none pt-4'>
+          <QrCode url={`https://${getDynamicTenantId()}.cloudwaiver.com/kiosk-preview/${kiosk._id}`}/>
         </div>
-      </form>
+      </div>
     </section>
   )
 }
